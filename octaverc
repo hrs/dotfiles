@@ -1,0 +1,2 @@
+PS1('>> ');
+graphics_toolkit('fltk');

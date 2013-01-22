@@ -1,0 +1,1662 @@
+Fri Jul  2 14:18:54 CEST 2010  svein.ove@aas.no
+  tagged 2.8.0
+  
+  * Minimal indentation support for arrow syntax
+  
+  * Avoid opening a new inf-haskell window if one is already visible.
+    Windows on other virtual desktops or iconified frames don't count.
+  
+  * Force comint-process-echoes to nil
+  
+  * Autolaunch haskell-mode for files starting with #!/usr/bin/runghc
+    and similar
+  
+  * Added minimal major mode for parsing GHC core files, courtesy of Johan Tibell.
+    There is a corresponding Haskell menu entry.
+  
+  * Allow configuration of where-clause indentation; M-x customize-group
+    haskell-indentation.
+
+Fri Jul  2 14:18:38 CEST 2010  svein.ove@aas.no
+  * Remember to include ghc-core.el
+
+Fri Jul  2 14:13:37 CEST 2010  svein.ove@aas.no
+  * Finalized 2.8.0
+
+Tue Jun  1 06:19:12 CEST 2010  Iku Iwasa <iku.iwasa@gmail.com>
+  * Introduce `haskell-indentation-where-{pre,post}-offset' for offsets around `where' keyword.
+
+Fri Jul  2 14:01:11 CEST 2010  svein.ove@aas.no
+  * Allow underscores in identifiers
+
+Fri Jul  2 13:55:21 CEST 2010  svein.ove@aas.no
+  * New major mode: GHC-core
+
+Tue Mar  9 07:33:28 CET 2010  Daniel Sch[_\c3_][_\bc_]ssler <daniels@community.haskell.org>
+  * Add interpreter-mode-alist entries (this autolaunches haskell-mode for files beginning with #!/usr/bin/runghc etc.)
+
+Fri Jul  2 12:58:04 CEST 2010  svein.ove@aas.no
+  * Set comint-process-echoes to nil. Which is the default.
+
+Fri Jul  2 12:36:25 CEST 2010  svein.ove@aas.no
+  * Print a proper error if inferior-haskell-load-file is called on a buffer without an associated file
+
+Fri Jul  2 12:34:28 CEST 2010  svein.ove@aas.no
+  * Avoid opening a new inf-haskell window is one is already visible
+
+Fri Jul  2 12:16:37 CEST 2010  svein.ove@aas.no
+  * Minimal support for arrow syntax
+
+Tue Dec  8 11:34:42 CET 2009  Dave Love <fx@gnu.org>
+  * Add options to mode hook.
+  They're capitalized-words-mode and turn-on-haskell-decl-scan.
+
+Sat Dec 12 22:26:34 CET 2009  svein.ove@aas.no
+  * Use a special current-column function for haskell. Fixes #12.
+
+Wed Dec  2 17:17:17 CET 2009  svein.ove@aas.no
+  * Turn off parse-sexp-ignore-comments (?)
+
+Wed Dec  2 17:15:38 CET 2009  svein.ove@aas.no
+  * Avoid treating -->, etc., as comments
+
+Mon Nov 30 16:03:38 CET 2009  svein.ove@aas.no
+  tagged 2.7.0
+
+Mon Nov 30 16:02:25 CET 2009  svein.ove@aas.no
+  * Update NEWS
+
+Mon Nov 30 15:41:33 CET 2009  svein.ove@aas.no
+  * Link to useful sites in README, update support information
+
+Mon Nov 30 13:44:22 CET 2009  svein.ove@aas.no
+  * Handle ..-} style sequences in nested comments
+
+Sat Nov 28 18:24:49 CET 2009  svein.ove@aas.no
+  * Turn off adaptive fill, until it's fixed
+
+Fri Nov 27 18:33:10 CET 2009  svein.ove@aas.no
+  * Fix a typo in the indentation regex
+
+Thu Nov 26 16:21:41 CET 2009  svein.ove@aas.no
+  * Allow quote marks as Nth (N>1) characters of tokens
+
+Wed Nov 18 22:39:18 CET 2009  Dave Love <fx@gnu.org>
+  * Mention haskell-latex.el in README.
+
+Fri Nov 20 21:18:38 CET 2009  Dave Love <fx@gnu.org>
+  * Add :group to haskell-check-command.
+
+Fri Nov  6 01:35:12 CET 2009  Dave Love <fx@gnu.org>
+  * Add `haskell-check' and flymake support.
+
+Tue Nov 24 22:48:05 CET 2009  Valery V. Vorotyntsev <valery.vv@gmail.com>
+  * make `inferior-haskell-find-project-root' respect export lists
+  
+  A "hierarchical module" (one or more dots in module name) with an
+  export list cannot be loaded (`C-c C-l') unless there is .cabal file
+  available.
+  
+  That is because regexp current in `inferior-haskell-find-project-root'
+  does not match module headers with export lists. Like this one:
+  
+  module Codec.Binary.MSCP (
+      -- * Data structures
+      FileHeader(..),
+      CDR(..),
+  
+      -- * Parsing
+      readFile
+    ) where
+  
+  This patch makes the regexp less strict.
+
+Wed Nov 25 18:08:36 CET 2009  svein.ove@aas.no
+  * Okay, so emacs regexes /are/ perl regexes.
+  Fixes the regex instead of reversing the change.
+  
+  
+  rolling back:
+  
+  Fri Nov 20 13:34:55 CET 2009  svein.ove@aas.no
+    * Emacs regexes are not perl regexes!
+  
+      M ./haskell-indentation.el -5 +3
+
+Fri Nov 20 13:34:55 CET 2009  svein.ove@aas.no
+  * Emacs regexes are not perl regexes!
+
+Wed Nov 11 11:57:01 CET 2009  Dave Love <fx@gnu.org>
+  * Add missing `:group's to defcustoms.
+
+Tue Nov 10 15:32:08 CET 2009  Dave Love <fx@gnu.org>
+  * Resolve conflict with mdo patch.
+
+Thu Nov  5 22:20:57 CET 2009  Dave Love <fx@gnu.org>
+  * Allow non-ASCII names.
+  The code already used char-classes unconditionally, though I didn't
+  think they're supported in XEmacs.
+
+Thu Nov  5 22:15:07 CET 2009  Dave Love <fx@gnu.org>
+  * Various fixes for Emacs 21.
+
+Wed Nov 11 12:18:19 CET 2009  Dave Love <fx@gnu.org>
+  * Fix treatment of missing syntax-ppss.
+
+Thu Nov  5 22:26:07 CET 2009  Dave Love <fx@gnu.org>
+  * Comment/doc/message fixes.
+
+Fri Nov  6 09:56:44 CET 2009  vandijk.roel@gmail.com
+  * Parse the unicode syntax for (::)
+
+Fri Nov  6 16:55:55 CET 2009  vandijk.roel@gmail.com
+  * Fixed bug in haskell-decl-scan.el when using unicode syntax
+
+Mon Nov  9 22:47:49 CET 2009  svein.ove@aas.no
+  * Indent mdo as do
+
+Sat Nov  7 12:09:01 CET 2009  svein.ove@aas.no
+  tagged 2.6.4
+
+Sat Nov  7 12:08:51 CET 2009  svein.ove@aas.no
+  * Don't compile the elfiles after all
+
+Sat Nov  7 11:50:17 CET 2009  svein.ove@aas.no
+  tagged 2.6.3
+
+Sat Nov  7 11:48:22 CET 2009  svein.ove@aas.no
+  * Distribution improvements (ChangeLog, .elc files)
+
+Tue Nov  3 15:54:15 CET 2009  svein.ove@aas.no
+  tagged 2.6.2
+
+Tue Nov  3 15:53:45 CET 2009  svein.ove@aas.no
+  * NEWS update for 2.6.2
+
+Tue Nov  3 14:10:37 CET 2009  svein.ove@aas.no
+  * haskell-decl-scan: Skip comments
+
+Mon Nov  2 18:53:50 CET 2009  svein.ove@aas.no
+  * Fix: Three-level and higher hierarchical modules too
+
+Mon Nov  2 17:32:00 CET 2009  svein.ove@aas.no
+  * haskell-indentation: Stop choking on hierarchical modules
+
+Mon Nov  2 16:05:43 CET 2009  svein.ove@aas.no
+  * Font-lock symbols by Roel van Dijk
+
+Sun Nov  1 22:40:19 CET 2009  svein.ove@aas.no
+  tagged 2.6.1
+
+Sun Nov  1 22:39:59 CET 2009  svein.ove@aas.no
+  * Make sure the load-path is set right
+
+Sun Nov  1 20:08:53 CET 2009  svein.ove@aas.no
+  tagged 2.6
+
+Sun Nov  1 20:08:25 CET 2009  svein.ove@aas.no
+  * 2.6 administrivia
+
+Sun Nov  1 20:05:36 CET 2009  svein.ove@aas.no
+  * haskell-indentation: Tab now follows a cycle
+
+Sun Nov  1 20:05:13 CET 2009  svein.ove@aas.no
+  * haskell-indentation.el: Typo: "haskell-ntation"
+
+Sun Nov  1 19:23:01 CET 2009  svein.ove@aas.no
+  * Alias haskell-hayoo and haskell-hoogle, removing haskell-
+
+Sun Nov  1 19:22:33 CET 2009  svein.ove@aas.no
+  * Update Makefile for darcs
+
+Sun Nov  1 18:42:27 CET 2009  svein.ove@aas.no
+  * Rename haskell-hoogle and haskell-hayoo, removing the haskell- prefix
+
+Sun Nov  1 17:34:14 CET 2009  svein.ove@aas.no
+  * Changelog removed; use darcs changes
+
+Sun Nov  1 17:33:19 CET 2009  svein.ove@aas.no
+  * Patch courtesy of Alex Ott
+   - code for haskell-font-lock.el - adds more unicode symbols
+   - code for inf-haskell.el fixes regex for inferior-haskell-type, so it
+     will parse type declarations properly
+   - code for haskell-mode.el adds ability to search function signatures at
+     hayoo
+
+Mon Oct 26 23:03:08 CET 2009  svein.ove@aas.no
+  * Correct on-parse-error for (backward-)delete-char
+
+Sun Oct 25 20:19:59 CET 2009  svein.ove@aas.no
+  * Handle error conditions in haskell-indentation.el
+
+Sun Oct 25 19:41:13 CET 2009  svein.ove@aas.no
+  tagged 2.5.1
+
+Sun Oct 25 19:40:22 CET 2009  svein.ove@aas.no
+  * Clarify the documentation, remove the haskell-indent-mode autoload
+
+Sun Oct 25 15:36:36 CET 2009  svein.ove@aas.no
+  tagged Version 2.5
+
+Sun Oct 25 15:35:49 CET 2009  svein.ove@aas.no
+  * Changelog and NEWS updated
+
+Sun Oct 25 15:29:03 CET 2009  svein.ove@aas.no
+  * Updated documentation and autoloads for haskell-indentation
+
+Sun Oct 25 12:34:18 CET 2009  svein.ove@aas.no
+  * haskell-indentation: Add support for view patterns
+  Extends the parser's notion of valid patterns to include view-patterns
+
+Sun Oct 25 12:33:00 CET 2009  svein.ove@aas.no
+  * Update to newest haskell-indentation.el
+  Grabbed newest haskell-indentation.el from http://kuribas.hcoop.net
+
+Sun Oct 25 12:26:32 CET 2009  svein.ove@aas.no
+  tagged Last CVS revision
+
+Mon Feb  2 23:05:38 CET 2009  monnier
+  * (inferior-haskell-type, inferior-haskell-info):
+  (inferior-haskell-type, inferior-haskell-info):
+  Move after calling inferior-haskell-wait-for-prompt.
+  Reported by Thaju <ou2thaju@gmail.com> and Jose A. Ortega Ruiz <jao@gnu.org>.
+  
+
+Mon Feb  2 23:00:33 CET 2009  monnier
+  * (haskell-doc-imported-list): Don't add current buffer
+  (haskell-doc-imported-list): Don't add current buffer
+  to the imported file list if it is not (yet?) visiting a file.
+  
+
+Mon Feb  2 22:30:55 CET 2009  monnier
+  * (haskell-indent-thenelse): New var.
+  (haskell-indent-thenelse): New var.
+  (haskell-indent-closing-keyword): Use it.
+  
+
+Mon Feb  2 21:56:35 CET 2009  monnier
+  * (haskell-ds-generic-find-next-decl): Accept qualified import names.
+
+Tue Aug 26 09:39:34 CEST 2008  monnier
+  * (inferior-haskell-load-file): Escape backslashes (and quotes) in file names
+  (inferior-haskell-load-file): Escape backslashes (and quotes) in file names
+  passed to the inferior process.
+  Reported by "Nadeem Abdul Hamid" <nadeem@acm.org>.
+  
+
+Fri Jul  4 08:37:21 CEST 2008  monnier
+  * * inf-haskell.el (inferior-haskell-load-and-run): Don't run if there
+  * inf-haskell.el (inferior-haskell-load-and-run): Don't run if there
+  were compilation errors.  Switch to inf-haskell buffer after run.
+  
+
+Fri Jul  4 08:17:52 CEST 2008  monnier
+  * (inferior-haskell-cabal-of-buf): Don't return
+  (inferior-haskell-cabal-of-buf): Don't return
+  a dead buffer.  Reported by Conal Elliott <conal@conal.net>.
+  (replace-regexp-in-string): Add XEmacs compatibility.
+  
+
+Fri May 30 20:01:43 CEST 2008  monnier
+  * (haskell-font-lock-symbols-alist): Change the
+  (haskell-font-lock-symbols-alist): Change the
+  character used for the composition operator.
+  
+
+Fri May 30 19:05:22 CEST 2008  monnier
+  * (haskell-indent-map): Disable C-c C-g binding since
+  (haskell-indent-map): Disable C-c C-g binding since
+  C-g is a special key not to be used like that.
+  
+
+Sat May 24 00:07:32 CEST 2008  monnier
+  * (haskell-cabal-find-file): Ignore directories.
+
+Tue May 13 06:25:17 CEST 2008  monnier
+  * (inferior-haskell-spot-prompt): New function.
+  (inferior-haskell-spot-prompt): New function.
+  (inferior-haskell-mode): Use it.
+  (inferior-haskell-seen-prompt): New var.
+  (inferior-haskell-wait-for-prompt): Use it.
+  (inferior-haskell-send-command): Reset it.
+  (inferior-haskell-type): Avoid use of remove-it.
+  
+
+Tue May 13 05:33:50 CEST 2008  monnier
+  * (inferior-haskell-info-xref-re): Allow a column-range.
+  (inferior-haskell-info-xref-re): Allow a column-range.
+  Reported by Jose A. Ortega Ruiz <jao@google.com>.
+  (inferior-haskell-error-regexp-alist): Use the extra column-end info
+  if available.
+  
+
+Fri Feb 29 01:07:53 CET 2008  monnier
+  * Fix up general coding convention stuff.
+  Fix up general coding convention stuff.
+  (haskell-indentation-mode): Use define-minor-mode.
+  (turn-on-haskell-indentation, turn-off-haskell-indentation):
+  Remove, fold into haskell-indentation-mode.
+  
+
+Fri Feb 29 00:43:34 CET 2008  monnier
+  * *** empty log message ***
+
+Fri Feb 29 00:39:23 CET 2008  monnier
+  * (haskell-indent-region): New dummy function.
+  (haskell-indent-region): New dummy function.
+  (turn-on-haskell-indent): Use it to be more honest.
+  
+
+Fri Feb 29 00:23:36 CET 2008  monnier
+  * (literate-haskell-mode): Fix up mode line.
+  (literate-haskell-mode): Fix up mode line.
+  Disable fill-comment-paragraph in Bird style.
+  
+
+Fri Feb 29 00:11:10 CET 2008  monnier
+  * (subst-char-in-string, make-temp-file): Add fallback definitions for XEmacs.
+
+Thu Feb 28 23:55:27 CET 2008  monnier
+  * (inferior-haskell-find-haddock): Jump to the symbol anchor within Haddock.
+
+Thu Feb 28 23:51:30 CET 2008  monnier
+  * *** empty log message ***
+
+Tue Feb 19 06:22:44 CET 2008  monnier
+  * (haskell-indent-next-symbol-safe): New fun.
+  (haskell-indent-next-symbol-safe): New fun.
+  (haskell-indent-separate-valdef): Use it.
+  
+
+Tue Feb 19 06:08:17 CET 2008  monnier
+  * (inferior-haskell-cabal-of-buf): Fix typo.
+  (inferior-haskell-cabal-of-buf): Fix typo.
+  Reported by Bas van Dijk <v.dijk.bas@gmail.com>.
+  
+
+Mon Feb 11 20:07:12 CET 2008  monnier
+  * (inferior-haskell-wait-for-prompt): Add timeout arg.
+  (inferior-haskell-wait-for-prompt): Add timeout arg.
+  (inferior-haskell-find-definition): Expand file name in the right cwd.
+  
+
+Fri Feb  1 00:25:07 CET 2008  monnier
+  * (inferior-haskell-cabal-of-buf)
+  (inferior-haskell-cabal-of-buf)
+  (inferior-haskell-module-alist-file): Adjust for XEmacs.
+  
+
+Thu Jan 17 18:38:54 CET 2008  monnier
+  * (haskell-cabal-font-lock-keywords): Add rules
+  (haskell-cabal-font-lock-keywords): Add rules
+  for `if', `else', `Library', `Flag', and `Executable'.
+  (haskell-cabal-mode): Setup comment variables.
+  
+
+Wed Dec 12 21:24:30 CET 2007  monnier
+  * (haskell-package-conf-file): Don't use `ignore-errors'
+  (haskell-package-conf-file): Don't use `ignore-errors'
+  because this form is not byte-compiled :-(.
+  
+
+Wed Dec 12 06:33:13 CET 2007  monnier
+  tagged v2_4 
+
+Wed Dec 12 06:33:13 CET 2007  monnier
+  * *** empty log message ***
+
+Wed Dec 12 06:22:34 CET 2007  monnier
+  * *** empty log message ***
+
+Wed Dec 12 06:07:06 CET 2007  monnier
+  * (haskell-mode-map): Fix last change.
+
+Wed Dec 12 06:05:13 CET 2007  monnier
+  * (ELFILES): Add haskell-c, haskell-cabal, and haskell-simple-indent.
+
+Wed Dec 12 06:04:19 CET 2007  monnier
+  * (haskell-doc-in-code-p): New function.
+  (haskell-doc-in-code-p): New function.
+  (haskell-doc-show-type): Use it.
+  
+
+Wed Dec 12 06:03:31 CET 2007  monnier
+  * (haskell-delete-indentation): New command.
+  (haskell-delete-indentation): New command.
+  (haskell-mode-map): Use it.
+  
+
+Sun Nov 11 15:44:43 CET 2007  monnier
+  * (haskell-cabal-get-setting): Handle multi-line settings.
+
+Sun Nov 11 15:43:50 CET 2007  monnier
+  * (inferior-haskell-load-file): Typo.
+
+Wed Sep 26 23:58:55 CEST 2007  monnier
+  * (inferior-haskell-find-project-root): Minor simplification.
+
+Wed Sep 26 23:57:41 CEST 2007  monnier
+  * (inferior-haskell-find-project-root): Use it.
+
+Wed Sep 26 23:56:46 CEST 2007  monnier
+  * (haskell-cabal-get-setting): New function.
+
+Wed Sep 26 23:51:29 CEST 2007  monnier
+  * New file.
+
+Mon Sep 17 20:03:31 CEST 2007  monnier
+  * *** empty log message ***
+
+Mon Sep 17 20:01:40 CEST 2007  monnier
+  * (inferior-haskell-load-file): Do reload if prefix arg.
+
+Sat Sep  8 06:31:29 CEST 2007  monnier
+  * (turn-on-haskell-indent): Fix keymap setup code.
+
+Fri Sep  7 06:19:31 CEST 2007  monnier
+  * (inferior-haskell-find-project-root): New var, to
+  (inferior-haskell-find-project-root): New var, to
+  replace inferior-haskell-use-cabal.
+  (inferior-haskell-find-project-root): New function.
+  (inferior-haskell-load-file): Use them.
+  (inferior-haskell-module-alist): Use a temp buffer so as not to write
+  out random junk before/after the actual module alist.
+  
+
+Thu Aug 30 07:10:08 CEST 2007  monnier
+  * Comment/docs fixes.
+
+Thu Aug 30 07:09:44 CEST 2007  monnier
+  * (inferior-haskell-load-file): Re-add the `reload' arg.
+  (inferior-haskell-load-file): Re-add the `reload' arg.
+  (inferior-haskell-reload-file): Re-instate the command.
+  
+
+Thu Aug 30 07:07:53 CEST 2007  monnier
+  * (turn-on-haskell-hugs, turn-on-haskell-ghci):
+  (turn-on-haskell-hugs, turn-on-haskell-ghci):
+  Make people work harder to use those obsolete packages.,
+  
+
+Thu Aug 30 00:35:01 CEST 2007  monnier
+  * *** empty log message ***
+
+Thu Aug 30 00:12:33 CEST 2007  monnier
+  * (haskell-indent-map): New var.
+  (haskell-indent-map): New var.
+  (turn-on-haskell-indent, turn-off-haskell-indent): Use it together with
+  keymap inheritance instead of inplace modifications.
+  (haskell-indent-map): Add alternate binding for
+  C-c C-|.  Suggested by David House <dmhouse@gmail.com>.
+  
+
+Tue Jul 31 18:44:04 CEST 2007  monnier
+  * (inferior-haskell-type): Fix call to message.
+
+Mon Jul 30 21:36:50 CEST 2007  monnier
+  * (displayed-month): Remove declaration since it's not used here.
+
+Sun Jul  1 07:35:38 CEST 2007  monnier
+  * Removed support for :reload (e.g. removed the C-c C-r binding).
+
+Fri Jun 29 22:16:09 CEST 2007  monnier
+  * (inferior-haskell-compute-module-alist): Fix regexps.
+  (inferior-haskell-compute-module-alist): Fix regexps.
+  (inferior-haskell-module-alist-file): Thinko.
+  
+
+Fri Jun 29 21:37:44 CEST 2007  monnier
+  * (inferior-haskell-run-command): New var.
+  (inferior-haskell-run-command): New var.
+  (inferior-haskell-load-and-run): New command.
+  
+  (inferior-haskell-map-internal-ghc-ident): New var.
+  (inferior-haskell-map-internal-ghc-ident): New fun.
+  (inferior-haskell-find-haddock): Use it.
+  
+
+Fri Jun 29 21:16:32 CEST 2007  monnier
+  * (inferior-haskell-module-alist-file): Use a file in /tmp rather than ~/.
+  (inferior-haskell-module-alist-file): Use a file in /tmp rather than ~/.
+  (inferior-haskell-compute-module-alist):
+  Rename from inferior-haskell-populate-module-alist.
+  Just return the result without saving it in any cache.
+  (inferior-haskell-read-module-alist-cache): Delete.
+  (inferior-haskell-module-alist): New function which replaces it, taking
+  care of the caching (both store&read).
+  (inferior-haskell-find-haddock): Adjust to this new arrangement.
+  
+
+Fri Jun 29 20:28:30 CEST 2007  monnier
+  * *** empty log message ***
+
+Fri Jun 29 20:28:25 CEST 2007  monnier
+  * (haskell-mode-map): Add binding to the new inferior-haskell-find-haddock cmd.
+
+Fri Jun 29 20:27:39 CEST 2007  monnier
+  * (inferior-haskell-module-alist-file)
+  (inferior-haskell-module-alist-file)
+  (inferior-haskell-module-re, inferior-haskell-use-web-docs)
+  (inferior-haskell-web-docs-base, haskell-package-manager-name)
+  (haskell-package-conf-file, inferior-haskell-module-alist): New vars.
+  (inferior-haskell-get-module, inferior-haskell-query-ghc-pkg)
+  (inferior-haskell-get-package-list)
+  (inferior-haskell-populate-module-alist)
+  (inferior-haskell-read-module-alist-cache)
+  (inferior-haskell-find-haddock): New functions to lookup Haddock docs.
+  
+
+Fri Jun 29 19:51:31 CEST 2007  monnier
+  * *** empty log message ***
+
+Wed Jun 27 06:08:57 CEST 2007  monnier
+  * (inferior-haskell-error-regexp-alist):
+  (inferior-haskell-error-regexp-alist):
+  Add more regexps for GHC's ever expanding variety of formats.
+  
+
+Wed Jun 20 10:02:27 CEST 2007  monnier
+  * (haskell-font-lock-haddock): New custom.
+  (haskell-font-lock-haddock): New custom.
+  (haskell-font-lock-seen-haddock): New internal var.
+  (haskell-syntactic-face-function): Highlight Haddock comments.
+  
+
+Wed Jun 13 01:16:11 CEST 2007  monnier
+  * (inferior-haskell-error-regexp-alist): Be more careful
+  (inferior-haskell-error-regexp-alist): Be more careful
+  with multiline patterns.  Add pattern for GHCi's type error messages.
+  
+
+Wed Jun 13 01:16:02 CEST 2007  monnier
+  * (haskell-font-lock-symbols-alist): Add `forall'.
+
+Sun Jun 10 08:06:40 CEST 2007  monnier
+  * (haskell-font-lock-dot-is-not-composition): New function.
+  (haskell-font-lock-dot-is-not-composition): New function.
+  (haskell-font-lock-symbols-alist): Change rule for the "." symbol to
+  use that new function, so as to check it's not a "forall <foo> .".
+  (haskell-font-lock-compose-symbol, haskell-font-lock-symbols-keywords):
+  Adjust to understand the new syntax.
+  
+
+Sat Jun  9 23:22:25 CEST 2007  monnier
+  * *** empty log message ***
+
+Thu Jun  7 21:55:13 CEST 2007  monnier
+  * (inferior-haskell-error-regexp-alist): Add entries for GHCI's exceptions.
+  (inferior-haskell-error-regexp-alist): Add entries for GHCI's exceptions.
+  (inferior-haskell-mode): Set compilation-first-column.
+  
+
+Thu Jun  7 17:38:07 CEST 2007  monnier
+  * (haskell-indent-column+offset): New function.
+  (haskell-indent-column+offset): New function.
+  (haskell-indent-push-pos-offset, haskell-indent-after-keyword-column): Use it.
+  (haskell-indent-within-literate-code): Accept `tex' as well as `latex'
+  for literate style.
+  
+
+Thu Jun  7 17:34:04 CEST 2007  monnier
+  * (haskell-literate): Use `tex' rather than `latex'.  Declare as safe.
+  (haskell-literate): Use `tex' rather than `latex'.  Declare as safe.
+  (literate-haskell-mode): Use `tex' rather than `latex'.
+  Make it visible in the modeline.
+  
+
+Thu Jun  7 17:26:08 CEST 2007  monnier
+  * (haskell-font-lock-keywords-create):
+  (haskell-font-lock-keywords-create):
+  Accept `tex' as well as `latex' for literate style.
+  
+
+Thu Jun  7 17:25:17 CEST 2007  monnier
+  * (haskell-decl-scan-version): Remove.
+
+Thu May 24 23:00:53 CEST 2007  monnier
+  * (turn-on-haskell-indent): Add alternate binding for
+  (turn-on-haskell-indent): Add alternate binding for
+  C-c C-|.  Suggested by David House <dmhouse@gmail.com>.
+  
+
+Tue May  8 22:01:12 CEST 2007  monnier
+  * (inferior-haskell-use-cabal): New custom var.
+  (inferior-haskell-use-cabal): New custom var.
+  (inferior-haskell-cabal-of-buf): New fun.
+  (inferior-haskell-load-file): Use it to try and do the right thing in
+  multi-directory projects using a Cabal file.
+  
+
+Tue May  8 22:00:56 CEST 2007  monnier
+  * (inferior-haskell-string-prefix-p, haskell-cabal-find-file): New functions.
+
+Tue May  8 19:28:38 CEST 2007  monnier
+  * (inferior-haskell-string-to-strings): Remove `separator' argument.  Call split
+  (inferior-haskell-string-to-strings): Remove `separator' argument.  Call split
+  string without separator arg either, so that it drops null strings.
+  
+
+Fri May  4 02:20:16 CEST 2007  monnier
+  * (inferior-haskell-load-file): Save buffer before using buffer-file-name.
+
+Wed May  2 03:25:05 CEST 2007  monnier
+  * (haskell-hoogle-command, haskell-hoogle): New var and command.
+
+Mon Mar  5 23:03:55 CET 2007  monnier
+  * (haskell-font-lock-keywords-create): Wrap haskell-default-face for XEmacs.
+
+Wed Feb 14 21:48:04 CET 2007  monnier
+  tagged v2_3 
+
+Wed Feb 14 21:48:04 CET 2007  monnier
+  * *** empty log message ***
+
+Wed Feb 14 21:47:01 CET 2007  monnier
+  * New file.
+
+Wed Feb 14 20:19:47 CET 2007  monnier
+  * (haskell-indent-look-past-empty-line): Typo.
+
+Wed Feb 14 20:19:07 CET 2007  monnier
+  * *** empty log message ***
+
+Wed Feb 14 20:18:40 CET 2007  monnier
+  * (with-selected-window): Define while compiling.
+
+Sat Feb 10 09:21:59 CET 2007  monnier
+  tagged v2_2 **FUNKY**
+
+Sat Feb 10 09:21:59 CET 2007  monnier
+  * Name tricks
+
+Sat Feb 10 09:15:59 CET 2007  monnier
+  * Remove index.html
+
+Sat Feb 10 09:13:16 CET 2007  monnier
+  * *** empty log message ***
+
+Sat Feb 10 09:07:46 CET 2007  monnier
+  * *** empty log message ***
+
+Sat Feb 10 09:07:38 CET 2007  monnier
+  * Add code to test as/hiding/qualified.
+
+Sat Feb 10 09:01:00 CET 2007  monnier
+  * (haskell-font-lock-keywords-create):
+  (haskell-font-lock-keywords-create):
+  Remove qualified and hiding from the reserved identifiers.
+  Add a special rule for import statements.
+  
+
+Sat Feb 10 08:28:55 CET 2007  monnier
+  * (haskell-doc-get-current-word): Remove.
+  (haskell-doc-get-current-word): Remove.
+  Change all refs to it, to use haskell-ident-at-point instead.
+  
+
+Sat Feb 10 08:23:07 CET 2007  monnier
+  * (inferior-haskell-info-xref-re): New cst.
+  (inferior-haskell-info-xref-re): New cst.
+  (inferior-haskell-error-regexp-alist): Use it to highlight xref info.
+  (inferior-haskell-type, inferior-haskell-info)
+  (inferior-haskell-find-definition): New funs.
+  Contributed by Matthew Danish <mrd@cs.cmu.edu>.
+  
+
+Sat Feb 10 08:17:01 CET 2007  monnier
+  * (haskell-ident-at-point): New fun.  Copy of haskell-doc-get-current-word.
+  (haskell-ident-at-point): New fun.  Copy of haskell-doc-get-current-word.
+  (haskell-mode-map): Add bindings for inferior-haskell-(type|info|find).
+  
+
+Fri Feb  9 23:55:43 CET 2007  monnier
+  * (haskell-indent-back-to-indentation): Simplify.
+  (haskell-indent-back-to-indentation): Simplify.
+  (haskell-indent-look-past-empty-line): New var.
+  (haskell-indent-start-of-def): Use it.
+  
+
+Fri Feb  9 23:55:01 CET 2007  monnier
+  * Add test case.
+
+Fri Feb  9 23:54:21 CET 2007  monnier
+  * (haskell-font-lock-version): Remove.
+
+Fri Feb  9 23:53:42 CET 2007  monnier
+  * (haskell-doc-get-current-word): Correctly distinguish
+  (haskell-doc-get-current-word): Correctly distinguish
+  variable identifiers and infix identifiers.
+  (haskell-doc-rescan-files): Avoid switch-to-buffer.
+  (haskell-doc-imported-list): Operate on current buffer.
+  (haskell-doc-make-global-fct-index): Adjust call.
+  
+
+Mon Nov 20 22:18:31 CET 2006  monnier
+  * *** empty log message ***
+
+Mon Nov 20 22:18:24 CET 2006  monnier
+  * (haskell-doc-mode-print-current-symbol-info): Fix thinko.
+
+Fri Oct 20 07:12:31 CEST 2006  monnier
+  * Drop post-command-idle-hook in favor of run-with-idle-timer.
+  Drop post-command-idle-hook in favor of run-with-idle-timer.
+  (haskell-doc-timer, haskell-doc-buffers): New vars.
+  (haskell-doc-mode): Use them.
+  (haskell-doc-check-active): Update the check.
+  (haskell-doc-mode-print-current-symbol-info): Remove the interactive spec.
+  Don't sit-for unless it's really needed.
+  
+
+Fri Oct 20 07:11:55 CEST 2006  monnier
+  * (inferior-haskell-load-file): Simplify and make more
+  (inferior-haskell-load-file): Simplify and make more
+  robust at the same time.
+  
+
+Mon Oct 16 07:46:00 CEST 2006  monnier
+  * Comment update.
+
+Tue Sep 26 07:59:52 CEST 2006  monnier
+  * (haskell-mode-menu): Fix typo.
+
+Wed Sep 20 22:44:48 CEST 2006  monnier
+  * *** empty log message ***
+
+Wed Sep 20 22:44:42 CEST 2006  monnier
+  * (haskell-mode-menu): New menu.
+  (haskell-mode-menu): New menu.
+  (haskell-mode): Use new name `eldoc-documentation-function'.
+  
+
+Wed Sep 20 22:43:31 CEST 2006  monnier
+  * (haskell-font-lock-keywords-create): Use a more
+  (haskell-font-lock-keywords-create): Use a more
+  precise test for literate haskell highlighting.
+  
+
+Wed Sep 20 22:42:35 CEST 2006  monnier
+  * Doc fix.
+
+Tue Aug 29 02:00:27 CEST 2006  monnier
+  * *** empty log message ***
+
+Sun May 28 06:11:24 CEST 2006  monnier
+  * *** empty log message ***
+
+Thu May 18 22:12:20 CEST 2006  monnier
+  * (inferior-haskell-wait-for-prompt): New fun, extracted
+  (inferior-haskell-wait-for-prompt): New fun, extracted
+  from inferior-haskell-send-command.
+  (inferior-haskell-send-command): Use it.
+  (inferior-haskell-wait-and-jump): New custom var.
+  (inferior-haskell-load-file): Use it.
+  
+
+Thu May 18 02:04:58 CEST 2006  monnier
+  * (inferior-haskell-mode): Use shell-dirtrack-mode if possible.
+
+Thu May 18 02:03:50 CEST 2006  monnier
+  * (haskell-hugs-start-process): Use comint-input-filter-functions rather than
+  (haskell-hugs-start-process): Use comint-input-filter-functions rather than
+  the outdated comint-input-sentinel.
+  
+
+Thu May 18 02:03:25 CEST 2006  monnier
+  * (haskell-ghci-start-process): Use comint-input-filter-functions rather than
+  (haskell-ghci-start-process): Use comint-input-filter-functions rather than
+  the outdated comint-input-sentinel.
+  
+
+Fri Dec  9 19:01:45 CET 2005  monnier
+  * Add some erroneous cases.
+
+Fri Dec  9 19:00:18 CET 2005  monnier
+  * (haskell-font-lock-keywords-create): Minor regexp fiddling.
+
+Wed Nov 23 20:17:28 CET 2005  monnier
+  * (haskell-indent-next-symbol): Simplify.
+  (haskell-indent-next-symbol): Simplify.
+  (haskell-indent-comment): Rename from haskell-indent-inside-comment.
+  (haskell-indent-skip-lexeme-forward)
+  (haskell-indent-offset-after-info, haskell-indent-hanging-p): New funs.
+  (haskell-indent-inhibit-after-offset, haskell-indent-dont-hang): New variables.
+  (haskell-indent-closing-keyword, haskell-indent-after-keyword-column)
+  (haskell-indent-inside-paren): New functions, extracted
+  from haskell-indent-indentation-info.  Use the above new functions.
+  (haskell-indent-indentation-info): Use them.
+  (haskell-indent-after-keywords): Add data for ( and {.
+  
+
+Wed Nov 23 17:01:25 CET 2005  monnier
+  * (haskell-font-lock-keywords-create): `as' is not
+  (haskell-font-lock-keywords-create): `as' is not
+  a reserved keyword, apparently, and is used as var name.
+  
+
+Mon Nov 21 23:48:52 CET 2005  monnier
+  * * haskell-doc.el (haskell-doc-extract-types): Get labelled data working.
+  * haskell-doc.el (haskell-doc-extract-types): Get labelled data working.
+  (haskell-doc-prelude-types): Update via auto-generation.
+  
+  * haskell-doc.el (haskell-doc-extract-types): Get it partly working.
+  (haskell-doc-fetch-lib-urls): Don't use a literal if we apply
+  `nreverse' on it later on.
+  (haskell-doc-prelude-types): Update some parts by auto-generation.
+  (haskell-doc-grab, haskell-doc-string-nub-ws): Simplify.
+  
+  * haskell-doc.el (haskell-doc-maintainer, haskell-doc-varlist)
+  (haskell-doc-submit-bug-report, haskell-doc-ftp-site)
+  (haskell-doc-visit-home): Remove.
+  (haskell-doc-reserved-ids, haskell-doc-fetch-lib-urls)
+  (haskell-doc-extract-and-insert-types): New funs.
+  (haskell-doc-reserved-ids): Fix type of `map'.
+  
+
+Mon Nov 21 23:47:33 CET 2005  monnier
+  * (haskell-decl-scan-mode): New minor mode.
+  (haskell-decl-scan-mode): New minor mode.
+  (turn-on-haskell-decl-scan): Use it.
+  
+
+Mon Nov 21 23:27:57 CET 2005  monnier
+  * (haskell-doc-extract-types): Get labelled data working.
+  (haskell-doc-extract-types): Get labelled data working.
+  (haskell-doc-prelude-types): Update via auto-generation.
+  
+
+Mon Nov 21 22:44:13 CET 2005  monnier
+  * (haskell-doc-extract-types): Get it partly working.
+  (haskell-doc-extract-types): Get it partly working.
+  (haskell-doc-fetch-lib-urls): Don't use a literal if we apply
+  `nreverse' on it later on.
+  (haskell-doc-prelude-types): Update some parts by auto-generation.
+  (haskell-doc-grab, haskell-doc-string-nub-ws): Simplify.
+  
+
+Mon Nov 21 20:02:15 CET 2005  monnier
+  * (haskell-doc-maintainer, haskell-doc-varlist)
+  (haskell-doc-maintainer, haskell-doc-varlist)
+  (haskell-doc-submit-bug-report, haskell-doc-ftp-site)
+  (haskell-doc-visit-home): Remove.
+  (haskell-doc-reserved-ids, haskell-doc-fetch-lib-urls)
+  (haskell-doc-extract-and-insert-types): New funs.
+  (haskell-doc-reserved-ids): Fix type of `map'.
+  
+
+Mon Nov 21 04:19:27 CET 2005  monnier
+  * (inferior-haskell-load-file): Fix the compilation-parsing-end fiddling so it
+  (inferior-haskell-load-file): Fix the compilation-parsing-end fiddling so it
+  doesn't get moved inadvertently.
+  
+
+Mon Nov 21 04:18:15 CET 2005  monnier
+  * (haskell-font-lock-symbols-alist): Some XEmacs
+  (haskell-font-lock-symbols-alist): Some XEmacs
+  versions define make-char but not charsetp.
+  (haskell-font-lock-symbols-keywords): Add a `keep' arg so
+  de-highlighting in strings works correctly even in Emacs-21.
+  
+
+Mon Nov 21 01:55:09 CET 2005  monnier
+  * Add coding cookie.
+
+Tue Nov 15 01:24:46 CET 2005  monnier
+  * Docstring fixes.
+  Docstring fixes.
+  (haskell-ds-get-variable): Massage.
+  (haskell-ds-move-to-decl, haskell-ds-generic-find-next-decl):
+  Use with-syntax-table.
+  (haskell-ds-keys): Delete.
+  (turn-on-haskell-decl-scan): Inline it here.
+  Use beginning-of-defun-function if available.
+  
+
+Tue Nov 15 00:40:41 CET 2005  monnier
+  * (haskell-font-lock-keywords-create): Add pattern
+  (haskell-font-lock-keywords-create): Add pattern
+  for numbers and strings for arguments to toplevel declarations.
+  
+
+Mon Nov 14 17:43:52 CET 2005  monnier
+  * (inferior-haskell-error-regexp-alist): Fix GHCi regexp, support warnings.
+
+Fri Nov 11 16:26:40 CET 2005  monnier
+  * (dist): Remove profile file and avoid ztar.
+
+Fri Nov 11 16:25:03 CET 2005  monnier
+  * (inferior-haskell-command): Provide a default.
+  (inferior-haskell-command): Provide a default.
+  (with-selected-window): Define if necessary.
+  (inferior-haskell-load-file): Display the buffer.
+  
+
+Fri Nov 11 16:18:49 CET 2005  monnier
+  * *** empty log message ***
+
+Fri Nov 11 16:18:43 CET 2005  monnier
+  * (haskell-indent-indentation-info): Typo.
+
+Fri Nov 11 16:18:12 CET 2005  monnier
+  * (haskell-ghci-mode): Use define-derived-mode.
+
+Mon Nov  7 22:05:44 CET 2005  monnier
+  tagged v2_1 
+
+Mon Nov  7 22:05:44 CET 2005  monnier
+  * *** empty log message ***
+
+Mon Nov  7 22:04:15 CET 2005  monnier
+  * (haskell-indent-inside-comment): Rename `start' arg
+  (haskell-indent-inside-comment): Rename `start' arg
+  into `open' and add a new `start' arg.
+  (haskell-indent-after-keywords): Change defaults for `in'.
+  (haskell-indent-indentation-info): Fix confusion between pos and col.
+  (haskell-indent-mode): Autoload.
+  
+
+Mon Nov  7 22:02:34 CET 2005  monnier
+  * Update.
+
+Mon Nov  7 21:55:39 CET 2005  monnier
+  * Minor code and comment tweaks.
+
+Mon Nov  7 19:10:53 CET 2005  monnier
+  * (haskell-indent-find-matching-start): Add `pred' and `start' arguments.
+  (haskell-indent-find-matching-start): Add `pred' and `start' arguments.
+  (haskell-indent-filter-let-no-in): New fun.
+  (haskell-indent-indentation-info): Use them to correctly match `let's
+  with `in's even when some of the `let's have no matching `in'.
+  
+
+Mon Nov  7 06:04:26 CET 2005  monnier
+  * *** empty log message ***
+
+Mon Nov  7 06:04:22 CET 2005  monnier
+  * Update.  Add new bugs.
+
+Mon Nov  7 06:04:01 CET 2005  monnier
+  * Reduce the use of dyn-bound haskell-indent-info.
+  Reduce the use of dyn-bound haskell-indent-info.
+  (haskell-indent-push-col): Don't duplicate info.
+  (haskell-indent-line-indentation): Handle let-in-do.  Remove dead code.
+  (haskell-indent-inside-comment): Move rest of code from
+  haskell-indent-indentation-info.
+  
+
+Mon Nov  7 03:42:54 CET 2005  monnier
+  * (haskell-literate): Declare.
+  (haskell-literate): Declare.
+  (haskell-running-xemacs, event-basic-type, read-event): Remove.
+  (haskell-indent-get-beg-of-line, haskell-indent-get-end-of-line):
+  Remove.  Use line-(beginning|end)-position instead.
+  (haskell-indent-mark-active): Move the xemacs test inside the defun.
+  (haskell-indent-info): Rename from indent-info.  Update users.
+  (haskell-indent-bolp, haskell-indent-inside-comment):
+  Use line-beginning-position.
+  (haskell-indent-within-literate-code): Use `case'.
+  (haskell-indent-put-region-in-literate): Bind more comment-* vars.
+  (haskell-indent-virtual-indentation): Add the missing `start' arg.
+  (haskell-indent-mode): Move before first use.
+  (haskell-indent-stand-alone-mode): Use haskell-indent-mode.
+  Rename from haskell-stand-alone-indent-mode.  Use define-derived-mode.
+  (hugs-mode-map, hugs-syntax-table):
+  Rename to haskell-stand-alone-indent-mode-(map|syntax-table).
+  
+
+Mon Nov  7 03:38:48 CET 2005  monnier
+  * Comment convention fixes.
+
+Mon Nov  7 03:28:16 CET 2005  monnier
+  * (haskell-doc-xemacs-p, haskell-doc-emacs-p)
+  (haskell-doc-xemacs-p, haskell-doc-emacs-p)
+  (haskell-doc-message): Remove.
+  (haskell-doc-is-id-char-at): Remove.
+  (haskell-doc-get-current-word): Rewrite.
+  
+
+Sat Nov  5 00:30:13 CET 2005  monnier
+  * *** empty log message ***
+
+Sat Nov  5 00:30:05 CET 2005  monnier
+  * Add some incorrectly fontified cases.
+
+Sat Nov  5 00:29:38 CET 2005  monnier
+  * Update/cleanup `fixme' comments.
+
+Sat Nov  5 00:29:14 CET 2005  monnier
+  * (haskell-indent-indentation-info): Fix detection of
+  (haskell-indent-indentation-info): Fix detection of
+  hanging let/if/case statements.
+  
+
+Sat Nov  5 00:28:49 CET 2005  monnier
+  * (haskell-mode): Fix typo.
+
+Fri Nov  4 19:11:12 CET 2005  monnier
+  * Add arch-tag.
+
+Fri Nov  4 19:05:47 CET 2005  monnier
+  * (inferior-haskell-mode): Hide compilation-mode bindings.
+
+Fri Nov  4 19:04:53 CET 2005  monnier
+  * (haskell-indent-after-keywords): Add docstring & type.
+  (haskell-indent-after-keywords): Add docstring & type.
+  (haskell-indent-indentation-info): Adjust use.
+  
+
+Fri Nov  4 18:52:02 CET 2005  monnier
+  * (haskell-indent-after-keywords): New var.
+  (haskell-indent-after-keywords): New var.
+  (haskell-indent-virtual-indentation): New fun.
+  (haskell-indent-indentation-info): Use them to indent after keywords.
+  
+
+Fri Nov  4 17:25:53 CET 2005  monnier
+  * Add some entries for infix declarations.
+
+Fri Nov  4 17:25:38 CET 2005  monnier
+  * (haskell-vars, haskell-mode-generic): Remove.
+  (haskell-vars, haskell-mode-generic): Remove.
+  (haskell-mode-hook): Rename from haskell-mode-hooks.
+  (haskell-mode): Use define-derived-mode.  Inline haskell-mode-generic
+  and haskell-vars.
+  (literate-haskell-mode): Use define-derived-mode.
+  
+
+Fri Nov  4 17:25:29 CET 2005  monnier
+  * (haskell-simple-indent): Minor simplifications.
+  (haskell-simple-indent): Minor simplifications.
+  (turn-on-haskell-simple-indent): Don't bind \t and \n.
+  
+
+Thu Oct 13 01:03:17 CEST 2005  monnier
+  * (haskell-indent-start-keywords-re): Use regexp-opt.
+  (haskell-indent-start-keywords-re): Use regexp-opt.
+  (haskell-indent-type-at-point): Accept ' in identifiers.
+  (haskell-indent-find-case): Tell match-data to not generate markers.
+  (haskell-indent-line-indentation): Ignore off-side keywords in comments
+  and strings.
+  (haskell-indent-find-matching-start): Generalize.
+  Rename from haskell-indent-find-let.
+  (haskell-indent-indentation-info): Use it for of, then, and else.
+  
+
+Thu Oct 13 00:55:12 CEST 2005  monnier
+  * *** empty log message ***
+
+Wed Sep 28 19:43:21 CEST 2005  monnier
+  * *** empty log message ***
+
+Wed Sep 28 19:43:15 CEST 2005  monnier
+  * (haskell-font-lock-symbols-alist): Add "not".
+  (haskell-font-lock-symbols-alist): Add "not".
+  (haskell-font-lock-compose-symbol): Handle alphanum identifiers.
+  Fix incorrect handling of . when used for qualified names.
+  
+
+Wed Sep 28 19:43:01 CEST 2005  monnier
+  * (haskell-indent-in-comment): Don't fail at EOB.
+
+Tue Sep 27 02:06:24 CEST 2005  monnier
+  * (haskell-font-lock-symbols-alist): Prefer the unicode version of lambda.
+  (haskell-font-lock-symbols-alist): Prefer the unicode version of lambda.
+  Add two symbols from the Omega language and from Paterson's arrow syntax.
+  
+
+Wed Aug 24 15:36:32 CEST 2005  monnier
+  * (haskell-doc-message): Paren typo.
+
+Tue Aug 23 23:24:18 CEST 2005  monnier
+  * *** empty log message ***
+
+Tue Aug 23 23:23:45 CEST 2005  monnier
+  * (haskell-font-lock-keywords-create): Try and work around a bug that seems to
+  (haskell-font-lock-keywords-create): Try and work around a bug that seems to
+  be in Emacs-21.3 rather than in haskell-font-lock.el.
+  
+
+Tue Aug 23 23:23:27 CEST 2005  monnier
+  * (haskell-doc-show-type): Assume that the availability
+  (haskell-doc-show-type): Assume that the availability
+  of display-message won't change at runtime.
+  
+
+Tue Jul 19 01:04:47 CEST 2005  monnier
+  * *** empty log message ***
+
+Tue Jul 19 01:04:39 CEST 2005  monnier
+  * (haskell-program-name): Fix defcustom delcaration.
+
+Tue Jul 19 01:04:14 CEST 2005  monnier
+  * (haskell-doc-message): Remove.
+  (haskell-doc-message): Remove.
+  (haskell-doc-show-type): inline it.  Do nothing for if there's no doc to show.
+  
+
+Thu Feb  3 01:20:43 CET 2005  monnier
+  tagged arity-anal-branch-point 
+
+Thu Feb  3 01:20:43 CET 2005  monnier
+  * (haskell-hugs-mode-map, haskell-ghci-mode-map): Remove.
+
+Wed Jan 26 21:23:23 CET 2005  monnier
+  tagged ghc-6-4-3 
+
+Wed Jan 26 21:23:23 CET 2005  monnier
+  * *** empty log message ***
+
+Wed Jan 26 21:23:09 CET 2005  monnier
+  * (haskell-indent-inside-comment): Don't assume column(pos+2) = column(pos)+2.
+  (haskell-indent-inside-comment): Don't assume column(pos+2) = column(pos)+2.
+  (haskell-indent-indentation-info): Fix indentation of , and ;.
+  Add arg `start'.  Restrict choice of indentation for comments.
+  (haskell-indent-event-type): Remove.
+  (haskell-indent-last-info): New var.
+  (haskell-indent-cycle): Use it to store info from one invocation to
+  the next, so we can do cycling outside of the function.
+  Don't cycle directly any more.  Instead, recognize repeated invocations
+  via last-command and friends.
+  Use indent-line-function rather than hardcoding indent-to-left-margin.
+  (haskell-indent-insert-where): Don't save excursion.
+  (haskell-indent-layout-indent-info): Minor simplifications.
+  (haskell-indent-line-indentation): Don't ignore code on a line before a string.
+  
+
+Wed Jan 26 20:51:33 CET 2005  monnier
+  * (haskell-hugs-last-loaded-file): Remove.
+  (haskell-hugs-last-loaded-file): Remove.
+  (haskell-hugs-start-process): Fix misuse of make-variable-buffer-local.
+  (haskell-hugs-go): Quote file name.  Simplify.
+  
+
+Wed Jan 26 20:50:49 CET 2005  monnier
+  * (haskell-ghci-start-process): Fix misuse of make-variable-buffer-local.
+
+Wed Jan 26 20:45:57 CET 2005  monnier
+  * (haskell-ghci-last-loaded-file): Remove.
+  (haskell-ghci-last-loaded-file): Remove.
+  (haskell-ghci-go): Quote file name.  Simplify.
+  
+
+Wed Jan 26 20:34:09 CET 2005  monnier
+  * (haskell-version): Keep it up-to-date.
+
+Wed Jan 26 20:33:15 CET 2005  monnier
+  * Add some test cases.
+
+Wed Jan 26 20:32:31 CET 2005  monnier
+  * (inferior-haskell-load-file): Quote file name.
+
+Fri Dec 10 19:42:46 CET 2004  monnier
+  * *** empty log message ***
+
+Fri Dec 10 19:42:41 CET 2004  monnier
+  * (haskell-program-name): Use ghci if hugs is absent.
+  (haskell-program-name): Use ghci if hugs is absent.
+  (inferior-haskell-load-file): Reset compilation-parsing-end.
+  
+
+Fri Dec 10 19:39:41 CET 2004  monnier
+  * (haskell-indent-start-of-def): Only go backward.
+  (haskell-indent-start-of-def): Only go backward.
+  (haskell-indent-in-string): Simplify.
+  (haskell-indent-in-comment): Simplify.
+  (haskell-indent-comment): Remove.
+  (haskell-indent-inside-comment): New fun.
+  (haskell-indent-indentation-info): Assume we're at the indentation.
+  Handle comments differently.
+  (haskell-indent-cycle): Go to indentation and then save excursion
+  around haskell-indent-indentation-info.
+  
+
+Fri Dec 10 19:33:18 CET 2004  monnier
+  * (haskell-doc-minor-mode-string): Make it dynamic.
+  (haskell-doc-minor-mode-string): Make it dynamic.
+  (haskell-doc-install-keymap): Remove conflicting C-c C-o binding.
+  (haskell-doc-mode): Make a nil arg turn the mode ON.
+  (turn-on-haskell-doc-mode): Make it an alias for haskell-doc-mode.
+  (haskell-doc-mode): Don't touch haskell-doc-minor-mode-string.
+  (haskell-doc-show-global-types): Don't touch
+  haskell-doc-minor-mode-string.  Call haskell-doc-make-global-fct-index.
+  (haskell-doc-check-active): Fix message.
+  (define-key-after): Don't define.
+  (haskell-doc-install-keymap): Check existence of define-key-after.
+  
+
+Fri Dec 10 19:24:01 CET 2004  monnier
+  * (haskell-literate-default): Fix custom type.
+  (haskell-literate-default): Fix custom type.
+  (haskell-vars): Ignore comments when doing C-M-f.
+  
+
+Fri Dec 10 19:23:21 CET 2004  monnier
+  * More test cases.
+
+Fri Dec 10 19:19:37 CET 2004  monnier
+  * (haskell-program-name): Use ghci if hugs is absent.
+
+Fri Nov 26 01:09:48 CET 2004  monnier
+  tagged v2_0 
+
+Fri Nov 26 01:09:48 CET 2004  monnier
+  * Remove.
+
+Fri Nov 26 01:07:44 CET 2004  monnier
+  * *** empty log message ***
+
+Fri Nov 26 01:04:00 CET 2004  monnier
+  * (haskell-ds-imenu-label-cmp): Undo last idiotic change.
+
+Fri Nov 26 01:03:23 CET 2004  monnier
+  * (haskell-doc-sym-doc): Make even the last char bold.
+
+Fri Nov 26 01:02:58 CET 2004  monnier
+  * (haskell-mode-map): Typo.
+
+Fri Nov 26 01:01:51 CET 2004  monnier
+  * (inferior-haskell-mode): Typo.
+  (inferior-haskell-mode): Typo.
+  (inferior-haskell-wait-for-output): Remove.
+  (inferior-haskell-send-command): New function.
+  (inferior-haskell-load-file): Use it.
+  
+
+Fri Nov 26 01:00:52 CET 2004  monnier
+  * Partial fixup.
+
+Thu Nov 25 02:12:52 CET 2004  monnier
+  * *** empty log message ***
+
+Thu Nov 25 02:05:20 CET 2004  monnier
+  * New file.
+
+Thu Nov 25 02:05:07 CET 2004  monnier
+  * (haskell-mode-map): Add bindings for the inferior-haskell commands.
+  (haskell-mode-map): Add bindings for the inferior-haskell commands.
+  (turn-on-haskell-hugs, turn-on-haskell-ghci): Mark them as obsolete.
+  
+
+Thu Nov 25 00:14:36 CET 2004  monnier
+  * (haskell-doc-install-keymap): Don't blindly assume there's a Hugs menu.
+
+Tue Nov 23 01:31:32 CET 2004  monnier
+  * *** empty log message ***
+
+Tue Nov 23 01:31:12 CET 2004  monnier
+  * (turn-on-haskell-indent, turn-off-haskell-indent):
+  (turn-on-haskell-indent, turn-off-haskell-indent):
+  Use C-c C-foo rather than C-c foo to follow coding conventions.
+  
+
+Tue Nov 23 01:28:07 CET 2004  monnier
+  * (haskell-font-lock-symbols-alist): Add . = ?.
+
+Mon Nov 22 12:45:35 CET 2004  simonmar
+  * Fix type of getLine
+
+Mon Oct 25 17:27:34 CEST 2004  monnier
+  * (haskell-indent-indentation-info): Don't use layout for paren-closing elements.
+
+Wed Oct 20 18:27:10 CEST 2004  monnier
+  * (haskell-indent-indentation-info): Only use
+  (haskell-indent-indentation-info): Only use
+  the new `in' indentation rule if the `let' is on the left of the decl.
+  
+
+Wed Oct 20 02:30:54 CEST 2004  monnier
+  * *** empty log message ***
+
+Wed Oct 20 02:30:39 CEST 2004  monnier
+  * (haskell-indent-find-let): New function.
+  (haskell-indent-find-let): New function.
+  (haskell-indent-indentation-info): Use it to indent `in'.
+  
+
+Wed Oct 20 02:30:23 CEST 2004  monnier
+  * (haskell-default-face): Add missing declaration.
+
+Wed Oct 20 01:41:23 CEST 2004  monnier
+  * (haskell-indent-open-structure): Simplify.
+  (haskell-indent-open-structure): Simplify.
+  (haskell-indent-contour-line): Work even when `start' is in the middle
+  of a line.
+  (haskell-indent-layout-indent-info): New fun extracted from
+  haskell-indent-indentation-info.
+  (haskell-indent-indentation-info): Use it as before.  Use it also to
+  handle layout-within-open-structure.
+  
+
+Tue Oct 19 01:56:40 CEST 2004  monnier
+  * (haskell-font-lock-keywords-create): Use explicit `symbol-value' to work
+  (haskell-font-lock-keywords-create): Use explicit `symbol-value' to work
+  around limitations in XEmacs's implementation of font-lock.
+  (haskell-basic-syntactic-keywords): Fix up char-constants some more.
+  
+
+Tue Oct 19 01:55:13 CEST 2004  monnier
+  * Minor doc tweak.
+
+Fri Oct 15 02:27:47 CEST 2004  monnier
+  * (turn-off-haskell-doc-mode, haskell-doc-current-info): Don't autoload.
+
+Fri Oct 15 02:27:18 CEST 2004  monnier
+  * *** empty log message ***
+
+Fri Oct 15 02:24:48 CEST 2004  monnier
+  * Set things up so that mode-hook functions are not
+  Set things up so that mode-hook functions are not
+  necessary, and generic functions can be used instead, like
+  global-font-lock-mode.
+  (haskell-enum-from-to): Remove.
+  (turn-on-haskell-font-lock): Make obsolete.
+  (haskell-running-xemacs): Remove.
+  (haskell-mode-syntax-table): Fiddle with non-ascii chars.
+  Fix up comment syntax in XEmacs.
+  (haskell-vars): Improve comment-start-skip.
+  Add comment-end-skip.  Setup imenu, eldoc, and font-lock.
+  Tweak handling of tabs to be on the safe side.
+  (haskell-mode-hooks): Declare and mention some useful ideas.
+  (literate-haskell-mode): Simplify.
+  (haskell-comment-indent): Remove.  The default works as well.
+  
+
+Fri Oct 15 02:20:15 CEST 2004  monnier
+  * (haskell-ds-match-string): Use match-string-no-properties if available.
+  (haskell-ds-match-string): Use match-string-no-properties if available.
+  (haskell-ds-syntax-table): Use haskell-mode-syntax-table.
+  (haskell-ds-imenu-label-cmp): Use car-less-than-car if available.
+  (haskell-ds-imenu): Remove obsolete incorrect code.
+  
+
+Fri Oct 15 01:08:18 CEST 2004  monnier
+  * Remove level 1 fontification.
+  Remove level 1 fontification.
+  (haskell-font-lock-keywords-1, haskell-font-lock-keywords-2)
+  (bird-literate-haskell-font-lock-keywords-1)
+  (bird-literate-haskell-font-lock-keywords-2)
+  (latex-literate-haskell-font-lock-keywords-1)
+  (latex-literate-haskell-font-lock-keywords-2): Remove.
+  (bird-literate-haskell-font-lock-keywords)
+  (latex-literate-haskell-font-lock-keywords): Rename.
+  (haskell-font-lock-keywords-create): Remove `level' arg.
+  (haskell-fl-syntax): Remove.  Assume the major modes sets it right.
+  (haskell-font-lock-choose-keywords)
+  (haskell-font-lock-choose-syntactic-keywords): New funs.
+  (haskell-font-lock-defaults-create): Use them.
+  (turn-off-haskell-font-lock, turn-on-haskell-font-lock): Simplify.
+  
+
+Fri Oct 15 01:01:00 CEST 2004  monnier
+  * (haskell-hugs-mode): Use define-derived-mode.
+  (haskell-hugs-mode): Use define-derived-mode.
+  (run-hugs): New alias.
+  (haskell-hugs-wait-for-output): Don't loop if the process is dead.
+  
+
+Thu Oct 14 21:52:53 CEST 2004  monnier
+  * (haskell-font-lock-compose-symbol): New fun.
+  (haskell-font-lock-compose-symbol): New fun.
+  (haskell-font-lock-symbols-keywords): Use it.
+  (haskell-string-char-face): Remove.
+  (haskell-font-lock-keywords-create): Hardcode font-lock-string-face.
+  (haskell-fl-syntax): Fix typos.  Keep " as a string delimiter.
+  
+
+Thu Oct 14 02:47:28 CEST 2004  monnier
+  * *** empty log message ***
+
+Thu Oct 14 02:45:22 CEST 2004  monnier
+  * (haskell-doc): New group.
+  (haskell-doc): New group.
+  (haskell-doc-show-reserved, haskell-doc-show-prelude)
+  (haskell-doc-show-strategy, haskell-doc-show-user-defined)
+  (haskell-doc-chop-off-context, haskell-doc-chop-off-fctname):
+  Make them custom vars.
+  (haskell-doc-keymap): Declare and fill it right there.
+  (haskell-doc-mode): Simplify.
+  (haskell-doc-toggle-var): Make it into what it was supposed to be.
+  (haskell-doc-mode-print-current-symbol-info): Simplify.
+  (haskell-doc-current-info): New autoloaded function.
+  (haskell-doc-sym-doc): New fun extracted from haskell-doc-show-type.
+  (haskell-doc-show-type): Use it.
+  (haskell-doc-wrapped-type-p): Remove unused var `lim'.
+  (haskell-doc-forward-sexp-safe, haskell-doc-current-symbol): Remove.  Unused.
+  (haskell-doc-visit-home): Don't require ange-ftp, it's autoloaded.
+  (haskell-doc-install-keymap): Simplify.
+  
+
+Thu Oct 14 02:26:20 CEST 2004  monnier
+  * (literate-haskell-ds-create-imenu-index)
+  (literate-haskell-ds-create-imenu-index)
+  (haskell-ds-generic-create-imenu-index): Remove.
+  (haskell-ds-bird-p): New function.
+  (haskell-ds-backward-decl, haskell-ds-forward-decl): Use it.
+  (haskell-ds-create-imenu-index): Use it to make it generic.
+  (haskell-ds-imenu): Remove now-unused arg.
+  (turn-on-haskell-decl-scan): Fix up call to haskell-ds-imenu.
+  (haskell-ds-running-xemacs): Remove.
+  (haskell-ds-func-menu-next): Make generic.
+  (literate-haskell-ds-func-menu-next): Delete.
+  (haskell-ds-func-menu): Remove unused arg.
+  (turn-on-haskell-decl-scan): Simplify.
+  
+
+Thu Oct 14 02:02:46 CEST 2004  monnier
+  * Don't load CL at runtime.
+  Don't load CL at runtime.
+  (haskell-indent-start-of-def, haskell-indent-type-at-point):
+  Don't hardcode point-min == 1.
+  (indent-info): Declare it.
+  (haskell-indent-empty, haskell-indent-ident, haskell-indent-other)
+  (haskell-indent-line-indentation): Use `string'.
+  (haskell-indent-valdef-indentation): Fix `case' arms syntax.
+  (haskell-indent-indentation-info): Remove unused var `pt'.
+  (haskell-indent-align-def): Remove unused var `defpos'.
+  (turn-on-haskell-indent): Don't bind TAB.
+  (turn-off-haskell-indent): Don't unbind TAB and DEL.
+  (hugs-syntax-table): Use the `n' for nested comments.
+  (haskell-stand-alone-indent-mode): Fix `comment-end'.
+  
+
+Mon Oct 11 14:59:57 CEST 2004  simonmar
+  * patches from Stefan <monnier@iro.umontreal.ca>.
+  patches from Stefan <monnier@iro.umontreal.ca>.
+  He says:
+  
+  The patch below does the following things:
+  - Clean up the changes introduced by Dave Love.  I.e. merge back the Emacs-21
+    code and the non-Emacs-21 code so it's more maintainable (I hate code
+    duplication with a passion).
+  - Add a feature `haskell-font-lock-symbols' which turns -> and \ into actual
+    arrow and lambda symbols.  In Emacs-21.3, if you turn on this feature but
+    you don't have the appropriate fonts, you'll see square boxes instead :-(.
+    In future Emacsen (e.g. Emacs-CVS) the feature should work better and only
+    use the symbols for which you have the font(s).
+  - Re-enable toplevel declaration highlighting (and fix them up a bit).
+  - Don't create new faces.  Instead, use an indirection through variables
+    (which can be made buffer-local or can point to new faces).
+  - Use standard font-lock faces where possible.
+  - Various simplifications.
+  - Fix up a problem in \(x,y) -> x+y where the first ( was not counted
+    because it was considered quoted by the \.
+  - Make the commenting of bird-style non-code more robust.
+  
+  This has only really been tested with Emacs-CVS.  It is supposed to work as
+  well as before on Emacs-20/21 and on XEmacs, but I may of course have
+  introduced some misbehavior.
+  
+
+Mon Sep 27 15:14:42 CEST 2004  simonmar
+  * C-c C-n goes to next GHCi error
+  C-c C-n goes to next GHCi error
+  Contribtued by: Christian Maeder <maeder@tzi.de>
+  
+
+Wed Apr 14 13:07:39 CEST 2004  simonmar
+  tagged haskell-mode-1-45 
+
+Wed Apr 14 13:07:39 CEST 2004  simonmar
+  * Version 1.45
+
+Mon Jan 26 12:56:07 CET 2004  simonmar
+  * Add a "new maintainer required" advert.
+
+Mon Jan  5 13:46:51 CET 2004  simonmar
+  * Don't remap DEL (someone complained about it)
+
+Mon Nov  3 12:29:02 CET 2003  simonmar
+  * Emacs 21 support and various bugs fixed by Dave Love.
+
+Mon Oct 20 14:04:26 CEST 2003  simonmar
+  * Recognise hierarchical module names in the prompt (the GHCi mode
+  Recognise hierarchical module names in the prompt (the GHCi mode
+  already supports this).
+  
+  From: Juanma Barranquero <jmbarranquero@laley.wke.es>
+  
+
+Tue Sep 30 12:41:21 CEST 2003  simonmar
+  * Patches from Dave Love <fx@gnu.org>.  He says:
+  Patches from Dave Love <fx@gnu.org>.  He says:
+    The most important part of these changes is sorting out the syntax
+    table for use with Emacs 21 to treat comments properly (if font-lock
+    is sorted out too, for which I'll send changes later).  I defined the
+    syntax table per recommendations in the Elisp manual, and made some
+    cosmetic more-or-less cosmetic changes for Emacs style.  It needs a
+    coding cookie as it contains (I assume) a Latin-1 character.
+  
+    Emacs 21 will basically DTRT with Unicode if you tell it the text is
+    utf-8.  It's possible there are minor disagreements with syntax of
+    some characters compared with Unicode, but they're not likely to be
+    important.
+  
+
+Wed Aug 27 19:18:34 CEST 2003  panne
+  tagged ghc-6-2 
+
+Wed Aug 27 19:18:34 CEST 2003  panne
+  * green-card => greencard
+  green-card => greencard
+  Green Card => GreenCard
+  
+  Although Alastair prefers "Greencard", the library's name is
+  "Foreign.GreenCard", and unless we change this, too, "GreenCard" is
+  more consistent.
+  
+
+Fri Feb 28 12:41:19 CET 2003  simonmar
+  tagged before-galois-hbm 
+
+Fri Feb 28 12:41:19 CET 2003  simonmar
+  * Allow dots in module names in the GHCi prompt.
+
+Tue Jan 14 16:51:09 CET 2003  simonmar
+  * Mention tun-on-haskell-ghci
+
+Thu Jan  9 13:56:26 CET 2003  simonmar
+  * Patches from Ville Skytt? <scop@xemacs.org>, the XEmacs maintainer of
+  Patches from Ville Skytt[_\e4_] <scop@xemacs.org>, the XEmacs maintainer of
+  the haskell-mode:
+  
+   - Make the auto-mode-alist modifications autoload-only.
+  
+
+Mon Jan  6 14:35:26 CET 2003  simonmar
+  * Update to include Debian installation instructions.
+
+Wed Nov  6 12:49:16 CET 2002  simonmar
+  tagged haskell-mode-1-44 
+
+Wed Nov  6 12:49:16 CET 2002  simonmar
+  * update to 1.44
+
+Mon Oct 14 13:55:03 CEST 2002  simonmar
+  * Patch to update the Prelude/libraries function names and to remove
+  Patch to update the Prelude/libraries function names and to remove
+  support for older versions of Haskell.
+  
+  Submitted by: Anders Lau Olsen <alauo@mip.sdu.dk>
+  
+
+Wed Jul 24 13:04:34 CEST 2002  simonmar
+  * Fix the prompt for recent versions of GHCi
+
+Wed Jul 24 12:54:58 CEST 2002  simonmar
+  * Add haskell-indent-rhs-align-column for aligning rhs's (from Tom Moertel)
+
+Wed Jun  5 14:38:18 CEST 2002  simonmar
+  * Make it work better with hierarchical modules
+
+Tue Apr 30 13:49:45 CEST 2002  rrt
+  * DIE DIE DIE OLD MAINTAINER'S EMAIL ADDRESS STAMP STOMP STOMPETY SPLUNCH!
+
+Tue Apr 30 13:34:37 CEST 2002  rrt
+  * Remove supporting Haskell 1.4 and 1.2 from the ToDo list. It's Far Too Late.
+  Remove supporting Haskell 1.4 and 1.2 from the ToDo list. It's Far Too Late.
+  Add (require 'imenu). Thanks to N. Y. Kwok.
+  
+
+Fri Apr 26 17:08:41 CEST 2002  simonmar
+  * Update version number in a couple of places (thanks to the XEmacs guys
+  Update version number in a couple of places (thanks to the XEmacs guys
+  for pointing this out).
+  
+
+Wed Apr 24 14:52:13 CEST 2002  simonmar
+  * Add a note about XEmacs (haskell-mode is in XEmacs CVS and can be
+  Add a note about XEmacs (haskell-mode is in XEmacs CVS and can be
+  installed automatically through the XEmacs package UI, apparently).
+  
+
+Wed Apr 24 14:45:14 CEST 2002  simonmar
+  * Add note about version 1.43
+
+Wed Apr 24 14:44:00 CEST 2002  simonmar
+  * updates that were in 1.42 that didn't get committed
+
+Wed Apr 24 13:33:34 CEST 2002  simonmar
+  * Update to version 1.43
+
+Wed Apr 24 13:33:15 CEST 2002  simonmar
+  * Updates that were made to the website & not committed (update to version 1.42).
+
+Tue Apr 23 18:45:09 CEST 2002  simonmar
+  * Tweaks to the doc strings and support for customization, from
+  Tweaks to the doc strings and support for customization, from
+  Ville Skytt[_\e4_] <ville.skytta@xemacs.org>.
+  
+
+Mon Aug 27 19:57:03 CEST 2001  rrt
+  tagged ghc-5-02-3 
+
+Mon Aug 27 19:57:03 CEST 2001  rrt
+  * enum-from-to -> haskell-enum-from-to
+
+Mon Aug 27 19:56:42 CEST 2001  rrt
+  * Remove version number from top of page (now just in archive)
+
+Mon Aug 27 19:50:43 CEST 2001  rrt
+  * Update haskell-version
+
+Mon Aug 27 19:50:27 CEST 2001  rrt
+  * Update history and version number
+
+Mon Aug 27 17:09:04 CEST 2001  rrt
+  * Switch to versioned tarball
+
+Mon Aug 27 17:05:27 CEST 2001  rrt
+  * Make some more variables interactively changeable
+
+Fri Aug 17 17:33:38 CEST 2001  rrt
+  * Add a note about XEmacs 21.4 problem
+
+Thu Jul 19 20:21:39 CEST 2001  rrt
+  * Sample .emacs file entries for haskell mode.
+
+Thu Jul 19 20:17:36 CEST 2001  rrt
+  * Add the current version of the Moss/Thorn/Marlow Emacs mode, along with its
+  Add the current version of the Moss/Thorn/Marlow Emacs mode, along with its
+  web pages and sample files. This is now the preferred mode, and the
+  haskell.org pages are being changed to reflect that. Also includes the new
+  GHCi mode from Chris Webb.
+  

@@ -1,0 +1,3 @@
+--ignore-dir=coverage
+--type-set=MINIFIED=.min.js
+--noMINIFIED

@@ -1,0 +1,4 @@
+#name : YARD @raise tag
+#group : yard
+# --
+# @raise [${1:RuntimeError}] if ${2:triggering condition}

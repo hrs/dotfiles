@@ -1,0 +1,55 @@
+2011-11-18  Eric Schulte  <schulte.eric@gmail.com>
+
+	2011-11-18 Eric Schulte <schulte.eric@gmail.com>
+	
+	* shen-mode.el: Update link to the shen website.
+	* shen-mode-pkg.el: Elpa pkg file for shen mode.
+	* inf-shen.el: Run shen code from within Emacs.
+
+2011-10-18  Eric Schulte  <schulte.eric@gmail.com>
+
+	2011-10-18 Eric Schulte <schulte.eric@gmail.com>
+	
+	* shen-mode.el: Updating commentary to point to newer official shen website.
+	(shen-mode-map): No longer inheriting functionality from c-mode.
+
+2011-10-08  Eric Schulte  <schulte.eric@gmail.com>
+
+	2011-10-08 Eric Schulte <schulte.eric@gmail.com>
+	
+	* shen-mode.el: More complete commentary introducing shen-mode.
+
+2011-10-06  Eric Schulte  <schulte.eric@gmail.com>
+
+	2011-10-06  Eric Schulte <schulte.eric@gmail.com>
+	
+	* shen-mode.el (shen-functions): Folded shen functions into shen-mode.el
+	
+	* shen-functions.el: has now been removed as its own file
+
+2011-10-06  Eric Schulte  <schulte.eric@gmail.com>
+
+	2011-10-06  Eric Schulte <schulte.eric@gmail.com>
+	
+	* shen-mode.el (shen-font-lock-keywords): Adding "defcc" as a shen
+	definition keyword.
+
+2011-10-06  Eric Schulte  <schulte.eric@gmail.com>
+
+	2011-10-06  Eric Schulte <schulte.eric@gmail.com>
+	
+	* shen-mode.el (cc-mode): Explicitly require cc-mode as some c comment
+	functions are used.
+	(shen-mode-map): Improve M-j behavior in comments.
+
+2011-10-06  Eric Schulte  <schulte.eric@gmail.com>
+
+	2011-10-06  Eric Schulte <schulte.eric@gmail.com>
+	
+	* shen-mode.el: A new file implementing a major mode for the editing
+	of shen source code.
+	
+	* shen-functions.el: A new file holding function documentation for use
+	by shen-mode in both syntax highlighting and live function
+	documentation display with eldoc.
+
