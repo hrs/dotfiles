@@ -10,10 +10,7 @@
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/zenburn")
   (load-theme 'zenburn t))
 
-(if window-system
-    (progn
-      (tool-bar-mode 0)
-      (use-solarized-theme))
+(if window-system (tool-bar-mode 0)
   (menu-bar-mode 0)) ; no menu bar in terminal
 
 ;; quiet startup
@@ -30,10 +27,8 @@
 (display-time-mode 1)
 
 ;; Add line numbers
-(line-number-mode "on")
 (require 'linum)
 (global-linum-mode 1)
-(setq linum-format "  %d") ;; alleviates linum bug in OS X; unnecessary on other OSes
 
 (setq whitespace-style '(lines))
 (setq whitespace-line-column 78)
