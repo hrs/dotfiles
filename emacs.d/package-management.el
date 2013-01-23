@@ -6,6 +6,13 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("elpa" . "http://tromey.com/elpa/") t)
 
+;; anything
+;; auto-complete
+;; ctags-update
+;; expand-region & smart-forward
+;; watch-buffer
+;; wget
+
 (defvar favored-packages
   '(auctex
     clojure-mode
@@ -16,6 +23,7 @@
     groovy-mode
     haml-mode
     haskell-mode
+    htmlize
     magit
     magithub
     markdown-mode
@@ -23,12 +31,14 @@
     paredit
     python
     rainbow-mode
-    rinari
+;;  rinari
     ruby-end
     ruby-mode
     ruby-electric
+    rust-mode
     scss-mode
     shen-mode
+    smex
     sml-mode
     solarized-theme
     tuareg

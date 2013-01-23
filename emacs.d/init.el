@@ -3,10 +3,13 @@
 (load "ui-prefs.el")
 (load "package-management.el")
 ;; (load "mail-prefs.el")
+;; (load "slime-prefs.el")
 (load "utils.el")
 
 ;; language-specific configuration
 (load "languages/groovy.el")
+(load "languages/haskell.el")
+(load "languages/html.el")
 (load "languages/lisp.el")
 (load "languages/markdown.el")
 (load "languages/octave.el")
@@ -14,6 +17,7 @@
 (load "languages/r.el")
 (load "languages/ruby.el")
 (load "languages/sass.el")
+(load "languages/tex.el")
 
 ;; fussy, fussy
 (setq make-backup-files nil)
