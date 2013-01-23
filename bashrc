@@ -6,7 +6,7 @@ source ~/.bin/git-completion.sh
 ### Adjusting the PATH
 conf_dot_home_path="/home/hrs/.bin"
 # conf_rvm_path="/home/hrs/.rvm/bin"
-export PATH=$PATH:$conf_dot_home_path
+export PATH=/usr/local/bin:$PATH:$conf_dot_home_path
 
 ### Setting variables
 export DISPLAY=:0.0
@@ -28,8 +28,6 @@ alias lispi="sbcl -noinform --load"
 alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
 alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
 alias generate_tags="rm -f TAGS; ctags -a --Ruby-kinds=-fF -o TAGS -R ."
-alias gremlin="~/.bin/gremlin-groovy-2.0.0/gremlin-groovy.sh"
-alias pp="~/.bin/pp/pp.rb"
 alias gg="git grep -n"
 alias op="gnome-open"
 
@@ -53,15 +51,23 @@ alias now="date '+%Y-%m-%d %H:%M'"
 
 alias less="less -R" # display colors correctly
 alias tree="tree -C" # add colors
-alias ls="ls --color -h" # add colors, use readable file sizes
+
+if [[ $(uname) == Darwin ]]; then
+    alias ls="ls -G -h"
+else
+    alias ls="ls --color -h"
+fi
+
 alias ll="ls -l"
 alias la="ls -la"
 
 # Package management
-alias agi="sudo apt-get install"
-alias agr="sudo apt-get remove"
-alias acs="apt-cache search"
-alias agu="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade"
+if [[ $(uname) == Linux ]]; then
+    alias agi="sudo apt-get install"
+    alias agr="sudo apt-get remove"
+    alias acs="apt-cache search"
+    alias agu="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade"
+fi
 
 alias oports="echo 'User:      Command:   Port:'; echo '----------------------------' ; lsof -i 4 -P -n | grep -i 'listen' | awk '{print \$3, \$1, \$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n |xargs printf '%-10s %-10s %-10s\n' | uniq"
 alias serve="python -m SimpleHTTPServer"
