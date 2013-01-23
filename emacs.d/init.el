@@ -1,6 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d")
-(load "package-management.el")
 
+(load "package-management.el")
 (load "ui-prefs.el")
 ;; (load "mail-prefs.el")
 ;; (load "slime-prefs.el")
@@ -37,20 +37,7 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
-;; key bindings
-(global-set-key "\C-w"     'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-l"     'goto-line) ; overwriting vertical center on point
-(global-set-key "\C-cs"    'shell)
-(global-set-key "\C-x|"    'align-regexp)
-(global-set-key "\M-/"     'hippie-expand)
-(global-set-key "\C-\M-\\" 'tidy-region)
-(global-set-key "\C-c\C-s" 'ispell-word)
-(global-set-key "\C-cd"    'date)
-(global-set-key "\C-ct"    'time)
-
-(when (not window-system)
-  (define-key input-decode-map "\e[1;2A" [S-up]))
+(load "keybindings.el")
 
 ;; delete trailing whitespace
 (add-hook 'before-save-hook
