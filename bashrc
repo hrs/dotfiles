@@ -26,7 +26,6 @@ alias sbcl="rlwrap sbcl"
 alias lisp="sbcl --noinform"
 alias lispi="sbcl -noinform --load"
 alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
-alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
 alias generate_tags="rm -f TAGS; ctags -a --Ruby-kinds=-fF -o TAGS -R ."
 alias gg="git grep -n"
 alias op="gnome-open"
@@ -54,6 +53,7 @@ alias tree="tree -C" # add colors
 
 if [[ $(uname) == Darwin ]]; then
     alias ls="ls -G -h"
+    alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
 else
     alias ls="ls --color -h"
 fi
@@ -92,6 +92,6 @@ __quiet_git_ps1() {
 PS1='\[\033[36m\][\w$(__quiet_git_ps1)] \$ \[\033[00m\]'
 
 ### Launch the shell!
-# echo "IP: $(myip)"
+echo "IP: $(myip)"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
