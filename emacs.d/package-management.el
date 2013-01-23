@@ -23,7 +23,7 @@
     groovy-mode
     haml-mode
     haskell-mode
-    htmlize
+    htmlize ;; convert region to html, with css for syntax highlighting
     magit
     magithub
     markdown-mode
@@ -38,7 +38,7 @@
     rust-mode
     scss-mode
     shen-mode
-    smex
+    smex ;; improve M-x prompts
     sml-mode
     solarized-theme
     tuareg
