@@ -46,13 +46,8 @@
     yasnippet
     zenburn-theme))
 
-(defun favored-packages-installed-p ()
-  (loop for pkg in favored-packages
-        when (not (package-installed-p pkg)) do (return nil)
-        finally (return t)))
-
-(unless (favored-packages-installed-p)
-  (message "%s" "Emacs Prelude is now refreshing its package database...")
+(unless (every 'package-installed-p favored-packages)
+  (message "%s" "Emacs is now refreshing its package database...")
   (package-refresh-contents)
   (message "%s" " done.")
   ;; install the missing packages
