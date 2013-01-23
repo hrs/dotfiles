@@ -1,14 +1,14 @@
 #!/bin/sh
 
-$dotfiles=~/dotfiles
+dotfiles=$HOME/dotfiles
 
-ln -s $dotfiles/ackrc ~/.ackrc
-ln -s $dotfiles/bashrc ~/.bashrc
-ln -s $dotfiles/bin ~/.bin
-ln -s $dotfiles/emacs.d ~/.emacs.d
-ln -s $dotfiles/gitconfig ~/.gitconfig
-ln -s $dotfiles/gitignore ~/.gitignore
-ln -s $dotfiles/octaverc ~/.octaverc
-ln -s $dotfiles/wallpaper ~/.wallpaper
-ln -s $dotfiles/xinitrc ~/.xinitrc
-ln -s $dotfiles/Xmodmap ~/.Xmodmap
+ln -s $dotfiles/ackrc $HOME/.ackrc
+ln -s $dotfiles/bashrc $HOME/.bashrc
+ln -s $dotfiles/bin $HOME/.bin
+ln -s $dotfiles/emacs.d $HOME/.emacs.d
+ln -s $dotfiles/gitconfig $HOME/.gitconfig
+ln -s $dotfiles/gitignore $HOME/.gitignore
+ln -s $dotfiles/octaverc $HOME/.octaverc
+ln -s $dotfiles/wallpaper $HOME/.wallpaper
+ln -s $dotfiles/xinitrc $HOME/.xinitrc
+ln -s $dotfiles/Xmodmap $HOME/.Xmodmap
