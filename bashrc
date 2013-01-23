@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source ~/.rvm/scripts/rvm
+# source ~/.rvm/scripts/rvm
 source ~/.bin/git-completion.sh
 
 ### Adjusting the PATH
 conf_dot_home_path="/home/hrs/.bin"
 # conf_rvm_path="/home/hrs/.rvm/bin"
-export PATH=$conf_dot_home_path:$PATH
+export PATH=$PATH:$conf_dot_home_path
 
 ### Setting variables
 export DISPLAY=:0.0
