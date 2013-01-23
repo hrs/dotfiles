@@ -1,6 +1,7 @@
 ;; UI preferences
 
 (load "fonts.el")
+(load "smex.el")
 
 (defun use-solarized-theme ()
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/solarized")
