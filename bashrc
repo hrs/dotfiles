@@ -10,7 +10,7 @@ export PATH=/usr/local/bin:$PATH:$conf_dot_home_path
 
 ### Setting variables
 export DISPLAY=:0.0
-export EDITOR="emacs -nw"
+export EDITOR="emacsclient -nw -c -a ''"
 export LANG="en_US"
 export LC_ALL=C
 
@@ -18,7 +18,7 @@ export LC_ALL=C
 alias path="echo $PATH | tr ':' '\n'"
 alias ack="ack-grep"
 alias clr="rm -f *~ .*~"
-alias em="emacs -nw"
+alias e=$EDITOR
 alias unb="tar xjvf"
 alias ung="tar xzvf"
 alias usage="du -sch"
