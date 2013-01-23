@@ -31,7 +31,7 @@
     paredit
     python
     rainbow-mode
-;;  rinari
+    rinari
     ruby-end
     ruby-mode
     ruby-electric
