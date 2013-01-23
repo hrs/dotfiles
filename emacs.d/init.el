@@ -1,7 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d")
+(load "package-management.el")
 
 (load "ui-prefs.el")
-(load "package-management.el")
 ;; (load "mail-prefs.el")
 ;; (load "slime-prefs.el")
 (load "utils.el")
