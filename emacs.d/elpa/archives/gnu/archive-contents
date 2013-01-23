@@ -67,6 +67,9 @@
 	    ((emacs
 	      (24 1)))
 	    "Improved JavaScript editing mode" single])
+ (lex .
+      [(1 0)
+       nil "Lexical analyser construction" single])
  (lmc .
       [(1 0)
        nil "Little Man Computer in Elisp" single])
@@ -101,7 +104,7 @@
 	 [(0 8)
 	  nil "OAuth 2.0 Authorization Protocol" single])
  (org .
-      [(20130107)
+      [(20130121)
        nil "Outline-based notes management and organizer" tar])
  (quarter-plane .
 		[(0 1)
