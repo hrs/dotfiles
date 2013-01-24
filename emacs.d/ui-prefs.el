@@ -26,6 +26,7 @@
 (transient-mark-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (display-time-mode 1)
+(setq ido-enable-flex-matching t)
 
 ;; Add line numbers
 (require 'linum)
