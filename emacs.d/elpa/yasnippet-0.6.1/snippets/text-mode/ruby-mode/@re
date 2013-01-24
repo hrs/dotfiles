@@ -1,4 +1,0 @@
-#name : YARD @return tag
-#group : yard
-# --
-# @return [${1:type}]

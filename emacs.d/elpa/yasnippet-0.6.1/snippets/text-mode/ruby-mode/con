@@ -1,6 +1,0 @@
-#name : context
-#group : rspec
-# --
-context "when ${1:condition}" do
-  $0
-end

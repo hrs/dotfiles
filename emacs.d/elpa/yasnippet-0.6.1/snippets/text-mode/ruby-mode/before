@@ -1,6 +1,0 @@
-#name : before
-#group : rspec
-# --
-before(:each) do
-  $0
-end

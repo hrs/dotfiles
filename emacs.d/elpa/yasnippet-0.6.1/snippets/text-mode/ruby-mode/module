@@ -1,6 +1,0 @@
-#name : module ... end
-#group : definitions
-# --
-module ${ModuleName}
-  $0
-end

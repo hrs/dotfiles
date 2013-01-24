@@ -1,6 +1,0 @@
-#name : it
-#group : rspec
-# --
-it "${1:performs action}" do
-  $0
-end
