@@ -49,7 +49,12 @@ alias ll="ls -l"
 alias la="ls -la"
 
 ### Package management
-if [[ $(uname) == Linux ]]; then
+if [[ $(uname) == Darwin ]]; then
+    alias agi="brew install"
+    alias agr="brew rm"
+    alias acs="brew search"
+    alias agu="brew update && brew upgrade"
+else
     alias agi="sudo apt-get install"
     alias agr="sudo apt-get remove"
     alias acs="apt-cache search"
