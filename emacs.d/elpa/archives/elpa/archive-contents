@@ -444,4 +444,3 @@
  (changelog-url .
 		[(0 1)
 		 nil "ChangeLog bugzilla buttonizer" tar]))
-
