@@ -7,11 +7,11 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("elpa" . "http://tromey.com/elpa/") t)
 
-;; anything
-;; auto-complete
-;; ctags-update
-;; expand-region & smart-forward
-;; watch-buffer
+;; helm
+;; auto-complete (meh)
+;; etags-update
+;; expand-region & smart-forward (meh)
+;; watch-buffer (meh)
 ;; wget
 
 (defvar favored-packages
