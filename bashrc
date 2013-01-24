@@ -30,7 +30,37 @@ alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
 alias ruby_tags="rm -f TAGS; ctags -a --Ruby-kinds=-fF -o TAGS -R ."
 alias gg="git grep -n"
 alias op="gnome-open"
+alias now="date '+%Y-%m-%d %H:%M'"
 
+### Platform-specific
+if [[ $(uname) == Darwin ]]; then
+    alias ls="ls -G -h"
+    alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
+    alias nowp="now | pbcopy"
+else
+    alias ls="ls --color -h"
+    alias myip="ifconfig eth0 | grep 'inet ' | cut --delimiter=' ' -f12 | sed s/addr://"
+fi
+
+### Viewers
+alias less="less -R" # display colors correctly
+alias tree="tree -C" # add colors
+alias ll="ls -l"
+alias la="ls -la"
+
+### Package management
+if [[ $(uname) == Linux ]]; then
+    alias agi="sudo apt-get install"
+    alias agr="sudo apt-get remove"
+    alias acs="apt-cache search"
+    alias agu="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade"
+fi
+
+alias oports="echo 'User:      Command:   Port:'; echo '----------------------------' ; lsof -i 4 -P -n | grep -i 'listen' | awk '{print \$3, \$1, \$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n |xargs printf '%-10s %-10s %-10s\n' | uniq"
+alias serve="python -m SimpleHTTPServer"
+alias kindle="rsync -r -v ~/Documents/books/kindle/* /Volumes/Kindle/documents"
+
+### Various useful functions
 function countpage() {
     pdf2dsc "$1" /dev/stdout | grep "Pages" | sed s/[^0-9]//g
 }
@@ -46,33 +76,6 @@ smiles() {
     obabel -:$@ -O out.svg
 }
 
-alias now="date '+%Y-%m-%d %H:%M'"
-
-alias less="less -R" # display colors correctly
-alias tree="tree -C" # add colors
-
-if [[ $(uname) == Darwin ]]; then
-    alias ls="ls -G -h"
-    alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
-    alias nowp="now | pbcopy"
-else
-    alias ls="ls --color -h"
-fi
-
-alias ll="ls -l"
-alias la="ls -la"
-
-# Package management
-if [[ $(uname) == Linux ]]; then
-    alias agi="sudo apt-get install"
-    alias agr="sudo apt-get remove"
-    alias acs="apt-cache search"
-    alias agu="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade"
-fi
-
-alias oports="echo 'User:      Command:   Port:'; echo '----------------------------' ; lsof -i 4 -P -n | grep -i 'listen' | awk '{print \$3, \$1, \$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n |xargs printf '%-10s %-10s %-10s\n' | uniq"
-alias serve="python -m SimpleHTTPServer"
-alias kindle="rsync -r -v ~/Documents/books/kindle/* /Volumes/Kindle/documents"
 
 ### Meta
 alias rc="$EDITOR ~/.bashrc"
