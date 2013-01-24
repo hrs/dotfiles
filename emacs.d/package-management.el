@@ -27,6 +27,7 @@
     magit
     magithub
     markdown-mode
+    nrepl
     octave-mod
     paredit
     python
