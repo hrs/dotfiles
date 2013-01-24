@@ -7,6 +7,7 @@
 (load "utils.el")
 
 ;; language-specific configuration
+(load "languages/css.el")
 (load "languages/groovy.el")
 (load "languages/haskell.el")
 (load "languages/html.el")
