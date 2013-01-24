@@ -7,6 +7,7 @@ source ~/.bin/git-completion.sh
 conf_dot_home_path="/home/hrs/.bin"
 # conf_rvm_path="/home/hrs/.rvm/bin"
 export PATH=/usr/local/bin:$PATH:$conf_dot_home_path
+export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
 
 ### Setting variables
 export DISPLAY=:0.0
@@ -26,7 +27,7 @@ alias sbcl="rlwrap sbcl"
 alias lisp="sbcl --noinform"
 alias lispi="sbcl -noinform --load"
 alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
-alias generate_tags="rm -f TAGS; ctags -a --Ruby-kinds=-fF -o TAGS -R ."
+alias ruby_tags="rm -f TAGS; ctags -a --Ruby-kinds=-fF -o TAGS -R ."
 alias gg="git grep -n"
 alias op="gnome-open"
 
@@ -46,7 +47,6 @@ smiles() {
 }
 
 alias now="date '+%Y-%m-%d %H:%M'"
-# alias nowp="now | pbcopy"
 
 alias less="less -R" # display colors correctly
 alias tree="tree -C" # add colors
@@ -54,6 +54,7 @@ alias tree="tree -C" # add colors
 if [[ $(uname) == Darwin ]]; then
     alias ls="ls -G -h"
     alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
+    alias nowp="now | pbcopy"
 else
     alias ls="ls --color -h"
 fi
@@ -71,6 +72,7 @@ fi
 
 alias oports="echo 'User:      Command:   Port:'; echo '----------------------------' ; lsof -i 4 -P -n | grep -i 'listen' | awk '{print \$3, \$1, \$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n |xargs printf '%-10s %-10s %-10s\n' | uniq"
 alias serve="python -m SimpleHTTPServer"
+alias kindle="rsync -r -v ~/Documents/books/kindle/* /Volumes/Kindle/documents"
 
 ### Meta
 alias rc="$EDITOR ~/.bashrc"
