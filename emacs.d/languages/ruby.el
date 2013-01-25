@@ -3,7 +3,8 @@
 	  (lambda ()
 	    (setq ruby-insert-encoding-magic-comment nil)
             (rinari-minor-mode)
-            (global-set-key (kbd "C-c C-f") 'rinari-find-file-in-project)))
+            (global-set-key (kbd "C-c C-f") 'rinari-find-file-in-project)
+            (setq rinari-tags-file-name "TAGS")))
 
 (setq auto-mode-alist (cons '("\\.rake$" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\Gemfile$" . ruby-mode) auto-mode-alist))
