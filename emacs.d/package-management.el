@@ -22,6 +22,7 @@
     ess ;; Emacs Speaks Statistics: R mode
     expand-region
     groovy-mode
+    hackernews
     haml-mode
     haskell-mode
     htmlize ;; convert region to html, with css for syntax highlighting
