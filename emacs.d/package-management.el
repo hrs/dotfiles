@@ -10,7 +10,6 @@
 ;; helm
 ;; auto-complete (meh)
 ;; etags-update
-;; expand-region & smart-forward (meh)
 ;; watch-buffer (meh)
 ;; wget
 
@@ -21,6 +20,7 @@
     elixir-mode
     erlang
     ess ;; Emacs Speaks Statistics: R mode
+    expand-region
     groovy-mode
     haml-mode
     haskell-mode
@@ -40,6 +40,7 @@
     rust-mode
     scss-mode
     shen-mode
+    smart-forward
     smex ;; improve M-x prompts
     sml-mode
     solarized-theme

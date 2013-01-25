@@ -9,6 +9,9 @@
 (global-set-key "\C-cd"    'date)
 (global-set-key "\C-ct"    'time)
 
+;; semantic navigation
+(global-set-key (kbd "C-@") 'er/expand-region)
+
 ;; rebind M-x more usefully
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
