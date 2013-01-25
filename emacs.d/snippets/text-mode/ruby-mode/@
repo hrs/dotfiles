@@ -1,0 +1,10 @@
+#name : @ basic yard method descriptor
+#group : yard
+# --
+# ${1:description}
+#
+# @param []
+#
+# @raise []
+#
+# @return []
