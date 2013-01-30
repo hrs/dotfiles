@@ -32,6 +32,7 @@
     nrepl
     octave-mod
     paredit
+    projectile
     python
     rainbow-mode
     rinari
