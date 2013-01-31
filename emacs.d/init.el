@@ -45,7 +45,7 @@
 	  'delete-trailing-whitespace)
 
 ;; configuring yasnippets
-(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(setq yas-snippet-dirs '("~/.emacs.d/snippets/text-mode"))
 (yas-global-mode 1)
 
 (put 'downcase-region 'disabled nil)
