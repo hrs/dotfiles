@@ -36,7 +36,7 @@ if [[ $(uname) == Darwin ]]; then
     alias ls="ls -G -h"
     alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
     alias nowp="now | pbcopy"
-    alias generate_rails_tags="rm -f TAGS; ctags -a --Ruby-kinds=-fF -o TAGS -R ."
+    alias generate_rails_tags="rm -f TAGS; ctags -a -e --Ruby-kinds=-fF -o TAGS -R app lib vendor ."
 else # Linux!
     alias ls="ls --color -h"
     alias myip="ifconfig eth0 | grep 'inet ' | cut --delimiter=' ' -f12 | sed s/addr://"
