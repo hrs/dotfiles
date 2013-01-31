@@ -38,7 +38,6 @@
     rinari
     ruby-end
     ruby-mode
-    ruby-electric
     rust-mode
     scss-mode
     shen-mode
