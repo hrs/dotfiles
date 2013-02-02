@@ -26,6 +26,7 @@
     haml-mode
     haskell-mode
     htmlize ;; convert region to html, with css for syntax highlighting
+    less-css-mode
     magit
     magithub
     markdown-mode
