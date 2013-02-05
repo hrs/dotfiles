@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dotfiles=$HOME/dotfiles
+dotfiles=$HOME/.dotfiles
 
 ln -s $dotfiles/ackrc $HOME/.ackrc
 ln -s $dotfiles/bashrc $HOME/.bashrc
