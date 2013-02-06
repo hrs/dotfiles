@@ -13,7 +13,6 @@
   unstage = reset HEAD
 
 [core]
-  editor = emacs -nw
   excludesfile = ~/.gitignore
 
 [user]
