@@ -38,8 +38,6 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
-(load "keybindings.el")
-
 ;; delete trailing whitespace
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)
@@ -53,3 +51,4 @@
 
 ;; use projectile everywhere
 (projectile-global-mode)
+(load "keybindings.el")
