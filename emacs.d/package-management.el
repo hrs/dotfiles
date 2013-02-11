@@ -21,6 +21,7 @@
     erlang
     ess ;; Emacs Speaks Statistics: R mode
     expand-region
+    git-gutter
     groovy-mode
     hackernews
     haml-mode
