@@ -1,6 +1,8 @@
 ;; UI preferences
 
 (load "fonts.el")
+(load "hide-modes.el")
+(add-hook 'after-change-major-mode-hook 'hide-modes)
 (smex-initialize)
 
 (defun use-solarized-theme ()
