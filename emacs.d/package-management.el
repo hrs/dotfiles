@@ -49,6 +49,7 @@
     solarized-theme
     tuareg
     yaml-mode
+    yard-mode
     yasnippet
     zenburn-theme))
 
