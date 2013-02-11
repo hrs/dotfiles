@@ -28,9 +28,11 @@
 (display-time-mode 1)
 (setq ido-enable-flex-matching t)
 
+(global-git-gutter-mode t)
+
 ;; Add line numbers
-(require 'linum)
-(global-linum-mode 1)
+;; (require 'linum)
+;; (global-linum-mode 1)
 
 (setq whitespace-style '(lines))
 (setq whitespace-line-column 78)
