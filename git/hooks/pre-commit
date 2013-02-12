@@ -11,6 +11,10 @@ fi
 
 for f in `exec git diff-index --cached --check $against -- | sed '/^[-+]/d' | cut -d: -f1 | uniq` ; do
     echo "* Removed whitespace: $f"
-    sed -i 's/[[:space:]]*$//' $f
+    if [[ $(uname) == Darwin ]]; then
+        sed -i '' -E 's/[[:space:]]*$//' $f
+    else
+        sed -i 's/[[:space:]]*$//' $f
+    fi
     git add $f
 done
