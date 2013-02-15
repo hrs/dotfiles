@@ -10,13 +10,9 @@
 (global-set-key (kbd "C-c t")   'time)
 (global-set-key (kbd "C-x g")   'magit-status)
 
-;; semantic navigation
-(global-set-key (kbd "C-@") 'er/expand-region)
-
 ;; rebind M-x more usefully
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
 
-(when (not window-system)
-  (define-key input-decode-map "\e[1;2A" [S-up]))
+(define-key input-decode-map "\e[1;2A" [S-up])
