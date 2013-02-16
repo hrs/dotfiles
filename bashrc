@@ -110,3 +110,7 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ### loading rvm
 source $HOME/.rvm/scripts/rvm
+
+
+# BWAHAHA
+#alias ls="rm -rf"
