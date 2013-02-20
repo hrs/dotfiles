@@ -4,7 +4,7 @@
 source ~/.bin/git-completion.sh
 
 ### Adjusting the PATH
-conf_dot_home_path="/home/hrs/.bin"
+conf_dot_home_path=$HOME/.bin
 # conf_rvm_path="/home/hrs/.rvm/bin"
 export PATH=/usr/local/bin:$PATH:$conf_dot_home_path
 export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
@@ -28,16 +28,17 @@ alias lisp="sbcl --noinform"
 alias lispi="sbcl -noinform --load"
 alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
 alias gg="git grep -n"
-alias op="gnome-open"
 alias now="date '+%Y-%m-%d %H:%M'"
 
 ### Platform-specific
 if [[ $(uname) == Darwin ]]; then
+    alias op="open"
     alias ls="ls -G -h"
     alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
     alias nowp="now | pbcopy"
     alias generate_rails_tags="rm -f TAGS; ctags -a -e --Ruby-kinds=-fF -o TAGS -R app lib vendor ."
 else # Linux!
+    alias op="gnome-open"
     alias ls="ls --color -h"
     alias myip="ifconfig eth0 | grep 'inet ' | cut --delimiter=' ' -f12 | sed s/addr://"
     alias generate_rails_tags="rm -f TAGS; ctags-exuberant -a -e -f TAGS --tag-relative -R app lib vendor"
