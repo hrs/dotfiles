@@ -21,6 +21,8 @@
     erlang
     ess ;; Emacs Speaks Statistics: R mode
     git-gutter
+    gitconfig-mode
+    gitignore-mode
     groovy-mode
     hackernews
     haml-mode
