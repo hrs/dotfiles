@@ -10,6 +10,7 @@
 (load "languages/css.el")
 (load "languages/groovy.el")
 (load "languages/haskell.el")
+(load "languages/haml.el")
 (load "languages/html.el")
 (load "languages/lisp.el")
 (load "languages/markdown.el")
