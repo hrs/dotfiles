@@ -20,6 +20,7 @@ alias path="echo $PATH | tr ':' '\n'"
 alias ack="ack-grep"
 alias clr="rm -f *~ .*~"
 alias e=$EDITOR
+alias n="e ~/Documents/notes"
 alias unb="tar xjvf"
 alias ung="tar xzvf"
 alias usage="du -sch"
