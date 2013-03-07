@@ -8,4 +8,6 @@
             (setq rinari-tags-file-name "TAGS")))
 
 (setq auto-mode-alist (cons '("\\.rake$" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.gemspec$" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\Gemfile$" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\Guardfile$" . ruby-mode) auto-mode-alist))
