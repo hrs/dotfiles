@@ -1,5 +1,5 @@
 (defvar preferred-font "Inconsolata-dz")
-(defvar preferred-font-size 120)
+(defvar preferred-font-size 100)
 
 (defun set-font-size (new-size)
   (setq preferred-font-size new-size)
@@ -13,6 +13,8 @@
 (defun decrease-font-size ()
   (interactive)
   (set-font-size (- preferred-font-size 10)))
+
+(set-font-size)
 
 ;; (global-set-key "\C--" 'decrease-font-size)
 ;; (global-set-key "\C-=" 'increase-font-size)

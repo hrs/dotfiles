@@ -13,8 +13,9 @@
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/zenburn")
   (load-theme 'zenburn t))
 
-(if window-system (tool-bar-mode 0)
-  (menu-bar-mode 0)) ; no menu bar in terminal
+(when window-system (tool-bar-mode 0))
+
+(menu-bar-mode 0)
 
 ;; quiet startup
 (setq inhibit-startup-message t)
