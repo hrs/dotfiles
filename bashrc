@@ -105,7 +105,6 @@ __quiet_git_ps1() {
 PS1='\[\033[36m\][\w$(__quiet_git_ps1)] \$ \[\033[00m\]'
 
 ### Launch the shell!
-echo "IP: $(myip)"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
