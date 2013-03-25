@@ -13,9 +13,8 @@
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/zenburn")
   (load-theme 'zenburn t))
 
-(when window-system (tool-bar-mode 0))
-
-(menu-bar-mode 0)
+(if window-system (tool-bar-mode 0)
+  (menu-bar-mode 0))
 
 ;; quiet startup
 (setq inhibit-startup-message t)
@@ -30,8 +29,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (display-time-mode 1)
 (setq ido-enable-flex-matching t)
-
-(global-git-gutter-mode t)
 
 ;; Add line numbers
 ;; (require 'linum)
