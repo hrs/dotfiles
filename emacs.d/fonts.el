@@ -14,7 +14,8 @@
   (interactive)
   (set-font-size (- preferred-font-size 10)))
 
-(set-font-size preferred-font-size)
+(when (eq system-type 'gnu/linux)
+  (set-font-size preferred-font-size))
 
 ;; (global-set-key "\C--" 'decrease-font-size)
 ;; (global-set-key "\C-=" 'increase-font-size)
