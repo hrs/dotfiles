@@ -15,6 +15,7 @@
 (load "languages/lisp.el")
 (load "languages/markdown.el")
 (load "languages/octave.el")
+(load "languages/org-mode.el")
 (load "languages/python.el")
 (load "languages/r.el")
 (load "languages/ruby.el")
