@@ -31,6 +31,9 @@
 (setq ido-enable-flex-matching t)
 (electric-pair-mode t)
 
+;; cursor
+(setq-default cursor-type '(bar . 1))
+
 ;; Add line numbers
 ;; (require 'linum)
 ;; (global-linum-mode 1)
