@@ -34,6 +34,7 @@
     nrepl
     octave-mod
     paredit
+    php-mode
     projectile
     python
     rainbow-mode
