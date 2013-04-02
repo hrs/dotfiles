@@ -29,6 +29,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (display-time-mode 1)
 (setq ido-enable-flex-matching t)
+(electric-pair-mode t)
 
 ;; Add line numbers
 ;; (require 'linum)
