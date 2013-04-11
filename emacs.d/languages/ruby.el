@@ -7,7 +7,9 @@
             (setq rinari-tags-file-name "TAGS")
             (local-set-key "\r" 'newline-and-indent)))
 
-(setq auto-mode-alist (cons '("\\.rake$" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.gemspec$" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\Gemfile$" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\Guardfile$" . ruby-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Guardfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Vagrantfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Vagrantfile.local$" . ruby-mode))
