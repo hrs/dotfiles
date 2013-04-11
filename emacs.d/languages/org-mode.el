@@ -9,5 +9,8 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+(setq org-agenda-files '("~/Documents/org/main.org"
+                         "~/Documents/org/work.org"
+                         "~/Documents/org/to-process.org"))
 
 (setq org-archive-location "~/Documents/org/archive.org::* From %s")
