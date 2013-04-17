@@ -31,6 +31,7 @@
     magit
     magithub
     markdown-mode
+    multiple-cursors
     nrepl
     octave-mod
     paredit
