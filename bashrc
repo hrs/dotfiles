@@ -5,8 +5,9 @@ source ~/.bin/git-completion.sh
 
 ### Adjusting the PATH
 conf_dot_home_path=$HOME/.bin
+tex_path=/usr/local/texlive/2011/bin/x86_64-darwin
 # conf_rvm_path="/home/hrs/.rvm/bin"
-export PATH=/usr/local/bin:$PATH:/sbin:$conf_dot_home_path
+export PATH=/usr/local/bin:$PATH:/sbin:$tex_path:$conf_dot_home_path
 export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
 
 ### Setting variables
