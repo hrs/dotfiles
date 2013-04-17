@@ -1,0 +1,6 @@
+#name : after
+#group : rspec
+# --
+after :each do
+  $0
+end
