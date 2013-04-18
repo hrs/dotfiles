@@ -17,22 +17,28 @@ export LANG="en_US"
 export LC_ALL=C
 
 ### Assorted aliases
-alias path="echo $PATH | tr ':' '\n'"
 alias ack="ack-grep"
 alias clr="rm -f *~ .*~"
 alias e=$EDITOR
+alias gg="git grep -n"
+alias la="ls -la"
+alias less="less -R" # display colors correctly
+alias lisp="sbcl --noinform"
+alias lispi="sbcl -noinform --load"
+alias ll="ls -l"
+alias ln="ln -v"
+alias mkdir="mkdir -p"
 alias n="e ~/Documents/notes"
+alias now="date '+%Y-%m-%d %H:%M'"
+alias path="echo $PATH | tr ':' '\n'"
+alias sbcl="rlwrap sbcl"
+alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
+alias tree="tree -C" # add colors
 alias unb="tar xjvf"
 alias ung="tar xzvf"
 alias usage="du -sch"
-alias sbcl="rlwrap sbcl"
-alias lisp="sbcl --noinform"
-alias lispi="sbcl -noinform --load"
-alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
-alias gg="git grep -n"
-alias now="date '+%Y-%m-%d %H:%M'"
 
-### Platform-specific
+### Aiming for something like platform-independence
 if [[ $(uname) == Darwin ]]; then
     alias op="open"
     alias ls="ls -G -h"
@@ -45,12 +51,6 @@ else # Linux!
     alias myip="ifconfig eth0 | grep 'inet ' | cut --delimiter=' ' -f12 | sed s/addr://"
     alias generate_rails_tags="rm -f TAGS; ctags-exuberant -a -e -f TAGS --tag-relative -R app lib vendor"
 fi
-
-### Viewers
-alias less="less -R" # display colors correctly
-alias tree="tree -C" # add colors
-alias ll="ls -l"
-alias la="ls -la"
 
 ### Package management
 if [[ $(uname) == Darwin ]]; then
