@@ -2,7 +2,6 @@
 
 (load "fonts.el")
 (load "hide-modes.el")
-(add-hook 'after-change-major-mode-hook 'hide-modes)
 (smex-initialize)
 
 (defun use-solarized-theme ()
@@ -46,10 +45,6 @@
 ;; Add line numbers
 ;; (require 'linum)
 ;; (global-linum-mode 1)
-
-(setq whitespace-style '(lines))
-(setq whitespace-line-column 78)
-(global-whitespace-mode 1)
 
 ;; Improve scrolling
 (setq

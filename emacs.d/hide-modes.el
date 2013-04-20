@@ -1,17 +1,25 @@
-(defvar modes-to-hide
-  '(git-gutter-mode
-    global-whitespace-mode
-    projectile-mode
-    rinari-minor-mode
-    yard-mode
-    yas-minor-mode))
+;; minor modes to hide altogether
+(eval-after-load "global-whitespace"
+  '(diminish 'global-whitespace-mode))
+(eval-after-load "projectile"
+  '(diminish 'projectile-mode))
+(eval-after-load "rinari-minor"
+  '(diminish 'rinari-minor-mode))
+(eval-after-load "yard"
+  '(diminish 'yard-mode))
+(eval-after-load "yas-minor"
+  '(diminish 'yas/minor-mode))
 
-(defun empty-mode (mode)
-  (cons mode '("")))
+;; minor modes to rename
+(eval-after-load "paredit"
+  '(diminish 'paredit-mode " π"))
 
-(defun hidden-mode-p (mode)
-  (member (car mode) modes-to-hide))
-
-(defun hide-modes ()
-  (setq minor-mode-alist (append (mapcar 'empty-mode modes-to-hide)
-                                 (remove-if 'hidden-mode-p minor-mode-alist))))
+;; major modes to rename
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () (setq mode-name "el")))
+(add-hook 'haskell-mode-hook
+          (lambda () (setq mode-name "λ=")))
+(add-hook 'lisp-interaction-mode-hook
+          (lambda () (setq mode-name "λ")))
+(add-hook 'python-mode-hook
+          (lambda () (setq mode-name "Py")))

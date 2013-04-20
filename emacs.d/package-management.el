@@ -17,6 +17,7 @@
   '(auctex
     clojure-mode
     coffee-mode
+    diminish
     elixir-mode
     erlang
     ess ;; Emacs Speaks Statistics: R mode
