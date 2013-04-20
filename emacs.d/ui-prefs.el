@@ -40,6 +40,9 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+;; expand-region
+(global-set-key (kbd "C-@") 'er/expand-region)
+
 ;; Add line numbers
 ;; (require 'linum)
 ;; (global-linum-mode 1)

@@ -20,6 +20,7 @@
     elixir-mode
     erlang
     ess ;; Emacs Speaks Statistics: R mode
+    expand-region
     gitconfig-mode
     gitignore-mode
     groovy-mode
