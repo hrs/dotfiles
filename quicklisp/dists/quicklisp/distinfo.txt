@@ -1,0 +1,7 @@
+name: quicklisp
+version: 2013-03-12
+system-index-url: http://beta.quicklisp.org/dist/quicklisp/2013-03-12/systems.txt
+release-index-url: http://beta.quicklisp.org/dist/quicklisp/2013-03-12/releases.txt
+archive-base-url: http://beta.quicklisp.org/
+canonical-distinfo-url: http://beta.quicklisp.org/dist/quicklisp/2013-03-12/distinfo.txt
+distinfo-subscription-url: http://beta.quicklisp.org/dist/quicklisp.txt

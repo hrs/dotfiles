@@ -1,7 +1,5 @@
-(add-to-list 'load-path "~/.emacs/languages/slime")
-(setq inferior-lisp-program "/usr/bin/sbcl")
-; (require 'slime)
-; (slime-setup)
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
 
 ;; make those lambdas pretty!
 (defun pretty-lambdas ()
