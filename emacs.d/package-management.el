@@ -45,6 +45,7 @@
     ruby-end
     ruby-mode
     rust-mode
+    rvm
     scss-mode
     shen-mode
     smart-forward
