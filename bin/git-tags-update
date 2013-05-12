@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ctags -e --Ruby-kinds=-fF -o TAGS -R app test lib config script bin
