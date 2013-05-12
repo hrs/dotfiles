@@ -43,8 +43,10 @@
 (global-set-key (kbd "C-@") 'er/expand-region)
 
 ;; Add line numbers
-;; (require 'linum)
-;; (global-linum-mode 1)
+(global-linum-mode 1)
+
+;; treat CamelCase as separate words
+(add-hook 'prog-mode-hook 'subword-mode)
 
 ;; Improve scrolling
 (setq
