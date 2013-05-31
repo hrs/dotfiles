@@ -35,7 +35,7 @@
     markdown-mode
     multiple-cursors
     nrepl
-    octave-mod
+    octave
     paredit
     php-mode
     projectile
