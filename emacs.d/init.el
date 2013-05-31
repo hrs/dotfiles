@@ -1,5 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d")
 
+(set-frame-parameter nil 'fullscreen 'fullboth)
+
 (load "package-management.el")
 (load "ui-prefs.el")
 ;; (load "mail-prefs.el")
