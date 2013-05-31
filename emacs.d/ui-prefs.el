@@ -48,6 +48,12 @@
 ;; treat CamelCase as separate words
 (add-hook 'prog-mode-hook 'subword-mode)
 
+;; highlight long lines in programming modes
+(require 'whitespace)
+(setq whitespace-line-column 80)
+(setq whitespace-style '(face lines-tail))
+(add-hook 'prog-mode-hook 'whitespace-mode)
+
 ;; Improve scrolling
 (setq
  scroll-margin 5
