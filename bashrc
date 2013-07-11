@@ -122,6 +122,7 @@ PS1='\[\033[36m\][\w$(__quiet_git_ps1)] \$ \[\033[00m\]'
 ### Launch the shell!
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM
 
 ### loading rvm
 source $HOME/.rvm/scripts/rvm
