@@ -6,6 +6,7 @@ ln -s $dotfiles/Xmodmap $HOME/.Xmodmap
 ln -s $dotfiles/ackrc $HOME/.ackrc
 ln -s $dotfiles/bashrc $HOME/.bashrc
 ln -s $dotfiles/bin $HOME/.bin
+ln -s $dotfiles/ctags $HOME/.ctags
 ln -s $dotfiles/emacs.d $HOME/.emacs.d
 ln -s $dotfiles/git $HOME/.git
 ln -s $dotfiles/gitconfig $HOME/.gitconfig
