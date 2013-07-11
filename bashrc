@@ -42,6 +42,17 @@ alias unb="tar xjvf"
 alias ung="tar xzvf"
 alias usage="du -sch"
 
+# Override the mvn command with the colorized one.
+alias mvn="mvn-color"
+
+function java6 () {
+    export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
+}
+
+function java7 () {
+    export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+}
+
 ### Aiming for something like platform-independence
 if [[ $(uname) == Darwin ]]; then
     alias op="open"
