@@ -20,6 +20,11 @@
   (interactive)
   (insert (format-time-string "%H:%M:%S")))
 
+(defun view-buffer-name ()
+  "Display the filename of the current buffer."
+  (interactive)
+  (message (buffer-file-name)))
+
 (setq search-engine-url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=")
 
 (defun search-engine ()
