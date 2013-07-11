@@ -4,6 +4,10 @@
 source ~/.bin/git-completion.sh
 
 ### Adjusting the PATH
+if [[ $(uname) == Darwin ]]; then
+    emacs_path=/Applications/Emacs.app/Contents/MacOS/bin
+    export PATH=$emacs_path:$PATH
+fi
 conf_dot_home_path=$HOME/.bin
 tex_path=/usr/local/texlive/2011/bin/x86_64-darwin
 # conf_rvm_path="/home/hrs/.rvm/bin"
@@ -84,7 +88,6 @@ function viewpages() {
 smiles() {
     obabel -:$@ -O out.svg
 }
-
 
 ### Meta
 alias rc="$EDITOR ~/.bashrc"
