@@ -6,6 +6,7 @@ source ~/.bin/git-completion.sh
 ### Adjusting the PATH
 if [[ $(uname) == Darwin ]]; then
     emacs_path=/Applications/Emacs.app/Contents/MacOS/bin
+    M2_HOME=$HOME/Documents/tools/maven
     export PATH=$emacs_path:$PATH
 fi
 conf_dot_home_path=$HOME/.bin
@@ -13,6 +14,10 @@ tex_path=/usr/local/texlive/2011/bin/x86_64-darwin
 # conf_rvm_path="/home/hrs/.rvm/bin"
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH:/sbin:$tex_path:$conf_dot_home_path
 export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
+
+if [[ -n "$M2_HOME" ]]; then
+    export PATH=$M2_HOME/bin:$PATH
+end
 
 ### Setting variables
 export DISPLAY=:0.0
