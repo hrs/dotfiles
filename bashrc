@@ -17,7 +17,7 @@ export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
 
 if [[ -n "$M2_HOME" ]]; then
     export PATH=$M2_HOME/bin:$PATH
-end
+fi
 
 ### Setting variables
 export DISPLAY=:0.0
