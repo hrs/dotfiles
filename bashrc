@@ -47,6 +47,11 @@ alias unb="tar xjvf"
 alias ung="tar xzvf"
 alias usage="du -sch"
 
+# create org-formatted todos
+function todo {
+    echo "** TODO $1" >> ~/Dropbox/org/to-process.org
+}
+
 # Override the mvn command with the colorized one.
 alias mvn="mvn-color"
 
