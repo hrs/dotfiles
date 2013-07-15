@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# source ~/.rvm/scripts/rvm
 source ~/.bin/git-completion.sh
 
 ### Adjusting the PATH
@@ -104,10 +103,6 @@ function viewpages() {
         filepagecount=$(countpage "$file")
         printf "%4d %s\n" $filepagecount $file
     done
-}
-
-smiles() {
-    obabel -:$@ -O out.svg
 }
 
 ### Meta
