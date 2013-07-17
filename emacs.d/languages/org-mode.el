@@ -16,8 +16,8 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
 (setq org-log-done t)
-(setq org-agenda-files '("~/Documents/org/main.org"
-                         "~/Documents/org/work.org"
-                         "~/Documents/org/to-process.org"))
+(setq org-agenda-files '("~/Dropbox/org/main.org"
+                         "~/Dropbox/org/work.org"
+                         "~/Dropbox/org/to-process.org"))
 
-(setq org-archive-location "~/Documents/org/archive.org::* From %s")
+(setq org-archive-location "~/Dropbox/org/archive.org::* From %s")
