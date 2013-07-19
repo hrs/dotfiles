@@ -47,14 +47,15 @@ alias ung="tar xzvf"
 alias usage="du -sch"
 
 todo_queue="$HOME/Dropbox/org/to-process.org"
+todo_prefix="** TODO"
 
 # create org-formatted todos
 function todo {
-    echo "** TODO $@" >> $todo_queue
+    echo "$todo_prefix $@" >> $todo_queue
 }
 
 # display todos in the to-process queue
-alias todos="cat $todo_queue"
+alias todos="sed s/'$todo_prefix '// < $todo_queue"
 
 # Override the mvn command with the colorized one.
 alias mvn="mvn-color"
