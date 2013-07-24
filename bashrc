@@ -57,6 +57,8 @@ function todo {
 # display todos in the to-process queue
 alias todos="sed s/'$todo_prefix '// < $todo_queue"
 
+alias etodos="$EDITOR $todo_queue"
+
 # Override the mvn command with the colorized one.
 alias mvn="mvn-color"
 
