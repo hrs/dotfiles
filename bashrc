@@ -1,12 +1,14 @@
 #!/bin/bash
 
 source ~/.bin/git-completion.sh
+source ~/.bin/npm-completion.sh
 
 ### Adjusting the PATH
 if [[ $(uname) == Darwin ]]; then
+    npm_home=/usr/local/share/npm/bin
     emacs_path=/Applications/Emacs.app/Contents/MacOS/bin
     M2_HOME=$HOME/Documents/tools/maven
-    export PATH=$emacs_path:$PATH
+    export PATH=$npm_home:$emacs_path:$PATH
 fi
 conf_dot_home_path=$HOME/.bin
 tex_path=/usr/local/texlive/2011/bin/x86_64-darwin
