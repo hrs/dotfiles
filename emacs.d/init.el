@@ -23,6 +23,7 @@
 (load "modes/r.el")
 (load "modes/ruby.el")
 (load "modes/sass.el")
+(load "modes/shell.el")
 (load "modes/tex.el")
 
 ;; fussy, fussy
