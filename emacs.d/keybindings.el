@@ -9,6 +9,7 @@
 (global-set-key (kbd "C-c d")   'date)
 (global-set-key (kbd "C-c t")   'time)
 (global-set-key (kbd "C-x g")   'magit-status)
+(global-set-key (kbd "C-x w")   'count-words)
 (global-set-key (kbd "C-c g")   'search-engine)
 
 ;; rebind M-x more usefully
