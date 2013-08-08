@@ -27,7 +27,9 @@ export LANG="en_US"
 export LC_ALL=C
 
 ### Assorted aliases
-alias ack="ack-grep"
+if [[ $(uname) != Darwin ]]; then
+    alias ack="ack-grep"
+fi
 alias clr="rm -f *~ .*~"
 alias e=$EDITOR
 alias gg="git grep -n"
