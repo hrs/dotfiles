@@ -14,6 +14,7 @@
 (load "modes/haskell.el")
 (load "modes/haml.el")
 (load "modes/html.el")
+(load "modes/javascript.el")
 (load "modes/lisp.el")
 (load "modes/markdown.el")
 (load "modes/octave.el")
