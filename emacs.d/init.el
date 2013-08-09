@@ -9,23 +9,8 @@
 (load "utils.el")
 
 ;; mode-specific configuration
-(load "modes/css.el")
-(load "modes/groovy.el")
-(load "modes/haskell.el")
-(load "modes/haml.el")
-(load "modes/html.el")
-(load "modes/javascript.el")
-(load "modes/lisp.el")
-(load "modes/markdown.el")
-(load "modes/octave.el")
-(load "modes/org-mode.el")
-(load "modes/prolog.el")
-(load "modes/python.el")
-(load "modes/r.el")
-(load "modes/ruby.el")
-(load "modes/sass.el")
-(load "modes/shell.el")
-(load "modes/tex.el")
+(mapcar (lambda (mode-file-name) (load (concat "modes/" mode-file-name)))
+        (directory-files "~/.emacs.d/modes" nil ".el"))
 
 ;; fussy, fussy
 (setq make-backup-files nil)
