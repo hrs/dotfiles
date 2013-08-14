@@ -9,46 +9,39 @@ Convert tables of content into happy XHTML.
 import sys
 import os
 
-def tidyUp (s):
+def replace_glyphs(s):
   s = s.replace ("&", "&amp;")
   s = s.replace ("...", "&hellip;")
   s = s.replace ("'", "&rsquo;")
   s = s.replace ("\"", "&quot;")
-  s = s.replace ("-", "&ndash;")
+  s = s.replace (" - ", "&mdash;")
+  s = s.replace ("  ", " ")
   return s
 
-def printThatShit (lines, inputFile):
-  f = open (inputFile + ".html", 'w')
-  f.write ("<dl>\n")
-  for i in range (len (lines)):
+def print_html(lines, input_file):
+  print "<dl>"
+  for i in range(len(lines)):
     if (i % 2 == 0):
-      author = lines [i].split (',') [-1].strip ()
-      title = lines [i] [0:-1 * len (author)]
-      title = tidyUp (title)
-      f.write ("<dt>")
-      f.write (title)
-      f.write ("<em>")
-      f.write (author)
-      f.write ("</em>")
-      f.write ("</dt>\n")
+      author = replace_glyphs(lines[i].split(',')[-1].strip())
+      title = lines[i][0:-1 * len(author)]
+      title = replace_glyphs(title)
+      print "  <dt>" + title + "<em>" + author + "</em>" + "</dt>"
     else:
-      f.write ("<dd>")
-      desc = lines [i]
-      if (desc [-1] not in ".!?"):
+      desc = lines[i]
+      if (desc[-1] not in ".!?"):
         desc += "."
-      desc = tidyUp (desc)
-      f.write (desc)
-      f.write ("</dd>\n")
-  f.write ("</dl>\n")
-  f.close ()
+      desc = replace_glyphs(desc)
+
+      print "  <dd>" + desc + "</dd>\n"
+  print "</dl>"
 
 def main():
-  inputFile = sys.argv [1]
-  f = open (inputFile, 'r')
-  lines = [x.strip () for x in f.readlines ()]
-  lines = filter (lambda x: x != "", lines)
-  f.close ()
-  printThatShit (lines, inputFile)
+  input_file = sys.argv[1]
+  f = open(input_file, 'r')
+  lines = [x.strip() for x in f.readlines()]
+  lines = filter(lambda x: x != "", lines)
+  f.close()
+  print_html(lines, input_file)
 
 if __name__ == '__main__':
   main()
