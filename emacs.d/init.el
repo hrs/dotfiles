@@ -8,6 +8,9 @@
 ;; (load "slime-prefs.el")
 (load "utils.el")
 
+;; extend exec-path
+(setq exec-path (append exec-path '("/usr/local/bin")))
+
 ;; mode-specific configuration
 (mapcar (lambda (mode-file-name) (load (concat "modes/" mode-file-name)))
         (directory-files "~/.emacs.d/modes" nil ".el"))
