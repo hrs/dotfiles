@@ -49,6 +49,7 @@ alias tree="tree -C" # add colors
 alias unb="tar xjvf"
 alias ung="tar xzvf"
 alias usage="du -sch"
+alias fucking="sudo"
 
 todo_queue="$HOME/Dropbox/org/to-process.org"
 todo_prefix="** TODO"
