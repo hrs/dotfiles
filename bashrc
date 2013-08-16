@@ -52,7 +52,7 @@ alias usage="du -sch"
 alias fucking="sudo"
 
 todo_queue="$HOME/Dropbox/org/to-process.org"
-todo_prefix="** TODO"
+todo_prefix="* TODO"
 
 # create org-formatted todos
 function todo {
