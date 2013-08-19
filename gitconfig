@@ -23,6 +23,16 @@
 [color]
   ui = true
 
+[color "grep"]
+        filename = magenta
+        match = bold red
+        linenumber = bold blue
+
+[color "diff"]
+        meta = bold cyan
+
+[grep]
+        linenumber = true
 [push]
   default = current
 
