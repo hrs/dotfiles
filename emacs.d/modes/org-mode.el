@@ -16,8 +16,9 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
 (setq org-log-done t)
-(setq org-agenda-files '("~/Dropbox/org/main.org"
-                         "~/Dropbox/org/work.org"
-                         "~/Dropbox/org/to-process.org"))
+
+;; derive the agenda from every file in the org directory, minus the archive
+(setq org-agenda-files (remove "~/Dropbox/org/archive.org"
+                               (file-expand-wildcards "~/Dropbox/org/*.org")))
 
 (setq org-archive-location "~/Dropbox/org/archive.org::* From %s")
