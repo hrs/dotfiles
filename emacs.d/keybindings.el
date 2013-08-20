@@ -12,6 +12,9 @@
 (global-set-key (kbd "C-x w") 'count-words)
 (global-set-key (kbd "C-c g") 'search-engine)
 
+(global-set-key (kbd "M-<up>") 'move-line-up)
+(global-set-key (kbd "M-<down>") 'move-line-down)
+
 ;; rebind M-x more usefully
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
