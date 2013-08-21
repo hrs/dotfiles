@@ -3,3 +3,9 @@
 *~
 TAGS
 custom_plan.rb
+.classpath
+.project
+.settings
+*.iml
+.idea
+.clover
