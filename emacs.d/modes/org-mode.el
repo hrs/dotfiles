@@ -1,8 +1,8 @@
 ;; calendar preferences
 
 (setq calendar-latitude 42.2)
-(setq calendar-longitude -71.0)
-(setq calendar-location-name "Boston, MA")
+(setq calendar-longitude -71.1)
+(setq calendar-location-name "Cambridge, MA")
 
 (setq org-hide-leading-stars t)
 
