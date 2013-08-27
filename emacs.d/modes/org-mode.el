@@ -4,7 +4,7 @@
 (setq calendar-longitude -71.0)
 (setq calendar-location-name "Boston, MA")
 
-;; org-mode stuff
+(setq org-hide-leading-stars t)
 
 (defun mark-done-and-archive ()
   "Mark the state of an org-mode item as DONE and archive it."
