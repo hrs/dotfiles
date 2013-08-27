@@ -66,6 +66,7 @@ alias etodos="$EDITOR $todo_queue"
 
 # Override the mvn command with the colorized one.
 alias mvn="mvn-color"
+alias mvnci="mvn clean install"
 
 function java6 () {
     export JAVA_HOME=`/usr/libexec/java_home -v 1.6`

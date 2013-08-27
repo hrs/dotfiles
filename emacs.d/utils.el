@@ -35,3 +35,14 @@
     (url-hexify-string (if mark-active
                            (buffer-substring (region-beginning) (region-end))
                          (read-string "Search: "))))))
+
+(defun move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2))
+
+(defun move-line-down ()
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1))
