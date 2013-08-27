@@ -54,10 +54,4 @@
 (setq whitespace-style '(face lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
-;; Improve scrolling
-(setq
- scroll-margin 5
- scroll-conservatively 100000
- scroll-preserve-screen-position 1)
-
 (load-theme 'tango-dark t)
