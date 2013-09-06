@@ -1,8 +1,15 @@
-;; derive the agenda from every file in the org directory, minus the archive
-(setq org-agenda-files (remove "~/Dropbox/org/archive.org"
-                               (file-expand-wildcards "~/Dropbox/org/*.org")))
+(setq org-directory "~/org")
 
-(setq org-archive-location "~/Dropbox/org/archive.org::* From %s")
+(defun org-file-path (filename)
+  "Return the absolute address of an org file, given its relative name."
+  (concat (file-name-as-directory org-directory) filename))
+
+;; derive the agenda from every file in the org directory, minus the archive
+(setq org-agenda-files (remove (org-file-path "archive.org")
+                               (file-expand-wildcards (org-file-path "*.org"))))
+
+(setq org-archive-location
+      (concat (org-file-path "archive.org") "::* From %s"))
 
 ;; calendar preferences
 (setq calendar-latitude 42.2)
@@ -13,11 +20,11 @@
 (setq org-hide-leading-stars t)
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file "~/org/index.org")
+      '(("t" "Todo" entry (file (org-file-path "index.org"))
          "* TODO %?\n  %u\n")
-        ("T" "Tagged todo" entry (file "~/org/index.org")
+        ("T" "Tagged todo" entry (file (org-file-path "index.org"))
          "* TODO %? %^g\n  %u\n")
-        ("j" "Journal item" entry (file "~/org/journal.org")
+        ("j" "Journal item" entry (file (org-file-path "journal.org"))
          "** %?\n   %u\n")))
 
 (defun mark-done-and-archive ()
