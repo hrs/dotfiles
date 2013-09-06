@@ -14,11 +14,11 @@
 
 (setq org-capture-templates
       '(("t" "Todo" entry (file "~/org/index.org")
-         "* TODO %?\n  :PROPERTIES:\n  :created: %t\n  :END:\n")
+         "* TODO %?\n  %u\n")
         ("T" "Tagged todo" entry (file "~/org/index.org")
-         "* TODO %? %^g\n  :PROPERTIES:\n  :created: %t\n  :END:\n")
+         "* TODO %? %^g\n  %u\n")
         ("j" "Journal item" entry (file "~/org/journal.org")
-         "** %?\n   CLOSED: %t\n")))
+         "** %?\n   %u\n")))
 
 (defun mark-done-and-archive ()
   "Mark the state of an org-mode item as DONE and archive it."
