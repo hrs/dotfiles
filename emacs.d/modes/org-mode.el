@@ -24,6 +24,8 @@
          "* TODO %?\n  %u\n")
         ("T" "Tagged todo" entry (file (org-file-path "index.org"))
          "* TODO %? %^g\n  %u\n")
+        ("d" "Delivery" entry (file (org-file-path "deliveries.org"))
+         "* %?\n  %t\n")
         ("j" "Journal item" entry (file (org-file-path "journal.org"))
          "** %?\n   %u\n")))
 
