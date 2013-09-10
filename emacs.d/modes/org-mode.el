@@ -26,6 +26,7 @@
          "* TODO %? %^g\n  %u\n")
         ("d" "Delivery" entry (file (org-file-path "deliveries.org"))
          "* %?\n  %t\n")
+        ("g" "Groceries" checkitem (file (org-file-path "groceries.org")))
         ("j" "Journal item" entry (file (org-file-path "journal.org"))
          "** %?\n   %u\n")))
 
