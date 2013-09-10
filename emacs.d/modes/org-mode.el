@@ -1,8 +1,12 @@
 (setq org-directory "~/org")
+(setq notes-directory "~/Dropbox/notes")
+
+(defun construct-filename (directory filename)
+  (concat (file-name-as-directory directory) filename))
 
 (defun org-file-path (filename)
   "Return the absolute address of an org file, given its relative name."
-  (concat (file-name-as-directory org-directory) filename))
+  (construct-filename org-directory filename))
 
 ;; derive the agenda from every file in the org directory, minus the archive
 (setq org-agenda-files (remove (org-file-path "archive.org")
@@ -20,15 +24,34 @@
 (setq org-hide-leading-stars t)
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file (org-file-path "index.org"))
-         "* TODO %?\n  %u\n")
-        ("T" "Tagged todo" entry (file (org-file-path "index.org"))
-         "* TODO %? %^g\n  %u\n")
-        ("d" "Delivery" entry (file (org-file-path "deliveries.org"))
+      '(("d" "Delivery"
+         entry
+         (file (org-file-path "deliveries.org"))
          "* %?\n  %t\n")
-        ("g" "Groceries" checkitem (file (org-file-path "groceries.org")))
-        ("j" "Journal item" entry (file (org-file-path "journal.org"))
-         "** %?\n   %u\n")))
+
+        ("g" "Groceries"
+         checkitem
+         (file (org-file-path "groceries.org")))
+
+        ("j" "Journal entry"
+         entry
+         (file (org-file-path "journal.org"))
+         "** %?\n   %u\n")
+
+        ("s" "Memorable snippet, word, or fact"
+         entry
+         (file (construct-filename notes-directory "remember.org"))
+         "* %?\n")
+
+        ("t" "Todo"
+         entry
+         (file (org-file-path "index.org"))
+         "* TODO %?\n  %u\n")
+
+        ("T" "Todo with tags"
+         entry
+         (file (org-file-path "index.org"))
+         "* TODO %? %^g\n  %u\n")))
 
 (defun mark-done-and-archive ()
   "Mark the state of an org-mode item as DONE and archive it."
