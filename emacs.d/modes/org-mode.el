@@ -43,6 +43,11 @@
          (file (org-file-path "journal.org"))
          "** %?\n   %u\n")
 
+        ("r" "Reading queue"
+         entry
+         (file (org-file-path "read.org"))
+         "* %?\n")
+
         ("s" "Memorable snippet, word, or fact"
          entry
          (file (construct-filename notes-directory "remember.org"))
