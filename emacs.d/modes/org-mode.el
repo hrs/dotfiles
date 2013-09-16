@@ -43,9 +43,26 @@
          (file (org-file-path "journal.org"))
          "** %?\n   %u\n")
 
-        ("r" "Reading queue"
+        ("q" "Media queues")
+
+        ("qm" "Movies"
          entry
-         (file (org-file-path "read.org"))
+         (file (construct-filename notes-directory "media-movies.org"))
+         "* %?\n")
+
+        ("qu" "Music"
+         entry
+         (file (construct-filename notes-directory "media-music.org"))
+         "* %?\n")
+
+        ("qr" "Reading"
+         entry
+         (file (construct-filename notes-directory "media-reading.org"))
+         "* %?\n")
+
+        ("qt" "Television"
+         entry
+         (file (construct-filename notes-directory "media-tv.org"))
          "* %?\n")
 
         ("s" "Memorable snippet, word, or fact"
