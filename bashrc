@@ -30,39 +30,25 @@ export LC_ALL=C
 if [[ $(uname) != Darwin ]]; then
     alias ack="ack-grep"
 fi
-alias clr="rm -f *~ .*~"
 alias e=$EDITOR
 alias gg="git grep -n"
-alias la="ls -la"
 alias less="less -R" # display colors correctly
+alias sbcl="rlwrap sbcl"
 alias lisp="sbcl --noinform"
 alias lispi="sbcl -noinform --load"
+alias la="ls -la"
 alias ll="ls -l"
 alias ln="ln -v"
 alias mkdir="mkdir -p"
 alias n="e ~/Documents/notes"
 alias now="date '+%Y-%m-%d %H:%M'"
 alias path="echo $PATH | tr ':' '\n'"
-alias sbcl="rlwrap sbcl"
 alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
 alias tree="tree -C" # add colors
 alias unb="tar xjvf"
 alias ung="tar xzvf"
 alias usage="du -sch"
 alias fucking="sudo"
-
-todo_queue="$HOME/Dropbox/org/to-process.org"
-todo_prefix="* TODO"
-
-# create org-formatted todos
-function todo {
-    echo "$todo_prefix $@" >> $todo_queue
-}
-
-# display todos in the to-process queue
-alias todos="sed s/'$todo_prefix '// < $todo_queue"
-
-alias etodos="$EDITOR $todo_queue"
 
 # Override the mvn command with the colorized one.
 alias mvn="mvn-color"
