@@ -69,3 +69,8 @@
             do
             (goto-char (point-min))
             (replace-regexp key value)))))
+
+(defun beautify-json ()
+  (interactive)
+  (save-excursion
+    (shell-command-on-region (mark) (point) "jsonpp" (buffer-name) t)))
