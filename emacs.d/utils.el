@@ -46,3 +46,7 @@
   (forward-line 1)
   (transpose-lines 1)
   (forward-line -1))
+
+(defun generate-scratch-buffer ()
+  (interactive)
+  (switch-to-buffer (make-temp-name "scratch-")))
