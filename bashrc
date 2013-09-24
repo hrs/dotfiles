@@ -132,3 +132,8 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ### loading rvm
 source $HOME/.rvm/scripts/rvm
+
+### load up local config info, if any
+if [ -e $HOME/.bashrc.local ]; then
+    source $HOME/.bashrc.local
+fi
