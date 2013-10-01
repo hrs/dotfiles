@@ -1,6 +1,7 @@
 backups
+emacs.d/.mc-lists.el
+emacs.d/bookmarks
 emacs.d/elpa
+emacs.d/projectile-bookmarks.eld
 emacs.d/tramp
 emacs.d/url/cookies
-emacs.d/projectile-bookmarks.eld
-emacs.d/.mc-lists.el
