@@ -24,6 +24,7 @@
     expand-region
     gitconfig-mode
     gitignore-mode
+    graphviz-dot-mode
     groovy-mode
     hackernews
     haml-mode
