@@ -28,7 +28,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (display-time-mode 1)
 (setq ido-enable-flex-matching t)
-(electric-pair-mode t)
 
 ;; cursor
 (setq-default cursor-type '(bar . 1))
