@@ -13,6 +13,7 @@ ln -s $dotfiles/gitconfig $HOME/.gitconfig
 ln -s $dotfiles/gitignore $HOME/.gitignore
 ln -s $dotfiles/octaverc $HOME/.octaverc
 ln -s $dotfiles/quicklisp $HOME/.quicklisp
+ln -s $dotfiles/rspec $HOME/.rspec
 ln -s $dotfiles/sbclrc $HOME/.sbclrc
 ln -s $dotfiles/tmux.conf $HOME/.tmux.conf
 ln -s $dotfiles/wallpaper $HOME/.wallpaper
