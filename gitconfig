@@ -40,3 +40,5 @@
 [include]
   # for creds
   path = ~/.gitconfig.local
+[branch]
+	autosetuprebase = always
