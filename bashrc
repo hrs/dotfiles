@@ -137,3 +137,6 @@ source $HOME/.rvm/scripts/rvm
 if [ -e $HOME/.bashrc.local ]; then
     source $HOME/.bashrc.local
 fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
