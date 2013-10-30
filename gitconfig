@@ -8,7 +8,7 @@
   dump	= cat-file -p
   hist	= log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   lg	= log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  loc   = !git ls-files | xargs cat | wc -l
+  loc   = !git diff --stat `git hash-object -t tree /dev/null` | tail -1 | cut -d' ' -f5
   st	= status
   sum = log --oneline --no-merges
   type	= cat-file -t
@@ -41,5 +41,6 @@
 [include]
   # for creds
   path = ~/.gitconfig.local
+
 [branch]
-	autosetuprebase = always
+  autosetuprebase = always
