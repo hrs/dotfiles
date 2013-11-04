@@ -17,6 +17,7 @@
   '(auctex
     clojure-mode
     coffee-mode
+    dash-at-point
     diminish
     elixir-mode
     erlang
