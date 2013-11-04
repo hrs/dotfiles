@@ -11,6 +11,7 @@ ln -s $dotfiles/emacs.d $HOME/.emacs.d
 ln -s $dotfiles/git $HOME/.git
 ln -s $dotfiles/gitconfig $HOME/.gitconfig
 ln -s $dotfiles/gitignore $HOME/.gitignore
+ln -s $dotfiles/gnus $HOME/.gnus
 ln -s $dotfiles/octaverc $HOME/.octaverc
 ln -s $dotfiles/quicklisp $HOME/.quicklisp
 ln -s $dotfiles/rspec $HOME/.rspec
