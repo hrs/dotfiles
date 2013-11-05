@@ -8,6 +8,8 @@
 ;; (load "slime-prefs.el")
 (load "utils.el")
 
+(require 'dired-x)
+
 ;; extend exec-path
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
