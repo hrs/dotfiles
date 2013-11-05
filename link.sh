@@ -5,6 +5,9 @@ dotfiles=$HOME/.dotfiles
 ln -s $dotfiles/Xmodmap $HOME/.Xmodmap
 ln -s $dotfiles/ackrc $HOME/.ackrc
 ln -s $dotfiles/bashrc $HOME/.bashrc
+ln -s $dotfiles/bashrc.aliases $HOME/.bashrc.aliases
+ln -s $dotfiles/bashrc.prompt $HOME/.bashrc.prompt
+ln -s $dotfiles/bashrc.utils $HOME/.bashrc.utils
 ln -s $dotfiles/bin $HOME/.bin
 ln -s $dotfiles/ctags $HOME/.ctags
 ln -s $dotfiles/emacs.d $HOME/.emacs.d
