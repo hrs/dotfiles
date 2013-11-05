@@ -8,7 +8,6 @@ source $HOME/.bin/npm-completion.sh
 if [[ $(uname) == Darwin ]]; then
     npm_home=/usr/local/share/npm/bin
     emacs_path=/Applications/Emacs.app/Contents/MacOS/bin
-    M2_HOME=$HOME/Documents/tools/maven
     export PATH=$npm_home:$emacs_path:$PATH
 fi
 
@@ -19,10 +18,6 @@ heroku_toolbelt_path=/usr/local/heroku/bin
 
 export PATH=$heroku_toolbelt_path:/usr/local/bin:/usr/local/sbin:$PATH:/sbin:$tex_path:$conf_dot_home_path:$rvm_bin_path
 export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
-
-if [[ -n "$M2_HOME" ]]; then
-    export PATH=$M2_HOME/bin:$PATH
-fi
 
 ### variables
 
