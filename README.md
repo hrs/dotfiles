@@ -21,3 +21,7 @@ Enjoy! =)
 #### Contributing
 
 I'm open to non-malicious contributions. Shoot me a pull request, yo.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hrs/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
