@@ -53,4 +53,8 @@
 (setq whitespace-style '(face lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
+;; default to splitting windows horizontally
+(setq split-height-threshold nil)
+(setq split-width-threshold 0)
+
 (load-theme 'tango-dark t)
