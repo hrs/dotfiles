@@ -9,6 +9,7 @@
 (load "utils.el")
 
 (require 'dired-x)
+(require 'multi-term)
 
 ;; extend exec-path
 (setq exec-path (append exec-path '("/usr/local/bin")))
