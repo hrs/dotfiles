@@ -1,6 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d")
 
 (set-frame-parameter nil 'fullscreen 'fullboth)
+(setq default-directory "~/")
 
 (load "package-management.el")
 (load "ui-prefs.el")
