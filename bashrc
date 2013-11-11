@@ -22,7 +22,11 @@ export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
 ### variables
 
 export DISPLAY=:0.0
-export EDITOR="emacsclient -nw -c -a ''"
+if [[ $(uname) == Darwin ]]; then
+    export EDITOR="open -a Emacs"
+else
+    export EDITOR="emacsclient -nw -c -a ''"
+fi
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
