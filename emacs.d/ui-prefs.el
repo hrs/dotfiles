@@ -28,6 +28,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (display-time-mode 1)
 (setq ido-enable-flex-matching t)
+(setq ns-pop-up-frames nil)
 
 ;; cursor
 (setq-default cursor-type '(bar . 1))
