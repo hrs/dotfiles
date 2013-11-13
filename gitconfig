@@ -1,17 +1,18 @@
 [alias]
-  amend   = commit --amend
-  br	= branch
+  amend = commit --amend
+  br = branch
   cdiff	= diff --cached
-  cm	= commit -m
-  ci	= commit -v
-  co	= checkout
-  dump	= cat-file -p
-  hist	= log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  lg	= log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  loc   = !git diff --stat `git hash-object -t tree /dev/null` | tail -1 | cut -d' ' -f5
-  st	= status
+  cm = commit -m
+  ci = commit -v
+  co = checkout
+  dump = cat-file -p
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  loc = !git diff --stat `git hash-object -t tree /dev/null` | tail -1 | cut -d' ' -f5
+  rename = branch -m
+  st = status
   sum = log --oneline --no-merges
-  type	= cat-file -t
+  type = cat-file -t
   unstage = reset HEAD
 
 [core]
