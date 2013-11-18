@@ -3,10 +3,11 @@
 (set-frame-parameter nil 'fullscreen 'fullboth)
 (setq default-directory "~/")
 
-(load "package-management.el")
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+(require 'pallet)
+
 (load "ui-prefs.el")
-;; (load "mail-prefs.el")
-;; (load "slime-prefs.el")
 (load "utils.el")
 
 (require 'dired-x)
