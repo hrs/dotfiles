@@ -15,8 +15,9 @@ conf_dot_home_path=$HOME/.bin
 tex_path=/usr/local/texlive/2011/bin/x86_64-darwin
 rvm_bin_path=$HOME/.rvm/bin
 heroku_toolbelt_path=/usr/local/heroku/bin
+cask_path=$HOME/.cask/bin
 
-export PATH=$heroku_toolbelt_path:/usr/local/bin:/usr/local/sbin:$PATH:/sbin:$tex_path:$conf_dot_home_path:$rvm_bin_path
+export PATH=$heroku_toolbelt_path:/usr/local/bin:/usr/local/sbin:$PATH:/sbin:$tex_path:$conf_dot_home_path:$rvm_bin_path:$cask_path
 export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
 
 ### variables
