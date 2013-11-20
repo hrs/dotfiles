@@ -4,14 +4,6 @@
 (load "hide-modes.el")
 (smex-initialize)
 
-(defun use-solarized-theme ()
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/solarized")
-  (load-theme 'solarized-dark t))
-
-(defun use-zenburn-theme ()
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/zenburn")
-  (load-theme 'zenburn t))
-
 (if window-system (tool-bar-mode 0)
   (menu-bar-mode 0))
 
@@ -58,4 +50,10 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold 0)
 
-(load-theme 'tango-dark t)
+(setq solarized-use-variable-pitch nil)
+(setq solarized-height-plus-1 1.0)
+(setq solarized-height-plus-2 1.0)
+(setq solarized-height-plus-3 1.0)
+(setq solarized-height-plus-4 1.0)
+(setq solarized-high-contrast-mode-line t)
+(load-theme 'solarized-dark t)
