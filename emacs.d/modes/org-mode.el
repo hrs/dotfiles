@@ -38,11 +38,6 @@
          checkitem
          (file (org-file-path "groceries.org")))
 
-        ("j" "Journal entry"
-         entry
-         (file (org-file-path "journal.org"))
-         "** %?\n   %u\n")
-
         ("q" "Media queues")
 
         ("qm" "Movies"
