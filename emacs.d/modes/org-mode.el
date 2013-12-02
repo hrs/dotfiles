@@ -24,7 +24,12 @@
 (setq org-hide-leading-stars t)
 
 (setq org-capture-templates
-      '(("b" "Blog idea"
+      '(("a" "Article/video to read/watch"
+         entry
+         (file (org-file-path "articles.org"))
+         "* %?\n")
+
+        ("b" "Blog idea"
          entry
          (file (org-file-path "blog-ideas.org"))
          "* TODO %?\n")
