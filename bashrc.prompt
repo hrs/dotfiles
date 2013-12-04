@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 GIT_PS1_SHOWDIRTYSTATE=true
 
 # __git_ps1 reports "((unknown))" in directories with broken git
