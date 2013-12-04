@@ -11,6 +11,7 @@ ln -s $dotfiles/bashrc.utils $HOME/.bashrc.utils
 ln -s $dotfiles/bin $HOME/.bin
 ln -s $dotfiles/ctags $HOME/.ctags
 ln -s $dotfiles/emacs.d $HOME/.emacs.d
+ln -s $dotfiles/exelse $HOME/.exelse
 ln -s $dotfiles/git $HOME/.git
 ln -s $dotfiles/gitconfig $HOME/.gitconfig
 ln -s $dotfiles/gitignore $HOME/.gitignore
