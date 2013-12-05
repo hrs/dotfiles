@@ -11,6 +11,7 @@
 (load "utils.el")
 (load "password-management.el")
 
+(require 'erc)
 (require 'dired-x)
 (require 'multi-term)
 
