@@ -20,6 +20,7 @@ ln -s $dotfiles/octaverc $HOME/.octaverc
 ln -s $dotfiles/quicklisp $HOME/.quicklisp
 ln -s $dotfiles/rspec $HOME/.rspec
 ln -s $dotfiles/sbclrc $HOME/.sbclrc
+ln -s $dotfiles/ssh-config $HOME/.ssh/config
 ln -s $dotfiles/tmux.conf $HOME/.tmux.conf
 ln -s $dotfiles/wallpaper $HOME/.wallpaper
 ln -s $dotfiles/xinitrc $HOME/.xinitrc
