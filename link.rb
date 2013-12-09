@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-dotfiles = "$HOME/.dotfiles"
-
 file_links = {
   "Xmodmap" => ".Xmodmap",
   "ackrc" => ".ackrc",
@@ -28,5 +26,10 @@ file_links = {
 }
 
 file_links.each do |source, target|
-  `ln -s #{dotfiles}/#{source} $HOME/#{target}`
+  target_file = File.expand_path("~/#{target}")
+  source_file = File.expand_path("~/.dotfiles/#{source}")
+
+  unless File.exists?(target_file) || File.symlink?(target_file)
+    File.symlink(source_file, target_file)
+  end
 end

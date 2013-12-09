@@ -6,7 +6,7 @@ obviously do.
 #### Installation
 
 Clone this thing wherever you like (I use `~/.dotfiles`), then adjust
-the `dotfiles` variable in the `link.sh` script and run it. That'll
+the `source_file` variable in the `link.rb` script and run it. That'll
 set up a bunch of symlinks in your home directory, e.g., `~/.bashrc ->
 ~/.dotfiles/bashrc`.
 
@@ -24,4 +24,3 @@ I'm open to non-malicious contributions. Shoot me a pull request, yo.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hrs/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
