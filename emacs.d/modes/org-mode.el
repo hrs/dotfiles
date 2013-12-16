@@ -34,11 +34,6 @@
          (file (org-file-path "blog-ideas.org"))
          "* TODO %?\n")
 
-        ("d" "Delivery"
-         entry
-         (file (org-file-path "deliveries.org"))
-         "* %?\n  %t\n")
-
         ("g" "Groceries"
          checkitem
          (file (org-file-path "groceries.org")))
