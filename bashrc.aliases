@@ -24,6 +24,8 @@ alias ung="tar xzvf"
 alias usage="du -sch"
 alias fucking="sudo"
 
+alias be="bundle exec"
+
 alias exelse="exiftool -m -p ~/.exelse/show.fmt"
 
 # Override the mvn command with the colorized one.
