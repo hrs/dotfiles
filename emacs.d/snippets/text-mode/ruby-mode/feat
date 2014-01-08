@@ -1,0 +1,6 @@
+#name : feature
+#group : rspec
+# --
+feature '${1:name of the feature}' do
+  $0
+end

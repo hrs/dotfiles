@@ -1,0 +1,6 @@
+#name : scenario
+#group : rspec
+# --
+scenario '${1:some stuff happens}' do
+  $0
+end
