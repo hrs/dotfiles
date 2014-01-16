@@ -1,6 +1,8 @@
 .DS_Store
 .sass-cache
 *~
+#*
+.#*
 TAGS
 custom_plan.rb
 .classpath
