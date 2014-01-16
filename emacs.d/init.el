@@ -1,4 +1,5 @@
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'load-path "~/.emacs.d/modes/")
 
 (set-frame-parameter nil 'fullscreen 'fullboth)
 (setq default-directory "~/")
@@ -11,7 +12,6 @@
 (load "utils.el")
 (load "password-management.el")
 
-(require 'erc)
 (require 'dired-x)
 (require 'multi-term)
 
@@ -19,8 +19,8 @@
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
 ;; mode-specific configuration
-(mapcar (lambda (mode-file-name) (load (concat "modes/" mode-file-name)))
-        (directory-files "~/.emacs.d/modes" nil ".el"))
+(mapcar (lambda (mode-file-name) (load mode-file-name))
+        (directory-files "~/.emacs.d/modes/" nil ".el"))
 
 ;; fussy, fussy
 (setq make-backup-files nil)
