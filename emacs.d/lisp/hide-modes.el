@@ -5,6 +5,8 @@
   '(diminish 'projectile-mode))
 (eval-after-load "rinari-minor"
   '(diminish 'rinari-minor-mode))
+(eval-after-load "smartparens"
+  '(diminish 'smartparens-mode))
 (eval-after-load "yard"
   '(diminish 'yard-mode))
 (eval-after-load "yas-minor"
