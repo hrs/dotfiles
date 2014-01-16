@@ -46,10 +46,6 @@
 (setq whitespace-style '(face lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
-;; default to splitting windows horizontally
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
-
 (setq solarized-use-variable-pitch nil)
 (setq solarized-height-plus-1 1.0)
 (setq solarized-height-plus-2 1.0)

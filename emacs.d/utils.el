@@ -51,6 +51,16 @@
   (interactive)
   (switch-to-buffer (make-temp-name "scratch-")))
 
+(defun split-window-below-and-switch ()
+  (interactive)
+  (split-window-below)
+  (other-window 1))
+
+(defun split-window-right-and-switch ()
+  (interactive)
+  (split-window-right)
+  (other-window 1))
+
 (defun de-unicode ()
   "Tidy up a buffer by replacing all special Unicode characters
    (smart quotes, etc.) with their more sane cousins"
