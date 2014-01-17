@@ -15,6 +15,9 @@
 (require 'dired-x)
 (require 'multi-term)
 
+;; allow 20MB of memory (instead of 0.76MB) before calling GC
+(setq gc-cons-threshold 20000000)
+
 ;; extend exec-path
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
