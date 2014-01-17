@@ -19,6 +19,7 @@
 (depends-on "expand-region")
 (depends-on "f")
 (depends-on "findr")
+(depends-on "flx-ido")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
 (depends-on "gnuplot")
