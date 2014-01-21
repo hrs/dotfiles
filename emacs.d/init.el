@@ -47,6 +47,8 @@
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)
 
+(setq require-final-newline t)
+
 ;; configuring yasnippets
 (setq yas-snippet-dirs '("~/.emacs.d/snippets/text-mode"))
 (yas-global-mode 1)
