@@ -30,7 +30,8 @@
 (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
 
 ;; cursor
-(setq-default cursor-type '(bar . 1))
+(setq-default cursor-type '(bar . 2))
+(global-hl-line-mode t)
 
 ;; multiple cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
