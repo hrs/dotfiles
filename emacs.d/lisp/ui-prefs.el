@@ -26,6 +26,7 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 (flx-ido-mode 1) ; better/faster matching
+(ido-vertical-mode 1)
 (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
 
 ;; cursor

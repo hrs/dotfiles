@@ -28,6 +28,7 @@
 (depends-on "haml-mode")
 (depends-on "haskell-mode")
 (depends-on "htmlize")
+(depends-on "ido-vertical-mode")
 (depends-on "inf-ruby")
 (depends-on "inflections")
 (depends-on "jump")
