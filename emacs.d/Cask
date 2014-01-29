@@ -43,6 +43,7 @@
 (depends-on "paredit")
 (depends-on "php-mode")
 (depends-on "projectile")
+(depends-on "python-mode")
 (depends-on "rainbow-mode")
 (depends-on "rinari")
 (depends-on "rspec-mode")
