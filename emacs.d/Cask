@@ -3,6 +3,7 @@
 (source marmalade)
 (source gnu)
 
+(depends-on "ag")
 (depends-on "auctex")
 (depends-on "cask")
 (depends-on "clojure-mode")
