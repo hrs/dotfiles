@@ -1,5 +1,11 @@
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(add-to-list 'load-path "~/.emacs.d/modes/")
+(defun not-david-p (s)
+  (not (string-match "david" s)))
+
+(defun filter (condp lst)
+  (delq nil
+	(mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
+(setq load-path (filter #'not-david-p load-path))
 
 (set-frame-parameter nil 'fullscreen 'fullboth)
 (setq default-directory "~/")
@@ -7,6 +13,9 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'load-path "~/.emacs.d/modes/")
 
 (load "ui-prefs.el")
 (load "utils.el")
