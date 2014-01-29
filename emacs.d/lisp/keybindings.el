@@ -1,6 +1,5 @@
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-x C-k") 'kill-region)
-(global-set-key (kbd "C-l") 'goto-line) ; overwriting vertical center on point
 (global-set-key (kbd "C-c s") 'multi-term)
 (global-set-key (kbd "C-x |") 'align-regexp)
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -8,7 +7,7 @@
 (global-set-key (kbd "C-c C-s") 'ispell-word)
 (global-set-key (kbd "C-c d") 'date)
 (global-set-key (kbd "C-c t") 'time)
-(global-set-key (kbd "C-o") 'other-window)
+(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x w") 'count-words)
 (global-set-key (kbd "C-c g") 'search-engine)
