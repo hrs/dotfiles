@@ -45,6 +45,7 @@
 (depends-on "projectile")
 (depends-on "python-mode")
 (depends-on "rainbow-mode")
+(depends-on "rhtml-mode")
 (depends-on "rinari")
 (depends-on "rspec-mode")
 (depends-on "rubocop")
