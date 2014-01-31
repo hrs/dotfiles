@@ -7,6 +7,8 @@
 (if window-system (tool-bar-mode 0)
   (menu-bar-mode 0))
 
+(scroll-bar-mode -1)
+
 ;; quiet startup
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
@@ -18,7 +20,6 @@
 (setq show-paren-delay 0.0)
 (transient-mark-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
-(display-time-mode 1)
 (setq ns-pop-up-frames nil)
 
 ;; ido configuration
@@ -41,9 +42,6 @@
 
 ;; expand-region
 (global-set-key (kbd "C-@") 'er/expand-region)
-
-;; Add line numbers
-(global-linum-mode 1)
 
 ;; treat CamelCase as separate words
 (add-hook 'prog-mode-hook 'subword-mode)
