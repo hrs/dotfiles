@@ -9,6 +9,9 @@
 
 (scroll-bar-mode -1)
 
+(when (eq system-type 'darwin)
+  (set-default-font "-apple-inconsolata-medium-r-normal--12-120-72-72-m-120-iso10646-1"))
+
 ;; quiet startup
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
