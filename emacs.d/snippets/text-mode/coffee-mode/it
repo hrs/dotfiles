@@ -1,0 +1,5 @@
+#name : it
+#group : jasmine
+# --
+it '${1:does something}', ->
+  $0

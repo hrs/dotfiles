@@ -1,0 +1,5 @@
+#name : describe
+#group : jasmine
+# --
+describe '${1:a situation}', ->
+  $0
