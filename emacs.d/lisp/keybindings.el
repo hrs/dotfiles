@@ -13,6 +13,7 @@
 (global-set-key (kbd "C-c g") 'search-engine)
 (global-set-key (kbd "C-c C-x b") 'generate-scratch-buffer)
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "M-#") 'sort-lines)
 
 ;; disable arrow keys
 (global-unset-key (kbd "<up>"))
