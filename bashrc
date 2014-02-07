@@ -5,20 +5,27 @@ source $HOME/.bin/npm-completion.sh
 
 ### path
 
+pathmunge () {
+    if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
+        if [ "$2" = "after" ] ; then
+            PATH=$PATH:$1
+        else
+            PATH=$1:$PATH
+        fi
+    fi
+}
+
 if [[ $(uname) == Darwin ]]; then
-    npm_home=/usr/local/share/npm/bin
-    emacs_path=/Applications/Emacs.app/Contents/MacOS/bin
-    export PATH=$npm_home:$emacs_path:$PATH
+    pathmunge /Applications/Emacs.app/Contents/MacOS/bin
 fi
 
-conf_dot_home_path=$HOME/.bin
-tex_path=/usr/local/texlive/2011/bin/x86_64-darwin
-rvm_bin_path=$HOME/.rvm/bin
-heroku_toolbelt_path=/usr/local/heroku/bin
-cask_path=$HOME/.cask/bin
-
-export PATH=$heroku_toolbelt_path:/usr/local/bin:/usr/local/sbin:$PATH:/sbin:$tex_path:$conf_dot_home_path:$rvm_bin_path:$cask_path
-export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
+pathmunge /usr/local/sbin
+pathmunge /usr/local/bin
+pathmunge /usr/local/heroku/bin
+pathmunge /sbin after
+pathmunge $HOME/.bin after
+pathmunge $HOME/.rvm/bin after
+pathmunge $HOME/.cask/bin after
 
 ### variables
 
@@ -37,7 +44,6 @@ source $HOME/.bashrc.aliases
 source $HOME/.bashrc.prompt
 source $HOME/.bashrc.utils
 
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # load nvm
 source $HOME/.rvm/scripts/rvm # load rvm
 
 ### local config settings, if any
