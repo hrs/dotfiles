@@ -37,3 +37,9 @@ file_links.each do |source, target|
     File.symlink(source_file, target_file)
   end
 end
+
+if File.exists?('~/.bash_profile')
+  File.delete('~/.bash_profile')
+end
+
+File.symlink('~/.bashrc', '~/.bash_profile')
