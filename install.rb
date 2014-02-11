@@ -25,6 +25,10 @@ file_links = {
   "xinitrc" => ".xinitrc"
 }
 
+unless File.exists?("~/.ssh")
+  Dir::mkdir("~/.ssh")
+end
+
 file_links.each do |source, target|
   target_file = File.expand_path("~/#{target}")
   source_file = File.expand_path("~/.dotfiles/#{source}")
