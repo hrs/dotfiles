@@ -6,7 +6,7 @@ obviously do.
 #### Installation
 
 Clone this thing wherever you like (I use `~/.dotfiles`), then adjust
-the `source_file` variable in the `link.rb` script and run it. That'll
+the `source_file` variable in the `install.rb` script and run it. That'll
 set up a bunch of symlinks in your home directory, e.g., `~/.bashrc ->
 ~/.dotfiles/bashrc`.
 
