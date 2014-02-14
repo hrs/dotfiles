@@ -4,9 +4,8 @@
 (load "hide-modes.el")
 (smex-initialize)
 
-(if window-system (tool-bar-mode 0)
-  (menu-bar-mode 0))
-
+(tool-bar-mode 0)
+(menu-bar-mode 0)
 (scroll-bar-mode -1)
 
 (when (eq system-type 'darwin)

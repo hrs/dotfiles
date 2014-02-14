@@ -3,7 +3,7 @@
 
 (defun set-font-size (new-size)
   (setq preferred-font-size new-size)
-  (when window-system
+  (when (and window-system (eq system-type 'darwin))
     (set-face-attribute 'default nil :font preferred-font :height preferred-font-size)))
 
 (defun increase-font-size ()
