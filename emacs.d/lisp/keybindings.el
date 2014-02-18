@@ -14,6 +14,8 @@
 (global-set-key (kbd "C-c C-x b") 'generate-scratch-buffer)
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-#") 'sort-lines)
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<end>") 'move-end-of-line)
 
 ;; switch to new window on split
 (global-set-key (kbd "C-x 2") 'split-window-below-and-switch)
