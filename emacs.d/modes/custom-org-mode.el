@@ -4,6 +4,10 @@
 (defun construct-filename (directory filename)
   (concat (file-name-as-directory directory) filename))
 
+(add-hook 'org-mode-hook
+	  (lambda ()
+            (flyspell-mode)))
+
 (defun org-file-path (filename)
   "Return the absolute address of an org file, given its relative name."
   (construct-filename org-directory filename))
