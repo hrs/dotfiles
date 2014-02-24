@@ -24,6 +24,9 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq ns-pop-up-frames nil)
 
+;; dired
+(setq-default dired-listing-switches "-alh") ; make file sizes human-readable
+
 ;; ido configuration
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)

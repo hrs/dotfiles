@@ -12,6 +12,7 @@
 (depends-on "dash")
 (depends-on "dash-at-point")
 (depends-on "diminish")
+(depends-on "dired-details")
 (depends-on "elixir-mode")
 (depends-on "epl")
 (depends-on "erlang")
