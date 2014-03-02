@@ -99,3 +99,7 @@
   (interactive)
   (let ((fill-column (point-max)))
     (fill-paragraph nil)))
+
+(defun kill-current-buffer ()
+  (interactive)
+  (kill-buffer (current-buffer)))
