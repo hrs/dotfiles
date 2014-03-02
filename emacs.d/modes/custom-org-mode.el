@@ -19,6 +19,11 @@
 (setq org-archive-location
       (concat (org-file-path "archive.org") "::* From %s"))
 
+(defun open-index-file ()
+  (interactive)
+  (find-file (org-file-path "index.org"))
+  (end-of-buffer))
+
 ;; calendar preferences
 (setq calendar-latitude 42.2)
 (setq calendar-longitude -71.1)
