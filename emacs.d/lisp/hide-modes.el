@@ -1,4 +1,8 @@
 ;; minor modes to hide altogether
+(eval-after-load "flycheck"
+  '(diminish 'flycheck-mode))
+(eval-after-load "flyspell"
+  '(diminish 'flyspell-mode))
 (eval-after-load "global-whitespace"
   '(diminish 'global-whitespace-mode))
 (eval-after-load "projectile"
@@ -7,10 +11,14 @@
   '(diminish 'rinari-minor-mode))
 (eval-after-load "smartparens"
   '(diminish 'smartparens-mode))
+(eval-after-load "subword"
+  '(diminish 'subword-mode))
 (eval-after-load "yard"
   '(diminish 'yard-mode))
 (eval-after-load "yas-minor"
-  '(diminish 'yas/minor-mode))
+  (lambda () (diminish 'yas/minor-mode) (diminish 'yas-minor-mode)))
+(eval-after-load "whitespace"
+  '(diminish 'whitespace-mode))
 
 ;; minor modes to rename
 (eval-after-load "paredit"
