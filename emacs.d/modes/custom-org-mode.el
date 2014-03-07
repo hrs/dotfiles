@@ -20,6 +20,7 @@
       (concat (org-file-path "archive.org") "::* From %s"))
 
 (defun open-index-file ()
+  "Open the master org TODO list."
   (interactive)
   (find-file (org-file-path "index.org"))
   (end-of-buffer))
