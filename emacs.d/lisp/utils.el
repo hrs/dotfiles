@@ -103,3 +103,17 @@
 (defun kill-current-buffer ()
   (interactive)
   (kill-buffer (current-buffer)))
+
+(defun visit-last-dired-file ()
+  "Open the last file in an open dired buffer."
+  (interactive)
+  (end-of-buffer)
+  (previous-line)
+  (dired-find-file))
+
+(defun visit-last-migration ()
+  "Open the last file in 'db/migrate/'."
+  (interactive)
+  (dired (expand-file-name "db/migrate" (projectile-project-root)))
+  (visit-last-dired-file)
+  (kill-buffer "migrate"))
