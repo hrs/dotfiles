@@ -12,6 +12,7 @@
 (global-set-key (kbd "C-x w") 'count-words)
 (global-set-key (kbd "C-c g") 'search-engine)
 (global-set-key (kbd "C-c i") 'open-index-file)
+(global-set-key (kbd "C-c m") 'mu4e)
 (global-set-key (kbd "C-c C-x b") 'generate-scratch-buffer)
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-#") 'sort-lines)

@@ -3,6 +3,7 @@
 file_links = {
   'Xmodmap' => '.Xmodmap',
   'ackrc' => '.ackrc',
+  'authinfo.gpg' => '.authinfo.gpg',
   'bashrc' => '.bashrc',
   'bashrc.aliases' => '.bashrc.aliases',
   'bashrc.prompt' => '.bashrc.prompt',
@@ -16,6 +17,8 @@ file_links = {
   'gitignore' => '.gitignore',
   'gnus' => '.gnus',
   'octaverc' => '.octaverc',
+  'offlineimaprc' => '.offlineimaprc',
+  'offlineimap.py' => '.offlineimap.py',
   'quicklisp' => '.quicklisp',
   'rspec' => '.rspec',
   'sbclrc' => '.sbclrc',

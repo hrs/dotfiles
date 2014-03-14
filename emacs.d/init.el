@@ -24,6 +24,9 @@
 (require 'dired-x)
 (require 'multi-term)
 
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+(require 'mu4e)
+
 ;; allow 20MB of memory (instead of 0.76MB) before calling GC
 (setq gc-cons-threshold 20000000)
 
