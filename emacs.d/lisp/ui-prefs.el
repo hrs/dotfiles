@@ -1,15 +1,14 @@
 ;; UI preferences
 
-(load "fonts.el")
 (load "hide-modes.el")
 (smex-initialize)
+
+;;; use Inconsolata as the default font
+(set-default-font "-*-Inconsolata-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode -1)
-
-(when (eq system-type 'darwin)
-  (set-default-font "-apple-inconsolata-medium-r-normal--12-120-72-72-m-120-iso10646-1"))
 
 ;; quiet startup
 (setq inhibit-startup-message t)
