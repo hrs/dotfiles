@@ -125,3 +125,4 @@
     (org-edit-src-code)))
 
 (setq org-confirm-babel-evaluate nil)
+(add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
