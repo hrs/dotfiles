@@ -1,28 +1,28 @@
 # -*- mode: sh -*-
 
 function java6 () {
-    export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
+  export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
 }
 
 function java7 () {
-    export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+  export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
 }
 
 function countpage() {
-    pdf2dsc "$1" /dev/stdout | grep "Pages" | sed s/[^0-9]//g
+  pdf2dsc "$1" /dev/stdout | grep "Pages" | sed s/[^0-9]//g
 }
 
 function viewpages() {
-    for file in "$@"; do
-        filepagecount=$(countpage "$file")
-        printf "%4d %s\n" $filepagecount $file
-    done
+  for file in "$@"; do
+    filepagecount=$(countpage "$file")
+    printf "%4d %s\n" $filepagecount $file
+  done
 }
 
 function exelse-edit() {
-    author="$1"
-    title="$2"
-    shift
-    shift
-    exiftool -Author="$author" -Title="$title" "$@"
+  author="$1"
+  title="$2"
+  shift
+  shift
+  exiftool -Author="$author" -Title="$title" "$@"
 }

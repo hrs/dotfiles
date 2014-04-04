@@ -6,18 +6,18 @@ source $HOME/.bin/npm-completion.sh
 ### path
 
 pathmunge () {
-    if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
-        if [ "$2" = "after" ] ; then
-            PATH=$PATH:$1
-        else
-            PATH=$1:$PATH
-        fi
+  if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
+    if [ "$2" = "after" ] ; then
+      PATH=$PATH:$1
+    else
+      PATH=$1:$PATH
     fi
+  fi
 }
 
 if [[ $(uname) == Darwin ]]; then
-    pathmunge /Applications/Emacs.app/Contents/MacOS/bin
-    pathmunge /usr/local/texlive/2013basic/bin/universal-darwin
+  pathmunge /Applications/Emacs.app/Contents/MacOS/bin
+  pathmunge /usr/local/texlive/2013basic/bin/universal-darwin
 fi
 
 pathmunge /usr/local/sbin
@@ -32,9 +32,9 @@ pathmunge $HOME/.cask/bin after
 
 export DISPLAY=:0.0
 if [[ $(uname) == Darwin ]]; then
-    export EDITOR="open -a Emacs"
+  export EDITOR="open -a Emacs"
 else
-    export EDITOR="emacsclient -nw -c -a ''"
+  export EDITOR="emacsclient -nw -c -a ''"
 fi
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
@@ -50,5 +50,5 @@ source $HOME/.rvm/scripts/rvm # load rvm
 ### local config settings, if any
 
 if [ -e $HOME/.bashrc.local ]; then
-    source $HOME/.bashrc.local
+  source $HOME/.bashrc.local
 fi
