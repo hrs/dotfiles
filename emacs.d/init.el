@@ -37,10 +37,14 @@
 (mapcar (lambda (mode-file-name) (load mode-file-name))
         (directory-files "~/.emacs.d/modes/" nil ".el"))
 
-;; fussy, fussy
-(setq make-backup-files nil)
 (delete-selection-mode t)
 (setq-default indent-tabs-mode nil)
+
+;; backup to a central temp directory
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 ;; set search list for hippie-expand
 (setq hippie-expand-try-functions-list
