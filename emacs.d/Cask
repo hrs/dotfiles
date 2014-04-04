@@ -63,5 +63,4 @@
 (depends-on "w3m")
 (depends-on "writegood-mode")
 (depends-on "yaml-mode")
-(depends-on "yard-mode")
 (depends-on "yasnippet")
