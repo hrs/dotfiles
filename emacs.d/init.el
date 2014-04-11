@@ -75,3 +75,5 @@
 ;; use projectile everywhere
 (projectile-global-mode)
 (load "keybindings.el")
+
+(setq confirm-kill-emacs 'y-or-n-p)
