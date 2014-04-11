@@ -17,6 +17,8 @@
 
 ;; use pretty lambdas and paredit in all lisp-like modes
 (dolist (hook lispy-mode-hooks)
-    (add-hook hook 'pretty-lambdas)
-    (add-hook hook 'paredit-mode)
-    (add-hook hook 'eldoc-mode))
+  (add-hook hook (lambda ()
+                   (pretty-lambdas)
+                   (setq show-paren-style 'expression)
+                   (paredit-mode)
+                   (eldoc-mode))))
