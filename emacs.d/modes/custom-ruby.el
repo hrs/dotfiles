@@ -13,10 +13,15 @@
             (local-set-key "\r" 'newline-and-indent)
             (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
 
-(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\Gemfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\Guardfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\Rakefile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\Vagrantfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\Vagrantfile.local$" . ruby-mode))
+(setq files-in-ruby-mode
+      '("\\Gemfile$"
+        "\\.rake$"
+        "\\.gemspec$"
+        "\\Gemfile$"
+        "\\Guardfile$"
+        "\\Rakefile$"
+        "\\Vagrantfile$"
+        "\\Vagrantfile.local$"))
+
+(dolist (file-regexp files-in-ruby-mode)
+  (add-to-list 'auto-mode-alist `(,file-regexp . ruby-mode)))
