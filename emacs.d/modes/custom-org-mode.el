@@ -93,6 +93,10 @@
   (org-todo 'done)
   (org-archive-subtree))
 
+(defun org-capture-todo ()
+  (interactive)
+  (org-capture :keys "t"))
+
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)

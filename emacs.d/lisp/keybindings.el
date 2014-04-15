@@ -32,6 +32,9 @@
 (define-key global-map (kbd "C-_") 'text-scale-decrease)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
+;; org-mode
+(global-set-key (kbd "M-n") 'org-capture-todo)
+
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
