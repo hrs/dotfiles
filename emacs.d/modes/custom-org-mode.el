@@ -1,3 +1,5 @@
+(require 'ox-md)
+
 (setq org-directory "~/org")
 (setq notes-directory "~/Dropbox/notes")
 
