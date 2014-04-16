@@ -82,12 +82,12 @@
         ("t" "Todo"
          entry
          (file (org-file-path "index.org"))
-         "* TODO %?\n  %u\n")
+         "* TODO %?\n")
 
         ("T" "Todo with tags"
          entry
          (file (org-file-path "index.org"))
-         "* TODO %? %^g\n  %u\n")))
+         "* TODO %? %^g\n")))
 
 (defun mark-done-and-archive ()
   "Mark the state of an org-mode item as DONE and archive it."
