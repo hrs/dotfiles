@@ -20,6 +20,14 @@
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
+;; multiple-cursors
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; expand-region
+(global-set-key (kbd "C-@") 'er/expand-region)
 (global-set-key (kbd "C-'") 'er/expand-region)
 
 ;; switch to new window on split

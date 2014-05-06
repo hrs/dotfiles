@@ -1,69 +1,107 @@
-(defun not-david-p (s)
+(defun hrs/not-david-p (s)
   (not (string-match "david" s)))
 
-(defun filter (condp lst)
+(defun hrs/filter (condp lst)
   (delq nil
 	(mapcar (lambda (x) (and (funcall condp x) x)) lst)))
 
-(setq load-path (filter #'not-david-p load-path))
+(defun hrs/filter-david-from-load-path ()
+  (setq load-path (hrs/filter #'hrs/not-david-p load-path)))
 
-(set-frame-parameter nil 'fullscreen 'fullboth)
-(setq default-directory "~/")
+(defun hrs/default-to-home-directory ()
+  (setq default-directory "~/"))
 
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-(require 'pallet)
+(defun hrs/configure-cask ()
+  (require 'cask "~/.cask/cask.el")
+  (cask-initialize)
+  (require 'pallet))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(add-to-list 'load-path "~/.emacs.d/modes/")
+(defun hrs/include-custom-code-paths ()
+  (add-to-list 'load-path "~/.emacs.d/lisp/")
+  (add-to-list 'load-path "~/.emacs.d/modes/"))
+
+(defun hrs/configure-load-path ()
+  (hrs/filter-david-from-load-path)
+  (hrs/default-to-home-directory)
+  (hrs/configure-cask)
+  (hrs/include-custom-code-paths))
+
+(defun hrs/increase-gc-threshold ()
+    "Allow 20MB of memory (instead of 0.76MB) before calling GC."
+    (setq gc-cons-threshold 20000000))
+
+(defun hrs/extend-exec-path ()
+  (setq exec-path (append exec-path '("/usr/local/bin"))))
+
+(defun hrs/configure-all-custom-modes ()
+  (mapcar (lambda (mode-file-name) (load mode-file-name))
+          (directory-files "~/.emacs.d/modes/" nil ".el")))
+
+(defun hrs/backup-to-temp-directory ()
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t))))
+
+(defun hrs/configure-auto-complete ()
+  (require 'auto-complete-config)
+  (ac-config-default))
+
+(defun hrs/delete-trailing-whitespace ()
+  (add-hook 'before-save-hook
+            'delete-trailing-whitespace))
+
+(defun hrs/configure-yasnippet ()
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets/text-mode"))
+  (yas-global-mode 1))
+
+(defun hrs/configure-ido ()
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+  (flx-ido-mode 1) ; better/faster matching
+  (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
+  (ido-vertical-mode 1))
+
+(defun hrs/enable-region-case-modification ()
+  (put 'downcase-region 'disabled nil)
+  (put 'upcase-region 'disabled nil))
+
+(defun hrs/treat-camelcase-as-separate-words ()
+  (add-hook 'prog-mode-hook 'subword-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(hrs/configure-load-path)
 
 (load "ui-prefs.el")
 (load "utils.el")
 (load "password-management.el")
 
 (require 'dired-x)
-(require 'multi-term)
+;; (require 'multi-term)
 
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-(require 'mu4e)
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;; (require 'mu4e)
 
-;; allow 20MB of memory (instead of 0.76MB) before calling GC
-(setq gc-cons-threshold 20000000)
-
-;; extend exec-path
-(setq exec-path (append exec-path '("/usr/local/bin")))
-
-;; mode-specific configuration
-(mapcar (lambda (mode-file-name) (load mode-file-name))
-        (directory-files "~/.emacs.d/modes/" nil ".el"))
+(hrs/increase-gc-threshold)
+(hrs/extend-exec-path)
+(hrs/configure-all-custom-modes)
 
 (delete-selection-mode t)
 (setq-default indent-tabs-mode nil)
 
-;; backup to a central temp directory
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+(hrs/backup-to-temp-directory)
+(hrs/configure-auto-complete)
+(hrs/delete-trailing-whitespace)
+(hrs/configure-yasnippet)
+(hrs/configure-ido)
+(hrs/enable-region-case-modification)
+(hrs/treat-camelcase-as-separate-words)
 
-(require 'auto-complete-config)
-(ac-config-default)
-
-;; delete trailing whitespace
-(add-hook 'before-save-hook
-	  'delete-trailing-whitespace)
-
-(setq require-final-newline t)
-
-;; configuring yasnippets
-(setq yas-snippet-dirs '("~/.emacs.d/snippets/text-mode"))
-(yas-global-mode 1)
-
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-
-;; use projectile everywhere
 (projectile-global-mode)
+
 (load "keybindings.el")
 
+(setq require-final-newline t)
 (setq confirm-kill-emacs 'y-or-n-p)

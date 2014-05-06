@@ -3,16 +3,49 @@
 (load "hide-modes.el")
 (smex-initialize)
 
-;;; use Inconsolata as the default font
-(set-default-font "-*-Inconsolata-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+(defun hrs/always-fullscreen ()
+  (set-frame-parameter nil 'fullscreen 'fullboth))
 
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode -1)
+(defun hrs/set-default-font ()
+  (set-default-font "-*-Inconsolata-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1"))
 
-;; quiet startup
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
+(defun hrs/disable-window-chrome ()
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (scroll-bar-mode -1))
+
+(defun hrs/quiet-startup ()
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message nil))
+
+(defun hrs/make-dired-file-sizes-human-readable ()
+  (setq-default dired-listing-switches "-alh"))
+
+(defun hrs/customize-point-appearance ()
+  (setq-default cursor-type '(bar . 2))
+  (global-hl-line-mode t))
+
+(defun hrs/highlight-long-lines-in-programming-modes ()
+  (require 'whitespace)
+  (setq whitespace-line-column 80)
+  (setq whitespace-style '(face lines-tail))
+  (add-hook 'prog-mode-hook 'whitespace-mode))
+
+(defun hrs/customize-solarized-appearance ()
+  (setq solarized-use-variable-pitch nil)
+  (setq solarized-height-plus-1 1.0)
+  (setq solarized-height-plus-2 1.0)
+  (setq solarized-height-plus-3 1.0)
+  (setq solarized-height-plus-4 1.0)
+  (setq solarized-high-contrast-mode-line t)
+  (load-theme 'solarized-light t))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(hrs/always-fullscreen)
+(hrs/set-default-font)
+(hrs/disable-window-chrome)
+(hrs/quiet-startup)
 
 ;; UI prefs
 (global-font-lock-mode t)
@@ -23,43 +56,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq ns-pop-up-frames nil)
 
-;; dired
-(setq-default dired-listing-switches "-alh") ; make file sizes human-readable
-
-;; ido configuration
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-(flx-ido-mode 1) ; better/faster matching
-(ido-vertical-mode 1)
-(setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
-
-;; cursor
-(setq-default cursor-type '(bar . 2))
-(global-hl-line-mode t)
-
-;; multiple cursors
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
-;; expand-region
-(global-set-key (kbd "C-@") 'er/expand-region)
-
-;; treat CamelCase as separate words
-(add-hook 'prog-mode-hook 'subword-mode)
-
-;; highlight long lines in programming modes
-(require 'whitespace)
-(setq whitespace-line-column 80)
-(setq whitespace-style '(face lines-tail))
-(add-hook 'prog-mode-hook 'whitespace-mode)
-
-(setq solarized-use-variable-pitch nil)
-(setq solarized-height-plus-1 1.0)
-(setq solarized-height-plus-2 1.0)
-(setq solarized-height-plus-3 1.0)
-(setq solarized-height-plus-4 1.0)
-(setq solarized-high-contrast-mode-line t)
-(load-theme 'solarized-light t)
+(hrs/make-dired-file-sizes-human-readable)
+(hrs/highlight-long-lines-in-programming-modes)
+(hrs/customize-point-appearance)
+(hrs/customize-solarized-appearance)
