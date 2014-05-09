@@ -10,7 +10,9 @@
 	  (lambda ()
             (flyspell-mode)
             (local-set-key (kbd "C-x s")
-                           'org-insert-src-block)))
+                           'org-insert-src-block)
+            (local-set-key (kbd "C-c v")
+                           'org-show-todo-tree)))
 
 (defun org-file-path (filename)
   "Return the absolute address of an org file, given its relative name."
