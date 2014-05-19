@@ -1,43 +1,28 @@
-;; minor modes to hide altogether
-(eval-after-load "auto-complete"
-  '(diminish 'auto-complete-mode))
-(eval-after-load "eldoc"
-  '(diminish 'eldoc-mode))
-(eval-after-load "flycheck"
-  '(diminish 'flycheck-mode))
-(eval-after-load "flyspell"
-  '(diminish 'flyspell-mode))
-(eval-after-load "global-whitespace"
-  '(diminish 'global-whitespace-mode))
-(eval-after-load "magit"
-  '(diminish 'magit-auto-revert-mode))
-(eval-after-load "projectile"
-  '(diminish 'projectile-mode))
-(eval-after-load "rinari-minor"
-  '(diminish 'rinari-minor-mode))
-(eval-after-load "smartparens"
-  '(diminish 'smartparens-mode))
-(eval-after-load "subword"
-  '(diminish 'subword-mode))
-(eval-after-load "yard"
-  '(diminish 'yard-mode))
-(eval-after-load "yasnippet"
-  '(diminish 'yas-minor-mode))
-(eval-after-load "whitespace"
-  '(diminish 'whitespace-mode))
-(eval-after-load "wrap-region"
-  '(diminish 'wrap-region-mode))
+(defmacro diminish-minor-mode (filename mode &optional abbrev)
+  `(eval-after-load (symbol-name ,filename)
+     '(diminish ,mode ,abbrev)))
 
-;; minor modes to rename
-(eval-after-load "paredit"
-  '(diminish 'paredit-mode " π"))
+(defmacro diminish-major-mode (mode-hook abbrev)
+  `(add-hook ,mode-hook
+             (lambda () (setq mode-name ,abbrev))))
 
-;; major modes to rename
-(add-hook 'emacs-lisp-mode-hook
-          (lambda () (setq mode-name "el")))
-(add-hook 'haskell-mode-hook
-          (lambda () (setq mode-name "λ=")))
-(add-hook 'lisp-interaction-mode-hook
-          (lambda () (setq mode-name "λ")))
-(add-hook 'python-mode-hook
-          (lambda () (setq mode-name "Py")))
+(diminish-minor-mode 'auto-complete 'auto-complete-mode)
+(diminish-minor-mode 'eldoc 'eldoc-mode)
+(diminish-minor-mode 'flycheck 'flycheck-mode)
+(diminish-minor-mode 'flyspell 'flyspell-mode)
+(diminish-minor-mode 'global-whitespace 'global-whitespace-mode)
+(diminish-minor-mode 'magit 'magit-auto-revert-mode)
+(diminish-minor-mode 'projectile 'projectile-mode)
+(diminish-minor-mode 'rinari-minor 'rinari-minor-mode)
+(diminish-minor-mode 'smartparens 'smartparens-mode)
+(diminish-minor-mode 'subword 'subword-mode)
+(diminish-minor-mode 'yard 'yard-mode)
+(diminish-minor-mode 'yasnippet 'yas-minor-mode)
+(diminish-minor-mode 'whitespace 'whitespace-mode)
+(diminish-minor-mode 'wrap-region 'wrap-region-mode)
+(diminish-minor-mode 'paredit 'paredit-mode " π")
+
+(diminish-major-mode 'emacs-lisp-mode-hook "el")
+(diminish-major-mode 'haskell-mode-hook "λ=")
+(diminish-major-mode 'lisp-interaction-mode-hook "λ")
+(diminish-major-mode 'python-mode-hook "Py")
