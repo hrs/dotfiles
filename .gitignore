@@ -1,6 +1,7 @@
 backups
 emacs.d/.cask
 emacs.d/.mc-lists.el
+emacs.d/ac-comphist.dat
 emacs.d/bookmarks
 emacs.d/ido.last
 emacs.d/projectile-bookmarks.eld
