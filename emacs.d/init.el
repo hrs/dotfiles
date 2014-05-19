@@ -70,6 +70,11 @@
 (defun hrs/treat-camelcase-as-separate-words ()
   (add-hook 'prog-mode-hook 'subword-mode))
 
+(defun hrs/configure-wrap-region ()
+  (wrap-region-global-mode t)
+  (wrap-region-add-wrapper "/" "/" nil 'ruby-mode)
+  (wrap-region-add-wrapper "`" "`" nil '(markdown-mode ruby-mode)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (hrs/configure-load-path)
@@ -98,6 +103,7 @@
 (hrs/configure-ido)
 (hrs/enable-region-case-modification)
 (hrs/treat-camelcase-as-separate-words)
+(hrs/configure-wrap-region)
 
 (projectile-global-mode)
 

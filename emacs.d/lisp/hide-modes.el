@@ -19,6 +19,8 @@
   (lambda () (diminish 'yas/minor-mode) (diminish 'yas-minor-mode)))
 (eval-after-load "whitespace"
   '(diminish 'whitespace-mode))
+(eval-after-load "wrap-region"
+  '(diminish 'wrap-region-mode))
 
 ;; minor modes to rename
 (eval-after-load "paredit"

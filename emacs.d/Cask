@@ -61,6 +61,7 @@
 (depends-on "smex")
 (depends-on "solarized-theme")
 (depends-on "w3m")
+(depends-on "wrap-region-mode")
 (depends-on "writegood-mode")
 (depends-on "yaml-mode")
 (depends-on "yasnippet")
