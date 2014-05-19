@@ -1,10 +1,16 @@
 ;; minor modes to hide altogether
+(eval-after-load "auto-complete"
+  '(diminish 'auto-complete-mode))
+(eval-after-load "eldoc"
+  '(diminish 'eldoc-mode))
 (eval-after-load "flycheck"
   '(diminish 'flycheck-mode))
 (eval-after-load "flyspell"
   '(diminish 'flyspell-mode))
 (eval-after-load "global-whitespace"
   '(diminish 'global-whitespace-mode))
+(eval-after-load "magit"
+  '(diminish 'magit-auto-revert-mode))
 (eval-after-load "projectile"
   '(diminish 'projectile-mode))
 (eval-after-load "rinari-minor"
@@ -15,8 +21,8 @@
   '(diminish 'subword-mode))
 (eval-after-load "yard"
   '(diminish 'yard-mode))
-(eval-after-load "yas-minor"
-  (lambda () (diminish 'yas/minor-mode) (diminish 'yas-minor-mode)))
+(eval-after-load "yasnippet"
+  '(diminish 'yas-minor-mode))
 (eval-after-load "whitespace"
   '(diminish 'whitespace-mode))
 (eval-after-load "wrap-region"
