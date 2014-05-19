@@ -10,6 +10,7 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x w") 'count-words)
+(global-set-key (kbd "C-c e") 'hrs/erc-start-or-switch)
 (global-set-key (kbd "C-c g") 'search-engine)
 (global-set-key (kbd "C-c i") 'open-index-file)
 (global-set-key (kbd "C-c m") 'mu4e)

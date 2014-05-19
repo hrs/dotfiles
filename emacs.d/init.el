@@ -82,6 +82,7 @@
 (load "ui-prefs.el")
 (load "utils.el")
 (load "password-management.el")
+(load "erc-config.el")
 
 (require 'dired-x)
 ;; (require 'multi-term)
