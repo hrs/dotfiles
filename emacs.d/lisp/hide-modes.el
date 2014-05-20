@@ -7,6 +7,7 @@
              (lambda () (setq mode-name ,abbrev))))
 
 (diminish-minor-mode 'auto-complete 'auto-complete-mode)
+(diminish-minor-mode 'artbollocks-mode 'artbollocks-mode)
 (diminish-minor-mode 'eldoc 'eldoc-mode)
 (diminish-minor-mode 'flycheck 'flycheck-mode)
 (diminish-minor-mode 'flyspell 'flyspell-mode)
