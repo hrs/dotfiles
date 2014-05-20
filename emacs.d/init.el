@@ -59,6 +59,7 @@
   (setq ido-enable-flex-matching t)
   (setq ido-everywhere t)
   (ido-mode 1)
+  (ido-ubiquitous)
   (flx-ido-mode 1) ; better/faster matching
   (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
   (ido-vertical-mode 1))

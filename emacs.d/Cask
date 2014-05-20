@@ -32,6 +32,7 @@
 (depends-on "haml-mode")
 (depends-on "haskell-mode")
 (depends-on "htmlize")
+(depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
 (depends-on "inf-ruby")
 (depends-on "inflections")
