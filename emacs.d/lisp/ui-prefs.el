@@ -55,6 +55,7 @@
 (transient-mark-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq ns-pop-up-frames nil)
+(setq visible-bell t)
 
 (hrs/make-dired-file-sizes-human-readable)
 (hrs/highlight-long-lines-in-programming-modes)
