@@ -57,6 +57,8 @@
 (setq ns-pop-up-frames nil)
 (setq visible-bell t)
 
+(display-time)
+
 (hrs/make-dired-file-sizes-human-readable)
 (hrs/highlight-long-lines-in-programming-modes)
 (hrs/customize-point-appearance)
