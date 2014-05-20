@@ -84,6 +84,7 @@
 (load "utils.el")
 (load "password-management.el")
 (load "erc-config.el")
+(load "emms-config.el")
 
 (require 'dired-x)
 ;; (require 'multi-term)
