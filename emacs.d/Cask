@@ -15,6 +15,7 @@
 (depends-on "diminish")
 (depends-on "dired-details")
 (depends-on "elixir-mode")
+(depends-on "emms")
 (depends-on "epl")
 (depends-on "erlang")
 (depends-on "ess")
