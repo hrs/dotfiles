@@ -17,4 +17,4 @@ with machine `host' and port `port' from ~/.authinfo.gpg."
 (defun hrs/generate-password ()
   "Insert a good alphanumeric password of length 30."
   (interactive)
-  (insert-random-string 30))
+  (hrs/insert-random-string 30))
