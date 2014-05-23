@@ -117,3 +117,15 @@
   (dired (expand-file-name "db/migrate" (projectile-project-root)))
   (visit-last-dired-file)
   (kill-buffer "migrate"))
+
+(defun hrs/mac-p ()
+  "Returns `t' if this is an Apple machine."
+  (eq system-type 'darwin))
+
+(defun hrs/system-notify (title message)
+  "Display an alert window with `title' and `message'.
+
+Depends on `terminal-notifier', which can be installed with `brew install terminal-notifier')."
+  (when (hrs/mac-p)
+    (with-temp-buffer
+      (shell-command (format "terminal-notifier -title \"%s\" -message \"%s\"" title message) t))))
