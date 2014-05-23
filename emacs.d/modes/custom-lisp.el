@@ -21,4 +21,5 @@
                    (pretty-lambdas)
                    (setq show-paren-style 'expression)
                    (paredit-mode)
-                   (eldoc-mode))))
+                   (eldoc-mode)
+                   (rainbow-delimiters-mode))))
