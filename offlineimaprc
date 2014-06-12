@@ -4,17 +4,20 @@ accounts = Personal
 pythonfile = ~/.offlineimap.py
 
 [Account Personal]
-localrepository = Gmail-Local
-remoterepository = Gmail-Remote
+localrepository = Fastmail-Local
+remoterepository = Fastmail-Remote
 
-[Repository Gmail-Local]
+[Repository Fastmail-Local]
 type = Maildir
 localfolders = ~/Mail/Personal
 
-[Repository Gmail-Remote]
-type = Gmail
-remoteuser = harryrschwartz@gmail.com
-remotepasseval = get_authinfo_password("imap.gmail.com", "harryrschwartz@gmail.com", "993")
+[Repository Fastmail-Remote]
+type = IMAP
+remotehost = mail.messagingengine.com
+remoteuser = hrs@fastmail.fm
+remotepasseval = get_authinfo_password("imap.messagingengine.com", "hrs@fastmail.fm", "993")
+ssl = yes
+holdconnectionopen = yes
 realdelete = no
 maxconnections = 3
 sslcacertfile = /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
