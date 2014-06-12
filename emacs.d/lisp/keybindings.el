@@ -53,3 +53,4 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
 
 (define-key input-decode-map "\e[1;2A" [S-up])
+(define-key global-map (kbd "C-0") 'hrs/os-terminal-here)

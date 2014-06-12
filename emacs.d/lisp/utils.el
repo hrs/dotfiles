@@ -129,3 +129,11 @@ Depends on `terminal-notifier', which can be installed with `brew install termin
   (when (hrs/mac-p)
     (with-temp-buffer
       (shell-command (format "terminal-notifier -title \"%s\" -message \"%s\"" title message) t))))
+
+(if (hrs/mac-p)
+    (setq os-terminal-command "open -a iTerm")
+  (setq os-terminal-command "xterm"))
+
+(defun hrs/os-terminal-here ()
+  (interactive)
+  (dired-smart-shell-command (concat os-terminal-command " $PWD") nil nil))
