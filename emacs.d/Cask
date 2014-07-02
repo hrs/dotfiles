@@ -51,6 +51,7 @@
 (depends-on "paredit")
 (depends-on "php-mode")
 (depends-on "projectile")
+(depends-on "projectile-rails")
 (depends-on "python-mode")
 (depends-on "rainbow-delimiters-mode")
 (depends-on "rainbow-mode")
