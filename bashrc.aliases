@@ -38,7 +38,6 @@ if [[ $(uname) == Darwin ]]; then
   alias ls="ls -G -h"
   alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2"
   alias nowp="now | pbcopy"
-  alias generate_rails_tags="rm -f TAGS; ctags -f TAGS --extra=-f --languages=-javascript --exclude=.git --exclude=log -e -R . $(rvm gemdir)/gems/"
 else # Linux!
   alias op="gnome-open"
   alias ls="ls --color -h"

@@ -25,7 +25,6 @@ pathmunge /usr/local/bin
 pathmunge /usr/local/heroku/bin
 pathmunge /sbin after
 pathmunge $HOME/.bin after
-pathmunge $HOME/.rvm/bin after
 pathmunge $HOME/.cask/bin after
 
 ### variables
@@ -45,7 +44,8 @@ source $HOME/.bashrc.aliases
 source $HOME/.bashrc.prompt
 source $HOME/.bashrc.utils
 
-source $HOME/.rvm/scripts/rvm # load rvm
+source "/usr/local/share/chruby/chruby.sh"
+chruby 2.1.2
 
 ### local config settings, if any
 

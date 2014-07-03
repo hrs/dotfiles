@@ -1,9 +1,8 @@
-(rvm-use-default)
+(chruby "ruby-2.1.2")
 (require 'rcodetools)
 
 (add-hook 'ruby-mode-hook
 	  (lambda ()
-            (rvm-activate-corresponding-ruby)
 	    (setq ruby-insert-encoding-magic-comment nil)
             (rinari-minor-mode)
             (yas-minor-mode)
