@@ -28,8 +28,8 @@ file_links = {
   'xinitrc' => '.xinitrc'
 }
 
-unless File.exists?('~/.ssh')
-  Dir::mkdir('~/.ssh')
+unless File.exists?(File.expand_path('~/.ssh'))
+  Dir::mkdir(File.expand_path('~/.ssh'))
 end
 
 file_links.each do |source, target|
@@ -41,8 +41,8 @@ file_links.each do |source, target|
   end
 end
 
-if File.exists?('~/.bash_profile')
-  File.delete('~/.bash_profile')
+if File.exists?(File.expand_path('~/.bash_profile'))
+  File.delete(File.expand_path('~/.bash_profile'))
 end
 
-File.symlink('~/.bashrc', '~/.bash_profile')
+File.symlink(File.expand_path('~/.bashrc'), File.expand_path('~/.bash_profile'))
