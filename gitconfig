@@ -22,6 +22,7 @@
 
 [user]
   name = Harry Schwartz
+  email = hello@harryrschwartz.com
 
 [color]
   ui = true
