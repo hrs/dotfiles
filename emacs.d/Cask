@@ -29,6 +29,7 @@
 (depends-on "flycheck")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
+(depends-on "git-timemachine")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
 (depends-on "gnuplot")
