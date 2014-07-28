@@ -85,6 +85,9 @@
                              (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
                     (make-directory dir t)))))))
 
+(defun hrs/use-markdown-mode-in-scratch ()
+  (setq initial-major-mode 'markdown-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (hrs/configure-load-path)
@@ -117,6 +120,7 @@
 (hrs/treat-camelcase-as-separate-words)
 (hrs/configure-wrap-region)
 (hrs/offer-to-create-parent-directories-on-save)
+(hrs/use-markdown-mode-in-scratch)
 
 (projectile-global-mode)
 
