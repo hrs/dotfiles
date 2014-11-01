@@ -23,6 +23,7 @@
 [user]
   name = Harry Schwartz
   email = hello@harryrschwartz.com
+  signingkey = 25AE721B
 
 [color]
   ui = true
@@ -34,6 +35,9 @@
 
 [color "diff"]
   meta = bold cyan
+
+[commit]
+  gpgsign = true
 
 [grep]
   linenumber = true
