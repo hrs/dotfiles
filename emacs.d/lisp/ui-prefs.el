@@ -12,7 +12,8 @@
 (defun hrs/disable-window-chrome ()
   (tool-bar-mode 0)
   (menu-bar-mode 0)
-  (scroll-bar-mode -1))
+  (if window-system
+    (scroll-bar-mode -1)))
 
 (defun hrs/quiet-startup ()
   (setq inhibit-startup-message t)
