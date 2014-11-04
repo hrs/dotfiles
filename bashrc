@@ -29,17 +29,27 @@ pathmunge $HOME/.cask/bin after
 
 ### variables
 
-export DISPLAY=:0.0
 export ALTERNATE_EDITOR=""
+export DISPLAY=:0.0
 if [[ $(uname) == Darwin ]]; then
   export EDITOR="emacsclient --tty"
 else
   export EDITOR="emacsclient -nw -c -a ''"
 fi
+export GPG_TTY=`tty`
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export HISTFILESIZE=20000
+
+# load gpg-agent configuration (assuming gpg-agent is running)
+# command to start gpg-agent (should be launched by X or OSX launchd):
+# eval $(gpg-agent --daemon --enable-ssh-support --write-env-file "${HOME}/.gpg-agent-info"))
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+  . "${HOME}/.gpg-agent-info"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+fi
 
 source $HOME/.bashrc.aliases
 source $HOME/.bashrc.prompt
