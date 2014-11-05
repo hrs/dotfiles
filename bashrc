@@ -16,7 +16,6 @@ pathmunge () {
 }
 
 if [[ $(uname) == Darwin ]]; then
-  pathmunge /Applications/Emacs.app/Contents/MacOS/bin
   pathmunge /usr/local/texlive/2013basic/bin/universal-darwin
 fi
 
