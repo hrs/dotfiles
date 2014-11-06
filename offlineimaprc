@@ -1,21 +1,39 @@
 [general]
 ui = ttyui
-accounts = Personal
+accounts = personal, thoughtbot
 pythonfile = ~/.offlineimap.py
 
-[Account Personal]
-localrepository = Fastmail-Local
-remoterepository = Fastmail-Remote
+[Account personal]
+localrepository = fastmail-local
+remoterepository = fastmail-remote
 
-[Repository Fastmail-Local]
+[Account thoughtbot]
+localrepository = thoughtbot-local
+remoterepository = thoughtbot-remote
+
+[Repository fastmail-local]
 type = Maildir
-localfolders = ~/Mail/Personal
+localfolders = ~/mail/personal
 
-[Repository Fastmail-Remote]
+[Repository fastmail-remote]
 type = IMAP
 remotehost = mail.messagingengine.com
 remoteuser = hrs@fastmail.fm
 remotepasseval = get_authinfo_password("imap.messagingengine.com", "hrs@fastmail.fm", "993")
+ssl = yes
+holdconnectionopen = yes
+realdelete = no
+maxconnections = 3
+sslcacertfile = /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+
+[Repository thoughtbot-local]
+type = Maildir
+localfolders = ~/mail/thoughtbot
+
+[Repository thoughtbot-remote]
+type = Gmail
+remoteuser = harry@thoughtbot.com
+remotepasseval = get_authinfo_password("imap.gmail.com", "harry@thoughtbot.com", "993")
 ssl = yes
 holdconnectionopen = yes
 realdelete = no
