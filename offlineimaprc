@@ -6,14 +6,19 @@ pythonfile = ~/.offlineimap.py
 [Account personal]
 localrepository = fastmail-local
 remoterepository = fastmail-remote
+status_backend = sqlite
+postsynchook = notmuch new
 
 [Account thoughtbot]
 localrepository = thoughtbot-local
 remoterepository = thoughtbot-remote
+status_backend = sqlite
+postsynchook = notmuch new
 
 [Repository fastmail-local]
 type = Maildir
 localfolders = ~/mail/personal
+nametrans = local_to_remote_mapper("personal")
 
 [Repository fastmail-remote]
 type = IMAP
@@ -25,10 +30,13 @@ holdconnectionopen = yes
 realdelete = no
 maxconnections = 3
 sslcacertfile = /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+nametrans = remote_to_local_mapper("personal")
+folderfilter = should_include_folder
 
 [Repository thoughtbot-local]
 type = Maildir
 localfolders = ~/mail/thoughtbot
+nametrans = local_to_remote_mapper("thoughtbot")
 
 [Repository thoughtbot-remote]
 type = Gmail
@@ -39,3 +47,5 @@ holdconnectionopen = yes
 realdelete = no
 maxconnections = 3
 sslcacertfile = /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+nametrans = remote_to_local_mapper("thoughtbot")
+folderfilter = should_include_folder
