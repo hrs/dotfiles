@@ -26,7 +26,9 @@ set thorough_search      # strip headers and eval mimes before searching
 set sidebar_delim   = '  │'
 set sidebar_visible = yes
 set sidebar_width   = 24
-# color sidebar_new color221 color233
+
+# Colors ---------------------------------------------
+source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
 
 # Status Bar -----------------------------------------
 set status_chars  = " *%A"
