@@ -48,13 +48,13 @@ alternates hello@harryrschwartz.com
 
 # Mailboxes to show in the sidebar.
 mailboxes +personal/INBOX \
-          +personal/INBOX.Archive \
-          +personal/INBOX.Sent \
-          +personal/INBOX.Drafts \
+          +personal/archive \
+          +personal/sent \
+          +personal/drafts \
 
 # Other special folders.
-set mbox      = "+personal/INBOX.Archive"
-set postponed = "+personal/INBOX.Drafts"
+set mbox      = "+personal/archive"
+set postponed = "+personal/drafts"
 
 # Index View Options ---------------------------------
 set date_format = "%m/%d"
