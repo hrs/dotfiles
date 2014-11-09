@@ -4,6 +4,8 @@
 # xrandr --output HDMI-0 --auto --left-of DVI-0
 # xrandr --output DVI-0 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI-0 --left-of DVI-0 --mode 1920x1080 --pos 0x0 --rotate normal
 
+/usr/bin/gpg-agent --daemon --write-env-file /home/hrs/.gpg-agent-info
+
 feh --bg-tile ~/.wallpaper/light-linen.png
 
 # Caps Lock -> Control
