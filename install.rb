@@ -25,7 +25,8 @@ file_links = {
   'ssh-config' => '.ssh/config',
   'tmux.conf' => '.tmux.conf',
   'wallpaper' => '.wallpaper',
-  'xinitrc' => '.xinitrc'
+  'xmonad' => '.xmonad',
+  'xinitrc' => '.xinitrc',
 }
 
 unless File.exists?(File.expand_path('~/.ssh'))
