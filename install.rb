@@ -16,6 +16,7 @@ file_links = {
   'gitconfig' => '.gitconfig',
   'gitignore' => '.gitignore',
   'gnus' => '.gnus',
+  'msmtprc' => '.msmtprc',
   'mutt' => '.mutt',
   'octaverc' => '.octaverc',
   'offlineimaprc' => '.offlineimaprc',

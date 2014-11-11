@@ -114,3 +114,25 @@ bind pager R  group-reply
 bind attach <return> view-mailcap
 
 macro pager \Cu "|urlview<enter>" "call urlview to open links"
+
+# Compose View Options -------------------------------
+set realname = "Harry Schwartz"      # who am i?
+set envelope_from                    # which from?
+set sig_dashes                       # dashes before sig
+set edit_headers                     # show headers when composing
+set fast_reply                       # skip to compose when replying
+set askcc                            # ask for CC:
+set fcc_attach                       # save attachments with the body
+unset mime_forward                   # forward attachments as part of body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set attribution = "On %d, %n wrote:" # format of quoting header
+set reply_to                         # reply to Reply to: field
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+set forward_quote                    # include message in forwards
+
+# Sending Email ----------------------------------------
+set from     = "hello@harryrschwartz.com"
+set sendmail = "/usr/local/bin/msmtp -a personal"
+set sendmail_wait = 0
