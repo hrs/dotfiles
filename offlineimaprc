@@ -24,7 +24,6 @@ nametrans = local_to_remote_mapper("personal")
 type = IMAP
 remotehost = mail.messagingengine.com
 remoteuser = hrs@fastmail.fm
-remotepasseval = get_authinfo_password("imap.messagingengine.com", "hrs@fastmail.fm", "993")
 ssl = yes
 holdconnectionopen = yes
 realdelete = no
@@ -41,7 +40,6 @@ nametrans = local_to_remote_mapper("thoughtbot")
 [Repository thoughtbot-remote]
 type = Gmail
 remoteuser = harry@thoughtbot.com
-remotepasseval = get_authinfo_password("imap.gmail.com", "harry@thoughtbot.com", "993")
 ssl = yes
 holdconnectionopen = yes
 realdelete = no

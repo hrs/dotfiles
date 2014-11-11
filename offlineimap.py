@@ -32,9 +32,3 @@ def remote_to_local_mapper(account):
 
 def should_include_folder(folder):
   return folder not in EXCLUDED_FOLDERS
-
-def get_authinfo_password(machine, login, port):
-  s = "machine %s login %s password ([^ ]*) port %s" % (machine, login, port)
-  p = re.compile(s)
-  authinfo = os.popen("gpg -q -d ~/.authinfo.gpg").read()
-  return p.search(authinfo).group(1)
