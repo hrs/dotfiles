@@ -88,6 +88,9 @@
 (defun hrs/use-markdown-mode-in-scratch ()
   (setq initial-major-mode 'markdown-mode))
 
+(defun hrs/automatically-follow-symlinks ()
+  (setq vc-follow-symlinks t))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (hrs/configure-load-path)
@@ -121,6 +124,7 @@
 (hrs/configure-wrap-region)
 (hrs/offer-to-create-parent-directories-on-save)
 (hrs/use-markdown-mode-in-scratch)
+(hrs/automatically-follow-symlinks)
 
 (projectile-global-mode)
 
