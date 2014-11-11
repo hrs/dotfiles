@@ -57,6 +57,8 @@ mailboxes +personal/INBOX \
 # Other special folders.
 set mbox      = "+personal/archive"
 set postponed = "+personal/drafts"
+set record    = "+personal/sent"
+set copy = "yes"
 
 # Index View Options ---------------------------------
 set date_format = "%m/%d"
