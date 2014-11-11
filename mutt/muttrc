@@ -162,3 +162,7 @@ set pgp_good_sign="^gpg: Good signature from"
 color index brightdefault default "~g"
 color index brightdefault default "~G"
 color index brightdefault default "~k"
+
+# Postpone messages ------------------------------------
+bind compose p postpone-message
+bind index p recall-message
