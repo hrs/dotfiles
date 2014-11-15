@@ -31,4 +31,4 @@ def remote_to_local_mapper(account):
   return remote_folder_to_local_folder
 
 def should_include_folder(folder):
-  return folder not in EXCLUDED_FOLDERS
+  return folder not in EXCLUDED_FOLDERS and not folder.startswith("RESTORED")
