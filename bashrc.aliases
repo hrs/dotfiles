@@ -6,6 +6,7 @@ fi
 
 alias e=$EDITOR
 alias gg="git grep -n"
+alias gpg="gpg2"
 alias less="less -R" # display colors correctly
 alias sbcl="rlwrap sbcl"
 alias lisp="sbcl --noinform"
