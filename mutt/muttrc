@@ -27,9 +27,6 @@ set sidebar_delim   = '  │'
 set sidebar_visible = yes
 set sidebar_width   = 24
 
-# Colors ---------------------------------------------
-source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
-
 # Status Bar -----------------------------------------
 set status_chars  = " *%A"
 set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
@@ -41,24 +38,8 @@ unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
 
 # Account Settings -----------------------------------
-
-# Default inbox.
-set spoolfile = "+personal/INBOX"
-
-# Alternate email addresses.
-alternates hello@harryrschwartz.com
-
-# Mailboxes to show in the sidebar.
-mailboxes +personal/INBOX \
-          +personal/archive \
-          +personal/sent \
-          +personal/drafts \
-
-# Other special folders.
-set mbox      = "+personal/archive"
-set postponed = "+personal/drafts"
-set record    = "+personal/sent"
-set copy = "yes"
+mailboxes +personal/INBOX +personal/archive +personal/sent +thoughtbot/INBOX +thoughtbot/archive +thoughtbot/sent
+alternates hello@harryrschwartz.com harry@thoughtbot.com
 
 # Index View Options ---------------------------------
 set date_format = "%m/%d"
@@ -70,28 +51,36 @@ set sort_re                                # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # Index Key Bindings ---------------------------------
-bind index gg       first-entry
-bind index G        last-entry
+macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail using notmuch"
 
-bind index R        group-reply
-bind index <tab>    sync-mailbox
-bind index <space>  collapse-thread
+bind index gg first-entry
+bind index G last-entry
+bind pager k  previous-line
+bind pager j  next-line
+bind index R group-reply
+bind index <tab> sync-mailbox
+bind index <space> collapse-thread
+
+bind compose p postpone-message
+bind index p recall-message
+
+bind attach <return> view-mailcap # for attachments
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+
+bind index,pager <down> sidebar-next
+bind index,pager <up> sidebar-prev
+bind index,pager <right> sidebar-open
 
 # Ctrl-R to mark all as read
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
 # Sync email
-macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
+macro index O "<shell-escape>offlineimap<enter>" "run offlineimap to sync all mail"
 macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
 
 # Saner copy/move dialogs
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
-
-# Sidebar Navigation ---------------------------------
-bind index,pager <down>   sidebar-next
-bind index,pager <up>     sidebar-prev
-bind index,pager <right>  sidebar-open
 
 # Pager View Options ---------------------------------
 set pager_index_lines = 10 # number of index lines to show
@@ -103,19 +92,6 @@ unset markers              # no ugly plus signs
 
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 alternative_order text/plain text/enriched text/html
-
-# Pager Key Bindings ---------------------------------
-bind pager k  previous-line
-bind pager j  next-line
-bind pager gg top
-bind pager G  bottom
-
-bind pager R  group-reply
-
-# View attachments properly.
-bind attach <return> view-mailcap
-
-macro pager \Cu "|urlview<enter>" "call urlview to open links"
 
 # Compose View Options -------------------------------
 set realname = "Harry Schwartz"      # who am i?
@@ -135,36 +111,19 @@ set include                          # include message in replies
 set forward_quote                    # include message in forwards
 
 # Sending Email ----------------------------------------
-set from     = "hello@harryrschwartz.com"
-set sendmail = "/usr/local/bin/msmtp -a personal"
 set sendmail_wait = 0
 
-# GPG Configuration ------------------------------------
-set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
-set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
-set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
-set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
-set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
-set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0x25AE721B -- -r %r -- %f"
-set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x25AE721B -- -r %r -- %f"
-set pgp_import_command="gpg --no-verbose --import -v %f"
-set pgp_export_command="gpg --no-verbose --export --armor %r"
-set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
-set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r"
-set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r"
-set pgp_autosign=yes
-set pgp_verify_sig=yes
-set pgp_auto_decode
-set pgp_use_gpg_agent=yes
-set pgp_sign_as=0x25AE721B
-set pgp_replyencrypt=yes
-set pgp_timeout=1800
-set pgp_good_sign="^gpg: Good signature from"
+# Contact management -----------------------------------
+set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
+bind editor <Tab> complete-query
+bind editor ^T    complete
 
-color index brightdefault default "~g"
-color index brightdefault default "~G"
-color index brightdefault default "~k"
+# Colors -----------------------------------------------
+source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
+source ~/.mutt/pgp.muttrc
 
-# Postpone messages ------------------------------------
-bind compose p postpone-message
-bind index p recall-message
+# Account-specific Config ------------------------------
+source ~/.mutt/account.personal
+
+folder-hook personal "source ~/.mutt/account.personal"
+folder-hook thoughtbot "source ~/.mutt/account.thoughtbot"

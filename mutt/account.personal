@@ -1,0 +1,12 @@
+set from = "hello@harryrschwartz.com"
+set sendmail = "/usr/local/bin/msmtp -a personal"
+set spoolfile = "+personal/INBOX"
+set mbox = "+personal/archive"
+set postponed = "+personal/drafts"
+set record = "+personal/sent"
+set copy = "yes"
+macro index gi "<change-folder>+personal/INBOX<enter>" "go to the INBOX"
+macro index gt "<change-folder>+thoughtbot/INBOX<enter>" "next account"
+
+macro index d "s=personal/archive\n" "archive message"
+macro pager d "s=personal/archive\n" "archive message"
