@@ -16,12 +16,11 @@ set pgp_sign_as=0x25AE721B
 set pgp_timeout=60
 set pgp_good_sign="^gpg: Good signature from"
 set pgp_autosign
-set pgp_replysign
-set pgp_autoencrypt=yes
 set pgp_replyencrypt=yes
 set pgp_replysignencrypted=yes
 set pgp_verify_sig=yes
 set pgp_auto_decode
+set pgp_show_unusable=no
 
 unignore X-PGP-Key:
 my_hdr X-PGP-Key: http://pgp.mit.edu:11371/pks/lookup?op=vindex&search=0x25AE721B

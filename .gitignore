@@ -6,8 +6,10 @@ emacs.d/bookmarks
 emacs.d/emms
 emacs.d/ido.last
 emacs.d/projectile-bookmarks.eld
+emacs.d/recentf
 emacs.d/tramp
 emacs.d/url/cookies
+mutt/temp
 xmonad/xmonad-*
 xmonad/*.errors
 xmonad/*.hi

@@ -61,9 +61,6 @@ bind index R group-reply
 bind index <tab> sync-mailbox
 bind index <space> collapse-thread
 
-bind compose p postpone-message
-bind index p recall-message
-
 bind attach <return> view-mailcap # for attachments
 macro pager \Cu "|urlview<enter>" "call urlview to open links"
 
