@@ -29,6 +29,7 @@ pathmunge $HOME/.cask/bin after
 ### variables
 
 export ALTERNATE_EDITOR=""
+export PROMPT_DIRTRIM=3
 export DISPLAY=:0.0
 if [[ $(uname) == Darwin ]]; then
   export EDITOR="emacsclient --tty"
