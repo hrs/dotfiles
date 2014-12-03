@@ -107,6 +107,9 @@ set reverse_name                     # reply as whomever it was to
 set include                          # include message in replies
 set forward_quote                    # include message in forwards
 
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
 # Sending Email ----------------------------------------
 set sendmail_wait = 0
 

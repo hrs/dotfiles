@@ -9,7 +9,7 @@ image/gif; ~/.mutt/view_attachment.sh %s gif
 application/pdf; ~/.mutt/view_attachment.sh %s pdf
 
 # HTML
-text/html; ~/.mutt/view_attachment.sh %s html
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
 # Unidentified files
 application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
