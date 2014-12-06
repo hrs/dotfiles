@@ -38,7 +38,7 @@ unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
 
 # Account Settings -----------------------------------
-mailboxes +personal/INBOX +personal/archive +personal/sent +thoughtbot/INBOX +thoughtbot/archive +thoughtbot/sent
+mailboxes +personal/INBOX +thoughtbot/INBOX
 alternates hello@harryrschwartz.com harry@thoughtbot.com
 
 # Index View Options ---------------------------------
