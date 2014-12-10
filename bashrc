@@ -48,6 +48,10 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
   export SSH_AUTH_SOCK
 fi
 
+if [[ $(uname) == Darwin ]]; then
+  source /usr/local/etc/bash_completion.d/password-store
+fi
+
 source $HOME/.bashrc.aliases
 source $HOME/.bashrc.prompt
 source $HOME/.bashrc.utils
