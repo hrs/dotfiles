@@ -11,5 +11,8 @@ application/pdf; ~/.mutt/view_attachment.sh %s pdf
 # HTML
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
+# Plain text
+text/plain; emacsclient --tty %s
+
 # Unidentified files
 application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
