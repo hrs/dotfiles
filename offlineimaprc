@@ -7,13 +7,11 @@ pythonfile = ~/.offlineimap.py
 localrepository = fastmail-local
 remoterepository = fastmail-remote
 status_backend = sqlite
-postsynchook = notmuch new
 
 [Account thoughtbot]
 localrepository = thoughtbot-local
 remoterepository = thoughtbot-remote
 status_backend = sqlite
-postsynchook = notmuch new
 
 [Repository fastmail-local]
 type = Maildir
