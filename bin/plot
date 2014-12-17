@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f output.png
+gnuplot -e "set terminal png; set output 'output.png'; plot '-' using 1:2 with lines" $(read)
+open output.png
