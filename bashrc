@@ -57,7 +57,7 @@ source $HOME/.bashrc.prompt
 source $HOME/.bashrc.utils
 
 source "/usr/local/share/chruby/chruby.sh"
-chruby 2.1.4
+chruby 2.1.5
 
 ### local config settings, if any
 

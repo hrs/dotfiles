@@ -1,4 +1,4 @@
-(chruby "ruby-2.1.4")
+(chruby "ruby-2.1.5")
 (require 'rcodetools)
 
 (add-hook 'ruby-mode-hook
