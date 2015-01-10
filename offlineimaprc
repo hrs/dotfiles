@@ -26,7 +26,7 @@ ssl = yes
 holdconnectionopen = yes
 realdelete = no
 maxconnections = 3
-sslcacertfile = /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+sslcacertfile = ~/.mutt/ca-bundle.crt
 nametrans = remote_to_local_mapper("personal")
 folderfilter = should_include_folder
 
@@ -42,6 +42,6 @@ ssl = yes
 holdconnectionopen = yes
 realdelete = no
 maxconnections = 3
-sslcacertfile = /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+sslcacertfile = ~/.mutt/ca-bundle.crt
 nametrans = remote_to_local_mapper("thoughtbot")
 folderfilter = should_include_folder
