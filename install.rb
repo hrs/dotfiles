@@ -18,6 +18,7 @@ file_links = {
   'gnus' => '.gnus',
   'msmtprc' => '.msmtprc',
   'mutt' => '.mutt',
+  'newsbeuter-config' => '.newsbeuter/config',
   'octaverc' => '.octaverc',
   'offlineimaprc' => '.offlineimaprc',
   'offlineimap.py' => '.offlineimap.py',
@@ -34,6 +35,10 @@ file_links = {
 
 unless File.exists?(File.expand_path('~/.ssh'))
   Dir::mkdir(File.expand_path('~/.ssh'))
+end
+
+unless File.exists?(File.expand_path('~/.newsbeuter'))
+  Dir::mkdir(File.expand_path('~/.newsbeuter'))
 end
 
 file_links.each do |source, target|

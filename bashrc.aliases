@@ -19,6 +19,7 @@ alias mkdir="mkdir -p"
 alias n="e ~/Documents/notes"
 alias now="date '+%Y-%m-%d %H:%M'"
 alias path="echo $PATH | tr ':' '\n'"
+alias rss="newsbeuter -q -r -u ~/Dropbox/newsbeuter/urls"
 alias texclean="rm *.aux *.log *.bbl *.blg *.pdf"
 alias tree="tree -C" # add colors
 alias unb="tar xjvf"

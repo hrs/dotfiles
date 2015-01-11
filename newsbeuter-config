@@ -1,0 +1,28 @@
+show-read-articles no
+show-read-feeds no
+macro o open-in-browser ; toggle-article-read "read"
+
+reload-threads 32
+
+cache-file "~/Dropbox/newsbeuter/cache.db"
+
+browser "open -a firefox"
+external-url-viewer "/usr/local/bin/urlview"
+html-renderer "/usr/local/bin/elinks -dump"
+pager internal
+
+bind-key j next
+bind-key k prev
+bind-key J next-feed
+bind-key K prev-feed
+bind-key j down article
+bind-key k up article
+bind-key J next article
+bind-key K prev article
+
+color background white default
+color listnormal white default
+color listfocus white blue  standout
+color info blue default standout
+color listfocus_unread white blue    standout
+color listnormal_unread white default
