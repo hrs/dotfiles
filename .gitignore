@@ -7,6 +7,7 @@ emacs.d/emms
 emacs.d/ido.last
 emacs.d/projectile-bookmarks.eld
 emacs.d/recentf
+emacs.d/smex-items
 emacs.d/tramp
 emacs.d/url
 mutt/temp
