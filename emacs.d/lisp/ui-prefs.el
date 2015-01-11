@@ -22,10 +22,6 @@
 (defun hrs/make-dired-file-sizes-human-readable ()
   (setq-default dired-listing-switches "-alh"))
 
-(defun hrs/customize-point-appearance ()
-  (setq-default cursor-type '(bar . 2))
-  (global-hl-line-mode t))
-
 (defun hrs/highlight-long-lines-in-programming-modes ()
   (require 'whitespace)
   (setq whitespace-line-column 80)
@@ -62,5 +58,4 @@
 
 (hrs/make-dired-file-sizes-human-readable)
 (hrs/highlight-long-lines-in-programming-modes)
-(hrs/customize-point-appearance)
 (hrs/customize-solarized-appearance)
