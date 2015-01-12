@@ -4,3 +4,4 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . web-mode))
 
 (add-hook 'web-mode-hook 'rainbow-mode)
+(add-hook 'web-mode-hook 'rspec-mode)
