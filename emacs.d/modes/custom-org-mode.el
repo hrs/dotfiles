@@ -1,7 +1,7 @@
 (require 'ox-md)
 
 (setq org-directory "~/org")
-(setq notes-directory "~/Dropbox/notes")
+(setq notes-directory "~/notes")
 
 (defun construct-filename (directory filename)
   (concat (file-name-as-directory directory) filename))

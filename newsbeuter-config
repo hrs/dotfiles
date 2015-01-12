@@ -4,7 +4,7 @@ macro o open-in-browser ; toggle-article-read "read"
 
 reload-threads 32
 
-cache-file "~/Dropbox/newsbeuter/cache.db"
+cache-file "~/owncloud-sync/newsbeuter/cache.db"
 
 browser "open -a firefox"
 external-url-viewer "/usr/local/bin/urlview"
