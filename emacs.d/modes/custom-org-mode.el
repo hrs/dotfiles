@@ -8,7 +8,6 @@
 
 (add-hook 'org-mode-hook
 	  (lambda ()
-            (flyspell-mode)
             (local-set-key (kbd "C-x s")
                            'org-insert-src-block)
             (local-set-key (kbd "C-c v")
