@@ -6,9 +6,9 @@ reload-threads 32
 
 cache-file "~/owncloud-sync/newsbeuter/cache.db"
 
-browser "open -a firefox"
-external-url-viewer "/usr/local/bin/urlview"
-html-renderer "/usr/local/bin/elinks -dump"
+browser "op"
+external-url-viewer "urlview"
+html-renderer "w3m -T text/html"
 pager internal
 
 bind-key j next
