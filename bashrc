@@ -31,11 +31,7 @@ pathmunge $HOME/.cask/bin after
 export ALTERNATE_EDITOR=""
 export PROMPT_DIRTRIM=3
 export DISPLAY=:0.0
-if [[ $(uname) == Darwin ]]; then
-  export EDITOR="emacsclient --tty"
-else
-  export EDITOR="emacsclient -nw -c -a ''"
-fi
+export EDITOR="emacsclient --tty"
 export GPG_TTY=$(tty)
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
