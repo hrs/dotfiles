@@ -6,6 +6,7 @@ reload-threads 32
 
 cache-file "~/owncloud-sync/newsbeuter/cache.db"
 
+player "op"
 browser "op"
 external-url-viewer "urlview"
 html-renderer "w3m -T text/html"
