@@ -88,6 +88,10 @@
 (defun hrs/automatically-follow-symlinks ()
   (setq vc-follow-symlinks t))
 
+(defun hrs/make-scripts-executable ()
+  (add-hook 'after-save-hook
+            'executable-make-buffer-file-executable-if-script-p))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (hrs/configure-load-path)
@@ -121,6 +125,7 @@
 (hrs/configure-wrap-region)
 (hrs/offer-to-create-parent-directories-on-save)
 (hrs/automatically-follow-symlinks)
+(hrs/make-scripts-executable)
 
 (projectile-global-mode)
 
