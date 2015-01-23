@@ -20,6 +20,8 @@
 (depends-on "elixir-mode")
 (depends-on "emms")
 (depends-on "epl")
+(depends-on "erc-image")
+(depends-on "ercn")
 (depends-on "erlang")
 (depends-on "ess")
 (depends-on "expand-region")
