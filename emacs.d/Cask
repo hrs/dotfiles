@@ -17,6 +17,7 @@
 (depends-on "dash-at-point")
 (depends-on "diminish")
 (depends-on "dired-details")
+(depends-on "elfeed")
 (depends-on "elixir-mode")
 (depends-on "emms")
 (depends-on "epl")
