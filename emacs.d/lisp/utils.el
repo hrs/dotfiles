@@ -13,10 +13,12 @@
     (tidy-region (point-min) (point-max))))
 
 (defun date ()
+  "Insert today's date."
   (interactive)
   (insert (format-time-string "%Y-%m-%d")))
 
 (defun time ()
+  "Insert the current time."
   (interactive)
   (insert (format-time-string "%H:%M:%S")))
 
@@ -37,26 +39,32 @@
                          (read-string "Search: "))))))
 
 (defun move-line-up ()
+  "Swap the line at point with the line above it, moving point to the line below."
   (interactive)
   (transpose-lines 1)
   (forward-line -2))
 
 (defun move-line-down ()
+  "Swap the line at point with the line beneath it, moving point to the line below."
   (interactive)
   (forward-line 1)
   (transpose-lines 1)
   (forward-line -1))
 
 (defun generate-scratch-buffer ()
+  "Create and switch to a temporary scratch buffer with a random
+   name."
   (interactive)
   (switch-to-buffer (make-temp-name "scratch-")))
 
 (defun split-window-below-and-switch ()
+  "Split the window horizontally, then switch to the new pane."
   (interactive)
   (split-window-below)
   (other-window 1))
 
 (defun split-window-right-and-switch ()
+  "Split the window vertically, then switch to the new pane."
   (interactive)
   (split-window-right)
   (other-window 1))
@@ -81,6 +89,8 @@
             (replace-regexp key value)))))
 
 (defun beautify-json ()
+  "Pretty-print the JSON in the marked region. Currently shells
+   out to `jsonpp'--be sure that's installed!"
   (interactive)
   (save-excursion
     (shell-command-on-region (mark) (point) "jsonpp" (buffer-name) t)))
@@ -101,6 +111,7 @@
     (fill-paragraph nil)))
 
 (defun kill-current-buffer ()
+  "Kill the current buffer without prompting."
   (interactive)
   (kill-buffer (current-buffer)))
 
@@ -119,7 +130,7 @@
   (kill-buffer "migrate"))
 
 (defun hrs/mac-p ()
-  "Returns `t' if this is an Apple machine."
+  "Returns `t' if this is an Apple machine, nil otherwise."
   (eq system-type 'darwin))
 
 (defun hrs/system-notify (title message)
@@ -135,5 +146,6 @@ Depends on `terminal-notifier', which can be installed with `brew install termin
   (setq os-terminal-command "xterm"))
 
 (defun hrs/os-terminal-here ()
+  "Open an OS-specific terminal in the directory of the current buffer."
   (interactive)
   (dired-smart-shell-command (concat os-terminal-command " $PWD") nil nil))
