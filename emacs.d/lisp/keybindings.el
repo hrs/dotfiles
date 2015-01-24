@@ -3,21 +3,21 @@
 (global-set-key (kbd "C-c s") 'multi-term)
 (global-set-key (kbd "C-x |") 'align-regexp)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-M-\\") 'tidy-region)
+(global-set-key (kbd "C-M-\\") 'hrs/tidy-region)
 (global-set-key (kbd "C-c C-s") 'ispell-word)
-(global-set-key (kbd "C-c d") 'date)
-(global-set-key (kbd "C-c t") 'time)
+(global-set-key (kbd "C-c d") 'hrs/date)
+(global-set-key (kbd "C-c t") 'hrs/time)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x w") 'count-words)
 (global-set-key (kbd "C-c e") 'hrs/erc-start-or-switch)
-(global-set-key (kbd "C-c g") 'search-engine)
+(global-set-key (kbd "C-c g") 'hrs/search-engine)
 (global-set-key (kbd "C-c i") 'open-index-file)
 (global-set-key (kbd "C-c m") 'mu4e)
-(global-set-key (kbd "C-c C-x b") 'generate-scratch-buffer)
-(global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "C-c C-x b") 'hrs/generate-scratch-buffer)
+(global-set-key (kbd "M-;") 'hrs/comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-#") 'sort-lines)
-(global-set-key (kbd "C-x k") 'kill-current-buffer)
+(global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
@@ -32,8 +32,8 @@
 (global-set-key (kbd "C-'") 'er/expand-region)
 
 ;; switch to new window on split
-(global-set-key (kbd "C-x 2") 'split-window-below-and-switch)
-(global-set-key (kbd "C-x 3") 'split-window-right-and-switch)
+(global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+(global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
 
 ;; change font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -44,8 +44,8 @@
 ;; org-mode
 (global-set-key (kbd "M-n") 'org-capture-todo)
 
-(global-set-key (kbd "M-<up>") 'move-line-up)
-(global-set-key (kbd "M-<down>") 'move-line-down)
+(global-set-key (kbd "M-<up>") 'hrs/drag-line-up)
+(global-set-key (kbd "M-<down>") 'hrs/drag-line-down)
 
 ;; rebind M-x more usefully
 (global-set-key (kbd "M-x") 'smex)

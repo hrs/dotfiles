@@ -1,4 +1,4 @@
-(defun tidy-region (start end)
+(defun hrs/tidy-region (start end)
   "Indent, delete whitespace, and untabify the region."
   (interactive "r")
   (progn
@@ -6,70 +6,70 @@
     (indent-region start end nil)
     (untabify start end)))
 
-(defun tidy-buffer ()
+(defun hrs/tidy-buffer ()
   "Indent, delete whitespace, and untabify the buffer."
   (interactive)
   (save-excursion
     (tidy-region (point-min) (point-max))))
 
-(defun date ()
+(defun hrs/date ()
   "Insert today's date."
   (interactive)
   (insert (format-time-string "%Y-%m-%d")))
 
-(defun time ()
+(defun hrs/time ()
   "Insert the current time."
   (interactive)
   (insert (format-time-string "%H:%M:%S")))
 
-(defun view-buffer-name ()
+(defun hrs/view-buffer-name ()
   "Display the filename of the current buffer."
   (interactive)
   (message (buffer-file-name)))
 
-(setq search-engine-url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=")
+(setq hrs/search-engine-url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=")
 
-(defun search-engine ()
+(defun hrs/search-engine ()
   "Search the selected region if any, display a query prompt otherwise."
   (interactive)
   (browse-url
-   (concat search-engine-url
+   (concat hrs/search-engine-url
     (url-hexify-string (if mark-active
                            (buffer-substring (region-beginning) (region-end))
                          (read-string "Search: "))))))
 
-(defun move-line-up ()
-  "Swap the line at point with the line above it, moving point to the line below."
+(defun hrs/drag-line-up ()
+  "Swap the line at point with the line above it, moving point to the line above."
   (interactive)
   (transpose-lines 1)
   (forward-line -2))
 
-(defun move-line-down ()
+(defun hrs/drag-line-down ()
   "Swap the line at point with the line beneath it, moving point to the line below."
   (interactive)
   (forward-line 1)
   (transpose-lines 1)
   (forward-line -1))
 
-(defun generate-scratch-buffer ()
+(defun hrs/generate-scratch-buffer ()
   "Create and switch to a temporary scratch buffer with a random
    name."
   (interactive)
   (switch-to-buffer (make-temp-name "scratch-")))
 
-(defun split-window-below-and-switch ()
+(defun hrs/split-window-below-and-switch ()
   "Split the window horizontally, then switch to the new pane."
   (interactive)
   (split-window-below)
   (other-window 1))
 
-(defun split-window-right-and-switch ()
+(defun hrs/split-window-right-and-switch ()
   "Split the window vertically, then switch to the new pane."
   (interactive)
   (split-window-right)
   (other-window 1))
 
-(defun de-unicode ()
+(defun hrs/de-unicode ()
   "Tidy up a buffer by replacing all special Unicode characters
    (smart quotes, etc.) with their more sane cousins"
   (interactive)
@@ -88,14 +88,14 @@
             (goto-char (point-min))
             (replace-regexp key value)))))
 
-(defun beautify-json ()
+(defun hrs/beautify-json ()
   "Pretty-print the JSON in the marked region. Currently shells
    out to `jsonpp'--be sure that's installed!"
   (interactive)
   (save-excursion
     (shell-command-on-region (mark) (point) "jsonpp" (buffer-name) t)))
 
-(defun comment-or-uncomment-region-or-line ()
+(defun hrs/comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
   (let (beg end)
@@ -104,29 +104,28 @@
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)))
 
-(defun unfill-paragraph ()
+(defun hrs/unfill-paragraph ()
   "Takes a multi-line paragraph and makes it into a single line of text."
   (interactive)
   (let ((fill-column (point-max)))
     (fill-paragraph nil)))
 
-(defun kill-current-buffer ()
+(defun hrs/kill-current-buffer ()
   "Kill the current buffer without prompting."
   (interactive)
   (kill-buffer (current-buffer)))
 
-(defun visit-last-dired-file ()
+(defun hrs/visit-last-dired-file ()
   "Open the last file in an open dired buffer."
-  (interactive)
   (end-of-buffer)
   (previous-line)
   (dired-find-file))
 
-(defun visit-last-migration ()
-  "Open the last file in 'db/migrate/'."
+(defun hrs/visit-last-migration ()
+  "Open the last file in 'db/migrate/'. Relies on projectile. Pretty sloppy."
   (interactive)
   (dired (expand-file-name "db/migrate" (projectile-project-root)))
-  (visit-last-dired-file)
+  (hrs/visit-last-dired-file)
   (kill-buffer "migrate"))
 
 (defun hrs/mac-p ()
