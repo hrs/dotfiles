@@ -128,7 +128,7 @@
   (hrs/visit-last-dired-file)
   (kill-buffer "migrate"))
 
-(defun hrs/mac-p ()
+(defun hrs/mac? ()
   "Returns `t' if this is an Apple machine, nil otherwise."
   (eq system-type 'darwin))
 
@@ -136,11 +136,11 @@
   "Display an alert window with `title' and `message'.
 
 Depends on `terminal-notifier', which can be installed with `brew install terminal-notifier')."
-  (when (hrs/mac-p)
+  (when (hrs/mac?)
     (with-temp-buffer
       (shell-command (format "terminal-notifier -title \"%s\" -message \"%s\"" title message) t))))
 
-(if (hrs/mac-p)
+(if (hrs/mac?)
     (setq os-terminal-command "open -a iTerm")
   (setq os-terminal-command "xterm"))
 
