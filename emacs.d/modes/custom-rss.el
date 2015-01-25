@@ -5,9 +5,11 @@
 
 (define-key elfeed-show-mode-map "j" 'scroll-up-line)
 (define-key elfeed-show-mode-map "k" 'scroll-down-line)
+(define-key elfeed-show-mode-map "o" 'elfeed-show-visit)
 
 (define-key elfeed-search-mode-map "j" 'next-line)
 (define-key elfeed-search-mode-map "k" 'previous-line)
+(define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
 
 (setq elfeed-search-filter "@2-days-old +unread ")
 
