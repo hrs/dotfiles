@@ -2,14 +2,9 @@
 (require 'erc-join)
 (require 'erc-image)
 
-(defun hrs/notify (title message)
-  (with-temp-buffer
-    (shell-command
-     (format "terminal-notifier -title \"%s\" -message \"%s\"" title message))))
-
 (defun do-notify (nick message)
   "Pop up a desktop notification about this message. Called `do-notify' because ercn seems to require that. =/"
-  (hrs/notify "erc" (format "%s: %s" nick message)))
+  (hrs/system-notify "erc" (format "%s: %s" nick message)))
 
 (setq erc-prompt-for-nickserv-password nil)
 (setq erc-fill-function 'erc-fill-static)
