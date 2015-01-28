@@ -27,17 +27,6 @@
   (interactive)
   (message (buffer-file-name)))
 
-(setq hrs/search-engine-url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=")
-
-(defun hrs/search-engine ()
-  "Search the selected region if any, display a query prompt otherwise."
-  (interactive)
-  (browse-url
-   (concat hrs/search-engine-url
-    (url-hexify-string (if mark-active
-                           (buffer-substring (region-beginning) (region-end))
-                         (read-string "Search: "))))))
-
 (defun hrs/drag-line-up ()
   "Swap the line at point with the line above it, moving point to the line above."
   (interactive)
