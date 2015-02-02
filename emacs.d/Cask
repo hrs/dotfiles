@@ -75,6 +75,7 @@
 (depends-on "solarized-theme")
 (depends-on "w3m")
 (depends-on "web-mode")
+(depends-on "wgrep")
 (depends-on "wrap-region")
 (depends-on "writegood-mode")
 (depends-on "yaml-mode")
