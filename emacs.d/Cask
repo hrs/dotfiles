@@ -21,6 +21,7 @@
 (depends-on "elfeed")
 (depends-on "elixir-mode")
 (depends-on "emms")
+(depends-on "engine-mode")
 (depends-on "epl")
 (depends-on "erc-image")
 (depends-on "ercn")
