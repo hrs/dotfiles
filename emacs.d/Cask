@@ -69,6 +69,7 @@
 (depends-on "rubocop")
 (depends-on "ruby-compilation")
 (depends-on "ruby-end")
+(depends-on "ruby-hash-syntax")
 (depends-on "s")
 (depends-on "scss-mode")
 (depends-on "smart-forward")
