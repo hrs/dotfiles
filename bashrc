@@ -17,6 +17,7 @@ pathmunge () {
 
 if [[ $(uname) == Darwin ]]; then
   pathmunge /usr/local/texlive/2013basic/bin/universal-darwin
+  pathmunge /usr/texbin
 fi
 
 pathmunge /usr/local/sbin
