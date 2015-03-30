@@ -19,6 +19,10 @@ function viewpages() {
   done
 }
 
+function 2fa() {
+  oathtool --totp -b $(pass tokens/"$1" | head -1)
+}
+
 function exelse-edit() {
   author="$1"
   title="$2"
