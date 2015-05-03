@@ -4,11 +4,8 @@
 (add-hook 'ruby-mode-hook
 	  (lambda ()
 	    (setq ruby-insert-encoding-magic-comment nil)
-            (rinari-minor-mode)
             (yas-minor-mode)
             (flycheck-mode)
-            (global-set-key (kbd "C-c C-f") 'rinari-find-file-in-project)
-            (setq rinari-tags-file-name "TAGS")
             (projectile-rails-mode)
             (local-set-key "\r" 'newline-and-indent)
             (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
