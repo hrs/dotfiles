@@ -2,15 +2,15 @@
 
 (defengine amazon
   "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s"
-  "a")
+  :keybinding "a")
 
 (defengine duckduckgo
   "https://duckduckgo.com/?q=%s"
-  "d")
+  :keybinding "d")
 
 (defengine github
   "https://github.com/search?ref=simplesearch&q=%s"
-  "g")
+  :keybinding "g")
 
 (defengine google
   "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
@@ -20,7 +20,7 @@
 
 (defengine google-maps
   "http://maps.google.com/maps?q=%s"
-  "m")
+  :keybinding "m")
 
 (defengine project-gutenberg
   "http://www.gutenberg.org/ebooks/search.html/?format=html&default_prefix=all&sort_order=&query=%s")
@@ -30,14 +30,14 @@
 
 (defengine stack-overflow
   "https://stackoverflow.com/search?q=%s"
-  "s")
+  :keybinding "s")
 
 (defengine twitter
   "https://twitter.com/search?q=%s")
 
 (defengine wikipedia
   "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
-  "w")
+  :keybinding "w")
 
 (defengine wiktionary
   "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
@@ -47,3 +47,5 @@
 
 (defengine youtube
   "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
+
+(engine-mode t)
