@@ -56,6 +56,8 @@
 
 (display-time)
 
+(setq fill-column 80)
+
 (hrs/make-dired-file-sizes-human-readable)
 (hrs/highlight-long-lines-in-programming-modes)
 (hrs/customize-solarized-appearance)
