@@ -102,10 +102,6 @@
 (load "emms-config.el")
 
 (require 'dired-x)
-;; (require 'multi-term)
-
-;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-;; (require 'mu4e)
 
 (hrs/increase-gc-threshold)
 (hrs/extend-exec-path)
