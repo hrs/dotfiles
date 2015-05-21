@@ -1,7 +1,4 @@
-(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.rhtml$" . web-mode))
+(hrs/add-auto-mode 'web-mode "\\.erb$" "\\.html$" "\\.php$" "\\.rhtml$")
 
 (add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'web-mode-hook 'rspec-mode)

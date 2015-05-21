@@ -1,2 +1,1 @@
-;; I write more prolog than perl, somehow
-(add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
+(hrs/add-auto-mode 'prolog-mode "\\.pl$")

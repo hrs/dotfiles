@@ -137,3 +137,8 @@ Depends on `terminal-notifier', which can be installed with `brew install termin
   "Open an OS-specific terminal in the directory of the current buffer."
   (interactive)
   (dired-smart-shell-command (concat os-terminal-command " $PWD") nil nil))
+
+(defun hrs/add-auto-mode (mode &rest patterns)
+  "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
+  (dolist (pattern patterns)
+    (add-to-list 'auto-mode-alist (cons pattern mode))))
