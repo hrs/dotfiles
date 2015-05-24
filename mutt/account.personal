@@ -1,5 +1,5 @@
 set from = "hello@harryrschwartz.com"
-set sendmail = "/usr/local/bin/msmtp -a personal"
+set sendmail = "msmtp -a personal"
 set spoolfile = "+personal/INBOX"
 set mbox = "+personal/archive"
 set postponed = "+personal/drafts"

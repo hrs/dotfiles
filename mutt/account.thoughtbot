@@ -1,5 +1,5 @@
 set from = "harry@thoughtbot.com"
-set sendmail = "/usr/local/bin/msmtp -a thoughtbot"
+set sendmail = "msmtp -a thoughtbot"
 set spoolfile = "+thoughtbot/INBOX"
 set mbox = "+thoughtbot/archive"
 set postponed = "+thoughtbot/drafts"
