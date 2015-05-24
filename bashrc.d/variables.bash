@@ -19,6 +19,8 @@ fi
 
 if [[ $(uname) == Darwin ]]; then
   source /usr/local/etc/bash_completion.d/password-store
+else
+  source /etc/bash_completion.d/password-store
 fi
 
 source "/usr/local/share/chruby/chruby.sh"
