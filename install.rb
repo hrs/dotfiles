@@ -27,6 +27,7 @@ file_links = {
   'tmux.conf' => '.tmux.conf',
   'urlview' => '.urlview',
   'wallpaper' => '.wallpaper',
+  'xbindkeysrc' => '.xbindkeysrc',
   'xinitrc' => '.xinitrc',
   'xmonad' => '.xmonad',
 }
