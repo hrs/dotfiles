@@ -3,8 +3,9 @@
 (load "hide-modes.el")
 (smex-initialize)
 
-(defun hrs/always-fullscreen ()
-  (set-frame-parameter nil 'fullscreen 'fullboth))
+(defun hrs/fullscreen-on-macs ()
+  (when (hrs/mac?)
+    (set-frame-parameter nil 'fullscreen 'fullboth)))
 
 (defun hrs/set-default-font ()
   (set-frame-font "Inconsolata-14"))
@@ -39,7 +40,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(hrs/always-fullscreen)
+(hrs/fullscreen-on-macs)
 (hrs/set-default-font)
 (hrs/disable-window-chrome)
 (hrs/quiet-startup)

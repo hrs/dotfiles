@@ -96,8 +96,8 @@
 
 (hrs/configure-load-path)
 
-(load "ui-prefs.el")
 (load "utils.el")
+(load "ui-prefs.el")
 (load "password-management.el")
 
 (require 'dired-x)
