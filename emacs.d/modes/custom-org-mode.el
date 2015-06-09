@@ -53,6 +53,12 @@
          checkitem
          (file (org-file-path "groceries.org")))
 
+        ("m" "Mail"
+         entry
+         (file (org-file-path "index.org"))
+         "* TODO %^{Title}\n  Source: %u, %c\n\n  %i"
+         :empty-lines 1)
+
         ("q" "Media queues")
 
         ("qm" "Movies"
