@@ -1,0 +1,14 @@
+field birthday = Birthday, date
+field wishlist = Wishlist
+field company = Company
+field github = Github
+field skype = Skype
+field freenode = Freenode
+
+view CONTACT = name, company, email, freenode
+view ADDRESS = address, address2, city, state, zip, country
+view PHONE = phone, workphone, mobile, skype
+view OTHER = birthday, url, github, wishlist, notes
+
+set address_style = us
+set www_command = firefox

@@ -1,7 +1,14 @@
 #!/usr/bin/env ruby
 
+def ensure_directory_exists(filename)
+  if !File.exists?(File.expand_path(filename))
+    Dir::mkdir(File.expand_path(filename))
+  end
+end
+
 file_links = {
   'Xmodmap' => '.Xmodmap',
+  'abookrc' => '.abook/abookrc',
   'ackrc' => '.ackrc',
   'authinfo.gpg' => '.authinfo.gpg',
   'bashrc' => '.bashrc',
@@ -32,13 +39,9 @@ file_links = {
   'xmonad' => '.xmonad',
 }
 
-unless File.exists?(File.expand_path('~/.ssh'))
-  Dir::mkdir(File.expand_path('~/.ssh'))
-end
-
-unless File.exists?(File.expand_path('~/.newsbeuter'))
-  Dir::mkdir(File.expand_path('~/.newsbeuter'))
-end
+ensure_directory_exists("~/.ssh")
+ensure_directory_exists("~/.newsbeuter")
+ensure_directory_exists("~/.abook")
 
 file_links.each do |source, target|
   target_file = File.expand_path("~/#{target}")
