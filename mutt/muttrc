@@ -111,9 +111,10 @@ alternative_order text/plain text/enriched text/html
 set sendmail_wait = 0
 
 # Contact management -----------------------------------
-set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
+set query_command= "abook --mutt-query '%s'"
 bind editor <Tab> complete-query
-bind editor ^T    complete
+bind editor ^T complete
+macro index,pager A "<pipe-message>abook --add-email-quiet<return>" "add the sender address to abook"
 
 # Colors -----------------------------------------------
 source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
