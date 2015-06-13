@@ -3,7 +3,6 @@ source $HOME/.bin/npm-completion.sh
 
 export ALTERNATE_EDITOR=""
 export PROMPT_DIRTRIM=3
-export DISPLAY=:1
 export EDITOR="emacsclient --tty"
 export GPG_TTY=$(tty)
 export LANG="en_US"
