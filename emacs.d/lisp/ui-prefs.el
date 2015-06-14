@@ -13,7 +13,7 @@
 (defun hrs/disable-window-chrome ()
   (tool-bar-mode 0)
   (menu-bar-mode 0)
-  (if window-system
+  (when window-system
     (scroll-bar-mode -1)))
 
 (defun hrs/quiet-startup ()
@@ -61,4 +61,5 @@
 
 (hrs/make-dired-file-sizes-human-readable)
 (hrs/highlight-long-lines-in-programming-modes)
-(hrs/customize-solarized-appearance)
+(when window-system
+  (hrs/customize-solarized-appearance))
