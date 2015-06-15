@@ -52,3 +52,5 @@
 
 [branch]
   autosetuprebase = always
+[rebase]
+  autosquash = true
