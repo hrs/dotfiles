@@ -4,7 +4,7 @@ macro o open-in-browser ; toggle-article-read "read"
 
 reload-threads 32
 
-cache-file "~/owncloud-sync/newsbeuter/cache.db"
+cache-file "~/documents/rss/cache.db"
 
 player "op"
 browser "op"
