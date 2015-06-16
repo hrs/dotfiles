@@ -21,6 +21,7 @@ file_links = {
   'gitconfig' => '.gitconfig',
   'gitignore' => '.gitignore',
   'gnus' => '.gnus',
+  'i3' => '.i3',
   'msmtprc' => '.msmtprc',
   'mutt' => '.mutt',
   'newsbeuter-config' => '.newsbeuter/config',
@@ -35,8 +36,6 @@ file_links = {
   'urlview' => '.urlview',
   'wallpaper' => '.wallpaper',
   'xbindkeysrc' => '.xbindkeysrc',
-  'xinitrc' => '.xinitrc',
-  'xmonad' => '.xmonad',
 }
 
 ensure_directory_exists("~/.ssh")
