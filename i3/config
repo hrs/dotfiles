@@ -140,6 +140,7 @@ exec xcape &
 exec xbindkeys &
 exec unclutter -idle 1 -noevents &
 exec nm-applet &
+exec redshift-gtk &
 exec eval $(gpg-agent --daemon) &
 exec feh --bg-fill ~/pictures/wallpaper/mountainline.jpg
 
