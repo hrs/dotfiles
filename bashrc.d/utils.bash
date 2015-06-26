@@ -10,11 +10,3 @@ function viewpages() {
     printf "%4d %s\n" $filepagecount $file
   done
 }
-
-function exelse-edit() {
-  author="$1"
-  title="$2"
-  shift
-  shift
-  exiftool -Author="$author" -Title="$title" "$@"
-}

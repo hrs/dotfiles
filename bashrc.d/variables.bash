@@ -10,10 +10,13 @@ export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export HISTFILESIZE=20000
 
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-  . "${HOME}/.gpg-agent-info"
-  export GPG_AGENT_INFO
-  export SSH_AUTH_SOCK
+if [[ $(uname) == Darwin ]]; then
+  # otherwise, I'm starting the agent with i3
+  if [ -f "${HOME}/.gpg-agent-info" ]; then
+    . "${HOME}/.gpg-agent-info"
+    export GPG_AGENT_INFO
+    export SSH_AUTH_SOCK
+  fi
 fi
 
 if [[ $(uname) == Darwin ]]; then
