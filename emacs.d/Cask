@@ -75,6 +75,7 @@
 (depends-on "ruby-hash-syntax")
 (depends-on "s")
 (depends-on "scss-mode")
+(depends-on "slime")
 (depends-on "smart-forward")
 (depends-on "smex")
 (depends-on "solarized-theme")
