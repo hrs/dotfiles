@@ -19,7 +19,7 @@ unset confirmappend      # don't ask, just do!
 set quit                 # don't ask, just do!!
 unset mark_old           # read/new is good enough for me
 set beep_new             # bell on new mails
-unset pipe_decode        # keep headers and don't eval mimes when piping
+set pipe_decode          # remove headers and eval mimes when piping
 set thorough_search      # strip headers and eval mimes before searching
 
 # Status Bar -----------------------------------------
