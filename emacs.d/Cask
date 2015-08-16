@@ -20,6 +20,7 @@
 (depends-on "diff-hl")
 (depends-on "diminish")
 (depends-on "dired-details")
+(depends-on "dockerfile-mode")
 (depends-on "elfeed")
 (depends-on "elixir-mode")
 (depends-on "emms")
