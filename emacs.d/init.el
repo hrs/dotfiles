@@ -62,7 +62,8 @@
   (ido-ubiquitous)
   (flx-ido-mode 1) ; better/faster matching
   (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
-  (ido-vertical-mode 1))
+  (ido-vertical-mode 1)
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only))
 
 (defun hrs/enable-region-case-modification ()
   (put 'downcase-region 'disabled nil)
