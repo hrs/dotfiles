@@ -1,7 +1,7 @@
 (load (expand-file-name "~/.quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "/usr/bin/sbcl")
 
-(defun pretty-lambdas ()
+(defun hrs/pretty-lambdas ()
   "Replace lambdas with the Greek character."
   (font-lock-add-keywords
    nil `(("\\<lambda\\>"
@@ -13,12 +13,12 @@
       '(clojure-mode-hook
         emacs-lisp-mode-hook
         lisp-mode-hook
-        scheme-mode-hooks))
+        scheme-mode-hook))
 
 ;; use pretty lambdas and paredit in all lisp-like modes
 (dolist (hook lispy-mode-hooks)
   (add-hook hook (lambda ()
-                   (pretty-lambdas)
+                   (hrs/pretty-lambdas)
                    (setq show-paren-style 'expression)
                    (paredit-mode)
                    (eldoc-mode)
