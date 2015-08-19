@@ -2,13 +2,15 @@ source $HOME/.bin/git-completion.sh
 source $HOME/.bin/npm-completion.sh
 
 export ALTERNATE_EDITOR=""
-export PROMPT_DIRTRIM=3
 export EDITOR="emacsclient --tty"
+export EMAIL="hello@harryrschwartz.com"
 export GPG_TTY=$(tty)
+export HISTFILESIZE=20000
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
-export HISTFILESIZE=20000
+export NAME="Harry R. Schwartz"
+export PROMPT_DIRTRIM=3
 
 if [[ $(uname) == Darwin ]]; then
   # otherwise, I'm starting the agent with i3
