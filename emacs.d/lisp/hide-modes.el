@@ -16,6 +16,7 @@
 (diminish-minor-mode 'ruby-end 'ruby-end-mode)
 (diminish-minor-mode 'smartparens 'smartparens-mode)
 (diminish-minor-mode 'subword 'subword-mode)
+(diminish-minor-mode 'undo-tree 'undo-tree-mode)
 (diminish-minor-mode 'yard 'yard-mode)
 (diminish-minor-mode 'yasnippet 'yas-minor-mode)
 (diminish-minor-mode 'whitespace 'whitespace-mode)
