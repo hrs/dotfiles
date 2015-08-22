@@ -3,6 +3,8 @@
 
 (defun hrs/pretty-lambdas ()
   "Replace lambdas with the Greek character."
+  (custom-set-faces
+   '(font-lock-keyword-face ((t (:weight normal)))))
   (font-lock-add-keywords
    nil `(("\\<lambda\\>"
           (0 (progn (compose-region (match-beginning 0) (match-end 0)
@@ -15,7 +17,6 @@
         lisp-mode-hook
         scheme-mode-hook))
 
-;; use pretty lambdas and paredit in all lisp-like modes
 (dolist (hook lispy-mode-hooks)
   (add-hook hook (lambda ()
                    (hrs/pretty-lambdas)
