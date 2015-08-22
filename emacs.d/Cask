@@ -38,6 +38,7 @@
 (depends-on "flx-ido")
 (depends-on "flycheck")
 (depends-on "flycheck-package")
+(depends-on "geiser")
 (depends-on "git-commit")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
