@@ -1,3 +1,3 @@
-(add-to-list 'evil-insert-state-modes 'git-commit-mode)
+(add-hook 'with-editor-mode-hook 'evil-insert-state)
 
-(add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
+(setq magit-push-always-verify nil)
