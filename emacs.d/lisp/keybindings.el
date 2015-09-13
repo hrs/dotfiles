@@ -3,33 +3,17 @@
 (global-set-key (kbd "C-c s") 'multi-term)
 (global-set-key (kbd "C-x |") 'align-regexp)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-M-\\") 'hrs/tidy-region)
 (global-set-key (kbd "C-c C-s") 'ispell-word)
 (global-set-key (kbd "C-c d") 'hrs/date)
 (global-set-key (kbd "C-c t") 'hrs/time)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x w") 'count-words)
-(global-set-key (kbd "C-c e") 'hrs/erc-start-or-switch)
-(global-set-key (kbd "C-c g") 'hrs/search-engine)
-(global-set-key (kbd "C-c i") 'open-index-file)
-(global-set-key (kbd "C-c m") 'mu4e)
 (global-set-key (kbd "C-c C-x b") 'hrs/generate-scratch-buffer)
 (global-set-key (kbd "M-;") 'hrs/comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-#") 'sort-lines)
 (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
-
-;; multiple-cursors
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
-;; expand-region
-(global-set-key (kbd "C-@") 'er/expand-region)
-(global-set-key (kbd "C-'") 'er/expand-region)
 
 ;; switch to new window on split
 (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
@@ -42,6 +26,7 @@
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; org-mode
+(global-set-key (kbd "C-c i") 'open-index-file)
 (global-set-key (kbd "M-n") 'org-capture-todo)
 
 (global-set-key (kbd "M-<up>") 'hrs/drag-line-up)
@@ -53,4 +38,3 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
 
 (define-key input-decode-map "\e[1;2A" [S-up])
-(define-key global-map (kbd "C-0") 'hrs/os-terminal-here)
