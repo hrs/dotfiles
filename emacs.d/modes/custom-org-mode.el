@@ -1,7 +1,7 @@
 (require 'ox-md)
 
 (setq org-directory "~/org")
-(setq notes-directory "~/notes")
+(setq notes-directory "~/documents/notes")
 
 (defun construct-filename (directory filename)
   (concat (file-name-as-directory directory) filename))
@@ -18,8 +18,7 @@
   (construct-filename org-directory filename))
 
 ;; derive the agenda from every file in the org directory, minus the archive
-(setq org-agenda-files (remove (org-file-path "archive.org")
-                               (file-expand-wildcards (org-file-path "*.org"))))
+(setq org-agenda-files (list (org-file-path "index.org")))
 
 (setq org-archive-location
       (concat (org-file-path "archive.org") "::* From %s"))
