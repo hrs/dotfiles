@@ -3,6 +3,7 @@
 
 (depends-on "auctex")
 (depends-on "auto-complete")
+(depends-on "avy")
 (depends-on "cask")
 (depends-on "chruby")
 (depends-on "cm-mode")

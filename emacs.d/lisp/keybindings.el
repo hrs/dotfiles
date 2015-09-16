@@ -14,6 +14,7 @@
 (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
+(global-set-key (kbd "C-;") 'avy-goto-char)
 
 ;; switch to new window on split
 (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
