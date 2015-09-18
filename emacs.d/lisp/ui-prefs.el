@@ -62,4 +62,5 @@
 (hrs/make-dired-file-sizes-human-readable)
 (hrs/highlight-long-lines-in-programming-modes)
 (when window-system
+  (global-hl-line-mode)
   (hrs/customize-solarized-appearance))
