@@ -11,6 +11,7 @@
 (diminish-minor-mode 'flycheck 'flycheck-mode)
 (diminish-minor-mode 'flyspell 'flyspell-mode)
 (diminish-minor-mode 'global-whitespace 'global-whitespace-mode)
+(diminish-minor-mode 'highlight-thing 'highlight-thing-mode)
 (diminish-minor-mode 'projectile 'projectile-mode)
 (diminish-minor-mode 'rinari-minor 'rinari-minor-mode)
 (diminish-minor-mode 'ruby-end 'ruby-end-mode)
