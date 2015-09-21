@@ -1,13 +1,3 @@
-(defun hrs/not-david-p (s)
-  (not (string-match "david" s)))
-
-(defun hrs/filter (condp lst)
-  (delq nil
-	(mapcar (lambda (x) (and (funcall condp x) x)) lst)))
-
-(defun hrs/filter-david-from-load-path ()
-  (setq load-path (hrs/filter #'hrs/not-david-p load-path)))
-
 (defun hrs/default-to-home-directory ()
   (setq default-directory "~/"))
 
@@ -21,7 +11,6 @@
   (add-to-list 'load-path "~/.emacs.d/modes/"))
 
 (defun hrs/configure-load-path ()
-  (hrs/filter-david-from-load-path)
   (hrs/default-to-home-directory)
   (hrs/configure-cask)
   (hrs/include-custom-code-paths))
