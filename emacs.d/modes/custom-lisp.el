@@ -24,3 +24,5 @@
                    (paredit-mode)
                    (eldoc-mode)
                    (rainbow-delimiters-mode))))
+
+(hrs/add-auto-mode 'scheme-mode "\\.blu$")
