@@ -22,6 +22,7 @@ file_links = {
   'gitignore' => '.gitignore',
   'gnus' => '.gnus',
   'i3' => '.i3',
+  'i3status.conf' => '.i3status.conf',
   'msmtprc' => '.msmtprc',
   'mutt' => '.mutt',
   'newsbeuter-config' => '.newsbeuter/config',
