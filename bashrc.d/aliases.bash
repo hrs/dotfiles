@@ -4,6 +4,7 @@ if [[ $(uname) != Darwin ]]; then
   alias ack="ack-grep"
 fi
 
+alias be="bundle exec"
 alias e=$EDITOR
 alias gg="git grep -n"
 alias git="hub"
@@ -22,7 +23,6 @@ alias path="echo $PATH | tr ':' '\n'"
 alias rss="newsbeuter -q -r -u ~/documents/rss/urls"
 alias tree="tree -C" # add colors
 alias usage="du -sch"
-alias be="bundle exec"
 
 ### Aiming for something like platform-independence
 if [[ $(uname) == Darwin ]]; then
