@@ -5,6 +5,7 @@
 	  (lambda ()
 	    (setq ruby-insert-encoding-magic-comment nil)
             (yas-minor-mode)
+            (rspec-mode)
             (flycheck-mode)
             (projectile-rails-mode)
             (local-set-key "\r" 'newline-and-indent)
