@@ -8,7 +8,7 @@
     (set-frame-parameter nil 'fullscreen 'fullboth)))
 
 (defun hrs/set-default-font ()
-  (set-frame-font "Inconsolata-16"))
+  (set-frame-font "Inconsolata-14"))
 
 (defun hrs/disable-window-chrome ()
   (tool-bar-mode 0)
