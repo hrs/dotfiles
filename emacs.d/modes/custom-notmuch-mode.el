@@ -1,5 +1,7 @@
 (setq send-mail-function 'smtpmail-send-it)
 
+(add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
+
 (setq user-full-name "Harry R. Schwartz")
 
 (defun hrs/reply-from-personal-email ()
