@@ -34,6 +34,16 @@
 
 (define-key notmuch-hello-mode-map "o" 'hrs/fetch-new-mail)
 (define-key notmuch-hello-mode-map "O" 'hrs/sync-all-mailboxes)
+(define-key notmuch-hello-mode-map "g" 'notmuch-jump-search)
+
+(define-key notmuch-search-mode-map "g" 'notmuch-jump-search)
+(define-key notmuch-search-mode-map "j" 'notmuch-search-next-thread)
+(define-key notmuch-search-mode-map "k" 'notmuch-search-previous-thread)
+
+(define-key notmuch-show-mode-map "j" 'next-line)
+(define-key notmuch-show-mode-map "k" 'previous-line)
+(define-key notmuch-show-mode-map "J" 'notmuch-show-next-thread-show)
+(define-key notmuch-show-mode-map "K" 'notmuch-show-previous-thread-show)
 
 (fset 'hrs/use-default-reply-from 'hrs/reply-from-personal-email)
 (hrs/use-default-reply-from)
