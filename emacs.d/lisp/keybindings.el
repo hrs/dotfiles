@@ -16,6 +16,9 @@
 (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
 (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
 
+;; open mail
+(global-set-key (kbd "C-c m") 'notmuch)
+
 ;; org-mode
 (global-set-key (kbd "C-c i") 'open-index-file)
 (global-set-key (kbd "M-n") 'org-capture-todo)
