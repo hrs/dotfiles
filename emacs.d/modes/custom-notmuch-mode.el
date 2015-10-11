@@ -1,3 +1,6 @@
+(require 'notmuch)
+(require 'org-notmuch)
+
 (setq send-mail-function 'smtpmail-send-it)
 (evil-set-initial-state 'message-mode 'insert)
 (add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
@@ -44,6 +47,7 @@
 (define-key notmuch-show-mode-map "k" 'previous-line)
 (define-key notmuch-show-mode-map "J" 'notmuch-show-next-thread-show)
 (define-key notmuch-show-mode-map "K" 'notmuch-show-previous-thread-show)
+(define-key notmuch-show-mode-map (kbd "C-c C-o") 'org-open-at-point)
 
 (fset 'hrs/use-default-reply-from 'hrs/reply-from-personal-email)
 (hrs/use-default-reply-from)
