@@ -18,6 +18,22 @@
    smtpmail-smtp-server "smtp.gmail.com"
    smtpmail-smtp-service 465))
 
-(fset 'hrs/use-default-reply-from 'hrs/reply-from-personal-email)
+(defun hrs/refresh-notmuch-database ()
+  (shell-command "notmuch new"))
 
+(defun hrs/fetch-new-mail ()
+  (interactive)
+  (save-excursion
+    (shell-command "offlineimap -qf INBOX > /dev/null")
+    (hrs/refresh-notmuch-database)))
+
+(defun hrs/sync-all-mailboxes ()
+  (interactive)
+  (shell-command "offlineimap > /dev/null")
+  (hrs/refresh-notmuch-database))
+
+(define-key notmuch-hello-mode-map "o" 'hrs/fetch-new-mail)
+(define-key notmuch-hello-mode-map "O" 'hrs/sync-all-mailboxes)
+
+(fset 'hrs/use-default-reply-from 'hrs/reply-from-personal-email)
 (hrs/use-default-reply-from)
