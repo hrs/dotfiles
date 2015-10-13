@@ -4,6 +4,7 @@
 (setq send-mail-function 'smtpmail-send-it)
 (evil-set-initial-state 'message-mode 'insert)
 (add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
+(setq notmuch-crypto-process-mime t)
 
 (setq user-full-name "Harry R. Schwartz")
 
