@@ -46,6 +46,8 @@
 
 (define-key notmuch-show-mode-map "j" 'next-line)
 (define-key notmuch-show-mode-map "k" 'previous-line)
+(define-key notmuch-show-mode-map "h" 'left-char)
+(define-key notmuch-show-mode-map "l" 'right-char)
 (define-key notmuch-show-mode-map "J" 'notmuch-show-next-thread-show)
 (define-key notmuch-show-mode-map "K" 'notmuch-show-previous-thread-show)
 (define-key notmuch-show-mode-map (kbd "C-c C-o") 'org-open-at-point)
