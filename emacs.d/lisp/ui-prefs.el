@@ -54,9 +54,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq ns-pop-up-frames nil)
 (setq visible-bell t)
-
-(display-time)
-
 (setq fill-column 80)
 
 (hrs/make-dired-file-sizes-human-readable)
