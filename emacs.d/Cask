@@ -21,6 +21,7 @@
 (depends-on "evil")
 (depends-on "evil-args")
 (depends-on "f")
+(depends-on "fill-column-indicator")
 (depends-on "findr")
 (depends-on "flx-ido")
 (depends-on "flycheck")

@@ -23,11 +23,11 @@
 (defun hrs/make-dired-file-sizes-human-readable ()
   (setq-default dired-listing-switches "-alh"))
 
-(defun hrs/highlight-long-lines-in-programming-modes ()
-  (require 'whitespace)
-  (setq whitespace-line-column 80)
-  (setq whitespace-style '(face lines-tail))
-  (add-hook 'prog-mode-hook 'whitespace-mode))
+(defun hrs/indicate-long-lines-in-programming-modes ()
+  (setq fci-rule-column fill-column)
+  (setq fci-rule-use-dashes t)
+  (setq fci-rule-color "white")
+  (add-hook 'prog-mode-hook 'turn-on-fci-mode))
 
 (defun hrs/customize-solarized-appearance ()
   (setq solarized-use-variable-pitch nil)
@@ -54,10 +54,10 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq ns-pop-up-frames nil)
 (setq visible-bell t)
-(setq fill-column 80)
+(setq-default fill-column 80)
 
 (hrs/make-dired-file-sizes-human-readable)
-(hrs/highlight-long-lines-in-programming-modes)
 (when window-system
   (global-hl-line-mode)
   (hrs/customize-solarized-appearance))
+(hrs/indicate-long-lines-in-programming-modes)

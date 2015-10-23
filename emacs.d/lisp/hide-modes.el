@@ -20,7 +20,6 @@
 (diminish-minor-mode 'undo-tree 'undo-tree-mode)
 (diminish-minor-mode 'yard-mode 'yard-mode)
 (diminish-minor-mode 'yasnippet 'yas-minor-mode)
-(diminish-minor-mode 'whitespace 'whitespace-mode)
 (diminish-minor-mode 'wrap-region 'wrap-region-mode)
 
 (diminish-minor-mode 'paredit 'paredit-mode " π")
