@@ -1,3 +1,5 @@
+;; -*- emacs-lisp -*-
+
 (source gnu)
 (source melpa)
 
