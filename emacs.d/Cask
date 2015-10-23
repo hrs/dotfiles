@@ -34,7 +34,6 @@
 (depends-on "graphviz-dot-mode")
 (depends-on "haml-mode")
 (depends-on "haskell-mode")
-(depends-on "highlight-thing")
 (depends-on "htmlize")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
