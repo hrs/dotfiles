@@ -15,6 +15,7 @@
 (depends-on "dired-details")
 (depends-on "dockerfile-mode")
 (depends-on "engine-mode")
+(depends-on "enh-ruby-mode")
 (depends-on "epl")
 (depends-on "erlang")
 (depends-on "evil")
@@ -73,4 +74,5 @@
 (depends-on "with-editor")
 (depends-on "wrap-region")
 (depends-on "yaml-mode")
+(depends-on "yard-mode")
 (depends-on "yasnippet")
