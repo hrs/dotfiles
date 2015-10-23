@@ -2,6 +2,7 @@ backups
 emacs.d/.cask
 emacs.d/.mc-lists.el
 emacs.d/ac-comphist.dat
+emacs.d/bbdb
 emacs.d/bookmarks
 emacs.d/emms
 emacs.d/ido.last
