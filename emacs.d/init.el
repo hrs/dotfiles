@@ -82,6 +82,9 @@
   (add-hook 'after-save-hook
             'executable-make-buffer-file-executable-if-script-p))
 
+(defun hrs/single-space-after-periods ()
+  (setq sentence-end-double-space nil))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (hrs/configure-load-path)
@@ -110,6 +113,7 @@
 (hrs/offer-to-create-parent-directories-on-save)
 (hrs/automatically-follow-symlinks)
 (hrs/make-scripts-executable)
+(hrs/single-space-after-periods)
 
 (projectile-global-mode)
 
