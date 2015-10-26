@@ -2,55 +2,41 @@
   aa = add --all
   amend = commit --amend
   br = branch
-  cdiff	= diff --cached
   cm = commit -m
-  ci = commit -v
   co = checkout
-  dc = diff --cached
-  dump = cat-file -p
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   loc = !git diff --stat `git hash-object -t tree /dev/null` | tail -1 | cut -d' ' -f5
   pr = pull-request
-  rename = branch -m
   st = status -sb
   sum = log --oneline --no-merges
-  type = cat-file -t
   unstage = reset HEAD
-
-[core]
-  excludesfile = ~/.gitignore
-
-[user]
-  name = Harry Schwartz
-  email = hello@harryrschwartz.com
-  signingkey = 25AE721B
-
+[branch]
+  autosetuprebase = always
 [color]
   ui = true
-
+[color "diff"]
+  meta = bold cyan
 [color "grep"]
   filename = magenta
   match = bold red
   linenumber = bold blue
-
-[color "diff"]
-  meta = bold cyan
-
 [commit]
   gpgsign = true
-
+  template = ~/.gitmessage
+[core]
+  excludesfile = ~/.gitignore
+[fetch]
+  prune = true
 [grep]
   linenumber = true
-
+[merge]
+  ff = only
 [push]
   default = current
-
-[include]
-  # for creds
-  path = ~/.gitconfig.local
-
-[branch]
-  autosetuprebase = always
 [rebase]
   autosquash = true
+[user]
+  name = Harry Schwartz
+  email = hello@harryrschwartz.com
+  signingkey = 25AE721B

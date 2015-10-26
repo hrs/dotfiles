@@ -20,6 +20,7 @@ file_links = {
   'git' => '.git',
   'gitconfig' => '.gitconfig',
   'gitignore' => '.gitignore',
+  'gitmessage' => '.gitmessage',
   'gnus' => '.gnus',
   'i3' => '.i3',
   'i3status.conf' => '.i3status.conf',
