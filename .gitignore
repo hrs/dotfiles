@@ -6,6 +6,7 @@ emacs.d/bookmarks
 emacs.d/emms
 emacs.d/ido.last
 emacs.d/projectile-bookmarks.eld
+emacs.d/projectile.cache
 emacs.d/recentf
 emacs.d/smex-items
 emacs.d/tramp
