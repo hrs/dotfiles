@@ -55,6 +55,7 @@
 (setq ns-pop-up-frames nil)
 (setq visible-bell t)
 (setq-default fill-column 80)
+(setq mouse-yank-at-point t)
 
 (hrs/make-dired-file-sizes-human-readable)
 (when window-system
