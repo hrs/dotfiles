@@ -18,13 +18,6 @@
   (when window-system
     (scroll-bar-mode -1)))
 
-(defun hrs/quiet-startup ()
-  (setq inhibit-startup-message t)
-  (setq initial-scratch-message nil))
-
-(defun hrs/make-dired-file-sizes-human-readable ()
-  (setq-default dired-listing-switches "-alh"))
-
 (defun hrs/indicate-long-lines-in-programming-modes ()
   (setq fci-rule-column fill-column)
   (setq fci-rule-use-dashes t)
@@ -45,21 +38,7 @@
 (hrs/fullscreen-on-macs)
 (hrs/set-default-font)
 (hrs/disable-window-chrome)
-(hrs/quiet-startup)
 
-;; UI prefs
-(global-font-lock-mode t)
-(global-auto-revert-mode t)
-(show-paren-mode t)
-(setq show-paren-delay 0.0)
-(transient-mark-mode t)
-(fset 'yes-or-no-p 'y-or-n-p)
-(setq ns-pop-up-frames nil)
-(setq visible-bell t)
-(setq-default fill-column 80)
-(setq mouse-yank-at-point t)
-
-(hrs/make-dired-file-sizes-human-readable)
 (when window-system
   (global-hl-line-mode)
   (hrs/customize-solarized-appearance))

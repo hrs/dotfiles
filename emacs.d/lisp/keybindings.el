@@ -9,22 +9,12 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-c C-x b") 'hrs/generate-scratch-buffer)
-(global-set-key (kbd "M-;") 'hrs/comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-#") 'sort-lines)
 (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
-(global-set-key (kbd "<home>") 'move-beginning-of-line)
-(global-set-key (kbd "<end>") 'move-end-of-line)
-(global-set-key (kbd "C-;") 'avy-goto-char)
 
 ;; switch to new window on split
 (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
 (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
-
-;; change font size
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C-=") 'text-scale-increase)
-(define-key global-map (kbd "C-_") 'text-scale-decrease)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; org-mode
 (global-set-key (kbd "C-c i") 'open-index-file)

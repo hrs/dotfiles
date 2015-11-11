@@ -1,5 +1,6 @@
-(defun hrs/default-to-home-directory ()
-  (setq default-directory "~/"))
+(load-file "~/code/personal/sensible-emacs-defaults/sensible-defaults.el")
+(sensible-defaults/use-all-settings)
+(sensible-defaults/use-all-keybindings)
 
 (defun hrs/configure-cask ()
   (require 'cask "~/.cask/cask.el")
@@ -10,15 +11,6 @@
   (add-to-list 'load-path "~/.emacs.d/lisp/")
   (add-to-list 'load-path "~/.emacs.d/modes/"))
 
-(defun hrs/configure-load-path ()
-  (hrs/default-to-home-directory)
-  (hrs/configure-cask)
-  (hrs/include-custom-code-paths))
-
-(defun hrs/increase-gc-threshold ()
-    "Allow 20MB of memory (instead of 0.76MB) before calling GC."
-    (setq gc-cons-threshold 20000000))
-
 (defun hrs/extend-exec-path ()
   (setq exec-path (append exec-path '("/usr/local/bin"))))
 
@@ -26,19 +18,9 @@
   (mapcar (lambda (mode-file-name) (load mode-file-name))
           (directory-files "~/.emacs.d/modes/" nil ".el")))
 
-(defun hrs/backup-to-temp-directory ()
-  (setq backup-directory-alist
-        `((".*" . ,temporary-file-directory)))
-  (setq auto-save-file-name-transforms
-        `((".*" ,temporary-file-directory t))))
-
 (defun hrs/configure-auto-complete ()
   (require 'auto-complete-config)
   (ac-config-default))
-
-(defun hrs/delete-trailing-whitespace ()
-  (add-hook 'before-save-hook
-            'delete-trailing-whitespace))
 
 (defun hrs/configure-yasnippet ()
   (setq yas-snippet-dirs '("~/.emacs.d/snippets/text-mode"))
@@ -58,36 +40,15 @@
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil))
 
-(defun hrs/treat-camelcase-as-separate-words ()
-  (add-hook 'prog-mode-hook 'subword-mode))
-
 (defun hrs/configure-wrap-region ()
   (wrap-region-global-mode t)
   (wrap-region-add-wrapper "/" "/" nil 'ruby-mode)
   (wrap-region-add-wrapper "`" "`" nil '(markdown-mode ruby-mode)))
 
-(defun hrs/offer-to-create-parent-directories-on-save ()
-  (add-hook 'before-save-hook
-            (lambda ()
-              (when buffer-file-name
-                (let ((dir (file-name-directory buffer-file-name)))
-                  (when (and (not (file-exists-p dir))
-                             (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
-                    (make-directory dir t)))))))
-
-(defun hrs/automatically-follow-symlinks ()
-  (setq vc-follow-symlinks t))
-
-(defun hrs/make-scripts-executable ()
-  (add-hook 'after-save-hook
-            'executable-make-buffer-file-executable-if-script-p))
-
-(defun hrs/single-space-after-periods ()
-  (setq sentence-end-double-space nil))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(hrs/configure-load-path)
+(hrs/include-custom-code-paths)
+(hrs/configure-cask)
 
 (load "utils.el")
 (load "ui-prefs.el")
@@ -95,29 +56,17 @@
 
 (require 'dired-x)
 
-(hrs/increase-gc-threshold)
 (hrs/extend-exec-path)
 (hrs/configure-all-custom-modes)
 
-(delete-selection-mode t)
 (setq-default indent-tabs-mode nil)
 
-(hrs/backup-to-temp-directory)
 (hrs/configure-auto-complete)
-(hrs/delete-trailing-whitespace)
 (hrs/configure-yasnippet)
 (hrs/configure-ido)
 (hrs/enable-region-case-modification)
-(hrs/treat-camelcase-as-separate-words)
 (hrs/configure-wrap-region)
-(hrs/offer-to-create-parent-directories-on-save)
-(hrs/automatically-follow-symlinks)
-(hrs/make-scripts-executable)
-(hrs/single-space-after-periods)
 
 (projectile-global-mode)
 
 (load "keybindings.el")
-
-(setq require-final-newline t)
-(setq confirm-kill-emacs 'y-or-n-p)
