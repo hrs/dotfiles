@@ -22,6 +22,9 @@ set pgp_verify_sig=yes
 set pgp_auto_decode
 set pgp_show_unusable=no
 
+send-hook . 'reset pgp_autoencrypt'
+source "~/.mutt/gpg_keyring_send_hooks.rb|"
+
 unignore X-PGP-Key:
 my_hdr X-PGP-Key: http://pgp.mit.edu:11371/pks/lookup?op=vindex&search=0x25AE721B
 
