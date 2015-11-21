@@ -45,6 +45,10 @@
   (wrap-region-add-wrapper "/" "/" nil 'ruby-mode)
   (wrap-region-add-wrapper "`" "`" nil '(markdown-mode ruby-mode)))
 
+(defun hrs/split-horizontally-for-temp-buffers ()
+  (when (one-window-p t)
+      (split-window-horizontally)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (hrs/include-custom-code-paths)
@@ -66,6 +70,9 @@
 (hrs/configure-ido)
 (hrs/enable-region-case-modification)
 (hrs/configure-wrap-region)
+
+(add-hook 'temp-buffer-window-setup-hook
+          'hrs/split-horizontally-for-temp-buffers)
 
 (projectile-global-mode)
 
