@@ -5,10 +5,9 @@ obviously do.
 
 #### Installation
 
-Clone this thing wherever you like (I use `~/.dotfiles`), then adjust
-the `source_file` variable in the `install.rb` script and run it. That'll
-set up a bunch of symlinks in your home directory, e.g., `~/.bashrc ->
-~/.dotfiles/bashrc`.
+Clone this thing wherever you like (I use `~/.dotfiles`), then adjust the
+location in the `install.sh` script and run it. That'll set up a bunch of
+symlinks in your home directory, e.g., `~/.bashrc -> ~/.dotfiles/bashrc`.
 
 It won't overwrite existing files, so move those out of the way first.
 
