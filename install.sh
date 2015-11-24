@@ -31,6 +31,7 @@ ln -s ~/.dotfiles/offlineimaprc ~/.offlineimaprc
 ln -s ~/.dotfiles/offlineimap.py ~/.offlineimap.py
 ln -s ~/.dotfiles/quicklisp ~/.quicklisp
 ln -s ~/.dotfiles/rspec ~/.rspec
+ln -s ~/.dotfiles/rubocop.yml ~/.rubocop.yml
 ln -s ~/.dotfiles/sbclrc ~/.sbclrc
 ln -s ~/.dotfiles/ssh-config ~/.ssh/config
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
