@@ -49,6 +49,7 @@
 (depends-on "markdown-mode")
 (depends-on "multi-term")
 (depends-on "muttrc-mode")
+(depends-on "org-bullets")
 (depends-on "package-build")
 (depends-on "pallet")
 (depends-on "paredit")

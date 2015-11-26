@@ -8,6 +8,7 @@
 
 (add-hook 'org-mode-hook
 	  (lambda ()
+            (org-bullets-mode t)
             (local-set-key (kbd "C-x s")
                            'org-insert-src-block)
             (local-set-key (kbd "C-c v")
