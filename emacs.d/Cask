@@ -15,6 +15,7 @@
 (depends-on "diff-hl")
 (depends-on "diminish")
 (depends-on "dired-details")
+(depends-on "dired-open")
 (depends-on "dockerfile-mode")
 (depends-on "engine-mode")
 (depends-on "epl")
