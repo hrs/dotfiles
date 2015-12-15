@@ -14,6 +14,7 @@
 (depends-on "dash-at-point")
 (depends-on "diff-hl")
 (depends-on "diminish")
+(depends-on "dired+")
 (depends-on "dired-details")
 (depends-on "dired-open")
 (depends-on "dockerfile-mode")
