@@ -58,8 +58,6 @@
 (load "ui-prefs.el")
 (load "password-management.el")
 
-(require 'dired-x)
-
 (hrs/extend-exec-path)
 (hrs/configure-all-custom-modes)
 

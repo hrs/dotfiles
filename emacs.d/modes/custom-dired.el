@@ -1,3 +1,5 @@
+(require 'dired-x)
+(require 'dired+)
 (require 'dired-open)
 
 (setq dired-open-extensions
