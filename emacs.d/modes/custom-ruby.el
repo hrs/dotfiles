@@ -1,4 +1,4 @@
-(chruby "ruby-2.2.3")
+(chruby "ruby-2.2.4")
 (require 'rcodetools)
 
 (defun hrs/insert-binding-pry ()
