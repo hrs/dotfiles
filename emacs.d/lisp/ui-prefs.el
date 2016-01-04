@@ -33,13 +33,18 @@
   (setq solarized-high-contrast-mode-line t)
   (load-theme 'solarized-dark t))
 
+(defun hrs/use-pretty-symbols ()
+  (global-prettify-symbols-mode t))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (hrs/fullscreen-on-macs)
 (hrs/set-default-font)
 (hrs/disable-window-chrome)
+(hrs/use-pretty-symbols)
 
 (when window-system
   (global-hl-line-mode)
   (hrs/customize-solarized-appearance))
+
 (hrs/indicate-long-lines-in-programming-modes)
