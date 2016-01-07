@@ -131,6 +131,7 @@ exec setxkbmap -option ctrl:nocaps
 exec xcape &
 exec xbindkeys &
 exec owncloud &
+exec dropbox start
 exec unclutter -idle 1 -noevents &
 exec nm-applet &
 exec redshift-gtk &
