@@ -13,13 +13,13 @@
 	    (setq ruby-insert-encoding-magic-comment nil)
             (yas-minor-mode)
             (rspec-mode)
-            (projectile-rails-mode)
             (yard-mode)
             (flycheck-mode)
             (local-set-key "\r" 'newline-and-indent)
             (setq rspec-command-options "--color --order random")
             (define-key ruby-mode-map (kbd "C-c b") 'hrs/insert-binding-pry)
-            (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
+            (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)
+            (projectile-rails-mode)))
 
 (hrs/add-auto-mode 'ruby-mode
                    "\\Gemfile$" "\\.rake$" "\\.gemspec$" "\\Gemfile$"
