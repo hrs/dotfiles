@@ -18,12 +18,6 @@
   (when window-system
     (scroll-bar-mode -1)))
 
-(defun hrs/indicate-long-lines-in-programming-modes ()
-  (setq fci-rule-column fill-column)
-  (setq fci-rule-use-dashes t)
-  (setq fci-rule-color "white")
-  (add-hook 'prog-mode-hook 'turn-on-fci-mode))
-
 (defun hrs/customize-solarized-appearance ()
   (setq solarized-use-variable-pitch nil)
   (setq solarized-height-plus-1 1.0)
@@ -46,5 +40,3 @@
 (when window-system
   (global-hl-line-mode)
   (hrs/customize-solarized-appearance))
-
-(hrs/indicate-long-lines-in-programming-modes)
