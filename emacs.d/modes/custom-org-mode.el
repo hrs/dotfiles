@@ -135,3 +135,11 @@
 (setq org-src-fontify-natively t)
 (setq org-confirm-babel-evaluate nil)
 (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+
+(setq org-html-head
+      (with-temp-buffer
+        (insert "<style type=\"text/css\">\n")
+        (insert-file-contents "~/.emacs.d/modes/default-org-export-stylesheet.css")
+        (end-of-buffer)
+        (insert "</style>")
+        (buffer-string)))
