@@ -136,6 +136,9 @@
 (setq org-confirm-babel-evaluate nil)
 (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
 
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+
 (setq org-html-head
       (with-temp-buffer
         (insert "<style type=\"text/css\">\n")
