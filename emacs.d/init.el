@@ -24,7 +24,8 @@
 
 (defun hrs/configure-yasnippet ()
   (setq yas-snippet-dirs '("~/.emacs.d/snippets/text-mode"))
-  (yas-global-mode 1))
+  (yas-global-mode 1)
+  (setq yas/indent-line nil))
 
 (defun hrs/configure-ido ()
   (setq ido-enable-flex-matching t)

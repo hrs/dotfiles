@@ -1,0 +1,22 @@
+#name : beamer template
+# --
+#+title: Combinators I Have Known and \lambda{}oved
+#+author: Harry R. Schwartz
+#+email: hello@harryrschwartz.com
+#+options: toc:nil html-postamble:nil
+#+beamer_theme: Boadilla
+#+latex_header: \setbeamertemplate{navigation symbols}{}
+
+# #+latex_header: \institute[thoughtbot]{thoughtbot}
+
+* First Frame
+
+$0
+
+* Thanks! Questions?
+
+Harry R. Schwartz
+
+~hello@harryrschwartz.com~
+
+~1B41 8F2C 23DE DD9C 807E  A74F 841B 3DAE 25AE 721B~

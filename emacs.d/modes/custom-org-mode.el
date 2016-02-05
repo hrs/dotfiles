@@ -1,4 +1,5 @@
 (require 'ox-md)
+(require 'ox-beamer)
 
 (setq org-directory "~/org")
 (setq notes-directory "~/documents/notes")
