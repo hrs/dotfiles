@@ -1,0 +1,2 @@
+(setq user-full-name "Harry R. Schwartz")
+(setq user-mail-address "hello@harryrschwartz.com")
