@@ -133,6 +133,9 @@
     (previous-line 2)
     (org-edit-src-code)))
 
+(setq org-export-with-smart-quotes t)
+(setq org-html-postamble nil)
+
 (setq org-src-fontify-natively t)
 (setq org-confirm-babel-evaluate nil)
 (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
