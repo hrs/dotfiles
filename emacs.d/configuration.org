@@ -63,6 +63,14 @@ Always use =auto-complete= when programming.
   (add-hook 'prog-mode-hook 'auto-complete-mode)
 #+END_SRC
 
+*** Prolog
+
+I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/add-auto-mode 'prolog-mode "\\.pl$")
+#+END_SRC
+
 *** Ruby
 
 I use =chruby= to switch between versions of Ruby. This sets a default version
