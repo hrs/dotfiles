@@ -19,7 +19,7 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
         user-mail-address "hello@harryrschwartz.com")
 #+END_SRC
 
-** Include custom code paths.
+** Include custom code paths
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -53,6 +53,58 @@ Look for executables in =/usr/local/bin=.
 #+BEGIN_SRC emacs-lisp
   (mapcar (lambda (mode-file-name) (load mode-file-name))
           (directory-files "~/.emacs.d/modes/" nil ".el"))
+#+END_SRC
+
+*** Ruby
+
+I use =chruby= to switch between versions of Ruby. This sets a default version
+to use within Emacs (for things like =xmp= or =rspec=).
+
+#+BEGIN_SRC emacs-lisp
+(chruby "ruby-2.2.4")
+#+END_SRC
+
+=rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
+the results in "magic" (=# =>=) comments.
+
+#+BEGIN_SRC emacs-lisp
+(require 'rcodetools)
+#+END_SRC
+
+There are a bunch of things I'd like to do when I open a Ruby buffer:
+
+- I don't want to insert an encoding comment.
+- I want to enable =yas=, =rspec=, =yard=, =flycheck=, and =projectile-rails=.
+- I'd like my RSpec tests to be run in a random order, and I'd like the output
+  to be colored.
+- =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (setq ruby-insert-encoding-magic-comment nil)
+              (yas-minor-mode)
+              (rspec-mode)
+              (yard-mode)
+              (flycheck-mode)
+              (local-set-key "\r" 'newline-and-indent)
+              (setq rspec-command-options "--color --order random")
+              (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)
+              (projectile-rails-mode)))
+#+END_SRC
+
+I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/add-auto-mode
+   'ruby-mode
+   "\\Gemfile$"
+   "\\.rake$"
+   "\\.gemspec$"
+   "\\Guardfile$"
+   "\\Rakefile$"
+   "\\Vagrantfile$"
+   "\\Vagrantfile.local$")
 #+END_SRC
 
 ** Misc settings
