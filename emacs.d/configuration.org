@@ -71,7 +71,7 @@ I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
   (hrs/add-auto-mode 'prolog-mode "\\.pl$")
 #+END_SRC
 
-*** Ruby
+*** Ruby and RSpec
 
 I use =chruby= to switch between versions of Ruby. This sets a default version
 to use within Emacs (for things like =xmp= or =rspec=).
@@ -121,6 +121,15 @@ I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
    "\\Rakefile$"
    "\\Vagrantfile$"
    "\\Vagrantfile.local$")
+#+END_SRC
+
+When running RSpec tests I'd like to scroll to the first error.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'rspec-compilation-mode-hook
+            (lambda ()
+              (make-local-variable 'compilation-scroll-output)
+              (setq compilation-scroll-output 'first-error))
 #+END_SRC
 
 ** Misc settings
