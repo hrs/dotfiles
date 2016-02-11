@@ -1,0 +1,140 @@
+#+TITLE: Harry Schwartz's Emacs configuration
+
+* Configuration
+
+** sensible-defaults.el
+
+Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
+
+#+BEGIN_SRC emacs-lisp
+  (load-file "~/code/personal/sensible-defaults.el/sensible-defaults.el")
+  (sensible-defaults/use-all-settings)
+  (sensible-defaults/use-all-keybindings)
+#+END_SRC
+
+Include custom code paths.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lisp/")
+  (add-to-list 'load-path "~/.emacs.d/modes/")
+#+END_SRC
+
+** Configure packages
+
+I use =cask= and =pallet= for managing packages.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'cask "~/.cask/cask.el")
+  (cask-initialize)
+  (require 'pallet)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (load "utils.el")
+  (load "ui-prefs.el")
+  (load "password-management.el")
+#+END_SRC
+
+Look for executables in =/usr/local/bin=.
+
+#+BEGIN_SRC emacs-lisp
+    (setq exec-path (append exec-path '("/usr/local/bin")))
+#+END_SRC
+
+** Mode-specific customization
+
+#+BEGIN_SRC emacs-lisp
+  (mapcar (lambda (mode-file-name) (load mode-file-name))
+          (directory-files "~/.emacs.d/modes/" nil ".el"))
+#+END_SRC
+
+** Misc settings
+
+*** Always indent with spaces
+
+Never use tabs. Tabs are the devil’s whitespace.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+#+END_SRC
+
+*** Configure auto-complete.
+
+We’d like =auto-complete= to always be available.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'auto-complete-config)
+  (ac-config-default)
+#+END_SRC
+
+*** Configure yasnippet.
+
+I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippet=
+enabled.
+
+#+BEGIN_SRC emacs-lisp
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets/text-mode"))
+  (yas-global-mode 1)
+#+END_SRC
+
+I /don’t/ want =ido= to automatically indent the snippets it inserts. Sometimes
+this looks pretty bad (when indenting org-mode, for example, or trying to guess
+at the correct indentation for Python).
+
+#+BEGIN_SRC emacs-lisp
+  (setq yas/indent-line nil)
+#+END_SRC
+
+*** Configure =ido=
+
+#+BEGIN_SRC emacs-lisp
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+  (ido-ubiquitous)
+  (flx-ido-mode 1) ; better/faster matching
+  (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
+  (ido-vertical-mode 1)
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+#+END_SRC
+
+*** Enable region case modification
+
+#+BEGIN_SRC emacs-lisp
+  (put 'downcase-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+#+END_SRC
+
+*** Configure =wrap-region=
+
+#+BEGIN_SRC emacs-lisp
+  (wrap-region-global-mode t)
+  (wrap-region-add-wrapper "/" "/" nil 'ruby-mode)
+  (wrap-region-add-wrapper "`" "`" nil '(markdown-mode ruby-mode))
+#+END_SRC
+
+*** Split horizontally for temporary buffers
+
+Horizonal splits are nicer for me, since I usually use a wide monitor. This is
+handy for handling temporary buffers (like compilation or test output).
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/split-horizontally-for-temp-buffers ()
+    (when (one-window-p t)
+      (split-window-horizontally)))
+
+  (add-hook 'temp-buffer-window-setup-hook
+            'hrs/split-horizontally-for-temp-buffers)
+#+END_SRC
+
+*** Use projectile everywhere
+
+#+BEGIN_SRC emacs-lisp
+  (projectile-global-mode)
+#+END_SRC
+
+** Set custom keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (load "keybindings.el")
+#+END_SRC
