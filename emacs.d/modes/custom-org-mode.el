@@ -150,3 +150,16 @@
         (end-of-buffer)
         (insert "</style>")
         (buffer-string)))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((gnuplot . t)))
+
+;; This is needed for integrating with minted and pygments to produce syntax-highlighted code.
+(defun hrs/shell-escape-when-generating-pdfs ()
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
+
+(hrs/shell-escape-when-generating-pdfs)
