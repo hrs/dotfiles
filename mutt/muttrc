@@ -1,5 +1,5 @@
 # Paths ----------------------------------------------
-set folder           = ~/mail                # mailbox location
+set folder           = ~/.mail               # mailbox location
 set alias_file       = ~/.mutt/alias         # where to store aliases
 set header_cache     = ~/.mutt/cache/headers # where to store headers
 set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
@@ -33,7 +33,7 @@ unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
 
 # Account Settings -----------------------------------
-mailboxes +personal/INBOX +thoughtbot/INBOX
+mailboxes +personal/inbox +thoughtbot/inbox
 alternates hello@harryrschwartz.com harry@thoughtbot.com
 
 # Index View Options ---------------------------------
@@ -69,8 +69,9 @@ macro pager \Cu "|urlview<enter>" "call urlview to open links"
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
 # Sync email
-macro index O "<shell-escape>offlineimap; notmuch new<enter>" "run offlineimap to sync all mail"
-macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
+macro index O "<shell-escape>mbsync personal thoughtbot; notmuch new<enter>" "run mbsync to sync all mail"
+macro index o "<shell-escape>mbsync inboxes<enter>" "run mbsync to sync inboxes"
+macro index i "<shell-escape>notmuch new<enter>" "run notmuch to index new mail"
 
 # Saner copy/move dialogs
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"

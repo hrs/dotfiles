@@ -23,12 +23,11 @@ ln -s ~/.dotfiles/gitmessage ~/.gitmessage
 ln -s ~/.dotfiles/gnus ~/.gnus
 ln -s ~/.dotfiles/i3 ~/.i3
 ln -s ~/.dotfiles/i3status.conf ~/.i3status.conf
+ln -s ~/.dotfiles/mbsyncrc ~/.mbsyncrc
 ln -s ~/.dotfiles/msmtprc ~/.msmtprc
 ln -s ~/.dotfiles/mutt ~/.mutt
 ln -s ~/.dotfiles/newsbeuter-config ~/.newsbeuter/config
 ln -s ~/.dotfiles/octaverc ~/.octaverc
-ln -s ~/.dotfiles/offlineimaprc ~/.offlineimaprc
-ln -s ~/.dotfiles/offlineimap.py ~/.offlineimap.py
 ln -s ~/.dotfiles/quicklisp ~/.quicklisp
 ln -s ~/.dotfiles/rspec ~/.rspec
 ln -s ~/.dotfiles/rubocop.yml ~/.rubocop.yml

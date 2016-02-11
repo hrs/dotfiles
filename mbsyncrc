@@ -1,0 +1,89 @@
+Create Both
+Expunge Both
+SyncState *
+
+########################################
+# Work
+########################################
+
+IMAPAccount thoughtbot
+Host imap.gmail.com
+User harry@thoughtbot.com
+PassCmd "~/.bin/netrc-password.rb imap.gmail.com"
+UseIMAPS yes
+RequireSSL yes
+CertificateFile ~/.mutt/ca-bundle.crt
+
+IMAPStore thoughtbot-remote
+Account thoughtbot
+
+MaildirStore thoughtbot-local
+Path ~/.mail/thoughtbot/
+Inbox ~/.mail/thoughtbot/inbox
+
+Channel thoughtbot-inbox
+Master :thoughtbot-remote:INBOX
+Slave :thoughtbot-local:inbox
+
+Channel thoughtbot-drafts
+Master :thoughtbot-remote:[Gmail]/Drafts
+Slave :thoughtbot-local:drafts
+
+Channel thoughtbot-sent
+Master ":thoughtbot-remote:[Gmail]/Sent Mail"
+Slave :thoughtbot-local:sent
+
+Channel thoughtbot-archive
+Master ":thoughtbot-remote:[Gmail]/All Mail"
+Slave :thoughtbot-local:archive
+
+Group thoughtbot
+Channel thoughtbot-inbox
+Channel thoughtbot-drafts
+Channel thoughtbot-sent
+Channel thoughtbot-archive
+
+########################################
+# Personal
+########################################
+
+IMAPAccount personal
+Host mail.messagingengine.com
+User hrs@fastmail.fm
+PassCmd "~/.bin/netrc-password.rb mail.messagingengine.com"
+UseIMAPS yes
+RequireSSL yes
+CertificateFile ~/.mutt/ca-bundle.crt
+
+IMAPStore personal-remote
+Account personal
+
+MaildirStore personal-local
+Path ~/.mail/personal/
+Inbox ~/.mail/personal/inbox
+
+Channel personal-inbox
+Master :personal-remote:INBOX
+Slave :personal-local:inbox
+
+Channel personal-archive
+Master :personal-remote:INBOX/Archive
+Slave :personal-local:archive
+
+Channel personal-drafts
+Master :personal-remote:INBOX/Drafts
+Slave :personal-local:drafts
+
+Channel personal-sent
+Master ":personal-remote:INBOX/Sent Items"
+Slave :personal-local:sent
+
+Group personal
+Channel personal-inbox
+Channel personal-drafts
+Channel personal-sent
+Channel personal-archive
+
+Group inboxes
+Channel thoughtbot-inbox
+Channel personal-inbox
