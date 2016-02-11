@@ -2,7 +2,7 @@
 
 * Configuration
 
-** sensible-defaults.el
+** Use sensible-defaults.el
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
 
@@ -12,7 +12,14 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
   (sensible-defaults/use-all-keybindings)
 #+END_SRC
 
-Include custom code paths.
+** Set personal information
+
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Harry R. Schwartz"
+        user-mail-address "hello@harryrschwartz.com")
+#+END_SRC
+
+** Include custom code paths.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/lisp/")
