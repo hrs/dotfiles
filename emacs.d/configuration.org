@@ -106,6 +106,49 @@ Indent everything by 2 spaces.
               (setq coffee-tab-width 2)))
 #+END_SRC
 
+*** Lisps
+
+Load up the Quicklisp SLIME helper and use SBCL as the interpreter.
+
+#+BEGIN_SRC emacs-lisp
+  (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+#+END_SRC
+
+All the lisps have some shared features, so we want to do the same things for
+all of them. That includes using =paredit-mode= to balance parentheses (and
+more!), =rainbow-delimiters= to color matching parentheses, and highlighting the
+whole expression when point is on a paren.
+
+#+BEGIN_SRC emacs-lisp
+  (setq lispy-mode-hooks
+        '(clojure-mode-hook
+          emacs-lisp-mode-hook
+          lisp-mode-hook
+          scheme-mode-hook))
+
+  (dolist (hook lispy-mode-hooks)
+    (add-hook hook (lambda ()
+                     (setq show-paren-style 'expression)
+                     (paredit-mode)
+                     (rainbow-delimiters-mode))))
+#+END_SRC
+
+If I'm writing in Emacs lisp I'd like to use =eldoc-mode= to display
+documentation.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+#+END_SRC
+
+My own silly language ([[https://github.com/hrs/blueprint][blueprint]]) is close enough to Scheme that it can use the
+same mode.
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/add-auto-mode 'scheme-mode "\\.blu$")
+#+END_SRC
+
 *** Prolog
 
 I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
@@ -243,7 +286,7 @@ Never use tabs. Tabs are the devil’s whitespace.
   (setq-default indent-tabs-mode nil)
 #+END_SRC
 
-*** Configure auto-complete.
+*** Configure auto-complete
 
 We’d like =auto-complete= to always be available.
 
@@ -252,7 +295,7 @@ We’d like =auto-complete= to always be available.
   (ac-config-default)
 #+END_SRC
 
-*** Configure yasnippet.
+*** Configure yasnippet
 
 I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippet=
 enabled.
