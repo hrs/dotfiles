@@ -22,7 +22,6 @@
 (depends-on "epl")
 (depends-on "erlang")
 (depends-on "evil")
-(depends-on "evil-args")
 (depends-on "f")
 (depends-on "fill-column-indicator")
 (depends-on "findr")

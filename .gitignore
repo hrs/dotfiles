@@ -4,6 +4,8 @@ emacs.d/.mc-lists.el
 emacs.d/ac-comphist.dat
 emacs.d/bbdb
 emacs.d/bookmarks
+emacs.d/configuration.el
+emacs.d/configuration.html
 emacs.d/emms
 emacs.d/ido.last
 emacs.d/image-dired
