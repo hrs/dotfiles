@@ -48,14 +48,12 @@ Look for executables in =/usr/local/bin=.
     (setq exec-path (append exec-path '("/usr/local/bin")))
 #+END_SRC
 
-** Mode-specific customization
+** Programming customizations
 
 #+BEGIN_SRC emacs-lisp
   (mapcar (lambda (mode-file-name) (load mode-file-name))
           (directory-files "~/.emacs.d/modes/" nil ".el"))
 #+END_SRC
-
-*** All programming modes
 
 Always use =auto-complete= when programming.
 
@@ -183,6 +181,56 @@ When running RSpec tests I'd like to scroll to the first error.
             (lambda ()
               (make-local-variable 'compilation-scroll-output)
               (setq compilation-scroll-output 'first-error))
+#+END_SRC
+
+** =dired= settings
+
+Load up the assorted =dired= extensions.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'dired-x)
+  (require 'dired+)
+  (require 'dired-open)
+#+END_SRC
+
+Open media with the appropriate programs.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-open-extensions
+        '(("pdf" . "evince")
+          ("mkv" . "vlc")
+          ("mp4" . "vlc")
+          ("avi" . "vlc")))
+#+END_SRC
+
+These are the switches that get passed to =ls= when =dired= gets a list of
+files. We're using:
+
+- =l=: Use the long listing format.
+- =h=: Use human-readable sizes.
+- =v=: Sort numbers naturally.
+- =A=: Almost all. Doesn't include "=.=" or "=..=".
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dired-listing-switches "-lhvA")
+#+END_SRC
+
+Kill buffers of files/directories that are deleted in =dired=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-clean-up-buffers-too t)
+#+END_SRC
+
+Always copy directories recursively instead of asking every time.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-recursive-copies 'always)
+#+END_SRC
+
+Ask before recursively /deleting/ a directory, though.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-recursive-deletes 'top)
 #+END_SRC
 
 ** Misc settings
