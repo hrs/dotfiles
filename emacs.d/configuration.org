@@ -63,6 +63,26 @@ Always use =auto-complete= when programming.
   (add-hook 'prog-mode-hook 'auto-complete-mode)
 #+END_SRC
 
+*** CSS and Sass
+
+Indent 2 spaces and use =rainbow-mode= to display color-related words in the
+color they describe.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'css-mode-hook
+            (lambda ()
+              (rainbow-mode)
+              (setq css-indent-offset 2)))
+
+  (add-hook 'scss-mode-hook 'rainbow-mode)
+#+END_SRC
+
+Don't compile the current file every time I save.
+
+#+BEGIN_SRC emacs-lisp
+  (setq scss-compile-at-save nil)
+#+END_SRC
+
 *** Prolog
 
 I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
@@ -85,14 +105,14 @@ I use =chruby= to switch between versions of Ruby. This sets a default version
 to use within Emacs (for things like =xmp= or =rspec=).
 
 #+BEGIN_SRC emacs-lisp
-(chruby "ruby-2.2.4")
+  (chruby "ruby-2.2.4")
 #+END_SRC
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
 the results in "magic" (=# =>=) comments.
 
 #+BEGIN_SRC emacs-lisp
-(require 'rcodetools)
+  (require 'rcodetools)
 #+END_SRC
 
 There are a bunch of things I'd like to do when I open a Ruby buffer:
