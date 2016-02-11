@@ -71,6 +71,14 @@ I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
   (hrs/add-auto-mode 'prolog-mode "\\.pl$")
 #+END_SRC
 
+*** Python
+
+Indent 2 spaces.
+
+#+BEGIN_SRC emacs-lisp
+  (setq python-indent 2)
+#+END_SRC
+
 *** Ruby and RSpec
 
 I use =chruby= to switch between versions of Ruby. This sets a default version
