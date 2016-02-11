@@ -83,6 +83,18 @@ Don't compile the current file every time I save.
   (setq scss-compile-at-save nil)
 #+END_SRC
 
+*** Haskell
+
+Enable =haskell-doc-mode=, which displays the type signature of a function, and
+use smart indentation.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'haskell-mode-hook
+            (lambda ()
+              (turn-on-haskell-doc-mode)
+              (turn-on-haskell-indent)))
+#+END_SRC
+
 *** JavaScript and CoffeeScript
 
 Indent everything by 2 spaces.
