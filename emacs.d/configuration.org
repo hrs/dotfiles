@@ -83,6 +83,19 @@ Don't compile the current file every time I save.
   (setq scss-compile-at-save nil)
 #+END_SRC
 
+*** JavaScript and CoffeeScript
+
+Indent everything by 2 spaces.
+
+#+BEGIN_SRC emacs-lisp
+  (setq js-indent-level 2)
+
+  (add-hook 'coffee-mode-hook
+            (lambda ()
+              (yas-minor-mode 1)
+              (setq coffee-tab-width 2)))
+#+END_SRC
+
 *** Prolog
 
 I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
