@@ -55,6 +55,14 @@ Look for executables in =/usr/local/bin=.
           (directory-files "~/.emacs.d/modes/" nil ".el"))
 #+END_SRC
 
+*** All programming modes
+
+Always use =auto-complete= when programming.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook 'auto-complete-mode)
+#+END_SRC
+
 *** Ruby
 
 I use =chruby= to switch between versions of Ruby. This sets a default version
