@@ -14,9 +14,8 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Harry R. Schwartz"
-        user-mail-address "hello@harryrschwartz.com")
-
-  (setq calendar-latitude 42.2
+        user-mail-address "hello@harryrschwartz.com"
+        calendar-latitude 42.2
         calendar-longitude -71.1
         calendar-location-name "Cambridge, MA")
 #+END_SRC
@@ -270,6 +269,18 @@ package.
   (diminish-major-mode 'lisp-interaction-mode-hook "λ")
   (diminish-major-mode 'python-mode-hook "Py")
   (diminish-major-mode 'enh-ruby-mode-hook "Ruby")
+#+END_SRC
+
+** Highlight uncommitted changes
+
+Use the =diff-hl= package to highlight changed-and-uncommitted lines when
+programming.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'diff-hl)
+
+  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 #+END_SRC
 
 * Programming customizations
