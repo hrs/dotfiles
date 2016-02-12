@@ -1,4 +1,4 @@
-#+TITLE: Harry Schwartz's Emacs configuration
+#+TITLE: Emacs configuration
 
 * Use sensible-defaults.el
 
