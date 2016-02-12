@@ -24,7 +24,7 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 * Include custom code paths
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lisp/")
+  (add-to-list 'load-path "~/.emacs.d/resources/")
   (add-to-list 'load-path "~/.emacs.d/modes/")
 #+END_SRC
 
@@ -682,13 +682,13 @@ Add a pretty custom stylesheet.
   (setq org-html-head
         (with-temp-buffer
           (insert "<style type=\"text/css\">\n")
-          (insert-file-contents "~/.emacs.d/modes/default-org-export-stylesheet.css")
+          (insert-file-contents "~/.emacs.d/resources/default-org-export-stylesheet.css")
           (end-of-buffer)
           (insert "</style>")
           (buffer-string)))
 #+END_SRC
 
-**** Exproting to PDF
+**** Exporting to PDF
 
 I want to produce PDFs with syntax highlighting in the code. The best way to do
 that seems to be with the =minted= package, but that package shells out to
