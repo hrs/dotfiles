@@ -186,17 +186,75 @@ Define a big ol' bunch of handy utility functions.
     (hrs/insert-random-string 30))
 #+END_SRC
 
-* Load up code
+* UI preferences
+** Fullscreen display on a Mac
+
+I don't need to explicitly fullscreen Emacs on Debian (I'm already generally
+using i3, which effectively fullscreens it anyway), but on a Mac it's nice to
+have a little more space.
 
 #+BEGIN_SRC emacs-lisp
-  (load "ui-prefs.el")
-  (load "password-management.el")
+  (when (hrs/mac?)
+    (set-frame-parameter nil 'fullscreen 'fullboth))
 #+END_SRC
 
-Look for executables in =/usr/local/bin=.
+** Set default font
+
+I'm partial to Inconsolata. I think a bigger size looks better on a Mac.
 
 #+BEGIN_SRC emacs-lisp
-    (setq exec-path (append exec-path '("/usr/local/bin")))
+  (if (hrs/mac?)
+      (set-frame-font "Inconsolata-18")
+      (set-frame-font "Inconsolata-14"))
+#+END_SRC
+
+** Disable window chrome
+
+I don't usually use the menu or scroll bar, and they take up useful space.
+
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (when window-system
+    (scroll-bar-mode -1))
+#+END_SRC
+
+** Use fancy lambdas
+
+Why not?
+
+#+BEGIN_SRC emacs-lisp
+  (global-prettify-symbols-mode t)
+#+END_SRC
+
+** Custom solarized-dark theme
+
+#+BEGIN_SRC emacs-lisp
+  (when window-system
+    (setq solarized-use-variable-pitch nil)
+    (setq solarized-height-plus-1 1.0)
+    (setq solarized-height-plus-2 1.0)
+    (setq solarized-height-plus-3 1.0)
+    (setq solarized-height-plus-4 1.0)
+    (setq solarized-high-contrast-mode-line t)
+    (load-theme 'solarized-dark t))
+#+END_SRC
+
+** Highlight the current line
+
+=global-hl-line-mode= softly highlights the background color of the line
+containing point. It makes it a bit easier to find point, and it's useful when
+pairing or presenting code.
+
+#+BEGIN_SRC emacs-lisp
+  (when window-system
+    (global-hl-line-mode))
+#+END_SRC
+
+** Hide certain modes from the modeline
+
+#+BEGIN_SRC emacs-lisp
+  (load "hide-modes.el")
 #+END_SRC
 
 * Programming customizations
@@ -427,7 +485,7 @@ the tests from any buffer.
   (add-hook 'yaml-mode-hook 'rspec-mode)
 #+END_SRC
 
-* =dired= settings
+* =dired=
 
 Load up the assorted =dired= extensions.
 
@@ -571,6 +629,11 @@ Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few usef
 #+END_SRC
 
 * Misc settings
+** Look for executables in =/usr/local/bin=.
+
+#+BEGIN_SRC emacs-lisp
+    (setq exec-path (append exec-path '("/usr/local/bin")))
+#+END_SRC
 
 ** Always indent with spaces
 
@@ -618,6 +681,12 @@ at the correct indentation for Python).
   (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
   (ido-vertical-mode 1)
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+#+END_SRC
+
+Use =smex= to handle =M-x= with =ido=.
+
+#+BEGIN_SRC emacs-lisp
+  (smex-initialize)
 #+END_SRC
 
 ** Editing with Markdown
