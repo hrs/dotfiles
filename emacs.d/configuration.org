@@ -265,6 +265,15 @@ Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
    "\\.rhtml$")
 #+END_SRC
 
+** YAML
+
+If I'm editing YAML I'm usually in a Rails project. I'd like to be able to run
+the tests from any buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'yaml-mode-hook 'rspec-mode)
+#+END_SRC
+
 * =dired= settings
 
 Load up the assorted =dired= extensions.
