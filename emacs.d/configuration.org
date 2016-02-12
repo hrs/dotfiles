@@ -338,6 +338,24 @@ at the correct indentation for Python).
   (put 'upcase-region 'disabled nil)
 #+END_SRC
 
+*** Mass editing of =grep= results
+
+I like the idea of mass editing =grep= results the same way I can edit filenames
+in =dired=. These keybindings allow me to use =C-x C-q= to start editing =grep=
+results and =C-c C-c= to stop, just like in =dired=.
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load 'grep
+    '(define-key grep-mode-map
+      (kbd "C-x C-q") 'wgrep-change-to-wgrep-mode))
+
+  (eval-after-load 'wgrep
+    '(define-key grep-mode-map
+      (kbd "C-c C-c") 'wgrep-finish-edit))
+
+  (setq wgrep-auto-save-buffer t)
+#+END_SRC
+
 *** Configure =wrap-region=
 
 #+BEGIN_SRC emacs-lisp
