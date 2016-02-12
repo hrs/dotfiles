@@ -365,6 +365,22 @@ at the correct indentation for Python).
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 #+END_SRC
 
+** Editing with Markdown
+
+Because I can't always use =org=.
+
+I'd like spell-checking running when editing Markdown.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'markdown-mode-hook 'flyspell-mode)
+#+END_SRC
+
+Associate =.md= files with Markdown.
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/add-auto-mode 'markdown-mode "\\.md$")
+#+END_SRC
+
 ** Enable region case modification
 
 #+BEGIN_SRC emacs-lisp
