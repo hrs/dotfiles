@@ -20,11 +20,10 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
         calendar-location-name "Cambridge, MA")
 #+END_SRC
 
-* Include custom code paths
+* Add =resources= to =load-path=
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/resources/")
-  (add-to-list 'load-path "~/.emacs.d/modes/")
 #+END_SRC
 
 * Package management
@@ -285,15 +284,29 @@ programming.
 
 * Programming customizations
 
-#+BEGIN_SRC emacs-lisp
-  (mapcar (lambda (mode-file-name) (load mode-file-name))
-          (directory-files "~/.emacs.d/modes/" nil ".el"))
-#+END_SRC
-
 Always use =auto-complete= when programming.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'auto-complete-mode)
+#+END_SRC
+
+** Working in the terminal
+
+I use =multi-term= to manage my shell sessions.
+
+Use a login shell.
+
+#+BEGIN_SRC emacs-lisp
+  (setq multi-term-program-switches "--login")
+#+END_SRC
+
+Don't use =yasnippet= expansion in the terminal. This is infuriating.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'term-mode-hook
+	  (lambda ()
+            (define-key term-raw-map (kbd "M-o") 'other-window)
+            (setq yas-dont-activate t)))
 #+END_SRC
 
 ** CSS and Sass
