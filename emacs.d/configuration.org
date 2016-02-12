@@ -15,6 +15,10 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Harry R. Schwartz"
         user-mail-address "hello@harryrschwartz.com")
+
+  (setq calendar-latitude 42.2
+        calendar-longitude -71.1
+        calendar-location-name "Cambridge, MA")
 #+END_SRC
 
 * Include custom code paths
@@ -496,7 +500,198 @@ the tests from any buffer.
   (add-hook 'yaml-mode-hook 'rspec-mode)
 #+END_SRC
 
-* Publishing and org-mode
+* Publishing and task management with Org-mode
+** Display preferences
+
+I like to see an outline of pretty bullets instead of a list of asterisks.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (org-bullets-mode t)))
+
+  (setq org-hide-leading-stars t)
+#+END_SRC
+
+** Task management
+
+Store my org files in =~/org=, and archive finished tasks in
+=~/org/archive.org=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-directory "~/org")
+
+  (defun org-file-path (filename)
+    "Return the absolute address of an org file, given its relative name."
+    (concat (file-name-as-directory org-directory) filename))
+
+  (setq org-archive-location
+        (concat (org-file-path "archive.org") "::* From %s"))
+#+END_SRC
+
+I store all my todos in =~/org/index.org=, so I'd like to derive my agenda from
+there.
+
+#+BEGIN_SRC emacs-lisp
+    (setq org-agenda-files
+          (list (org-file-path "index.org")))
+#+END_SRC
+
+Define a few common tasks as capture templates. Specifically, I frequently:
+
+- Record ideas for future blog posts in =~/org/blog-ideas.org=,
+- Keep a running grocery list in =~/org/groceries.org=, and
+- Maintain a todo list in =~/org/index.org=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+        '(("b" "Blog idea"
+           entry
+           (file (org-file-path "blog-ideas.org"))
+           "* TODO %?\n")
+
+          ("g" "Groceries"
+           checkitem
+           (file (org-file-path "groceries.org")))
+
+          ("t" "Todo"
+           entry
+           (file (org-file-path "index.org"))
+           "* TODO %?\n")))
+#+END_SRC
+
+Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
+place in the archive.
+
+#+BEGIN_SRC emacs-lisp
+  (defun mark-done-and-archive ()
+    "Mark the state of an org-mode item as DONE and archive it."
+    (interactive)
+    (org-todo 'done)
+    (org-archive-subtree))
+
+  (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
+#+END_SRC
+
+Record the time that a todo was archived.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-done 'time)
+#+END_SRC
+
+**** Keybindings
+
+Bind a few handy keys.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (define-key global-map "\C-cc" 'org-capture)
+#+END_SRC
+
+Hit =C-c i= to quickly open up my todo list.
+
+#+BEGIN_SRC emacs-lisp
+  (defun open-index-file ()
+    "Open the master org TODO list."
+    (interactive)
+    (find-file (org-file-path "index.org"))
+    (end-of-buffer))
+
+  (global-set-key (kbd "C-c i") 'open-index-file)
+#+END_SRC
+
+Hit =M-n= to quickly open up a capture template for a new todo.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-capture-todo ()
+    (interactive)
+    (org-capture :keys "t"))
+
+  (global-set-key (kbd "M-n") 'org-capture-todo)
+#+END_SRC
+
+** Exporting
+
+Allow export to markdown and beamer (for presentations).
+
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-md)
+  (require 'ox-beamer)
+#+END_SRC
+
+Allow =babel= to evaluate Emacs lisp, Ruby, dot, or Gnuplot code.
+
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (ruby . t)
+     (dot . t)
+     (gnuplot . t)))
+#+END_SRC
+
+Don't ask before evaluating code blocks.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+Associate the "dot" language with the =graphviz-dot= major mode.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+#+END_SRC
+
+Translate regular ol' straight quotes to typographically-correct curly quotes
+when exporting.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-smart-quotes t)
+#+END_SRC
+
+**** Exporting to HTML
+
+Don't include a footer with my contact and publishing information at the bottom
+of every exported HTML document.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-html-postamble nil)
+#+END_SRC
+
+Add a pretty custom stylesheet.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-html-head
+        (with-temp-buffer
+          (insert "<style type=\"text/css\">\n")
+          (insert-file-contents "~/.emacs.d/modes/default-org-export-stylesheet.css")
+          (end-of-buffer)
+          (insert "</style>")
+          (buffer-string)))
+#+END_SRC
+
+**** Exproting to PDF
+
+I want to produce PDFs with syntax highlighting in the code. The best way to do
+that seems to be with the =minted= package, but that package shells out to
+=pygments= to do the actual work. =pdflatex= usually disallows shell commands;
+this enables that.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
+
+Include the =minted= package in all of my LaTeX exports.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+#+END_SRC
+
 ** TeX configuration
 
 I rarely write LaTeX directly any more, but I often export through it with
@@ -840,13 +1035,6 @@ makes that automatic.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
   (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
-#+END_SRC
-
-Shortcuts to open my org index and capture a new todo.
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c i") 'open-index-file)
-  (global-set-key (kbd "M-n") 'org-capture-todo)
 #+END_SRC
 
 Remap when working in terminal Emacs.
