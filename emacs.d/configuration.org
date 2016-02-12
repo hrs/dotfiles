@@ -177,7 +177,12 @@ to use within Emacs (for things like =xmp= or =rspec=).
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
 the results in "magic" (=# =>=) comments.
 
+I disable warnings in Ruby because I disagree with a few of them (complaining
+about private =attr_reader=, especially) and they gunk up my buffer.
+
 #+BEGIN_SRC emacs-lisp
+  (setq xmpfilter-command-name
+        "ruby -S xmpfilter --no-warnings --dev --fork --detect-rbtest")
   (require 'rcodetools)
 #+END_SRC
 
@@ -223,7 +228,7 @@ When running RSpec tests I'd like to scroll to the first error.
   (add-hook 'rspec-compilation-mode-hook
             (lambda ()
               (make-local-variable 'compilation-scroll-output)
-              (setq compilation-scroll-output 'first-error))
+              (setq compilation-scroll-output 'first-error)))
 #+END_SRC
 
 ** =dired= settings
