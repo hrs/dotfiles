@@ -373,6 +373,23 @@ same mode.
   (hrs/add-auto-mode 'scheme-mode "\\.blu$")
 #+END_SRC
 
+** Magit
+
+The default behavior of =magit= is to ask before pushing. I haven't had any
+problems with accidentally pushing, so I'd rather not confirm that every time.
+
+#+BEGIN_SRC emacs-lisp
+  (setq magit-push-always-verify nil)
+#+END_SRC
+
+I sometimes use =git= from the terminal, and I'll use =emacsclient --tty= to
+write commits. I'd like to be in the insert state when my editor pops open for
+that.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+#+END_SRC
+
 ** Prolog
 
 I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
