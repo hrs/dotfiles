@@ -496,6 +496,48 @@ the tests from any buffer.
   (add-hook 'yaml-mode-hook 'rspec-mode)
 #+END_SRC
 
+* Publishing and org-mode
+** TeX configuration
+
+I rarely write LaTeX directly any more, but I often export through it with
+org-mode, so I'm keeping them together.
+
+Automatically parse the file after loading it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq TeX-parse-self t)
+#+END_SRC
+
+Always use =pdflatex= when compiling LaTeX documents. I don't really have any
+use for DVIs.
+
+#+BEGIN_SRC emacs-lisp
+  (setq TeX-PDF-mode t)
+#+END_SRC
+
+Enable a minor mode for dealing with math (it adds a few useful keybindings),
+and always treat the current file as the "main" file. That's intentional, since
+I'm usually actually in an org document.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (LaTeX-math-mode)
+              (setq TeX-master t)))
+#+END_SRC
+
+TeX Live on a Mac gets installed to a nonstandard directory. If we want to build
+documents from inside Emacs we need to add those directories to our =$PATH=.
+
+#+BEGIN_SRC emacs-lisp
+  (when (hrs/mac?)
+    (setenv "PATH"
+            (concat (getenv "PATH")
+                    ":" "/usr/local/texlive/2013basic/bin/universal-darwin"
+                    ":" "/usr/local/texlive/2013/bin/universal-darwin"
+                    ":" "/usr/local/bin")))
+#+END_SRC
+
 * =dired=
 
 Load up the assorted =dired= extensions.
