@@ -1,8 +1,6 @@
 #+TITLE: Harry Schwartz's Emacs configuration
 
-* Configuration
-
-** Use sensible-defaults.el
+* Use sensible-defaults.el
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
 
@@ -12,21 +10,21 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
   (sensible-defaults/use-all-keybindings)
 #+END_SRC
 
-** Set personal information
+* Set personal information
 
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Harry R. Schwartz"
         user-mail-address "hello@harryrschwartz.com")
 #+END_SRC
 
-** Include custom code paths
+* Include custom code paths
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/lisp/")
   (add-to-list 'load-path "~/.emacs.d/modes/")
 #+END_SRC
 
-** Configure packages
+* Configure packages
 
 I use =cask= and =pallet= for managing packages.
 
@@ -48,7 +46,7 @@ Look for executables in =/usr/local/bin=.
     (setq exec-path (append exec-path '("/usr/local/bin")))
 #+END_SRC
 
-** Programming customizations
+* Programming customizations
 
 #+BEGIN_SRC emacs-lisp
   (mapcar (lambda (mode-file-name) (load mode-file-name))
@@ -61,7 +59,7 @@ Always use =auto-complete= when programming.
   (add-hook 'prog-mode-hook 'auto-complete-mode)
 #+END_SRC
 
-*** CSS and Sass
+** CSS and Sass
 
 Indent 2 spaces and use =rainbow-mode= to display color-related words in the
 color they describe.
@@ -81,7 +79,7 @@ Don't compile the current file every time I save.
   (setq scss-compile-at-save nil)
 #+END_SRC
 
-*** Haskell
+** Haskell
 
 Enable =haskell-doc-mode=, which displays the type signature of a function, and
 use smart indentation.
@@ -93,7 +91,7 @@ use smart indentation.
               (turn-on-haskell-indent)))
 #+END_SRC
 
-*** JavaScript and CoffeeScript
+** JavaScript and CoffeeScript
 
 Indent everything by 2 spaces.
 
@@ -106,7 +104,7 @@ Indent everything by 2 spaces.
               (setq coffee-tab-width 2)))
 #+END_SRC
 
-*** Lisps
+** Lisps
 
 Load up the Quicklisp SLIME helper and use SBCL as the interpreter.
 
@@ -149,7 +147,7 @@ same mode.
   (hrs/add-auto-mode 'scheme-mode "\\.blu$")
 #+END_SRC
 
-*** Prolog
+** Prolog
 
 I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
 
@@ -157,7 +155,7 @@ I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
   (hrs/add-auto-mode 'prolog-mode "\\.pl$")
 #+END_SRC
 
-*** Python
+** Python
 
 Indent 2 spaces.
 
@@ -165,7 +163,7 @@ Indent 2 spaces.
   (setq python-indent 2)
 #+END_SRC
 
-*** Ruby and RSpec
+** Ruby and RSpec
 
 I use =chruby= to switch between versions of Ruby. This sets a default version
 to use within Emacs (for things like =xmp= or =rspec=).
@@ -231,7 +229,7 @@ When running RSpec tests I'd like to scroll to the first error.
               (setq compilation-scroll-output 'first-error)))
 #+END_SRC
 
-*** Slim
+** Slim
 
 If I'm editing Slim templates I'm probably in a Rails project. In that case, I'd
 like to still be able to run my tests from a Slim buffer.
@@ -240,7 +238,7 @@ like to still be able to run my tests from a Slim buffer.
   (add-hook 'slim-mode-hook 'rspec-mode)
 #+END_SRC
 
-*** =web-mode=
+** =web-mode=
 
 If I'm in =web-mode=, I'd like to:
 
@@ -267,7 +265,7 @@ Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
    "\\.rhtml$")
 #+END_SRC
 
-** =dired= settings
+* =dired= settings
 
 Load up the assorted =dired= extensions.
 
@@ -317,9 +315,9 @@ Ask before recursively /deleting/ a directory, though.
   (setq dired-recursive-deletes 'top)
 #+END_SRC
 
-** Misc settings
+* Misc settings
 
-*** Always indent with spaces
+** Always indent with spaces
 
 Never use tabs. Tabs are the devil’s whitespace.
 
@@ -327,7 +325,7 @@ Never use tabs. Tabs are the devil’s whitespace.
   (setq-default indent-tabs-mode nil)
 #+END_SRC
 
-*** Configure auto-complete
+** Configure auto-complete
 
 We’d like =auto-complete= to always be available.
 
@@ -336,7 +334,7 @@ We’d like =auto-complete= to always be available.
   (ac-config-default)
 #+END_SRC
 
-*** Configure yasnippet
+** Configure yasnippet
 
 I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippet=
 enabled.
@@ -354,7 +352,7 @@ at the correct indentation for Python).
   (setq yas/indent-line nil)
 #+END_SRC
 
-*** Configure =ido=
+** Configure =ido=
 
 #+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t)
@@ -367,14 +365,14 @@ at the correct indentation for Python).
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 #+END_SRC
 
-*** Enable region case modification
+** Enable region case modification
 
 #+BEGIN_SRC emacs-lisp
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
 #+END_SRC
 
-*** Mass editing of =grep= results
+** Mass editing of =grep= results
 
 I like the idea of mass editing =grep= results the same way I can edit filenames
 in =dired=. These keybindings allow me to use =C-x C-q= to start editing =grep=
@@ -392,7 +390,7 @@ results and =C-c C-c= to stop, just like in =dired=.
   (setq wgrep-auto-save-buffer t)
 #+END_SRC
 
-*** Configure =wrap-region=
+** Configure =wrap-region=
 
 #+BEGIN_SRC emacs-lisp
   (wrap-region-global-mode t)
@@ -400,7 +398,7 @@ results and =C-c C-c= to stop, just like in =dired=.
   (wrap-region-add-wrapper "`" "`" nil '(markdown-mode ruby-mode))
 #+END_SRC
 
-*** Split horizontally for temporary buffers
+** Split horizontally for temporary buffers
 
 Horizonal splits are nicer for me, since I usually use a wide monitor. This is
 handy for handling temporary buffers (like compilation or test output).
@@ -414,13 +412,13 @@ handy for handling temporary buffers (like compilation or test output).
             'hrs/split-horizontally-for-temp-buffers)
 #+END_SRC
 
-*** Use projectile everywhere
+** Use projectile everywhere
 
 #+BEGIN_SRC emacs-lisp
   (projectile-global-mode)
 #+END_SRC
 
-** Set custom keybindings
+* Set custom keybindings
 
 #+BEGIN_SRC emacs-lisp
   (load "keybindings.el")
