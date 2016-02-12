@@ -870,69 +870,20 @@ Use "j" and "k" to move around in =dired=.
   (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
 #+END_SRC
 
-* =engine-mode=
+* Editing settings
 
-Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few useful engines.
+** Always kill current buffer
+
+Assume that I always want to kill the current buffer when hitting =C-x k=.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'engine-mode)
-
-  (defengine amazon
-    "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s"
-    :keybinding "a")
-
-  (defengine duckduckgo
-    "https://duckduckgo.com/?q=%s"
-    :keybinding "d")
-
-  (defengine github
-    "https://github.com/search?ref=simplesearch&q=%s"
-    :keybinding "g")
-
-  (defengine google
-    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
-
-  (defengine google-images
-    "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")
-
-  (defengine google-maps
-    "http://maps.google.com/maps?q=%s"
-    :keybinding "m")
-
-  (defengine project-gutenberg
-    "http://www.gutenberg.org/ebooks/search.html/?format=html&default_prefix=all&sort_order=&query=%s")
-
-  (defengine rfcs
-    "http://pretty-rfc.herokuapp.com/search?q=%s")
-
-  (defengine stack-overflow
-    "https://stackoverflow.com/search?q=%s"
-    :keybinding "s")
-
-  (defengine twitter
-    "https://twitter.com/search?q=%s")
-
-  (defengine wikipedia
-    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
-    :keybinding "w")
-
-  (defengine wiktionary
-    "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
-
-  (defengine wolfram-alpha
-    "http://www.wolframalpha.com/input/?i=%s")
-
-  (defengine youtube
-    "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
-
-  (engine-mode t)
+  (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
 #+END_SRC
 
-* Misc settings
 ** Look for executables in =/usr/local/bin=.
 
 #+BEGIN_SRC emacs-lisp
-    (setq exec-path (append exec-path '("/usr/local/bin")))
+  (setq exec-path (append exec-path '("/usr/local/bin")))
 #+END_SRC
 
 ** Always indent with spaces
@@ -1015,6 +966,16 @@ Associate =.md= files with Markdown.
   (put 'upcase-region 'disabled nil)
 #+END_SRC
 
+** Switch windows when splitting
+
+When splitting a window, I invariably want to switch to the new window. This
+makes that automatic.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+#+END_SRC
+
 ** Mass editing of =grep= results
 
 I like the idea of mass editing =grep= results the same way I can edit filenames
@@ -1061,6 +1022,64 @@ handy for handling temporary buffers (like compilation or test output).
   (projectile-global-mode)
 #+END_SRC
 
+** Add a bunch of engines for =engine-mode=
+
+Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few useful engines.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'engine-mode)
+
+  (defengine amazon
+    "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s"
+    :keybinding "a")
+
+  (defengine duckduckgo
+    "https://duckduckgo.com/?q=%s"
+    :keybinding "d")
+
+  (defengine github
+    "https://github.com/search?ref=simplesearch&q=%s"
+    :keybinding "g")
+
+  (defengine google
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
+
+  (defengine google-images
+    "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")
+
+  (defengine google-maps
+    "http://maps.google.com/maps?q=%s"
+    :keybinding "m")
+
+  (defengine project-gutenberg
+    "http://www.gutenberg.org/ebooks/search.html/?format=html&default_prefix=all&sort_order=&query=%s")
+
+  (defengine rfcs
+    "http://pretty-rfc.herokuapp.com/search?q=%s")
+
+  (defengine stack-overflow
+    "https://stackoverflow.com/search?q=%s"
+    :keybinding "s")
+
+  (defengine twitter
+    "https://twitter.com/search?q=%s")
+
+  (defengine wikipedia
+    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
+    :keybinding "w")
+
+  (defengine wiktionary
+    "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
+
+  (defengine wolfram-alpha
+    "http://www.wolframalpha.com/input/?i=%s")
+
+  (defengine youtube
+    "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
+
+  (engine-mode t)
+#+END_SRC
+
 * Set custom keybindings
 
 Just a few handy functions.
@@ -1073,20 +1092,6 @@ Just a few handy functions.
   (global-set-key (kbd "M-#") 'sort-lines)
   (global-set-key (kbd "C-c s") 'multi-term)
   (global-set-key (kbd "C-x g") 'magit-status)
-#+END_SRC
-
-Assume that I always want to kill the current buffer.
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
-#+END_SRC
-
-When splitting a window, I invariably want to switch to the new window. This
-makes that automatic.
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
-  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
 #+END_SRC
 
 Remap when working in terminal Emacs.
