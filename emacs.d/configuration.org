@@ -483,6 +483,17 @@ When running RSpec tests I'd like to scroll to the first error.
               (setq compilation-scroll-output 'first-error)))
 #+END_SRC
 
+** =sh=
+
+Indent with 2 spaces.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              (setq sh-basic-offset 2
+                    sh-indentation 2)))
+#+END_SRC
+
 ** Slim
 
 If I'm editing Slim templates I'm probably in a Rails project. In that case, I'd
