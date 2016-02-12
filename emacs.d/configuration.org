@@ -53,33 +53,10 @@ Define a big ol' bunch of handy utility functions.
     (save-excursion
       (tidy-region (point-min) (point-max))))
 
-  (defun hrs/date ()
-    "Insert today's date."
-    (interactive)
-    (insert (format-time-string "%Y-%m-%d")))
-
-  (defun hrs/time ()
-    "Insert the current time."
-    (interactive)
-    (insert (format-time-string "%H:%M:%S")))
-
   (defun hrs/view-buffer-name ()
     "Display the filename of the current buffer."
     (interactive)
     (message (buffer-file-name)))
-
-  (defun hrs/drag-line-up ()
-    "Swap the line at point with the line above it, moving point to the line above."
-    (interactive)
-    (transpose-lines 1)
-    (forward-line -2))
-
-  (defun hrs/drag-line-down ()
-    "Swap the line at point with the line beneath it, moving point to the line below."
-    (interactive)
-    (forward-line 1)
-    (transpose-lines 1)
-    (forward-line -1))
 
   (defun hrs/generate-scratch-buffer ()
     "Create and switch to a temporary scratch buffer with a random
@@ -717,10 +694,13 @@ at the correct indentation for Python).
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 #+END_SRC
 
-Use =smex= to handle =M-x= with =ido=.
+** Use =smex= to handle =M-x= with =ido=
 
 #+BEGIN_SRC emacs-lisp
   (smex-initialize)
+
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 #+END_SRC
 
 ** Editing with Markdown
@@ -794,6 +774,41 @@ handy for handling temporary buffers (like compilation or test output).
 
 * Set custom keybindings
 
+Just a few handy functions.
+
 #+BEGIN_SRC emacs-lisp
-  (load "keybindings.el")
+  (global-set-key (kbd "C-w") 'backward-kill-word)
+  (global-set-key (kbd "C-x C-k") 'kill-region)
+  (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "M-o") 'other-window)
+  (global-set-key (kbd "M-#") 'sort-lines)
+  (global-set-key (kbd "C-c s") 'multi-term)
+  (global-set-key (kbd "C-x g") 'magit-status)
+#+END_SRC
+
+Assume that I always want to kill the current buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
+#+END_SRC
+
+When splitting a window, I invariably want to switch to the new window. This
+makes that automatic.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+#+END_SRC
+
+Shortcuts to open my org index and capture a new todo.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c i") 'open-index-file)
+  (global-set-key (kbd "M-n") 'org-capture-todo)
+#+END_SRC
+
+Remap when working in terminal Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key input-decode-map "\e[1;2A" [S-up])
 #+END_SRC
