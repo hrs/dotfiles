@@ -231,6 +231,15 @@ When running RSpec tests I'd like to scroll to the first error.
               (setq compilation-scroll-output 'first-error)))
 #+END_SRC
 
+*** Slim
+
+If I'm editing Slim templates I'm probably in a Rails project. In that case, I'd
+like to still be able to run my tests from a Slim buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'slim-mode-hook 'rspec-mode)
+#+END_SRC
+
 ** =dired= settings
 
 Load up the assorted =dired= extensions.
