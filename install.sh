@@ -15,7 +15,6 @@ ln -s ~/.dotfiles/bashrc.d ~/.bashrc.d
 ln -s ~/.dotfiles/bin ~/.bin
 ln -s ~/.dotfiles/ctags ~/.ctags
 ln -s ~/.dotfiles/emacs.d ~/.emacs.d
-ln -s ~/.dotfiles/exelse ~/.exelse
 ln -s ~/.dotfiles/git ~/.git
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/gitignore ~/.gitignore

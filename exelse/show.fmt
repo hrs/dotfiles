@@ -1,5 +1,0 @@
-# exiftool -m -p exif.fmt *.pdf
-========== $FileName
-Title: $Title
-Author: $Author
-Keywords: $Keywords
