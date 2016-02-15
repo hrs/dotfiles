@@ -827,8 +827,7 @@ Use =evil=.
 Enable =surround= everywhere.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'surround)
-  (global-surround-mode 1)
+  (global-evil-surround-mode 1)
 #+END_SRC
 
 Bind =C-p= to fuzzy-finding files in the current project.

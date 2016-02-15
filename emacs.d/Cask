@@ -1,5 +1,3 @@
-;; -*- emacs-lisp -*-
-
 (source gnu)
 (source melpa)
 
@@ -22,6 +20,7 @@
 (depends-on "epl")
 (depends-on "erlang")
 (depends-on "evil")
+(depends-on "evil-surround")
 (depends-on "f")
 (depends-on "fill-column-indicator")
 (depends-on "findr")
