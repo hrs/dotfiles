@@ -1,8 +1,0 @@
---sort-files
---color
---context=1
---follow
---group
---ignore-dir=coverage
---type-set=MINIFIED=.min.js
---noMINIFIED
