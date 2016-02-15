@@ -1,1 +1,0 @@
-dists/quicklisp/software/alexandria-20130128-git/alexandria.asd

@@ -26,8 +26,6 @@ ln -s ~/.dotfiles/mbsyncrc ~/.mbsyncrc
 ln -s ~/.dotfiles/msmtprc ~/.msmtprc
 ln -s ~/.dotfiles/mutt ~/.mutt
 ln -s ~/.dotfiles/newsbeuter-config ~/.newsbeuter/config
-ln -s ~/.dotfiles/octaverc ~/.octaverc
-ln -s ~/.dotfiles/quicklisp ~/.quicklisp
 ln -s ~/.dotfiles/rspec ~/.rspec
 ln -s ~/.dotfiles/rubocop.yml ~/.rubocop.yml
 ln -s ~/.dotfiles/sbclrc ~/.sbclrc

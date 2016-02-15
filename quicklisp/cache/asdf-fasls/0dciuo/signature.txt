@@ -1,4 +1,0 @@
-lisp-implementation-type: SBCL
-lisp-implementation-version: 1.0.58
-machine-type: X86-64
-machine-version: Intel(R) Core(TM) i7-2677M CPU @ 1.80GHz
