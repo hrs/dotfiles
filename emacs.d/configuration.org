@@ -565,6 +565,13 @@ I like to see an outline of pretty bullets instead of a list of asterisks.
   (setq org-hide-leading-stars t)
 #+END_SRC
 
+I like seeing a little downward-pointing arrow instead of the usual ellipsis
+(=...=) that org displays when there's stuff under a header.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-ellipsis "⤵")
+#+END_SRC
+
 ** Task management
 
 Store my org files in =~/org=, and archive finished tasks in
