@@ -338,14 +338,6 @@ Indent everything by 2 spaces.
 
 ** Lisps
 
-Load up the Quicklisp SLIME helper and use SBCL as the interpreter.
-
-#+BEGIN_SRC emacs-lisp
-  (load (expand-file-name "~/.quicklisp/slime-helper.el"))
-
-  (setq inferior-lisp-program "/usr/bin/sbcl")
-#+END_SRC
-
 All the lisps have some shared features, so we want to do the same things for
 all of them. That includes using =paredit-mode= to balance parentheses (and
 more!), =rainbow-delimiters= to color matching parentheses, and highlighting the
