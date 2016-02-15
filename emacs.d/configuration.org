@@ -41,20 +41,6 @@ I use =cask= and =pallet= for managing packages.
 Define a big ol' bunch of handy utility functions.
 
 #+BEGIN_SRC emacs-lisp
-  (defun hrs/tidy-region (start end)
-    "Indent, delete whitespace, and untabify the region."
-    (interactive "r")
-    (progn
-      (delete-trailing-whitespace start end)
-      (indent-region start end nil)
-      (untabify start end)))
-
-  (defun hrs/tidy-buffer ()
-    "Indent, delete whitespace, and untabify the buffer."
-    (interactive)
-    (save-excursion
-      (tidy-region (point-min) (point-max))))
-
   (defun hrs/view-buffer-name ()
     "Display the filename of the current buffer."
     (interactive)
