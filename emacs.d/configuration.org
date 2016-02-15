@@ -759,6 +759,159 @@ documents from inside Emacs we need to add those directories to our =$PATH=.
                     ":" "/usr/local/bin")))
 #+END_SRC
 
+* =evil-mode=
+
+Use =evil=.
+
+#+BEGIN_SRC emacs-lisp
+  (evil-mode 1)
+#+END_SRC
+
+Enable =surround= everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (global-evil-surround-mode 1)
+#+END_SRC
+
+Bind =C-p= to fuzzy-finding files in the current project.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+#+END_SRC
+
+When I'm starting an org capture template I'd like to begin in insert mode. I'm
+opening it up in order to start typing something, so this skips a step.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+#+END_SRC
+
+Use "j" and "k" to move around in =dired=.
+
+#+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
+  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
+#+END_SRC
+
+* Email
+
+Bind =C-c m= to open =notmuch=.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c m") 'notmuch)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (require 'notmuch)
+  (require 'org-notmuch)
+#+END_SRC
+
+When writing a new message, start in insert mode (since I'm about to write
+something).
+
+#+BEGIN_SRC emacs-lisp
+  (evil-set-initial-state 'message-mode 'insert)
+#+END_SRC
+
+Send the message with SMTP.
+
+#+BEGIN_SRC emacs-lisp
+  (setq send-mail-function 'smtpmail-send-it)
+#+END_SRC
+
+Connect to SMTP servers over SSL.
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   smtpmail-stream-type 'ssl
+   smtpmail-smtp-service 465)
+#+END_SRC
+
+Define the functions used to fetch mail, update the database, and change
+accounts.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/reply-from-personal-email ()
+    (setq user-mail-address "hello@harryrschwartz.com"
+          smtpmail-smtp-server "mail.messagingengine.com"))
+
+  (defun hrs/reply-from-work-email ()
+    (setq user-mail-address "harry@thoughtbot.com"
+          smtpmail-smtp-server "smtp.gmail.com"))
+
+  (defun hrs/refresh-notmuch-database ()
+    (let ((mailboxes '("personal" "thoughtbot")))
+      (shell-command-to-string "notmuch new")
+      (dolist (mailbox mailboxes)
+        (shell-command-to-string
+         (format "notmuch tag +inbox \"path:%s/inbox/**\"" mailbox))
+        (shell-command-to-string
+         (format "notmuch tag +draft -inbox \"path:%s/drafts/**\"" mailbox))
+        (shell-command-to-string
+         (format "notmuch tag +sent -inbox \"path:%s/sent/**\"" mailbox))
+        (shell-command-to-string
+         (format "notmuch tag +archive -inbox \"path:%s/archive/**\"" mailbox)))))
+
+  (defun hrs/fetch-new-mail ()
+    (interactive)
+    (save-excursion
+      (shell-command-to-string "mbsync personal-inbox thoughtbot-inbox")
+      (hrs/refresh-notmuch-database)))
+
+  (defun hrs/sync-all-mailboxes ()
+    (interactive)
+    (shell-command-to-string "mbsync personal thoughtbot")
+    (hrs/refresh-notmuch-database))
+#+END_SRC
+
+Bind keys to match what I'm used to from =mutt=.
+
+I might eventually change these back to the defaults, but right now I'm just
+trying to make the transition easy for myself.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key notmuch-hello-mode-map "o" 'hrs/fetch-new-mail)
+  (define-key notmuch-hello-mode-map "O" 'hrs/sync-all-mailboxes)
+  (define-key notmuch-hello-mode-map "g" 'notmuch-jump-search)
+
+  (define-key notmuch-search-mode-map "g" 'notmuch-jump-search)
+  (define-key notmuch-search-mode-map "j" 'notmuch-search-next-thread)
+  (define-key notmuch-search-mode-map "k" 'notmuch-search-previous-thread)
+
+  (define-key notmuch-show-mode-map "j" 'next-line)
+  (define-key notmuch-show-mode-map "k" 'previous-line)
+  (define-key notmuch-show-mode-map "h" 'left-char)
+  (define-key notmuch-show-mode-map "l" 'right-char)
+  (define-key notmuch-show-mode-map "J" 'notmuch-show-next-thread-show)
+  (define-key notmuch-show-mode-map "K" 'notmuch-show-previous-thread-show)
+#+END_SRC
+
+Open links in the usual org-ly way with =C-c C-o=.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key notmuch-show-mode-map (kbd "C-c C-o") 'org-open-at-point)
+#+END_SRC
+
+Default to using my personal address.
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/reply-from-personal-email)
+#+END_SRC
+
+** PGP encryption
+
+Sign messages by default.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
+#+END_SRC
+
+Verify and decrypt received messages.
+
+#+BEGIN_SRC emacs-lisp
+  (setq notmuch-crypto-process-mime t)
+#+END_SRC
+
 * =dired=
 
 Load up the assorted =dired= extensions.
@@ -807,40 +960,6 @@ Ask before recursively /deleting/ a directory, though.
 
 #+BEGIN_SRC emacs-lisp
   (setq dired-recursive-deletes 'top)
-#+END_SRC
-
-* =evil-mode=
-
-Use =evil=.
-
-#+BEGIN_SRC emacs-lisp
-  (evil-mode 1)
-#+END_SRC
-
-Enable =surround= everywhere.
-
-#+BEGIN_SRC emacs-lisp
-  (global-evil-surround-mode 1)
-#+END_SRC
-
-Bind =C-p= to fuzzy-finding files in the current project.
-
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-#+END_SRC
-
-When I'm starting an org capture template I'd like to begin in insert mode. I'm
-opening it up in order to start typing something, so this skips a step.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-#+END_SRC
-
-Use "j" and "k" to move around in =dired=.
-
-#+BEGIN_SRC emacs-lisp
-  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
-  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
 #+END_SRC
 
 * Editing settings
