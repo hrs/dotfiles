@@ -692,18 +692,6 @@ of every exported HTML document.
   (setq org-html-postamble nil)
 #+END_SRC
 
-Add a pretty custom stylesheet.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-html-head
-        (with-temp-buffer
-          (insert "<style type=\"text/css\">\n")
-          (insert-file-contents "~/.emacs.d/resources/default-org-export-stylesheet.css")
-          (end-of-buffer)
-          (insert "</style>")
-          (buffer-string)))
-#+END_SRC
-
 **** Exporting to PDF
 
 I want to produce PDFs with syntax highlighting in the code. The best way to do
