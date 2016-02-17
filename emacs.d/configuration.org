@@ -546,6 +546,12 @@ I like seeing a little downward-pointing arrow instead of the usual ellipsis
   (setq org-ellipsis "⤵")
 #+END_SRC
 
+Use syntax highlighting in source blocks while editing.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+#+END_SRC
+
 ** Task management
 
 Store my org files in =~/org=, and archive finished tasks in
