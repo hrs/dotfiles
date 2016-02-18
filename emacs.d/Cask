@@ -29,6 +29,7 @@
 (depends-on "flycheck-package")
 (depends-on "flycheck-rust")
 (depends-on "geiser")
+(depends-on "ghc")
 (depends-on "git-commit")
 (depends-on "git-timemachine")
 (depends-on "gitconfig-mode")
