@@ -316,10 +316,11 @@ Don't compile the current file every time I save.
 Enable =haskell-doc-mode=, which displays the type signature of a function, and
 use smart indentation.
 
+
 #+BEGIN_SRC emacs-lisp
   (add-hook 'haskell-mode-hook
             (lambda ()
-              (turn-on-haskell-doc-mode)
+              (haskell-doc-mode)
               (turn-on-haskell-indent)))
 #+END_SRC
 
