@@ -29,7 +29,7 @@ else
 fi
 
 source "/usr/local/share/chruby/chruby.sh"
-chruby 2.2.4
+chruby 2.3.0
 
 ### local config settings, if any
 
