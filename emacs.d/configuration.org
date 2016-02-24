@@ -231,7 +231,7 @@ package.
     `(add-hook ,mode-hook
                (lambda () (setq mode-name ,abbrev))))
 
-  (diminish-minor-mode 'auto-complete 'auto-complete-mode)
+  (diminish-minor-mode 'company 'company-mode)
   (diminish-minor-mode 'eldoc 'eldoc-mode)
   (diminish-minor-mode 'flycheck 'flycheck-mode)
   (diminish-minor-mode 'flyspell 'flyspell-mode)
@@ -265,12 +265,6 @@ programming.
 #+END_SRC
 
 * Programming customizations
-
-Always use =auto-complete= when programming.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook 'auto-complete-mode)
-#+END_SRC
 
 ** Working in the terminal
 
@@ -864,6 +858,11 @@ Assume that I always want to kill the current buffer when hitting =C-x k=.
 #+BEGIN_SRC emacs-lisp
   (setq exec-path (append exec-path '("/usr/local/bin")))
 #+END_SRC
+** Use =company-mode= everywhere
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
 
 ** Always indent with spaces
 
@@ -871,15 +870,6 @@ Never use tabs. Tabs are the devil’s whitespace.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
-#+END_SRC
-
-** Configure auto-complete
-
-We’d like =auto-complete= to always be available.
-
-#+BEGIN_SRC emacs-lisp
-  (require 'auto-complete-config)
-  (ac-config-default)
 #+END_SRC
 
 ** Configure yasnippet

@@ -3,11 +3,11 @@
 
 (depends-on "ag")
 (depends-on "auctex")
-(depends-on "auto-complete")
 (depends-on "cask")
 (depends-on "chruby")
 (depends-on "cm-mode")
 (depends-on "coffee-mode")
+(depends-on "company")
 (depends-on "dash")
 (depends-on "dash-at-point")
 (depends-on "diff-hl")
