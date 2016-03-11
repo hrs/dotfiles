@@ -526,6 +526,7 @@ the tests from any buffer.
 #+END_SRC
 
 * Publishing and task management with Org-mode
+
 ** Display preferences
 
 I like to see an outline of pretty bullets instead of a list of asterisks.
@@ -895,6 +896,27 @@ at the correct indentation for Python).
 
 #+BEGIN_SRC emacs-lisp
   (setq yas/indent-line nil)
+#+END_SRC
+
+** Configure =abbrev-mode=
+
+My email address is too long, so I like to keep some personal information as
+abbreviations.
+
+I'm prefixing them with semicolons to avoid collisions with real words.
+
+#+BEGIN_SRC emacs-lisp
+  (define-abbrev-table 'global-abbrev-table
+    '((";name" "Harry R. Schwartz")
+      (";email" "hello@harryrschwartz.com")
+      (";tb" "harry@thoughtbot.com")
+      (";site" "http://harryrschwartz.com")))
+#+END_SRC
+
+Always enable =abbrev-mode=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default abbrev-mode t)
 #+END_SRC
 
 ** Configure =ido=
