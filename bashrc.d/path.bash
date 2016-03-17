@@ -20,4 +20,7 @@ pathmunge /usr/lib/mutt
 pathmunge /sbin after
 pathmunge $HOME/bin after
 pathmunge $HOME/.bin after
+pathmunge $HOME/.cabal/bin after
 pathmunge $HOME/.cask/bin after
+
+export PATH
