@@ -277,13 +277,29 @@ Use a login shell.
   (setq multi-term-program-switches "--login")
 #+END_SRC
 
-Don't use =yasnippet= expansion in the terminal. This is infuriating.
+I add a bunch of hooks to =term-mode=:
+
+- I'd like links (URLs, etc) to be clickable.
+- Yanking in =term-mode= doesn't quite work. The text from the paste appears in
+  the buffer but isn't sent to the shell process. This correctly binds =C-y= and
+  middle-click to yank the way we'd expect.
+- I bind =M-o= to quickly change windows. I'd like that in terminals, too.
+- I don't want to perform =yasnippet= expansion when tab-completing.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'term-mode-hook
-	  (lambda ()
-            (define-key term-raw-map (kbd "M-o") 'other-window)
-            (setq yas-dont-activate t)))
+  (defun hrs/term-paste (&optional string)
+    (interactive)
+    (process-send-string
+     (get-buffer-process (current-buffer))
+     (if string string (current-kill 0))))
+
+  (add-hook 'term-mode-hook
+            (lambda ()
+              (goto-address-mode)
+              (define-key term-raw-map (kbd "C-y") 'hrs/term-paste)
+              (define-key term-raw-map (kbd "<mouse-2>") 'hrs/term-paste)
+              (define-key term-raw-map (kbd "M-o") 'other-window)
+              (setq yas-dont-activate t)))
 #+END_SRC
 
 ** CSS and Sass
@@ -843,6 +859,14 @@ opening it up in order to start typing something, so this skips a step.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
+#+END_SRC
+
+I'd rather not use Evil in the terminal. It's not especially useful (I don't use
+vi bindings in xterm) and it shadows useful keybindings (=C-d= for EOF, for
+example).
+
+#+BEGIN_SRC emacs-lisp
+  (evil-set-initial-state 'term-mode 'emacs)
 #+END_SRC
 
 Use "j" and "k" to move around in =dired=.
