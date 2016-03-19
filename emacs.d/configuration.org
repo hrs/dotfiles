@@ -36,6 +36,48 @@ I use =cask= and =pallet= for managing packages.
   (require 'pallet)
 #+END_SRC
 
+* =evil-mode=
+
+Use =evil=.
+
+#+BEGIN_SRC emacs-lisp
+  (evil-mode 1)
+#+END_SRC
+
+Enable =surround= everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (global-evil-surround-mode 1)
+#+END_SRC
+
+Bind =C-p= to fuzzy-finding files in the current project.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+#+END_SRC
+
+When I'm starting an org capture template I'd like to begin in insert mode. I'm
+opening it up in order to start typing something, so this skips a step.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+#+END_SRC
+
+I'd rather not use Evil in the terminal. It's not especially useful (I don't use
+vi bindings in xterm) and it shadows useful keybindings (=C-d= for EOF, for
+example).
+
+#+BEGIN_SRC emacs-lisp
+  (evil-set-initial-state 'term-mode 'emacs)
+#+END_SRC
+
+Use "j" and "k" to move around in =dired=.
+
+#+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
+  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
+#+END_SRC
+
 * Utility functions
 
 Define a big ol' bunch of handy utility functions.
@@ -838,48 +880,6 @@ Ask before recursively /deleting/ a directory, though.
 
 #+BEGIN_SRC emacs-lisp
   (setq dired-recursive-deletes 'top)
-#+END_SRC
-
-* =evil-mode=
-
-Use =evil=.
-
-#+BEGIN_SRC emacs-lisp
-  (evil-mode 1)
-#+END_SRC
-
-Enable =surround= everywhere.
-
-#+BEGIN_SRC emacs-lisp
-  (global-evil-surround-mode 1)
-#+END_SRC
-
-Bind =C-p= to fuzzy-finding files in the current project.
-
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-#+END_SRC
-
-When I'm starting an org capture template I'd like to begin in insert mode. I'm
-opening it up in order to start typing something, so this skips a step.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-#+END_SRC
-
-I'd rather not use Evil in the terminal. It's not especially useful (I don't use
-vi bindings in xterm) and it shadows useful keybindings (=C-d= for EOF, for
-example).
-
-#+BEGIN_SRC emacs-lisp
-  (evil-set-initial-state 'term-mode 'emacs)
-#+END_SRC
-
-Use "j" and "k" to move around in =dired=.
-
-#+BEGIN_SRC emacs-lisp
-  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
-  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
 #+END_SRC
 
 * Editing settings
