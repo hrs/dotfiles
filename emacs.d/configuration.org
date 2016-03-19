@@ -56,28 +56,6 @@ Bind =C-p= to fuzzy-finding files in the current project.
   (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
 #+END_SRC
 
-When I'm starting an org capture template I'd like to begin in insert mode. I'm
-opening it up in order to start typing something, so this skips a step.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-#+END_SRC
-
-I'd rather not use Evil in the terminal. It's not especially useful (I don't use
-vi bindings in xterm) and it shadows useful keybindings (=C-d= for EOF, for
-example).
-
-#+BEGIN_SRC emacs-lisp
-  (evil-set-initial-state 'term-mode 'emacs)
-#+END_SRC
-
-Use "j" and "k" to move around in =dired=.
-
-#+BEGIN_SRC emacs-lisp
-  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
-  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
-#+END_SRC
-
 * Utility functions
 
 Define a big ol' bunch of handy utility functions.
@@ -308,41 +286,6 @@ programming.
 #+END_SRC
 
 * Programming customizations
-
-** Working in the terminal
-
-I use =multi-term= to manage my shell sessions.
-
-Use a login shell.
-
-#+BEGIN_SRC emacs-lisp
-  (setq multi-term-program-switches "--login")
-#+END_SRC
-
-I add a bunch of hooks to =term-mode=:
-
-- I'd like links (URLs, etc) to be clickable.
-- Yanking in =term-mode= doesn't quite work. The text from the paste appears in
-  the buffer but isn't sent to the shell process. This correctly binds =C-y= and
-  middle-click to yank the way we'd expect.
-- I bind =M-o= to quickly change windows. I'd like that in terminals, too.
-- I don't want to perform =yasnippet= expansion when tab-completing.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/term-paste (&optional string)
-    (interactive)
-    (process-send-string
-     (get-buffer-process (current-buffer))
-     (if string string (current-kill 0))))
-
-  (add-hook 'term-mode-hook
-            (lambda ()
-              (goto-address-mode)
-              (define-key term-raw-map (kbd "C-y") 'hrs/term-paste)
-              (define-key term-raw-map (kbd "<mouse-2>") 'hrs/term-paste)
-              (define-key term-raw-map (kbd "M-o") 'other-window)
-              (setq yas-dont-activate t)))
-#+END_SRC
 
 ** CSS and Sass
 
@@ -584,6 +527,49 @@ the tests from any buffer.
   (add-hook 'yaml-mode-hook 'rspec-mode)
 #+END_SRC
 
+* Terminal
+
+I use =multi-term= to manage my shell sessions.
+
+Use a login shell:
+
+#+BEGIN_SRC emacs-lisp
+  (setq multi-term-program-switches "--login")
+#+END_SRC
+
+I'd rather not use Evil in the terminal. It's not especially useful (I don't use
+vi bindings in xterm) and it shadows useful keybindings (=C-d= for EOF, for
+example).
+
+#+BEGIN_SRC emacs-lisp
+  (evil-set-initial-state 'term-mode 'emacs)
+#+END_SRC
+
+I add a bunch of hooks to =term-mode=:
+
+- I'd like links (URLs, etc) to be clickable.
+- Yanking in =term-mode= doesn't quite work. The text from the paste appears in
+  the buffer but isn't sent to the shell process. This correctly binds =C-y= and
+  middle-click to yank the way we'd expect.
+- I bind =M-o= to quickly change windows. I'd like that in terminals, too.
+- I don't want to perform =yasnippet= expansion when tab-completing.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/term-paste (&optional string)
+    (interactive)
+    (process-send-string
+     (get-buffer-process (current-buffer))
+     (if string string (current-kill 0))))
+
+  (add-hook 'term-mode-hook
+            (lambda ()
+              (goto-address-mode)
+              (define-key term-raw-map (kbd "C-y") 'hrs/term-paste)
+              (define-key term-raw-map (kbd "<mouse-2>") 'hrs/term-paste)
+              (define-key term-raw-map (kbd "M-o") 'other-window)
+              (setq yas-dont-activate t)))
+#+END_SRC
+
 * Publishing and task management with Org-mode
 
 ** Display preferences
@@ -648,6 +634,27 @@ there.
           (list (org-file-path "index.org")))
 #+END_SRC
 
+Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
+place in the archive.
+
+#+BEGIN_SRC emacs-lisp
+  (defun mark-done-and-archive ()
+    "Mark the state of an org-mode item as DONE and archive it."
+    (interactive)
+    (org-todo 'done)
+    (org-archive-subtree))
+
+  (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
+#+END_SRC
+
+Record the time that a todo was archived.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-done 'time)
+#+END_SRC
+
+**** Capturing tasks
+
 Define a few common tasks as capture templates. Specifically, I frequently:
 
 - Record ideas for future blog posts in =~/org/blog-ideas.org=,
@@ -671,23 +678,11 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            "* TODO %?\n")))
 #+END_SRC
 
-Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
-place in the archive.
+When I'm starting an org capture template I'd like to begin in insert mode. I'm
+opening it up in order to start typing something, so this skips a step.
 
 #+BEGIN_SRC emacs-lisp
-  (defun mark-done-and-archive ()
-    "Mark the state of an org-mode item as DONE and archive it."
-    (interactive)
-    (org-todo 'done)
-    (org-archive-subtree))
-
-  (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
-#+END_SRC
-
-Record the time that a todo was archived.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-log-done 'time)
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
 #+END_SRC
 
 **** Keybindings
@@ -862,6 +857,13 @@ files. We're using:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dired-listing-switches "-lhvA")
+#+END_SRC
+
+Use "j" and "k" to move around in =dired=.
+
+#+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
+  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
 #+END_SRC
 
 Kill buffers of files/directories that are deleted in =dired=.
