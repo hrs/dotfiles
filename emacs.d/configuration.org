@@ -569,6 +569,12 @@ Use syntax highlighting in source blocks while editing.
   (setq org-src-fontify-natively t)
 #+END_SRC
 
+Make TAB act as if it were issued in a buffer of the language's major mode.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-tab-acts-natively t)
+#+END_SRC
+
 When editing a code snippet, use the current window rather than popping open a
 new one (which shows the same information).
 
