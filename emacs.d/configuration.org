@@ -612,7 +612,8 @@ new one (which shows the same information).
 
 ** Task management
 
-Store my org files in =~/org=, and archive finished tasks in
+Store my org files in =~/org=, maintain an inbox in Dropbox, define the location
+of an index file (my main todo list), and archive finished tasks in
 =~/org/archive.org=.
 
 #+BEGIN_SRC emacs-lisp
@@ -622,16 +623,31 @@ Store my org files in =~/org=, and archive finished tasks in
     "Return the absolute address of an org file, given its relative name."
     (concat (file-name-as-directory org-directory) filename))
 
+  (setq org-inbox-file "~/Dropbox/inbox.org")
+  (setq org-index-file (org-file-path "index.org"))
   (setq org-archive-location
         (concat (org-file-path "archive.org") "::* From %s"))
+#+END_SRC
+
+I use [[http://agiletortoise.com/drafts/][Drafts]] to create new tasks, format them according to a template, and
+append them to an "inbox.org" file in my Dropbox. This function lets me import
+them easily from that inbox file to my index.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/copy-tasks-from-inbox ()
+    (when (file-exists-p org-inbox-file)
+      (save-excursion
+        (find-file org-index-file)
+        (goto-char (point-max))
+        (insert-file-contents org-inbox-file)
+        (delete-file org-inbox-file))))
 #+END_SRC
 
 I store all my todos in =~/org/index.org=, so I'd like to derive my agenda from
 there.
 
 #+BEGIN_SRC emacs-lisp
-    (setq org-agenda-files
-          (list (org-file-path "index.org")))
+  (setq org-agenda-files (list org-index-file))
 #+END_SRC
 
 Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
@@ -674,7 +690,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
 
           ("t" "Todo"
            entry
-           (file (org-file-path "index.org"))
+           (file org-index-file)
            "* TODO %?\n")))
 #+END_SRC
 
@@ -701,7 +717,8 @@ Hit =C-c i= to quickly open up my todo list.
   (defun open-index-file ()
     "Open the master org TODO list."
     (interactive)
-    (find-file (org-file-path "index.org"))
+    (hrs/copy-tasks-from-inbox)
+    (find-file org-index-file)
     (end-of-buffer))
 
   (global-set-key (kbd "C-c i") 'open-index-file)
