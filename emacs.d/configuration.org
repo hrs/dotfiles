@@ -719,6 +719,7 @@ Hit =C-c i= to quickly open up my todo list.
     (interactive)
     (hrs/copy-tasks-from-inbox)
     (find-file org-index-file)
+    (flycheck-mode -1)
     (end-of-buffer))
 
   (global-set-key (kbd "C-c i") 'open-index-file)
