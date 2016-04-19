@@ -397,6 +397,22 @@ I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
   (hrs/add-auto-mode 'prolog-mode "\\.pl$")
 #+END_SRC
 
+** Projectile
+
+Projectile's default binding of =projectile-ag= to =C-c p s s= is clunky enough
+that I rarely use it (and forget it when I need it). This binds the
+easier-to-type =C-c C-v= and =C-c v= to useful searches.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/search-project-for-symbol-at-point ()
+    "Use `projectile-ag' to search the current project for `symbol-at-point'."
+    (interactive)
+    (projectile-ag (projectile-symbol-at-point)))
+
+  (global-set-key (kbd "C-c v") 'projectile-ag)
+  (global-set-key (kbd "C-c C-v") 'hrs/search-project-for-symbol-at-point)
+#+END_SRC
+
 ** Python
 
 Indent 2 spaces.
