@@ -45,6 +45,9 @@ set uncollapse_jump                        # don't collapse on an unread message
 set sort_re                                # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
+# Displaying Email -----------------------------------
+set display_filter = ~/.mutt/display_filter.sh
+
 # Index Key Bindings ---------------------------------
 macro index S \
 "<enter-command>set my_old_pipe_decode=\$pipe_decode my_old_wait_key=\$wait_key nopipe_decode nowait_key<enter>\
