@@ -3,11 +3,9 @@
 # Create necessary directories
 mkdir -p ~/.ssh
 mkdir -p ~/.newsbeuter
-mkdir -p ~/.abook
 
 # Link files from dotfiles
 ln -s ~/.dotfiles/Xmodmap ~/.Xmodmap
-ln -s ~/.dotfiles/abookrc ~/.abook/abookrc
 ln -s ~/.dotfiles/authinfo.gpg ~/.authinfo.gpg
 ln -s ~/.dotfiles/bashrc ~/.bashrc
 ln -s ~/.dotfiles/bashrc.d ~/.bashrc.d
