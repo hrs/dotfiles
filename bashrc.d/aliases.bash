@@ -1,11 +1,5 @@
 # -*- mode: sh -*-
 
-if [[ $(uname) != Darwin ]]; then
-  alias ack="ack-grep"
-fi
-
-alias be="bundle exec"
-alias e=$EDITOR
 alias gg="git grep -n"
 alias git="hub"
 alias gpg="gpg2"
@@ -17,12 +11,13 @@ alias la="ls -la"
 alias ll="ls -l"
 alias ln="ln -v"
 alias mkdir="mkdir -p"
-alias n="e ~/Documents/notes"
-alias now="date '+%Y-%m-%d %H:%M'"
-alias path="echo $PATH | tr ':' '\n'"
 alias rss="newsbeuter -q -r -u ~/documents/rss/urls"
 alias tree="tree -C" # add colors
 alias usage="du -sch"
+
+### Ruby/Rails-specific
+alias be="bundle exec"
+alias migrate="be rake db:migrate db:test:prepare"
 
 ### Aiming for something like platform-independence
 if [[ $(uname) == Darwin ]]; then
@@ -48,7 +43,3 @@ fi
 
 alias oports="echo 'User:      Command:   Port:'; echo '----------------------------' ; lsof -i 4 -P -n | grep -i 'listen' | awk '{print \$3, \$1, \$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n |xargs printf '%-10s %-10s %-10s\n' | uniq"
 alias serve="python -m SimpleHTTPServer"
-
-### Meta
-alias rc="$EDITOR ~/.bashrc"
-alias rcs="source ~/.bashrc"

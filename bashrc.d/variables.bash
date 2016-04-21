@@ -5,7 +5,6 @@ export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient --tty"
 export EMAIL="hello@harryrschwartz.com"
 export GPG_TTY=$(tty)
-export GPODDER_HOME="/home/hrs/downloads/podcasts"
 export HISTFILESIZE=20000
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
