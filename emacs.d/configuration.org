@@ -704,6 +704,10 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            checkitem
            (file (org-file-path "groceries.org")))
 
+          ("r" "Reading"
+           checkitem
+           (file (org-file-path "to-read.org")))
+
           ("t" "Todo"
            entry
            (file org-index-file)
