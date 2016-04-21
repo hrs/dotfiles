@@ -190,7 +190,7 @@ I'm partial to Inconsolata. I think a bigger size looks better on a Mac.
 #+BEGIN_SRC emacs-lisp
   (if (hrs/mac?)
       (set-frame-font "Inconsolata-18")
-      (set-frame-font "Inconsolata-14"))
+      (set-frame-font "Inconsolata-12"))
 #+END_SRC
 
 ** Disable window chrome
