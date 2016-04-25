@@ -183,14 +183,61 @@ have a little more space.
     (set-frame-parameter nil 'fullscreen 'fullboth))
 #+END_SRC
 
-** Set default font
+** Set default font and configure font resizing
 
-I'm partial to Inconsolata. I think a bigger size looks better on a Mac.
+I'm partial to Inconsolata. I think a bigger size looks better on a Mac
+(especially since I'm usually using a large display when I'm on a Mac).
+
+The standard =text-scale-= functions just resize the text in the current buffer;
+I'd generally like to resize the text in /every/ buffer, and I usually want to
+change the size of the modeline, too (this is especially helpful when
+presenting). These functions and bindings let me resize everything all together!
+
+Note that this overrides the default font-related keybindings from
+=sensible-defaults=.
 
 #+BEGIN_SRC emacs-lisp
+  (setq hrs/default-font "Inconsolata")
+  (setq hrs/default-font-size 18)
+  (setq hrs/current-font-size hrs/default-font-size)
+
   (if (hrs/mac?)
-      (set-frame-font "Inconsolata-18")
-      (set-frame-font "Inconsolata-12"))
+      (setq hrs/default-font-size 18)
+      (setq hrs/default-font-size 12))
+
+  (setq hrs/font-change-increment 1.1)
+
+  (defun hrs/set-font-size ()
+    "Set the font to `hrs/default-font' at `hrs/current-font-size'."
+    (set-frame-font
+     (concat hrs/default-font "-" (number-to-string hrs/current-font-size))))
+
+  (defun hrs/reset-font-size ()
+    "Change font size back to `hrs/default-font-size'."
+    (interactive)
+    (setq hrs/current-font-size hrs/default-font-size)
+    (hrs/set-font-size))
+
+  (defun hrs/increase-font-size ()
+    "Increase current font size by a factor of `hrs/font-change-increment'."
+    (interactive)
+    (setq hrs/current-font-size
+          (ceiling (* hrs/current-font-size hrs/font-change-increment)))
+    (hrs/set-font-size))
+
+  (defun hrs/decrease-font-size ()
+    "Decrease current font size by a factor of `hrs/font-change-increment', down to a minimum size of 1."
+    (interactive)
+    (setq hrs/current-font-size
+          (max 1
+               (floor (/ hrs/current-font-size hrs/font-change-increment))))
+    (hrs/set-font-size))
+
+  (define-key global-map (kbd "C-)") 'hrs/reset-font-size)
+  (define-key global-map (kbd "C-+") 'hrs/increase-font-size)
+  (define-key global-map (kbd "C-=") 'hrs/increase-font-size)
+  (define-key global-map (kbd "C-_") 'hrs/decrease-font-size)
+  (define-key global-map (kbd "C--") 'hrs/decrease-font-size)
 #+END_SRC
 
 ** Disable window chrome
