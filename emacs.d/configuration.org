@@ -334,6 +334,13 @@ programming.
 
 * Programming customizations
 
+I like shallow indentation, but tabs are displayed as 8 characters by default.
+This reduces that.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default tab-width 2)
+#+END_SRC
+
 ** CSS and Sass
 
 Indent 2 spaces and use =rainbow-mode= to display color-related words in the
