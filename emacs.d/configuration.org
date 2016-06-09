@@ -680,7 +680,7 @@ new one (which shows the same information).
   (setq org-src-window-setup 'current-window)
 #+END_SRC
 
-** Task management
+** Task and org-capture management
 
 Store my org files in =~/org=, maintain an inbox in Dropbox, define the location
 of an index file (my main todo list), and archive finished tasks in
@@ -757,6 +757,11 @@ Define a few common tasks as capture templates. Specifically, I frequently:
           ("g" "Groceries"
            checkitem
            (file (org-file-path "groceries.org")))
+
+          ("l" "Today I Learned..."
+           entry
+           (file+datetree (org-file-path "til.org"))
+           "* %?\n")
 
           ("r" "Reading"
            checkitem
