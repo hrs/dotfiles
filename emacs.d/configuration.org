@@ -650,8 +650,6 @@ I like to see an outline of pretty bullets instead of a list of asterisks.
   (add-hook 'org-mode-hook
             (lambda ()
               (org-bullets-mode t)))
-
-  (setq org-hide-leading-stars t)
 #+END_SRC
 
 I like seeing a little downward-pointing arrow instead of the usual ellipsis
