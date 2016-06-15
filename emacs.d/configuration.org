@@ -1076,13 +1076,19 @@ Because I can't always use =org=.
 I'd like spell-checking running when editing Markdown.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'markdown-mode-hook 'flyspell-mode)
+  (add-hook 'gfm-mode-hook 'flyspell-mode)
 #+END_SRC
 
-Associate =.md= files with Markdown.
+Associate =.md= files with GitHub-flavored Markdown.
 
 #+BEGIN_SRC emacs-lisp
-  (hrs/add-auto-mode 'markdown-mode "\\.md$")
+  (hrs/add-auto-mode 'gfm-mode "\\.md$")
+#+END_SRC
+
+Use =pandoc= to render the results.
+
+#+BEGIN_SRC emacs-lisp
+  (setq markdown-command "pandoc -f github_markdown --normalize")
 #+END_SRC
 
 ** Linting prose
