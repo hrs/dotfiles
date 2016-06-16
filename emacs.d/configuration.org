@@ -1088,7 +1088,7 @@ Associate =.md= files with GitHub-flavored Markdown.
 Use =pandoc= to render the results.
 
 #+BEGIN_SRC emacs-lisp
-  (setq markdown-command "pandoc -f github_markdown --normalize")
+  (setq markdown-command "pandoc --standalone --mathjax --from=markdown")
 #+END_SRC
 
 ** Linting prose
