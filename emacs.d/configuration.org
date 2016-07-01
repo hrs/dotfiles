@@ -183,6 +183,32 @@ have a little more space.
     (set-frame-parameter nil 'fullscreen 'fullboth))
 #+END_SRC
 
+** Disable window chrome
+
+I don't usually use the menu or scroll bar, and they take up useful space.
+
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (when window-system
+    (scroll-bar-mode -1))
+#+END_SRC
+
+** Use fancy lambdas
+
+Why not?
+
+#+BEGIN_SRC emacs-lisp
+  (global-prettify-symbols-mode t)
+#+END_SRC
+
+** Load up a color theme
+
+#+BEGIN_SRC emacs-lisp
+  (when window-system
+    (load-theme 'tsdh-light t))
+#+END_SRC
+
 ** Set default font and configure font resizing
 
 I'm partial to Inconsolata. I think a bigger size looks better on a Mac
@@ -238,38 +264,8 @@ Note that this overrides the default font-related keybindings from
   (define-key global-map (kbd "C-=") 'hrs/increase-font-size)
   (define-key global-map (kbd "C-_") 'hrs/decrease-font-size)
   (define-key global-map (kbd "C--") 'hrs/decrease-font-size)
-#+END_SRC
 
-** Disable window chrome
-
-I don't usually use the menu or scroll bar, and they take up useful space.
-
-#+BEGIN_SRC emacs-lisp
-  (tool-bar-mode 0)
-  (menu-bar-mode 0)
-  (when window-system
-    (scroll-bar-mode -1))
-#+END_SRC
-
-** Use fancy lambdas
-
-Why not?
-
-#+BEGIN_SRC emacs-lisp
-  (global-prettify-symbols-mode t)
-#+END_SRC
-
-** Custom solarized-dark theme
-
-#+BEGIN_SRC emacs-lisp
-  (when window-system
-    (setq solarized-use-variable-pitch nil)
-    (setq solarized-height-plus-1 1.0)
-    (setq solarized-height-plus-2 1.0)
-    (setq solarized-height-plus-3 1.0)
-    (setq solarized-height-plus-4 1.0)
-    (setq solarized-high-contrast-mode-line t)
-    (load-theme 'solarized-dark t))
+  (hrs/reset-font-size)
 #+END_SRC
 
 ** Highlight the current line
