@@ -1087,6 +1087,24 @@ Use =pandoc= to render the results.
   (setq markdown-command "pandoc --standalone --mathjax --from=markdown")
 #+END_SRC
 
+** Wrap paragraphs automatically
+
+=AutoFillMode= automatically wraps paragraphs, kinda like hitting =M-q=. I wrap
+a lot of paragraphs, so this automatically wraps 'em when I'm writing text,
+Markdown, or Org.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+  (add-hook 'gfm-mode-hook 'turn-on-auto-fill)
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+
+Sometimes, though, I don't wanna wrap text. This toggles wrapping with =C-c q=:
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c q") 'auto-fill-mode)
+#+END_SRC
+
 ** Linting prose
 
 I use [[http://proselint.com/][proselint]] to check my prose for common errors. This creates a flycheck
