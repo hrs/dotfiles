@@ -12,6 +12,7 @@ User harry@thoughtbot.com
 PassCmd "~/.bin/netrc-password.rb imap.gmail.com"
 SSLType IMAPS
 CertificateFile ~/.mutt/ca-bundle.crt
+AuthMechs LOGIN
 
 IMAPStore thoughtbot-remote
 Account thoughtbot
