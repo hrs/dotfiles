@@ -209,6 +209,16 @@ Why not?
     (load-theme 'tsdh-light t))
 #+END_SRC
 
+** Disable visual bell
+
+=sensible-defaults= replaces the audible bell with a visual one, but I really
+don't even want that (and my Emacs/Mac pair renders it poorly). This disables
+the bell altogether.
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
 ** Set default font and configure font resizing
 
 I'm partial to Inconsolata. I think a bigger size looks better on a Mac
