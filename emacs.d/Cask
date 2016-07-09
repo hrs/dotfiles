@@ -73,6 +73,7 @@
 (depends-on "scss-mode")
 (depends-on "smart-forward")
 (depends-on "smex")
+(depends-on "sml-mode")
 (depends-on "solarized-theme")
 (depends-on "w3m")
 (depends-on "web-mode")
