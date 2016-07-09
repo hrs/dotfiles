@@ -35,6 +35,7 @@
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
 (depends-on "gnuplot")
+(depends-on "go-mode")
 (depends-on "graphviz-dot-mode")
 (depends-on "haml-mode")
 (depends-on "haskell-mode")
