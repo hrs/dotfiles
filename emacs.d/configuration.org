@@ -817,6 +817,8 @@ Hit =M-n= to quickly open up a capture template for a new todo.
     (org-capture :keys "t"))
 
   (global-set-key (kbd "M-n") 'org-capture-todo)
+  (add-hook 'gfm-mode-hook
+            (lambda () (local-set-key (kbd "M-n") 'org-capture-todo)))
 #+END_SRC
 
 ** Exporting
