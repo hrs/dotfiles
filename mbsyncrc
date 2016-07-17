@@ -10,9 +10,9 @@ IMAPAccount thoughtbot
 Host imap.gmail.com
 User harry@thoughtbot.com
 PassCmd "~/.bin/netrc-password.rb imap.gmail.com"
-SSLType IMAPS
+UseIMAPS yes
+RequireSSL yes
 CertificateFile ~/.mutt/ca-bundle.crt
-AuthMechs LOGIN
 
 IMAPStore thoughtbot-remote
 Account thoughtbot
@@ -51,7 +51,8 @@ IMAPAccount personal
 Host mail.messagingengine.com
 User hrs@fastmail.fm
 PassCmd "~/.bin/netrc-password.rb mail.messagingengine.com"
-SSLType IMAPS
+UseIMAPS yes
+RequireSSL yes
 CertificateFile ~/.mutt/ca-bundle.crt
 
 IMAPStore personal-remote
