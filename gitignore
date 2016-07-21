@@ -5,6 +5,7 @@
 .#*
 TAGS
 custom_plan.rb
+emacs.d/projects.el
 .classpath
 .project
 .projectile
