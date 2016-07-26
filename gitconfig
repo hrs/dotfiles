@@ -4,6 +4,7 @@
   br = branch
   cm = commit -m
   co = checkout
+  dc = diff --cached
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   loc = !git diff --stat `git hash-object -t tree /dev/null` | tail -1 | cut -d' ' -f5
