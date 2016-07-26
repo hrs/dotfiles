@@ -6,7 +6,6 @@ set postponed = "+personal/drafts"
 set record = "+personal/sent"
 set copy = "yes"
 macro index gi "<change-folder>+personal/inbox<enter>" "go to the INBOX"
-macro index gt "<change-folder>+thoughtbot/inbox<enter>" "next account"
 
 macro index d "s=personal/archive\n" "archive message"
 macro pager d "s=personal/archive\n" "archive message"

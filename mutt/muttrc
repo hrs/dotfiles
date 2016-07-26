@@ -65,7 +65,7 @@ bind pager j  next-line
 bind attach <return> view-mailcap # for attachments
 macro pager \Cu "|urlview<enter>" "call urlview to open links"
 
-macro index O "<shell-escape>mbsync personal thoughtbot; notmuch new<enter>" "run mbsync to sync all mail"
+macro index O "<shell-escape>killall mbsync; mbsync personal; notmuch new<enter>" "run mbsync to sync all mail"
 macro index o "<shell-escape>mbsync inboxes<enter>" "run mbsync to sync inboxes"
 macro index i "<shell-escape>notmuch new<enter>" "run notmuch to index new mail"
 
@@ -119,10 +119,9 @@ source ~/.mutt/pgp.muttrc
 
 # Account-specific Config ------------------------------
 
-mailboxes +personal/inbox +thoughtbot/inbox
-alternates hello@harryrschwartz.com harry@thoughtbot.com
+mailboxes +personal/inbox
+alternates hello@harryrschwartz.com
 
 source ~/.mutt/account.personal
 
 folder-hook personal "source ~/.mutt/account.personal"
-folder-hook thoughtbot "source ~/.mutt/account.thoughtbot"
