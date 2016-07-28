@@ -2,6 +2,8 @@ show-read-articles no
 show-read-feeds no
 macro o open-in-browser ; toggle-article-read "read"
 
+auto-reload yes
+reload-time 5
 reload-threads 32
 
 cache-file "~/documents/rss/cache.db"
@@ -11,10 +13,6 @@ browser "op"
 external-url-viewer "urlview"
 html-renderer "w3m -T text/html"
 pager internal
-
-bookmark-cmd instapaper.sh
-bookmark-autopilot yes
-bind-key i bookmark
 
 bind-key j next
 bind-key k prev
