@@ -13,6 +13,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# lock the screen
+bindsym $mod+Shift+l exec i3lock
+
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -fn "Charter Regular-11"
 # There also is the (new) i3-dmenu-desktop which only displays applications
