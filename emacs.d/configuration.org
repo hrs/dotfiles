@@ -110,15 +110,6 @@ Define a big ol' bunch of handy utility functions.
     (save-excursion
       (shell-command-on-region (mark) (point) "jsonpp" (buffer-name) t)))
 
-  (defun hrs/comment-or-uncomment-region-or-line ()
-    "Comments or uncomments the region or the current line if there's no active region."
-    (interactive)
-    (let (beg end)
-      (if (region-active-p)
-          (setq beg (region-beginning) end (region-end))
-        (setq beg (line-beginning-position) end (line-end-position)))
-      (comment-or-uncomment-region beg end)))
-
   (defun hrs/unfill-paragraph ()
     "Takes a multi-line paragraph and makes it into a single line of text."
     (interactive)
