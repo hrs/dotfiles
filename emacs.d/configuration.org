@@ -187,12 +187,18 @@ Why not?
   (global-prettify-symbols-mode t)
 #+END_SRC
 
-** Load up a color theme
+** Custom solarized-dark theme
 
 #+BEGIN_SRC emacs-lisp
   (when window-system
-    (load-theme 'tsdh-light t))
-#+END_SRC
+    (setq solarized-use-variable-pitch nil)
+    (setq solarized-height-plus-1 1.0)
+    (setq solarized-height-plus-2 1.0)
+    (setq solarized-height-plus-3 1.0)
+    (setq solarized-height-plus-4 1.0)
+    (setq solarized-high-contrast-mode-line t)
+    (load-theme 'solarized-dark t))
+ #+END_SRC
 
 ** Disable visual bell
 
