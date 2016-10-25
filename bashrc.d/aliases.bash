@@ -17,7 +17,10 @@ alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 alias rss="newsbeuter -q -u ~/documents/rss/urls"
 alias tree="tree -C" # add colors
-alias usage="du -sch"
+
+usage() {
+  du -sch "$@" | sort -h
+}
 
 ### Ruby/Rails-specific
 alias be="bundle exec"
