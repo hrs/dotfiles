@@ -751,7 +751,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
 
           ("t" "Todo"
            entry
-           (file org-index-file)
+           (file+headline org-index-file "Tasks")
            "* TODO %?\n")))
 #+END_SRC
 
