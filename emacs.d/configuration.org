@@ -201,6 +201,16 @@ the bell altogether.
   (setq ring-bell-function 'ignore)
 #+END_SRC
 
+** Scroll conservatively
+
+When point goes outside the window, Emacs usually recenters the buffer point.
+I'm not crazy about that. This changes scrolling behavior to only scroll as far
+as point goes.
+
+#+BEGIN_SRC emacs-lisp
+  (setq scroll-conservatively 100)
+#+END_SRC
+
 ** Set default font and configure font resizing
 
 I'm partial to Inconsolata.
