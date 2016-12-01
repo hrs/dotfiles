@@ -10,8 +10,7 @@ IMAPAccount personal
 Host mail.messagingengine.com
 User hrs@fastmail.fm
 PassCmd "~/.bin/netrc-password.rb mail.messagingengine.com"
-UseIMAPS yes
-RequireSSL yes
+SSLType IMAPS
 CertificateFile ~/.mutt/ca-bundle.crt
 
 IMAPStore personal-remote
@@ -51,8 +50,7 @@ IMAPAccount google
 Host imap.gmail.com
 User hschwartz@google.com
 PassCmd "~/.bin/netrc-password.rb imap.gmail.com"
-UseIMAPS yes
-RequireSSL yes
+SSLType IMAPS
 CertificateFile ~/.mutt/ca-bundle.crt
 
 IMAPStore google-remote
