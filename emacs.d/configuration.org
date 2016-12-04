@@ -732,13 +732,13 @@ Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
 place in the archive.
 
 #+BEGIN_SRC emacs-lisp
-  (defun mark-done-and-archive ()
+  (defun hrs/mark-done-and-archive ()
     "Mark the state of an org-mode item as DONE and archive it."
     (interactive)
     (org-todo 'done)
     (org-archive-subtree))
 
-  (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
+  (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
 #+END_SRC
 
 Record the time that a todo was archived.
