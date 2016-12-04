@@ -335,6 +335,22 @@ This reduces that.
   (setq-default tab-width 2)
 #+END_SRC
 
+Treating terms in CamelCase symbols as separate words makes editing a little
+easier for me, so I like to use =subword-mode= everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (global-subword-mode 1)
+#+END_SRC
+
+Compilation output goes to the =*compilation*= buffer. I rarely have that window
+selected, so the compilation output disappears past the bottom of the window.
+This automatically scrolls the compilation window so I can always see the
+output.
+
+#+BEGIN_SRC emacs-lisp
+  (setq compilation-scroll-output t)
+#+END_SRC
+
 ** CSS and Sass
 
 Indent 2 spaces and use =rainbow-mode= to display color-related words in the
