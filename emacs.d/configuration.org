@@ -72,18 +72,6 @@ Define a big ol' bunch of handy utility functions.
     (interactive)
     (switch-to-buffer (make-temp-name "scratch-")))
 
-  (defun hrs/split-window-below-and-switch ()
-    "Split the window horizontally, then switch to the new pane."
-    (interactive)
-    (split-window-below)
-    (other-window 1))
-
-  (defun hrs/split-window-right-and-switch ()
-    "Split the window vertically, then switch to the new pane."
-    (interactive)
-    (split-window-right)
-    (other-window 1))
-
   (defun hrs/de-unicode ()
     "Tidy up a buffer by replacing all special Unicode characters
        (smart quotes, etc.) with their more sane cousins"
@@ -1163,6 +1151,18 @@ When splitting a window, I invariably want to switch to the new window. This
 makes that automatic.
 
 #+BEGIN_SRC emacs-lisp
+  (defun hrs/split-window-below-and-switch ()
+    "Split the window horizontally, then switch to the new pane."
+    (interactive)
+    (split-window-below)
+    (other-window 1))
+
+  (defun hrs/split-window-right-and-switch ()
+    "Split the window vertically, then switch to the new pane."
+    (interactive)
+    (split-window-right)
+    (other-window 1))
+
   (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
   (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
 #+END_SRC
