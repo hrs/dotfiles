@@ -426,6 +426,12 @@ same mode.
 
 ** Magit
 
+I bring up the status menu with =C-x g=:
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x g") 'magit-status)
+#+END_SRC
+
 The default behavior of =magit= is to ask before pushing. I haven't had any
 problems with accidentally pushing, so I'd rather not confirm that every time.
 
@@ -597,7 +603,11 @@ the tests from any buffer.
 
 * Terminal
 
-I use =multi-term= to manage my shell sessions.
+I use =multi-term= to manage my shell sessions. It's bound to =C-c s=.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c s") 'multi-term)
+#+END_SRC
 
 Use a login shell:
 
@@ -1254,12 +1264,8 @@ Just a few handy functions.
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-w") 'backward-kill-word)
-  (global-set-key (kbd "C-x C-k") 'kill-region)
   (global-set-key (kbd "M-/") 'hippie-expand)
   (global-set-key (kbd "M-o") 'other-window)
-  (global-set-key (kbd "M-#") 'sort-lines)
-  (global-set-key (kbd "C-c s") 'multi-term)
-  (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
 
 Remap when working in terminal Emacs.
