@@ -1155,7 +1155,7 @@ Use flycheck in the appropriate buffers:
   (put 'upcase-region 'disabled nil)
 #+END_SRC
 
-** Switch windows when splitting
+** Switch and rebalance windows when splitting
 
 When splitting a window, I invariably want to switch to the new window. This
 makes that automatic.
@@ -1165,12 +1165,14 @@ makes that automatic.
     "Split the window horizontally, then switch to the new pane."
     (interactive)
     (split-window-below)
+    (balance-windows)
     (other-window 1))
 
   (defun hrs/split-window-right-and-switch ()
     "Split the window vertically, then switch to the new pane."
     (interactive)
     (split-window-right)
+    (balance-windows)
     (other-window 1))
 
   (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
