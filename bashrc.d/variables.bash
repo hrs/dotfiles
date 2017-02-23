@@ -4,6 +4,7 @@ source $HOME/.bin/npm-completion.sh
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient --tty"
 export EMAIL="hello@harryrschwartz.com"
+export GOPATH="$HOME/code/go"
 export GPG_TTY=$(tty)
 export HISTFILESIZE=20000
 export HOMEBREW_NO_ANALYTICS=1
