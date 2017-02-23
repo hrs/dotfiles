@@ -471,6 +471,14 @@ easier-to-type =C-c C-v= and =C-c v= to useful searches.
   (global-set-key (kbd "C-c C-v") 'hrs/search-project-for-symbol-at-point)
 #+END_SRC
 
+When I visit a project with =projectile-switch-project=, the default action is
+to search for a file in that project. I'd rather just open up the top-level
+directory of the project in =dired= and find (or create) new files from there.
+
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-switch-project-action 'projectile-dired)
+#+END_SRC
+
 ** Python
 
 Indent 2 spaces.
