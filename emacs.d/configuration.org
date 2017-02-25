@@ -8,6 +8,7 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
   (load-file "~/code/personal/sensible-defaults.el/sensible-defaults.el")
   (sensible-defaults/use-all-settings)
   (sensible-defaults/use-all-keybindings)
+  (sensible-defaults/backup-to-temp-directory)
 #+END_SRC
 
 * Set personal information
