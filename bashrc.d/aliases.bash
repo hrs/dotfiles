@@ -17,6 +17,7 @@ alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 alias rss="newsbeuter -q -u ~/documents/rss/urls"
 alias tree="tree -C" # add colors
+alias ut="tar xavf"
 
 usage() {
   du -sch "$@" | sort -h
@@ -31,6 +32,7 @@ alias agi="sudo apt-get install"
 alias agr="sudo apt-get remove"
 alias acs="apt-cache search"
 alias agu="sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo aptitude clean"
+alias ali="apt-mark showmanual"
 
 alias oports="echo 'User:      Command:   Port:'; echo '----------------------------' ; lsof -i 4 -P -n | grep -i 'listen' | awk '{print \$3, \$1, \$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n |xargs printf '%-10s %-10s %-10s\n' | uniq"
 alias serve="python -m SimpleHTTPServer"
