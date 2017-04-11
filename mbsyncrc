@@ -42,46 +42,5 @@ Channel personal-drafts
 Channel personal-sent
 Channel personal-archive
 
-########################################
-# Google
-########################################
-
-IMAPAccount google
-Host imap.gmail.com
-User hschwartz@google.com
-PassCmd "~/.bin/netrc-password.rb imap.gmail.com"
-SSLType IMAPS
-CertificateFile ~/.mutt/ca-bundle.crt
-
-IMAPStore google-remote
-Account google
-
-MaildirStore google-local
-Path ~/.mail/google/
-Inbox ~/.mail/google/inbox
-
-Channel google-inbox
-Master :google-remote:INBOX
-Slave :google-local:inbox
-
-Channel google-drafts
-Master :google-remote:[Gmail]/Drafts
-Slave :google-local:drafts
-
-Channel google-sent
-Master ":google-remote:[Gmail]/Sent Mail"
-Slave :google-local:sent
-
-Channel google-archive
-Master ":google-remote:[Gmail]/All Mail"
-Slave :google-local:archive
-
-Group google
-Channel google-inbox
-Channel google-drafts
-Channel google-sent
-Channel google-archive
-
 Group inboxes
 Channel personal-inbox
-Channel google-inbox
