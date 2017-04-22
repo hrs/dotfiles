@@ -784,7 +784,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
 
           ("t" "Todo"
            entry
-           (file+headline org-index-file "Tasks")
+           (file+headline org-index-file "Inbox")
            "* TODO %?\n")))
 #+END_SRC
 
@@ -994,6 +994,36 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
           (find-file post)
         (find-file post)
         (insert (hrs/jekyll-yaml-template title)))))
+#+END_SRC
+
+* Daily checklist
+
+There are certain things I want to do every day. I store those in a checklist.
+That's an ERB template wrapping an Org document, since different things happen
+on different days.
+
+Hitting =C-c t= either opens today's existing checklist (if it exists), or
+renders today's new checklist, copies it into an Org file in =/tmp=, and opens
+it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq hrs/checklist-template "~/documents/daily-checklist.org.erb")
+
+  (defun hrs/today-checklist-filename ()
+    "The filename of today's checklist."
+    (concat "/tmp/daily-checklist-" (format-time-string "%Y-%m-%d") ".org"))
+
+  (defun hrs/today ()
+    "Take a look at today's checklist."
+    (interactive)
+    (let ((filename (hrs/today-checklist-filename)))
+      (if (file-exists-p filename)
+          (find-file filename)
+        (progn
+          (shell-command (concat "erb " hrs/checklist-template " > " filename))
+          (find-file filename)))))
+
+  (global-set-key (kbd "C-c t") 'hrs/today)
 #+END_SRC
 
 * =dired=
