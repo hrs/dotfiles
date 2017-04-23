@@ -10,6 +10,7 @@ ln -s ~/.dotfiles/bashrc ~/.bashrc
 ln -s ~/.dotfiles/bashrc.d ~/.bashrc.d
 ln -s ~/.dotfiles/bin ~/.bin
 ln -s ~/.dotfiles/emacs.d ~/.emacs.d
+ln -s ~/.dotfiles/extract_urlview ~/.extract_urlview
 ln -s ~/.dotfiles/git ~/.git
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/gitignore ~/.gitignore
@@ -24,7 +25,6 @@ ln -s ~/.dotfiles/rspec ~/.rspec
 ln -s ~/.dotfiles/rubocop.yml ~/.rubocop.yml
 ln -s ~/.dotfiles/sbclrc ~/.sbclrc
 ln -s ~/.dotfiles/ssh-config ~/.ssh/config
-ln -s ~/.dotfiles/urlview ~/.urlview
 ln -s ~/.dotfiles/wallpaper ~/.wallpaper
 ln -s ~/.dotfiles/xbindkeysrc ~/.xbindkeysrc
 
