@@ -14,6 +14,10 @@ external-url-viewer "urlview"
 html-renderer "w3m -T text/html"
 pager internal
 
+bookmark-cmd instapaper.sh
+bookmark-autopilot yes
+bind-key i bookmark
+
 bind-key j next
 bind-key k prev
 bind-key J next-feed
