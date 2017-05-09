@@ -480,6 +480,14 @@ directory of the project in =dired= and find (or create) new files from there.
   (setq projectile-switch-project-action 'projectile-dired)
 #+END_SRC
 
+I'd like to /always/ be able to recursively fuzzy-search for files, not just
+when I'm in a Projecile-defined project. This uses the current directory as a
+project root (if I'm not in a "real" project).
+
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-require-project-root nil)
+#+END_SRC
+
 ** Python
 
 Indent 2 spaces.
