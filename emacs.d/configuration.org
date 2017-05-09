@@ -1085,6 +1085,19 @@ Ask before recursively /deleting/ a directory, though.
 
 * Editing settings
 
+** Quickly visit Emacs configuration
+
+I futz around with my dotfiles a lot. This binds =C-c e= to quickly open my
+Emacs configuration file.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/visit-emacs-config ()
+    (interactive)
+    (find-file "~/.emacs.d/configuration.org"))
+
+  (global-set-key (kbd "C-c e") 'hrs/visit-emacs-config)
+#+END_SRC
+
 ** Always kill current buffer
 
 Assume that I always want to kill the current buffer when hitting =C-x k=.
