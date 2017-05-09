@@ -148,7 +148,7 @@ Define a big ol' bunch of handy utility functions.
 #+END_SRC
 
 * UI preferences
-** Disable window chrome
+** Tweak window chrome
 
 I don't usually use the menu or scroll bar, and they take up useful space.
 
@@ -157,6 +157,13 @@ I don't usually use the menu or scroll bar, and they take up useful space.
   (menu-bar-mode 0)
   (when window-system
     (scroll-bar-mode -1))
+#+END_SRC
+
+The default frame title isn't useful. This binds it to the name of the current
+project:
+
+#+BEGIN_SRC emacs-lisp
+  (setq frame-title-format '((:eval (projectile-project-name))))
 #+END_SRC
 
 ** Use fancy lambdas
