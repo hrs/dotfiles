@@ -13,12 +13,30 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 
 * Set personal information
 
+** Who am I? Where am I?
+
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Harry R. Schwartz"
         user-mail-address "hello@harryrschwartz.com"
         calendar-latitude 42.2
         calendar-longitude -71.1
         calendar-location-name "Cambridge, MA")
+#+END_SRC
+
+** Access my netrc data
+
+#+BEGIN_SRC emacs-lisp
+  (require 'netrc)
+
+  (setq netrc-file "~/.netrc")
+
+  (defun netrc-username (machine)
+    "Helper function to extract a username from my netrc."
+    (car (netrc-credentials machine)))
+
+  (defun netrc-password (machine)
+    "Helper function to extract a password from my netrc."
+    (cadr (netrc-credentials machine)))
 #+END_SRC
 
 * Add =resources= to =load-path=
