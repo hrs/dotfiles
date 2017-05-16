@@ -129,6 +129,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Take a screenshot
+bindsym --release $mod+c exec scrot --select --exec 'mv $f ~/pictures/screenshots/.'
+
 exec setxkbmap -option ctrl:nocaps
 exec xcape &
 exec xbindkeys &
