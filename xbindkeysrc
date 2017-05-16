@@ -1,9 +1,9 @@
 # -*- shell-script -*-
 
-"xbacklight -dec 10"
+"/home/hrs/.bin/darken.sh"
   XF86MonBrightnessDown
 
-"xbacklight -inc 10"
+"/home/hrs/.bin/brighten.sh"
   XF86MonBrightnessUp
 
 "amixer sset Master toggle"
@@ -14,4 +14,3 @@
 
 "amixer sset Master 5%+ unmute"
   XF86AudioRaiseVolume
-
