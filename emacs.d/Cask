@@ -46,6 +46,7 @@
 (depends-on "inflections")
 (depends-on "jump")
 (depends-on "less-css-mode")
+(depends-on "instapaper")
 (depends-on "magit")
 (depends-on "magit-popup")
 (depends-on "markdown-mode")
