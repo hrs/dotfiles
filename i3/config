@@ -14,7 +14,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # lock the screen
-bindsym $mod+Shift+l exec i3lock
+bindsym $mod+Shift+l exec i3lock --image=/home/hrs/.wallpaper/dark-linen.png --tiling
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -fn "Charter Regular-11"
@@ -138,7 +138,7 @@ exec unclutter -idle 1 -noevents &
 exec nm-applet &
 exec redshift-gtk &
 exec eval $(gpg-agent --daemon)
-exec feh --bg-fill ~/pictures/wallpaper/mountainline.jpg
+exec feh --bg-tile ~/.wallpaper/light-linen.png
 
 bar {
       status_command i3status
