@@ -75,6 +75,9 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 # Take a screenshot
 bindsym --release $mod+c exec scrot --select --exec 'mv $f ~/pictures/screenshots/.'
 
+# Launch Telegram
+bindsym $mod+t exec telegram
+
 ########################################
 # Startup applications
 ########################################
