@@ -914,6 +914,14 @@ of every exported HTML document.
   (setq org-html-postamble nil)
 #+END_SRC
 
+Exporting to HTML and opening the results triggers =/usr/bin/sensible-browser=,
+which checks the =$BROWSER= environment variable to choose the right browser.
+I'd like to always use Firefox, so:
+
+#+BEGIN_SRC emacs-lisp
+  (setenv "BROWSER" "firefox")
+#+END_SRC
+
 **** Exporting to PDF
 
 I want to produce PDFs with syntax highlighting in the code. The best way to do

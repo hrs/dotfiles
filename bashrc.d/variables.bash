@@ -2,6 +2,7 @@ source $HOME/.bin/git-completion.sh
 source $HOME/.bin/npm-completion.sh
 
 export ALTERNATE_EDITOR=""
+export BROWSER="firefox"
 export EDITOR="emacsclient --tty"
 export EMAIL="hello@harryrschwartz.com"
 export GOPATH="$HOME/code/go"
