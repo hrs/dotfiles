@@ -486,6 +486,12 @@ problems with accidentally pushing, so I'd rather not confirm that every time.
   (setq magit-push-always-verify nil)
 #+END_SRC
 
+Enable spellchecking when writing commit messages:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
+#+END_SRC
+
 I sometimes use =git= from the terminal, and I'll use =emacsclient --tty= to
 write commits. I'd like to be in the insert state when my editor pops open for
 that.
