@@ -78,6 +78,9 @@ bindsym --release $mod+c exec scrot --select --exec 'mv $f ~/pictures/screenshot
 # Launch Telegram
 bindsym $mod+t exec telegram
 
+# Open a Nautilus file browser window
+bindsym $mod+n exec nautilus
+
 ########################################
 # Startup applications
 ########################################
