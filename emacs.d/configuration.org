@@ -751,6 +751,12 @@ new one (which shows the same information).
   (setq org-src-window-setup 'current-window)
 #+END_SRC
 
+Enable spell-checking in Org-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'flyspell-mode)
+#+END_SRC
+
 ** Task and org-capture management
 
 Store my org files in =~/org=, maintain an inbox in Dropbox, define the location
