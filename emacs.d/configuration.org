@@ -569,6 +569,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 - I want to enable =yas=, =rspec=, =yard=, =flycheck=, and =projectile-rails=.
 - I'd like my RSpec tests to be run in a random order, and I'd like the output
   to be colored.
+- Chruby should automatically determine the correct version for me.
 - =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
 
 #+BEGIN_SRC emacs-lisp
@@ -581,6 +582,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
               (flycheck-mode)
               (local-set-key "\r" 'newline-and-indent)
               (setq rspec-command-options "--color --order random")
+              (chruby-use-corresponding)
               (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)
               (projectile-rails-mode)))
 #+END_SRC
