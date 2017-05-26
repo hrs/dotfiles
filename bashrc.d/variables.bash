@@ -3,7 +3,7 @@ source $HOME/.bin/npm-completion.sh
 
 export ALTERNATE_EDITOR=""
 export BROWSER="firefox"
-export EDITOR="emacsclient --tty"
+export EDITOR="$HOME/.bin/em"
 export EMAIL="hello@harryrschwartz.com"
 export GOPATH="$HOME/code/go"
 export GPG_TTY=$(tty)

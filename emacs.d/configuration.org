@@ -195,7 +195,7 @@ Why not?
 ** Custom solarized-dark theme
 
 #+BEGIN_SRC emacs-lisp
-  (when window-system
+  (defun hrs/apply-solarized-theme ()
     (setq solarized-use-variable-pitch nil)
     (setq solarized-height-plus-1 1.0)
     (setq solarized-height-plus-2 1.0)
@@ -204,6 +204,14 @@ Why not?
     (setq solarized-high-contrast-mode-line t)
     (load-theme 'solarized-dark t))
  #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                    (hrs/apply-solarized-theme)))
+    (hrs/apply-solarized-theme))
+#+END_SRC
 
 ** Disable visual bell
 
@@ -244,10 +252,17 @@ Note that this overrides the default font-related keybindings from
 
   (setq hrs/font-change-increment 1.1)
 
+  (defun hrs/font-code ()
+    "Return a string representing the current font (like \"Inconsolata-14\")."
+    (concat hrs/default-font "-" (number-to-string hrs/current-font-size)))
+
   (defun hrs/set-font-size ()
-    "Set the font to `hrs/default-font' at `hrs/current-font-size'."
-    (set-frame-font
-     (concat hrs/default-font "-" (number-to-string hrs/current-font-size))))
+    "Set the font to `hrs/default-font' at `hrs/current-font-size'.
+  Set that for the current frame, and also make it the default for
+  other, future frames."
+    (let ((font-code (hrs/font-code)))
+      (add-to-list 'default-frame-alist (cons 'font font-code))
+      (set-frame-font font-code)))
 
   (defun hrs/reset-font-size ()
     "Change font size back to `hrs/default-font-size'."
