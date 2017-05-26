@@ -194,6 +194,9 @@ Why not?
 
 ** Custom solarized-dark theme
 
+I like the solarized-dark theme. I prefer keeping all the characters in the same
+side and font, though.
+
 #+BEGIN_SRC emacs-lisp
   (defun hrs/apply-solarized-theme ()
     (setq solarized-use-variable-pitch nil)
@@ -203,7 +206,10 @@ Why not?
     (setq solarized-height-plus-4 1.0)
     (setq solarized-high-contrast-mode-line t)
     (load-theme 'solarized-dark t))
- #+END_SRC
+#+END_SRC
+
+If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
+frame is themed appropriately.
 
 #+BEGIN_SRC emacs-lisp
   (if (daemonp)
