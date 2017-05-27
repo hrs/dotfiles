@@ -1,6 +1,6 @@
 ### hrs's dotfiles
 
-I hope you like fiddling with your `.emacs.d` ad nauseum, 'cause I
+I hope you like fiddling with your `.emacs.d` ad nauseam, 'cause I
 obviously do.
 
 #### Installation
