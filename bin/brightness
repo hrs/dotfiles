@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+current=$(cat /sys/class/backlight/intel_backlight/brightness)
+max=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+wanted=$1
+stepsize=30
+
+function usage() {
+	echo "Usage:"
+	echo "Make it higher: brightness higher"
+	echo "Make it lower: brightness lower"
+	echo "Make it max: brightness max"
+	echo "Make it min: brightness min"
+	echo "Make it min: brightness min"
+	echo "Make it *: brightness *"
+}
+
+if [ -z "$wanted" ];
+then
+	usage
+else
+	if [ $wanted = 'max' ]; then
+		echo $max | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+	elif [ $wanted = 'min' ]; then
+		echo '10' | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+	elif [ $wanted = 'lower' ]; then
+		if [ `expr $current - $stepsize` -lt $stepsize ]; then
+			echo '10' | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+		else
+			echo `expr $current - $stepsize` | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+		fi
+	elif [ $wanted = 'higher' ]; then
+		if [ `expr $current + $stepsize` -gt $max ]; then
+			echo $max | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+		else
+			echo `expr $current + $stepsize` | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+		fi
+	else
+		if [ $wanted -eq $wanted 2>/dev/null ]
+		then
+			if [ $wanted -lt 10 ]; then
+				echo "That's too low. Use a value between 10 and $max"
+			else
+				echo $wanted | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null
+			fi
+		else
+			usage
+		fi
+	fi
+fi
