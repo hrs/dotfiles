@@ -15,20 +15,7 @@ export LC_CTYPE="en_US.UTF-8"
 export NAME="Harry R. Schwartz"
 export PROMPT_DIRTRIM=3
 
-if [[ $(uname) == Darwin ]]; then
-  # otherwise, I'm starting the agent with i3
-  if [ -f "${HOME}/.gpg-agent-info" ]; then
-    . "${HOME}/.gpg-agent-info"
-    export GPG_AGENT_INFO
-    export SSH_AUTH_SOCK
-  fi
-fi
-
-if [[ $(uname) == Darwin ]]; then
-  source /usr/local/etc/bash_completion.d/password-store
-else
-  source /etc/bash_completion.d/password-store
-fi
+source /etc/bash_completion.d/password-store
 
 # Configure OCaml environment
 eval `opam config env`
