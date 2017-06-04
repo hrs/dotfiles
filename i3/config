@@ -17,8 +17,8 @@ bindsym $mod+Shift+q kill
 # Lock the screen
 bindsym $mod+Shift+l exec i3lock --image=/home/hrs/.wallpaper/dark-linen.png --tiling
 
-# Start dmenu (a program launcher)
-bindsym $mod+d exec ~/.bin/dmenu.sh
+# Start a program launcher
+bindsym $mod+d exec ~/.bin/launcher.sh
 
 # Change focus
 bindsym $mod+j focus left
