@@ -60,7 +60,7 @@ bind pager k  previous-line
 bind pager j  next-line
 
 bind attach <return> view-mailcap # for attachments
-macro pager \Cu "| urlview<enter>" "call urlview to open links"
+macro pager \Cu "| urlscan<enter>" "call urlscan to open links"
 
 macro index O "<shell-escape>killall mbsync; mbsync personal; notmuch new<enter>" "run mbsync to sync all mail"
 macro index o "<shell-escape>mbsync inboxes<enter>" "run mbsync to sync inboxes"
