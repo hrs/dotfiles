@@ -10,7 +10,7 @@ cache-file "~/documents/rss/cache.db"
 
 player "op"
 browser "op"
-external-url-viewer "urlview"
+external-url-viewer "urlscan"
 html-renderer "w3m -T text/html"
 pager internal
 
