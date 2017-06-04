@@ -64,6 +64,7 @@
 (depends-on "python-mode")
 (depends-on "rainbow-delimiters")
 (depends-on "rainbow-mode")
+(depends-on "restclient")
 (depends-on "rhtml-mode")
 (depends-on "rspec-mode")
 (depends-on "rubocop")
