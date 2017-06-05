@@ -16,6 +16,8 @@ alias myip="ifconfig wlan0 | grep 'inet ' | cut --delimiter=' ' -f12 | sed s/add
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 alias rss="newsbeuter -q -u ~/documents/rss/urls"
+alias rsync='rsync -vzahP'
+alias scp="rsync"
 alias tree="tree -C" # add colors
 alias ut="tar xavf"
 
