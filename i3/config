@@ -81,6 +81,9 @@ bindsym $mod+t exec telegram
 # Open a Nautilus file browser window
 bindsym $mod+n exec nautilus
 
+# Open a password manager
+bindsym $mod+p exec ~/.bin/rofi-pass
+
 ########################################
 # Startup applications
 ########################################
