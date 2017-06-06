@@ -1174,6 +1174,20 @@ Ask before recursively /deleting/ a directory, though.
   (setq dired-recursive-deletes 'top)
 #+END_SRC
 
+Open a file with an external program (that is, through =xdg-open=) by hitting
+=C-c C-o=.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dired-xdg-open ()
+    "In dired, open the file named on this line."
+    (interactive)
+    (let* ((file (dired-get-filename nil t)))
+      (call-process "xdg-open" nil 0 nil file)))
+
+  (define-key dired-mode-map (kbd "C-c C-o") 'dired-xdg-open)
+#+END_SRC
+
+
 * Editing settings
 
 ** Quickly visit Emacs configuration
