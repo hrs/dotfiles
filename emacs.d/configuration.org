@@ -837,6 +837,9 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            (file (org-file-path "blog-ideas.org"))
            "* TODO %?\n")
 
+          ("f" "Finished book" table-line (file "~/documents/notes/books-read.org")
+           "| %^{Title} | %^{Author} | %u |")
+
           ("g" "Groceries"
            checkitem
            (file (org-file-path "groceries.org")))
