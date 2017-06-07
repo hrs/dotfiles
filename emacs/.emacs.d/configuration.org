@@ -837,7 +837,8 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            (file (org-file-path "blog-ideas.org"))
            "* TODO %?\n")
 
-          ("f" "Finished book" table-line (file "~/documents/notes/books-read.org")
+          ("f" "Finished book"
+           table-line (file "~/documents/notes/books-read.org")
            "| %^{Title} | %^{Author} | %u |")
 
           ("g" "Groceries"
@@ -852,6 +853,11 @@ Define a few common tasks as capture templates. Specifically, I frequently:
           ("r" "Reading"
            checkitem
            (file (org-file-path "to-read.org")))
+
+          ("s" "Subscribe to an RSS feed"
+           plain
+           (file "~/documents/rss/urls")
+           "%^{Feed URL} \"~%^{Feed name}\"")
 
           ("t" "Todo"
            entry
@@ -1186,7 +1192,6 @@ Open a file with an external program (that is, through =xdg-open=) by hitting
 
   (define-key dired-mode-map (kbd "C-c C-o") 'dired-xdg-open)
 #+END_SRC
-
 
 * Editing settings
 
