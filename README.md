@@ -1,19 +1,20 @@
 ### hrs's dotfiles
 
-I hope you like fiddling with your `.emacs.d` ad nauseam, 'cause I
-obviously do.
+I hope you like fiddling with your `.emacs.d` ad nauseam, 'cause I obviously do.
 
 #### Installation
 
-Clone this thing wherever you like (I use `~/.dotfiles`), then adjust the
-location in the `install.sh` script and run it. That'll set up a bunch of
-symlinks in your home directory, e.g., `~/.bashrc -> ~/.dotfiles/bashrc`.
+Clone this thing wherever you like (I use `~/.dotfiles`),
+install [GNU `stow`][], and run the `install.sh` script. That'll set up a bunch
+of symlinks in your home directory, e.g., `~/.bashrc ->
+~/.dotfiles/bash/.bashrc`.
+
+[GNU `stow`]: https://www.gnu.org/software/stow/
 
 It won't overwrite existing files, so move those out of the way first.
 
-This isn't *really* intended for anyone's use but my own, and it's
-catered to my way of doing things (duh), so, you know, be prepared for
-that.
+This isn't *really* intended for anyone's use but my own, and it's catered to my
+way of doing things (duh), so, you know, be prepared for that.
 
 Enjoy! =)
 
