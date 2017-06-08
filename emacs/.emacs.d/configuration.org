@@ -411,6 +411,43 @@ Don't compile the current file every time I save.
   (setq scss-compile-at-save nil)
 #+END_SRC
 
+** Golang
+
+Define my =$GOPATH= and tell Emacs where to find the Go binaries.
+
+#+BEGIN_SRC emacs-lisp
+  (setenv "GOPATH" "/home/hrs/code/go")
+  (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
+#+END_SRC
+
+Run =goimports= on every file when saving, which formats the file and
+automatically updates the list of imports. This requires that the =goimports=
+binary is installed.
+
+#+BEGIN_SRC emacs-lisp
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+#+END_SRC
+
+When I open a Go file,
+
+- Start up =company-mode= with the Go backend. This requires that the =gocode=
+  binary is installed,
+- Redefine the default =compile= command to something Go-specific, and
+- Enable =flycheck=.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends)
+                   '(company-go))
+              (company-mode)
+              (if (not (string-match "go" compile-command))
+                  (set (make-local-variable 'compile-command)
+                       "go build -v && go test -v && go vet"))
+              (flycheck-mode)))
+#+END_SRC
+
 ** Haskell
 
 Enable =haskell-doc-mode=, which displays the type signature of a function, and
