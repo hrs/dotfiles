@@ -12,7 +12,7 @@ application/pdf; ~/.mutt/view_attachment.sh %s pdf
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
 # Plain text
-text/plain; emacsclient --tty %s
+text/plain; ~/bin/em %s
 
 # Unidentified files
 application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
