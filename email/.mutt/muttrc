@@ -108,6 +108,7 @@ set sendmail_wait = 0
 
 set query_command= "abook --mutt-query '%s'"
 bind editor <Tab> complete-query
+macro index,pager A "<pipe-message>abook --add-email-quiet<return>" "add the sender address to abook"
 
 # Colors -----------------------------------------------
 
