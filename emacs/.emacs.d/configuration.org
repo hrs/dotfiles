@@ -163,6 +163,11 @@ Define a big ol' bunch of handy utility functions.
     "Insert a good alphanumeric password of length 30."
     (interactive)
     (hrs/insert-random-string 30))
+
+  (defun hrs/append-to-path (path)
+    "Add a path both to the $PATH variable and to Emacs' exec-path."
+    (setenv "PATH" (concat (getenv "PATH") ":" path))
+    (add-to-list 'exec-path path))
 #+END_SRC
 
 * UI preferences
@@ -412,7 +417,7 @@ Enable =haskell-doc-mode=, which displays the type signature of a function, and
 use smart indentation.
 
 #+BEGIN_SRC emacs-lisp
-  (setq exec-path (append exec-path (list "~/.cabal/bin")))
+  (hrs/append-to-path "~/.cabal/bin")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -1219,8 +1224,9 @@ Assume that I always want to kill the current buffer when hitting =C-x k=.
 ** Look for executables in =/usr/local/bin=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq exec-path (append exec-path '("/usr/local/bin")))
+  (hrs/append-to-path "/usr/local/bin")
 #+END_SRC
+
 ** Use =company-mode= everywhere
 
 #+BEGIN_SRC emacs-lisp
