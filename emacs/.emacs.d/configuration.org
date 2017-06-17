@@ -413,6 +413,21 @@ they've always been unpleasant surprises for me.
               (abbrev-mode 0)))
 #+END_SRC
 
+The default Proof General layout stacks the code, goal, and response buffers on
+top of each other. I like to keep my code on one side and my goal and response
+buffers on the other.
+
+#+BEGIN_SRC emacs-lisp
+  (setq proof-three-window-mode-policy 'hybrid)
+#+END_SRC
+
+The Proof General splash screen's pretty cute, but I don't need to see it every
+time.
+
+#+BEGIN_SRC emacs-lisp
+  (setq proof-splash-enable nil)
+#+END_SRC
+
 ** CSS and Sass
 
 Indent 2 spaces and use =rainbow-mode= to display color-related words in the
