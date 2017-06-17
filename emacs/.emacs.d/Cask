@@ -8,6 +8,7 @@
 (depends-on "cm-mode")
 (depends-on "coffee-mode")
 (depends-on "company")
+(depends-on "company-coq")
 (depends-on "company-go")
 (depends-on "dash")
 (depends-on "dash-at-point")

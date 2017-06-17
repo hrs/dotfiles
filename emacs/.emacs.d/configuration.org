@@ -57,6 +57,14 @@ I use =cask= and =pallet= for managing packages.
 
 * =evil-mode=
 
+I'd prefer not to expand abbrevs when I hit escape. That's always jarring and
+usually not what I want. In particular, it makes working with Coq really
+frustrating.
+
+#+BEGIN_SRC emacs-lisp
+  (setq evil-want-abbrev-expand-on-insert-exit nil)
+#+END_SRC
+
 Use =evil=.
 
 #+BEGIN_SRC emacs-lisp
@@ -389,6 +397,20 @@ output.
 
 #+BEGIN_SRC emacs-lisp
   (setq compilation-scroll-output t)
+#+END_SRC
+
+** Coq
+
+Use =company-coq-mode=, which really helps make Proof General a more useful IDE.
+
+I also like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
+they've always been unpleasant surprises for me.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'coq-mode-hook
+            (lambda ()
+              (company-coq-mode)
+              (abbrev-mode 0)))
 #+END_SRC
 
 ** CSS and Sass
