@@ -73,6 +73,7 @@
 (depends-on "ruby-compilation")
 (depends-on "ruby-end")
 (depends-on "ruby-hash-syntax")
+(depends-on "ruby-refactor")
 (depends-on "rust-mode")
 (depends-on "s")
 (depends-on "scss-mode")
