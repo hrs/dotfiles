@@ -9,3 +9,5 @@ email/.mutt/temp
 
 rss/.newsbeuter/*
 !rss/.newsbeuter/config
+
+ruby/.bundle/cache
