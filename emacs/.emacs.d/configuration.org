@@ -1556,6 +1556,9 @@ Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few usef
   (defengine wiktionary
     "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
 
+  (defengine youtube
+    "https://www.youtube.com/results?search_query=%s")
+
   (engine-mode t)
 #+END_SRC
 
