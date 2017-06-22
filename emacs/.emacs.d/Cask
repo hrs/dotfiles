@@ -3,6 +3,7 @@
 
 (depends-on "ag")
 (depends-on "auctex")
+(depends-on "bbdb")
 (depends-on "cask")
 (depends-on "chruby")
 (depends-on "cm-mode")
@@ -23,6 +24,7 @@
 (depends-on "erlang")
 (depends-on "evil")
 (depends-on "evil-magit")
+(depends-on "evil-mu4e")
 (depends-on "evil-surround")
 (depends-on "f")
 (depends-on "fill-column-indicator")

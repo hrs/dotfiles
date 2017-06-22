@@ -1224,6 +1224,148 @@ Open the checklist and my TODO list side-by-side:
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
 #+END_SRC
 
+* Email with =mu4e=
+
+Use the =evil= bindings for navigation. They're very similar to the =mutt=
+bindings, which matches my muscle memory nicely. =)
+
+#+BEGIN_SRC emacs-lisp
+  (require 'evil-mu4e)
+#+END_SRC
+
+=org-mu4e= lets me store links to emails. I use this to reference emails in my
+TODO list while keeping my inbox empty.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'org-mu4e)
+#+END_SRC
+
+I keep my mail in =~/.mail=. The default maildir would be =~/Maildir=, but I'd
+rather hide it; I don't poke around in there manually very often.
+
+This setting matches the paths in my =mbsync= configuration.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-maildir "~/.mail")
+#+END_SRC
+
+I only have one context at the moment. If I had another email account, though,
+I'd define it in here with an additional =make-mu4e-context= block.
+
+My full name is defined earlier in this configuration file.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-contexts
+        `(,(make-mu4e-context
+            :name "personal"
+            :match-func (lambda (msg)
+                          (when msg
+                            (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address . "hello@harryrschwartz.com")
+                    (mu4e-trash-folder . "/personal/archive")
+                    (mu4e-refile-folder . "/personal/archive")
+                    (mu4e-sent-folder . "/personal/sent")
+                    (mu4e-drafts-folder . "/personal/drafts")))))
+#+END_SRC
+
+Open my inbox and sent messages folders with =J-i= and =J-s=, respectively.
+These are the only two folders I visit regularly enough to warrant shortcuts.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-maildir-shortcuts '(("/personal/inbox" . ?i)
+                                 ("/personal/sent" . ?s)))
+#+END_SRC
+
+=mu4e= starts approximately instantaneously, so I don't know why I'd want to
+reconsider quitting it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-confirm-quit nil)
+#+END_SRC
+
+When I'm composing a new email, default to using the current context (e.g., if
+I'm in my personal inbox, send mail from my personal context). This is almost
+always the right thing to do.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-compose-context-policy 'ask-if-none)
+#+END_SRC
+
+Compose new emails (as with =C-x m=) using =mu4e-user-agent=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mail-user-agent 'mu4e-user-agent)
+#+END_SRC
+
+Save attachments in my =~/downloads= directory, not my home directory.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-attachment-dir "~/downloads")
+#+END_SRC
+
+Once I've sent an email, kill the associated buffer instead of just burying it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq message-kill-buffer-on-exit t)
+#+END_SRC
+
+I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-get-mail-command "killall mbsync; mbsync inboxes")
+
+  (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
+#+END_SRC
+
+I send my email through =msmtp=. It's very fast, and I've already got it
+configured from using =mutt=. These settings describe how to send a message:
+
+- Use a sendmail program instead of sending directly from Emacs,
+- Tell =msmtp= to infer the correct account from the =From:= address,
+- Don't add a "=-f username=" flag to the =msmtp= command, and
+- Use =/usr/bin/msmtp=!
+
+#+BEGIN_SRC emacs-lisp
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
+  (setq message-sendmail-f-is-evil 't)
+  (setq sendmail-program "msmtp")
+#+END_SRC
+
+While HTML emails are undeniably sinful, we often have to read them. That's
+sometimes best done in a browser. This effectively binds =a h= to open the
+current email in my default Web browser.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'mu4e-view-actions '("html in browser" . mu4e-action-view-in-browser) t)
+#+END_SRC
+
+I check my email pretty often! Probably more than I should. This binds =C-c m=
+to close any other windows and open my personal inbox.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/visit-inbox ()
+    (interactive)
+    (delete-other-windows)
+    (mu4e~headers-jump-to-maildir "/personal/inbox"))
+
+  (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
+#+END_SRC
+
+** Configure BBDB with mu4e
+
+Use BBDB to handle my address book.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'bbdb-mu4e)
+#+END_SRC
+
+Don't try to do address completion with mu4e. Use BBDB instead:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-compose-complete-addresses nil)
+#+END_SRC
+
 * =dired=
 
 Load up the assorted =dired= extensions.
