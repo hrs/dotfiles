@@ -1202,6 +1202,19 @@ it.
   (global-set-key (kbd "C-c t") 'hrs/today)
 #+END_SRC
 
+Open the checklist and my TODO list side-by-side:
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/dashboard ()
+    (interactive)
+    (delete-other-windows)
+    (hrs/today)
+    (split-window-right)
+    (open-index-file))
+
+  (global-set-key (kbd "C-c d") 'hrs/dashboard)
+#+END_SRC
+
 * =dired=
 
 Load up the assorted =dired= extensions.
