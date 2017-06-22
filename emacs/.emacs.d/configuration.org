@@ -1246,6 +1246,8 @@ TODO list while keeping my inbox empty.
   (require 'org-mu4e)
 #+END_SRC
 
+** Where's my mail? Who am I?
+
 I keep my mail in =~/.mail=. The default maildir would be =~/Maildir=, but I'd
 rather hide it; I don't poke around in there manually very often.
 
@@ -1274,6 +1276,33 @@ My full name is defined earlier in this configuration file.
                     (mu4e-drafts-folder . "/personal/drafts")))))
 #+END_SRC
 
+** Fetching new mail
+
+I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-get-mail-command "killall mbsync; mbsync inboxes")
+
+  (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
+#+END_SRC
+
+I send my email through =msmtp=. It's very fast, and I've already got it
+configured from using =mutt=. These settings describe how to send a message:
+
+** Viewing mail
+
+I check my email pretty often! Probably more than I should. This binds =C-c m=
+to close any other windows and open my personal inbox.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/visit-inbox ()
+    (interactive)
+    (delete-other-windows)
+    (mu4e~headers-jump-to-maildir "/personal/inbox"))
+
+  (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
+#+END_SRC
+
 Open my inbox and sent messages folders with =J-i= and =J-s=, respectively.
 These are the only two folders I visit regularly enough to warrant shortcuts.
 
@@ -1289,6 +1318,8 @@ reconsider quitting it.
   (setq mu4e-confirm-quit nil)
 #+END_SRC
 
+** Composing a new message
+
 When I'm composing a new email, default to using the current context (e.g., if
 I'm in my personal inbox, send mail from my personal context). This is almost
 always the right thing to do.
@@ -1297,16 +1328,16 @@ always the right thing to do.
   (setq mu4e-compose-context-policy 'ask-if-none)
 #+END_SRC
 
-Compose new emails (as with =C-x m=) using =mu4e-user-agent=.
+Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
 
 #+BEGIN_SRC emacs-lisp
   (setq mail-user-agent 'mu4e-user-agent)
 #+END_SRC
 
-Save attachments in my =~/downloads= directory, not my home directory.
+Check my spelling while I'm writing.
 
 #+BEGIN_SRC emacs-lisp
-  (setq mu4e-attachment-dir "~/downloads")
+  (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
 #+END_SRC
 
 Once I've sent an email, kill the associated buffer instead of just burying it.
@@ -1315,16 +1346,49 @@ Once I've sent an email, kill the associated buffer instead of just burying it.
   (setq message-kill-buffer-on-exit t)
 #+END_SRC
 
-I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
+** Reading an email
+
+Display the sender's email address along with their name.
 
 #+BEGIN_SRC emacs-lisp
-  (setq mu4e-get-mail-command "killall mbsync; mbsync inboxes")
-
-  (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
+  (setq mu4e-view-show-addresses t)
 #+END_SRC
 
-I send my email through =msmtp=. It's very fast, and I've already got it
-configured from using =mutt=. These settings describe how to send a message:
+Save attachments in my =~/downloads= directory, not my home directory.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-attachment-dir "~/downloads")
+#+END_SRC
+
+Hit =C-c C-o= to open a URL in the browser.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key mu4e-view-mode-map (kbd "C-c C-o") 'mu4e~view-browse-url-from-binding)
+#+END_SRC
+
+While HTML emails are undeniably sinful, we often have to read them. That's
+sometimes best done in a browser. This effectively binds =a h= to open the
+current email in my default Web browser.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'mu4e-view-actions '("html in browser" . mu4e-action-view-in-browser) t)
+#+END_SRC
+
+** Encryption
+
+If a message is encrypted, my reply should always be encrypted, too.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/encrypt-responses ()
+    (let ((msg mu4e-compose-parent-message))
+      (when msg
+        (when (member 'encrypted (mu4e-message-field msg :flags))
+          (mml-secure-message-encrypt-pgpmime)))))
+
+  (add-hook 'mu4e-compose-mode-hook 'hrs/encrypt-responses)
+#+END_SRC
+
+** Sending mail over SMTP
 
 - Use a sendmail program instead of sending directly from Emacs,
 - Tell =msmtp= to infer the correct account from the =From:= address,
@@ -1336,26 +1400,6 @@ configured from using =mutt=. These settings describe how to send a message:
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
   (setq message-sendmail-f-is-evil 't)
   (setq sendmail-program "msmtp")
-#+END_SRC
-
-While HTML emails are undeniably sinful, we often have to read them. That's
-sometimes best done in a browser. This effectively binds =a h= to open the
-current email in my default Web browser.
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'mu4e-view-actions '("html in browser" . mu4e-action-view-in-browser) t)
-#+END_SRC
-
-I check my email pretty often! Probably more than I should. This binds =C-c m=
-to close any other windows and open my personal inbox.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/visit-inbox ()
-    (interactive)
-    (delete-other-windows)
-    (mu4e~headers-jump-to-maildir "/personal/inbox"))
-
-  (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
 #+END_SRC
 
 ** Configure BBDB with mu4e
