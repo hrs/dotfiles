@@ -1334,6 +1334,13 @@ Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
   (setq mail-user-agent 'mu4e-user-agent)
 #+END_SRC
 
+Enable Org-style tables and list manipulation.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'message-mode-hook 'turn-on-orgtbl)
+  (add-hook 'message-mode-hook 'turn-on-orgstruct++)
+#+END_SRC
+
 Check my spelling while I'm writing.
 
 #+BEGIN_SRC emacs-lisp
