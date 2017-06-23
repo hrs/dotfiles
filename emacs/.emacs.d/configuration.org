@@ -1286,8 +1286,12 @@ I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
   (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
 #+END_SRC
 
-I send my email through =msmtp=. It's very fast, and I've already got it
-configured from using =mutt=. These settings describe how to send a message:
+Rename files when moving them between directories. =mbsync= supposedly prefers
+this; I'm cargo-culting.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-change-filenames-when-moving t)
+#+END_SRC
 
 ** Viewing mail
 
@@ -1394,6 +1398,9 @@ If a message is encrypted, my reply should always be encrypted, too.
 #+END_SRC
 
 ** Sending mail over SMTP
+
+I send my email through =msmtp=. It's very fast, and I've already got it
+configured from using =mutt=. These settings describe how to send a message:
 
 - Use a sendmail program instead of sending directly from Emacs,
 - Tell =msmtp= to infer the correct account from the =From:= address,
