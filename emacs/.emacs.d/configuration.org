@@ -1239,13 +1239,6 @@ bindings, which matches my muscle memory nicely. =)
   (require 'evil-mu4e)
 #+END_SRC
 
-=org-mu4e= lets me store links to emails. I use this to reference emails in my
-TODO list while keeping my inbox empty.
-
-#+BEGIN_SRC emacs-lisp
-  (require 'org-mu4e)
-#+END_SRC
-
 ** Where's my mail? Who am I?
 
 I keep my mail in =~/.mail=. The default maildir would be =~/Maildir=, but I'd
@@ -1412,6 +1405,22 @@ configured from using =mutt=. These settings describe how to send a message:
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
   (setq message-sendmail-f-is-evil 't)
   (setq sendmail-program "msmtp")
+#+END_SRC
+
+** Org integration
+
+=org-mu4e= lets me store links to emails. I use this to reference emails in my
+TODO list while keeping my inbox empty.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'org-mu4e)
+#+END_SRC
+
+When storing a link to a message in the headers view, link to the message
+instead of the search that resulted in that view.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-mu4e-link-query-in-headers-mode nil)
 #+END_SRC
 
 ** Configure BBDB with mu4e
