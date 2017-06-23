@@ -1320,12 +1320,10 @@ reconsider quitting it.
 
 ** Composing a new message
 
-When I'm composing a new email, default to using the current context (e.g., if
-I'm in my personal inbox, send mail from my personal context). This is almost
-always the right thing to do.
+When I'm composing a new email, default to using the first context.
 
 #+BEGIN_SRC emacs-lisp
-  (setq mu4e-compose-context-policy 'ask-if-none)
+  (setq mu4e-compose-context-policy 'pick-first)
 #+END_SRC
 
 Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
