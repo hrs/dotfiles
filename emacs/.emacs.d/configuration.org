@@ -1317,6 +1317,9 @@ Poll the server for new mail every 5 minutes.
 I check my email pretty often! Probably more than I should. This binds =C-c m=
 to close any other windows and open my personal inbox.
 
+In practice, I keep an =*mu4e-headers*= buffer in its own frame, full-screen, on
+a dedicated =i3= workspace.
+
 #+BEGIN_SRC emacs-lisp
   (defun hrs/visit-inbox ()
     (interactive)
