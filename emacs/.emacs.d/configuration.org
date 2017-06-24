@@ -855,6 +855,13 @@ new one (which shows the same information).
   (setq org-src-window-setup 'current-window)
 #+END_SRC
 
+Quickly insert a block of elisp:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-structure-template-alist
+               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+#+END_SRC
+
 Enable spell-checking in Org-mode.
 
 #+BEGIN_SRC emacs-lisp
