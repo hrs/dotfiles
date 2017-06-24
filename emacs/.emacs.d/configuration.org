@@ -1299,6 +1299,12 @@ this; I'm cargo-culting.
   (setq mu4e-change-filenames-when-moving t)
 #+END_SRC
 
+Poll the server for new mail every 5 minutes.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-update-interval 300)
+#+END_SRC
+
 ** Viewing mail
 
 I check my email pretty often! Probably more than I should. This binds =C-c m=
