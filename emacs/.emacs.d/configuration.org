@@ -173,6 +173,12 @@ Define a big ol' bunch of handy utility functions.
       (when file-name
         (find-alternate-file (concat "/sudo::" file-name)))))
 
+  (defun hrs/region-or-word ()
+    (if mark-active
+        (buffer-substring-no-properties (region-beginning)
+                                        (region-end))
+      (thing-at-point 'word)))
+
   (defun hrs/insert-random-string (len)
     "Insert a random alphanumeric string of length len."
     (interactive)
@@ -1569,6 +1575,30 @@ Assume that I always want to kill the current buffer when hitting =C-x k=.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+** Look up definitions in Webster 1913
+
+I look up definitions by hitting =C-x w=, which shells out to =sdcv=. I've
+loaded that with the (beautifully lyrical) 1913 edition of Webster's dictionary,
+so these definitions are a lot of fun.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/dictionary-prompt ()
+    (read-string
+     (format "Word (%s): " (or (hrs/region-or-word) ""))
+     nil
+     nil
+     (hrs/region-or-word)))
+
+  (defun hrs/dictionary-define-word ()
+    (interactive)
+    (let* ((word (hrs/dictionary-prompt))
+           (buffer-name (concat "Definition: " word)))
+      (with-output-to-temp-buffer buffer-name
+        (shell-command (format "sdcv -n %s" word) buffer-name))))
+
+  (define-key global-map (kbd "C-x w") 'hrs/dictionary-define-word)
 #+END_SRC
 
 ** Always indent with spaces
