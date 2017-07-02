@@ -9,7 +9,7 @@ set $mod Mod4
 ########################################
 
 # Launch a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt
 
 # Kill focused window
 bindsym $mod+Shift+q kill
