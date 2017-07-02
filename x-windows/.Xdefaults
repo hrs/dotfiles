@@ -1,0 +1,86 @@
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+
+!-------------------------------------------------------------------------------
+! URxvt
+!-------------------------------------------------------------------------------
+
+URxvt.transparent: false
+URxvt.fading: 0
+URxvt.urgentOnBell: true
+URxvt.loginShell: true
+URxvt.saveLines: 50
+URxvt.internalBorder: 3
+URxvt.lineSpace: 0
+
+! Fonts
+URxvt.allow_bold: true
+URxvt*font: xft:Inconsolata:pixelsize=36
+
+! Scrollbar
+URxvt.scrollStyle: rxvt
+URxvt.scrollBar: false
+
+! Perl extensions
+URxvt.perl-ext-common: default,url-select
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.underline: true
+
+! Cursor
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt.cursorColor: #657b83
+
+! Pointer
+! Hide the mouse pointer after a period of inactivity.
+URxvt.pointerBlank: true
+
+!-------------------------------------------------------------------------------
+! Colors lifted from Solarized (http://ethanschoonover.com/solarized)
+!-------------------------------------------------------------------------------
+
+*background: #002b36
+*foreground: #657b83
+!!*fading: 40
+*fadeColor: #002b36
+*cursorColor: #93a1a1
+*pointerColorBackground: #586e75
+*pointerColorForeground: #93a1a1
+
+!! black dark/light
+*color0: #073642
+*color8: #002b36
+
+!! red dark/light
+*color1: #dc322f
+*color9: #cb4b16
+
+!! green dark/light
+*color2: #859900
+*color10: #586e75
+
+!! yellow dark/light
+*color3: #b58900
+*color11: #657b83
+
+!! blue dark/light
+*color4: #268bd2
+*color12: #839496
+
+!! magenta dark/light
+*color5: #d33682
+*color13: #6c71c4
+
+!! cyan dark/light
+*color6: #2aa198
+*color14: #93a1a1
+
+!! white dark/light
+*color7: #eee8d5
+*color15: #fdf6e3
