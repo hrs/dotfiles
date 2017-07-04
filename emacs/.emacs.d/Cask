@@ -58,6 +58,7 @@
 (depends-on "markdown-mode")
 (depends-on "multi-term")
 (depends-on "muttrc-mode")
+(depends-on "org")
 (depends-on "org-bullets")
 (depends-on "ox-twbs")
 (depends-on "package-build")

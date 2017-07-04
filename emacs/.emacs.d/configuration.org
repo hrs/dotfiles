@@ -45,16 +45,6 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
   (add-to-list 'load-path "~/.emacs.d/resources/")
 #+END_SRC
 
-* Package management
-
-I use =cask= and =pallet= for managing packages.
-
-#+BEGIN_SRC emacs-lisp
-  (require 'cask "~/.cask/cask.el")
-  (cask-initialize)
-  (require 'pallet)
-#+END_SRC
-
 * =evil-mode=
 
 I'd prefer not to expand abbrevs when I hit escape. That's always jarring and
