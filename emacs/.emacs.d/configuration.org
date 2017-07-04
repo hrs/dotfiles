@@ -14,6 +14,30 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
   (sensible-defaults/backup-to-temp-directory)
 #+END_SRC
 
+* Configure =use-package=
+
+I'm currently using Cask to manage my dependencies, but I'm gradually moving to
+=use-package=. I'm planning on converting packages lazily, as I need them, so
+expect to see a somewhat inconsistent state for a while. =)
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+
+  (setq use-package-verbose t)
+  (setq use-package-always-ensure t)
+
+  (require 'use-package)
+#+END_SRC
+
+Always compile packages, and use the newest version available.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-compile
+    :config (auto-compile-on-load-mode))
+  (setq load-prefer-newer t)
+#+END_SRC
+
 * Set personal information
 
 ** Who am I? Where am I?

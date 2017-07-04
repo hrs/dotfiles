@@ -4,6 +4,7 @@
 
 (depends-on "ag")
 (depends-on "auctex")
+(depends-on "auto-compile")
 (depends-on "bbdb")
 (depends-on "cask")
 (depends-on "chruby")
@@ -87,6 +88,7 @@
 (depends-on "sml-mode")
 (depends-on "solarized-theme")
 (depends-on "synosaurus")
+(depends-on "use-package")
 (depends-on "w3m")
 (depends-on "web-mode")
 (depends-on "wgrep")
