@@ -1,5 +1,6 @@
 (source gnu)
 (source melpa)
+(source org)
 
 (depends-on "ag")
 (depends-on "auctex")
@@ -58,8 +59,8 @@
 (depends-on "markdown-mode")
 (depends-on "multi-term")
 (depends-on "muttrc-mode")
-(depends-on "org")
 (depends-on "org-bullets")
+(depends-on "org-plus-contrib")
 (depends-on "ox-twbs")
 (depends-on "package-build")
 (depends-on "pallet")

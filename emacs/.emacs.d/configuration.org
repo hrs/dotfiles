@@ -1,4 +1,7 @@
-#+TITLE: Emacs configuration
+#+TITLE: Emacs Configuration
+#+AUTHOR: Harry R. Schwartz
+#+EMAIL: hello@harryrschwartz.com
+#+OPTIONS: toc:nil num:nil
 
 * Use sensible-defaults.el
 
