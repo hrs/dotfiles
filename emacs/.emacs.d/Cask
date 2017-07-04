@@ -84,6 +84,7 @@
 (depends-on "smex")
 (depends-on "sml-mode")
 (depends-on "solarized-theme")
+(depends-on "synosaurus")
 (depends-on "w3m")
 (depends-on "web-mode")
 (depends-on "wgrep")
