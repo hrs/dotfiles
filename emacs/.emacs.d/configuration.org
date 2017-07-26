@@ -534,8 +534,7 @@ use smart indentation.
   (add-hook 'haskell-mode-hook
             (lambda ()
               (haskell-doc-mode)
-              (turn-on-haskell-indent)
-              (ghc-init)))
+              (turn-on-haskell-indent)))
 #+END_SRC
 
 ** JavaScript and CoffeeScript
