@@ -1244,7 +1244,7 @@ it.
 
   (defun hrs/today-checklist-filename ()
     "The filename of today's checklist."
-    (concat "/tmp/daily-checklist-" (format-time-string "%Y-%m-%d") ".org"))
+    (concat "/home/hrs/documents/checklists/daily-checklist-" (format-time-string "%Y-%m-%d") ".org"))
 
   (defun hrs/today ()
     "Take a look at today's checklist."
