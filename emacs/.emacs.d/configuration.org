@@ -439,6 +439,10 @@ output.
 
 Use =company-coq-mode=, which really helps make Proof General a more useful IDE.
 
+I bind the right and left arrow keys to evaluating and retracting the next and
+previous statements. This is more convenient than the default bindings of =C-c
+C-n= and =C-c C-u=.
+
 I also like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
 they've always been unpleasant surprises for me.
 
@@ -446,6 +450,9 @@ they've always been unpleasant surprises for me.
   (add-hook 'coq-mode-hook
             (lambda ()
               (company-coq-mode)
+              (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
+              (evil-define-key 'normal coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command)
+              (evil-define-key 'normal coq-mode-map (kbd "<return>") 'company-coq-proof-goto-point)
               (abbrev-mode 0)))
 #+END_SRC
 
