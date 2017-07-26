@@ -954,28 +954,23 @@ Record the time that a todo was archived.
 Define a few common tasks as capture templates. Specifically, I frequently:
 
 - Record ideas for future blog posts in =~/org/blog-ideas.org=,
-- Keep a running grocery list in =~/org/groceries.org=, and
 - Maintain a todo list in =~/org/index.org=.
+- Convert emails into todos to maintain an empty inbox.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         '(("b" "Blog idea"
            entry
            (file (org-file-path "blog-ideas.org"))
-           "* TODO %?\n")
+           "* %?\n")
+
+          ("e" "Email" entry
+           (file+headline org-index-file "Inbox")
+           "* TODO %?\nCREATED: %u\n%a\n")
 
           ("f" "Finished book"
            table-line (file "~/documents/notes/books-read.org")
            "| %^{Title} | %^{Author} | %u |")
-
-          ("g" "Groceries"
-           checkitem
-           (file (org-file-path "groceries.org")))
-
-          ("l" "Today I Learned..."
-           entry
-           (file+datetree (org-file-path "til.org"))
-           "* %?\n")
 
           ("r" "Reading"
            checkitem
@@ -989,7 +984,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
           ("t" "Todo"
            entry
            (file+headline org-index-file "Inbox")
-           "* TODO %?\n")))
+           "* TODO %?\nCREATED: %u\n")))
 #+END_SRC
 
 When I'm starting an org capture template I'd like to begin in insert mode. I'm
