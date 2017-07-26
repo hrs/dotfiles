@@ -464,6 +464,12 @@ buffers on the other.
   (setq proof-three-window-mode-policy 'hybrid)
 #+END_SRC
 
+Don't move point when asserting and undoing proof commands.
+
+#+BEGIN_SRC emacs-lisp
+  (setq proof-follow-mode 'ignore)
+#+END_SRC
+
 The Proof General splash screen's pretty cute, but I don't need to see it every
 time.
 
