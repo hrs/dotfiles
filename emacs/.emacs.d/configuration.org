@@ -1575,6 +1575,13 @@ Use =pandoc= to render the results.
   (setq markdown-command "pandoc --standalone --mathjax --from=markdown")
 #+END_SRC
 
+Leave the code block font unchanged.
+
+#+BEGIN_SRC emacs-lisp
+  (custom-set-faces
+   '(markdown-code-face ((t nil))))
+#+END_SRC
+
 ** Wrap paragraphs automatically
 
 =AutoFillMode= automatically wraps paragraphs, kinda like hitting =M-q=. I wrap
