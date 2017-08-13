@@ -1239,6 +1239,20 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
         (insert (hrs/jekyll-yaml-template title)))))
 #+END_SRC
 
+This selects and inserts a tag:
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/existing-blog-tags ()
+    "Return a list of all the tags currently used in my blog."
+    (split-string (shell-command-to-string "cd ~/documents/blog && rake tags")))
+
+  (defun hrs/insert-blog-tag ()
+    "Select one of the current tags and insert it at point."
+    (interactive)
+    (insert
+     (ido-completing-read "Insert tag at point: " (hrs/existing-blog-tags))))
+#+END_SRC
+
 * Daily checklist
 
 There are certain things I want to do regularly. I store those in a checklist.
