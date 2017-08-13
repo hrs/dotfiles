@@ -20,6 +20,9 @@ bindsym $mod+Shift+l exec i3lock --image=/home/hrs/.wallpaper/dark-linen.png --t
 # Start a program launcher
 bindsym $mod+d exec ~/.bin/launcher.sh
 
+# Move the current workspace to the next monitor
+bindsym $mod+Tab exec i3-msg move workspace to output right
+
 # Change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
