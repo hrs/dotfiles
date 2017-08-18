@@ -118,6 +118,9 @@ exec --no-startup-id nm-applet &
 # Use Redshift to adjust screen color over the course of the day
 exec --no-startup-id redshift-gtk &
 
+# Start the PulseAudio system tray
+exec --no-startup-id pasystray &
+
 # Start up a GPG agent
 exec --no-startup-id eval $(gpg-agent --daemon)
 
