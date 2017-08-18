@@ -98,34 +98,34 @@ exec setxkbmap -option ctrl:nocaps
 exec xcape &
 
 # Bind media/volume keys
-exec xbindkeys &
+exec --no-startup-id xbindkeys &
 
 # Start up the Dropbox client
-exec dropbox start
+exec --no-startup-id dropbox start
 
 # Start up the Owncloud client
-exec owncloud &
+exec --no-startup-id owncloud &
 
 # Start a polkit service
-exec lxpolkit &
+exec --no-startup-id lxpolkit &
 
 # Hide the mouse cursor after a second
-exec unclutter -idle 1 -noevents &
+exec --no-startup-id unclutter -idle 1 -noevents &
 
 # Launch the networking widget
-exec nm-applet &
+exec --no-startup-id nm-applet &
 
 # Use Redshift to adjust screen color over the course of the day
-exec redshift-gtk &
+exec --no-startup-id redshift-gtk &
 
 # Start up a GPG agent
-exec eval $(gpg-agent --daemon)
+exec --no-startup-id eval $(gpg-agent --daemon)
 
 # Set the wallpaper
-exec feh --bg-tile ~/.wallpaper/light-linen.png
+exec --no-startup-id feh --bg-tile ~/.wallpaper/light-linen.png
 
 # Invoke the Emacs daemon
-exec emacs --daemon
+exec --no-startup-id emacs --daemon
 
 # Configure the i3 bar
 bar {
