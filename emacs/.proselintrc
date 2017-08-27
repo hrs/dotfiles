@@ -1,5 +1,6 @@
 {
   "checks": {
+    "cursing.filth": false,
     "typography.exclamation": false,
     "typography.symbols": false
   }
