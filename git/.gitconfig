@@ -28,16 +28,23 @@
   template = ~/.gitmessage
 [core]
   excludesfile = ~/.gitignore
+[diff]
+  indentHeuristic = true
+  renames = copies
 [fetch]
   prune = true
 [grep]
   linenumber = true
+[help]
+  autocorrect = 1
 [merge]
   ff = only
 [push]
   default = current
 [rebase]
   autosquash = true
+[submodule]
+  fetchJobs = 0
 [user]
   name = Harry Schwartz
   email = hello@harryrschwartz.com
