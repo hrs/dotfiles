@@ -4,9 +4,9 @@ stow bash
 stow emacs
 stow email
 stow git
-stow i3
 stow lisp
 stow ruby
+stow x-windows
 
 # Link .bash_profile -> .bashrc
 rm -f ~/.bash_profile
