@@ -39,8 +39,6 @@
 (depends-on "inf-ruby")
 (depends-on "instapaper")
 (depends-on "less-css-mode")
-(depends-on "magit")
-(depends-on "magit-popup")
 (depends-on "markdown-mode")
 (depends-on "multi-term")
 (depends-on "muttrc-mode")
