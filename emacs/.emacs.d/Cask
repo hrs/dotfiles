@@ -60,7 +60,6 @@
 (depends-on "ruby-end")
 (depends-on "ruby-hash-syntax")
 (depends-on "s")
-(depends-on "scss-mode")
 (depends-on "smex")
 (depends-on "solarized-theme")
 (depends-on "synosaurus")

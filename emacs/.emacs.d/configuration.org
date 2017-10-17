@@ -430,22 +430,20 @@ time.
 
 ** CSS and Sass
 
-Indent 2 spaces and use =rainbow-mode= to display color-related words in the
-color they describe.
+Indent by 2 spaces.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'css-mode-hook
-            (lambda ()
-              (rainbow-mode)
-              (setq css-indent-offset 2)))
-
-  (add-hook 'scss-mode-hook 'rainbow-mode)
+  (use-package css-mode
+    :config
+    (setq css-indent-offset 2))
 #+END_SRC
 
-Don't compile the current file every time I save.
+Don't compile the current SCSS file every time I save.
 
 #+BEGIN_SRC emacs-lisp
-  (setq scss-compile-at-save nil)
+  (use-package scss-mode
+    :config
+    (setq scss-compile-at-save nil))
 #+END_SRC
 
 ** Golang
