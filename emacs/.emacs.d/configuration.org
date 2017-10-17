@@ -1658,19 +1658,20 @@ Use flycheck in the appropriate buffers:
 Load up the assorted =dired= extensions.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'dired-x)
-  (require 'dired+)
-  (require 'dired-open)
+  (use-package dired-details)
+  (use-package dired+)
 #+END_SRC
 
 Open media with the appropriate programs.
 
 #+BEGIN_SRC emacs-lisp
-  (setq dired-open-extensions
-        '(("pdf" . "evince")
-          ("mkv" . "vlc")
-          ("mp4" . "vlc")
-          ("avi" . "vlc")))
+  (use-package dired-open
+    :config
+    (setq dired-open-extensions
+          '(("pdf" . "evince")
+            ("mkv" . "vlc")
+            ("mp4" . "vlc")
+            ("avi" . "vlc"))))
 #+END_SRC
 
 These are the switches that get passed to =ls= when =dired= gets a list of
