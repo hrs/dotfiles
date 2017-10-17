@@ -542,13 +542,6 @@ documentation.
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 #+END_SRC
 
-My own silly language ([[https://github.com/hrs/blueprint][blueprint]]) is close enough to Scheme that it can use the
-same mode.
-
-#+BEGIN_SRC emacs-lisp
-  (hrs/add-auto-mode 'scheme-mode "\\.blu$")
-#+END_SRC
-
 ** Magit
 
 Use =evil= keybindings with =magit=:
