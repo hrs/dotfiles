@@ -633,14 +633,6 @@ that.
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
 #+END_SRC
 
-** Prolog
-
-I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
-
-#+BEGIN_SRC emacs-lisp
-  (hrs/add-auto-mode 'prolog-mode "\\.pl$")
-#+END_SRC
-
 ** Projectile
 
 Projectile's default binding of =projectile-ag= to =C-c p s s= is clunky enough
