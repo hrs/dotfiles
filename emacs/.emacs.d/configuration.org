@@ -630,7 +630,9 @@ I use =chruby= to switch between versions of Ruby. This sets a default version
 to use within Emacs (for things like =xmp= or =rspec=).
 
 #+BEGIN_SRC emacs-lisp
-  (chruby "ruby-2.4.0")
+  (use-package chruby
+    :config
+    (chruby "2.4.0"))
 #+END_SRC
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display

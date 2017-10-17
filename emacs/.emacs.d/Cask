@@ -7,7 +7,6 @@
 (depends-on "auto-compile")
 (depends-on "bbdb")
 (depends-on "cask")
-(depends-on "chruby")
 (depends-on "coffee-mode")
 (depends-on "company")
 (depends-on "company-coq")
