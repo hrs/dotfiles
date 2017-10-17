@@ -545,7 +545,7 @@ documentation.
 Use =evil= keybindings with =magit=:
 
 #+BEGIN_SRC emacs-lisp
-  (require 'evil-magit)
+  (use-package evil-magit)
 #+END_SRC
 
 I bring up the status menu with =C-x g=:

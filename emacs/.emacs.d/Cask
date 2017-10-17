@@ -17,7 +17,6 @@
 (depends-on "engine-mode")
 (depends-on "epl")
 (depends-on "evil")
-(depends-on "evil-magit")
 (depends-on "evil-mu4e")
 (depends-on "evil-surround")
 (depends-on "f")
