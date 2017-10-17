@@ -39,7 +39,6 @@
 (depends-on "inf-ruby")
 (depends-on "instapaper")
 (depends-on "less-css-mode")
-(depends-on "markdown-mode")
 (depends-on "multi-term")
 (depends-on "muttrc-mode")
 (depends-on "org-plus-contrib")
