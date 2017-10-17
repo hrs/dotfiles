@@ -105,11 +105,6 @@ Bind =C-p= to fuzzy-finding files in the current project.
 Define a big ol' bunch of handy utility functions.
 
 #+BEGIN_SRC emacs-lisp
-  (defun hrs/view-buffer-name ()
-    "Display the filename of the current buffer."
-    (interactive)
-    (message (buffer-file-name)))
-
   (defun hrs/rename-file (new-name)
     (interactive "FNew name: ")
     (let ((filename (buffer-file-name)))
@@ -128,38 +123,6 @@ Define a big ol' bunch of handy utility functions.
        name."
     (interactive)
     (switch-to-buffer (make-temp-name "scratch-")))
-
-  (defun hrs/de-unicode ()
-    "Tidy up a buffer by replacing all special Unicode characters
-       (smart quotes, etc.) with their more sane cousins"
-    (interactive)
-    (let ((unicode-map '(("[\u2018\|\u2019\|\u201A\|\uFFFD]" . "'")
-                         ("[\u201c\|\u201d\|\u201e]" . "\"")
-                         ("\u2013" . "--")
-                         ("\u2014" . "---")
-                         ("\u2026" . "...")
-                         ("\u00A9" . "(c)")
-                         ("\u00AE" . "(r)")
-                         ("\u2122" . "TM")
-                         ("[\u02DC\|\u00A0]" . " "))))
-      (save-excursion
-        (loop for (key . value) in unicode-map
-              do
-              (goto-char (point-min))
-              (replace-regexp key value)))))
-
-  (defun hrs/beautify-json ()
-    "Pretty-print the JSON in the marked region. Currently shells
-       out to `jsonpp'--be sure that's installed!"
-    (interactive)
-    (save-excursion
-      (shell-command-on-region (mark) (point) "jsonpp" (buffer-name) t)))
-
-  (defun hrs/unfill-paragraph ()
-    "Takes a multi-line paragraph and makes it into a single line of text."
-    (interactive)
-    (let ((fill-column (point-max)))
-      (fill-paragraph nil)))
 
   (defun hrs/kill-current-buffer ()
     "Kill the current buffer without prompting."
@@ -195,18 +158,6 @@ Define a big ol' bunch of handy utility functions.
         (buffer-substring-no-properties (region-beginning)
                                         (region-end))
       (thing-at-point 'word)))
-
-  (defun hrs/insert-random-string (len)
-    "Insert a random alphanumeric string of length len."
-    (interactive)
-    (let ((mycharset "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstyvwxyz"))
-      (dotimes (i len)
-        (insert (elt mycharset (random (length mycharset)))))))
-
-  (defun hrs/generate-password ()
-    "Insert a good alphanumeric password of length 30."
-    (interactive)
-    (hrs/insert-random-string 30))
 
   (defun hrs/append-to-path (path)
     "Add a path both to the $PATH variable and to Emacs' exec-path."
@@ -1271,8 +1222,6 @@ it.
         (progn
           (shell-command (concat hrs/checklist-script " > " filename))
           (find-file filename)))))
-
-  (global-set-key (kbd "C-c t") 'hrs/today)
 #+END_SRC
 
 Open the checklist and my TODO list side-by-side:
