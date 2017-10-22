@@ -1263,7 +1263,7 @@ My full name is defined earlier in this configuration file.
 I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
 
 #+BEGIN_SRC emacs-lisp
-  (setq mu4e-get-mail-command "killall mbsync; mbsync inboxes")
+  (setq mu4e-get-mail-command "killall --quiet mbsync; mbsync inboxes")
 
   (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
 #+END_SRC
