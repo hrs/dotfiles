@@ -105,11 +105,6 @@ Bind =C-p= to fuzzy-finding files in the current project.
 Define a big ol' bunch of handy utility functions.
 
 #+BEGIN_SRC emacs-lisp
-  (defun hrs/view-buffer-name ()
-    "Display the filename of the current buffer."
-    (interactive)
-    (message (buffer-file-name)))
-
   (defun hrs/rename-file (new-name)
     (interactive "FNew name: ")
     (let ((filename (buffer-file-name)))
@@ -128,38 +123,6 @@ Define a big ol' bunch of handy utility functions.
        name."
     (interactive)
     (switch-to-buffer (make-temp-name "scratch-")))
-
-  (defun hrs/de-unicode ()
-    "Tidy up a buffer by replacing all special Unicode characters
-       (smart quotes, etc.) with their more sane cousins"
-    (interactive)
-    (let ((unicode-map '(("[\u2018\|\u2019\|\u201A\|\uFFFD]" . "'")
-                         ("[\u201c\|\u201d\|\u201e]" . "\"")
-                         ("\u2013" . "--")
-                         ("\u2014" . "---")
-                         ("\u2026" . "...")
-                         ("\u00A9" . "(c)")
-                         ("\u00AE" . "(r)")
-                         ("\u2122" . "TM")
-                         ("[\u02DC\|\u00A0]" . " "))))
-      (save-excursion
-        (loop for (key . value) in unicode-map
-              do
-              (goto-char (point-min))
-              (replace-regexp key value)))))
-
-  (defun hrs/beautify-json ()
-    "Pretty-print the JSON in the marked region. Currently shells
-       out to `jsonpp'--be sure that's installed!"
-    (interactive)
-    (save-excursion
-      (shell-command-on-region (mark) (point) "jsonpp" (buffer-name) t)))
-
-  (defun hrs/unfill-paragraph ()
-    "Takes a multi-line paragraph and makes it into a single line of text."
-    (interactive)
-    (let ((fill-column (point-max)))
-      (fill-paragraph nil)))
 
   (defun hrs/kill-current-buffer ()
     "Kill the current buffer without prompting."
@@ -195,18 +158,6 @@ Define a big ol' bunch of handy utility functions.
         (buffer-substring-no-properties (region-beginning)
                                         (region-end))
       (thing-at-point 'word)))
-
-  (defun hrs/insert-random-string (len)
-    "Insert a random alphanumeric string of length len."
-    (interactive)
-    (let ((mycharset "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstyvwxyz"))
-      (dotimes (i len)
-        (insert (elt mycharset (random (length mycharset)))))))
-
-  (defun hrs/generate-password ()
-    "Insert a good alphanumeric password of length 30."
-    (interactive)
-    (hrs/insert-random-string 30))
 
   (defun hrs/append-to-path (path)
     "Add a path both to the $PATH variable and to Emacs' exec-path."
@@ -479,22 +430,20 @@ time.
 
 ** CSS and Sass
 
-Indent 2 spaces and use =rainbow-mode= to display color-related words in the
-color they describe.
+Indent by 2 spaces.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'css-mode-hook
-            (lambda ()
-              (rainbow-mode)
-              (setq css-indent-offset 2)))
-
-  (add-hook 'scss-mode-hook 'rainbow-mode)
+  (use-package css-mode
+    :config
+    (setq css-indent-offset 2))
 #+END_SRC
 
-Don't compile the current file every time I save.
+Don't compile the current SCSS file every time I save.
 
 #+BEGIN_SRC emacs-lisp
-  (setq scss-compile-at-save nil)
+  (use-package scss-mode
+    :config
+    (setq scss-compile-at-save nil))
 #+END_SRC
 
 ** Golang
@@ -591,61 +540,36 @@ documentation.
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 #+END_SRC
 
-My own silly language ([[https://github.com/hrs/blueprint][blueprint]]) is close enough to Scheme that it can use the
-same mode.
-
-#+BEGIN_SRC emacs-lisp
-  (hrs/add-auto-mode 'scheme-mode "\\.blu$")
-#+END_SRC
-
 ** Magit
 
-Use =evil= keybindings with =magit=:
+I bring up the status menu with =C-x g=.
 
-#+BEGIN_SRC emacs-lisp
-  (require 'evil-magit)
-#+END_SRC
-
-I bring up the status menu with =C-x g=:
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x g") 'magit-status)
-#+END_SRC
+Use =evil= keybindings with =magit=.
 
 The default behavior of =magit= is to ask before pushing. I haven't had any
 problems with accidentally pushing, so I'd rather not confirm that every time.
 
-#+BEGIN_SRC emacs-lisp
-  (setq magit-push-always-verify nil)
-#+END_SRC
-
-Enable spellchecking when writing commit messages:
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
-#+END_SRC
-
 Per [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][tpope's suggestions]], highlight commit text in the summary line that goes
 beyond 50 characters.
 
-#+BEGIN_SRC emacs-lisp
-  (setq git-commit-summary-max-length 50)
-#+END_SRC
+Enable spellchecking when writing commit messages.
 
 I sometimes use =git= from the terminal, and I'll use =emacsclient --tty= to
 write commits. I'd like to be in the insert state when my editor pops open for
 that.
 
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'with-editor-mode-hook 'evil-insert-state)
-#+END_SRC
-
-** Prolog
-
-I don't write a lot of Prolog, but (oddly enough) I write more Prolog than Perl.
+I'd like to start in the insert state when writing a commit message.
 
 #+BEGIN_SRC emacs-lisp
-  (hrs/add-auto-mode 'prolog-mode "\\.pl$")
+  (use-package magit
+    :bind ("C-x g" . magit-status)
+
+    :config
+    (use-package evil-magit)
+    (setq magit-push-always-verify nil)
+    (setq git-commit-summary-max-length 50)
+    (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
+    (add-hook 'with-editor-mode-hook 'evil-insert-state))
 #+END_SRC
 
 ** Projectile
@@ -694,7 +618,9 @@ I use =chruby= to switch between versions of Ruby. This sets a default version
 to use within Emacs (for things like =xmp= or =rspec=).
 
 #+BEGIN_SRC emacs-lisp
-  (chruby "ruby-2.4.0")
+  (use-package chruby
+    :config
+    (chruby "2.4.0"))
 #+END_SRC
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
@@ -866,9 +792,9 @@ I add a bunch of hooks to =term-mode=:
 I like to see an outline of pretty bullets instead of a list of asterisks.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (org-bullets-mode t)))
+  (use-package org-bullets
+    :init
+    (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
 
 I like seeing a little downward-pointing arrow instead of the usual ellipsis
@@ -1286,8 +1212,6 @@ it.
         (progn
           (shell-command (concat hrs/checklist-script " > " filename))
           (find-file filename)))))
-
-  (global-set-key (kbd "C-c t") 'hrs/today)
 #+END_SRC
 
 Open the checklist and my TODO list side-by-side:
@@ -1347,7 +1271,7 @@ My full name is defined earlier in this configuration file.
 I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
 
 #+BEGIN_SRC emacs-lisp
-  (setq mu4e-get-mail-command "killall mbsync; mbsync inboxes")
+  (setq mu4e-get-mail-command "killall --quiet mbsync; mbsync inboxes")
 
   (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
 #+END_SRC
@@ -1579,29 +1503,22 @@ Always enable =abbrev-mode=:
 
 Because I can't always use =org=.
 
-I'd like spell-checking running when editing Markdown.
+- Associate =.md= files with GitHub-flavored Markdown.
+- I'd like spell-checking running when editing Markdown.
+- Use =pandoc= to render the results.
+- Leave the code block font unchanged.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'gfm-mode-hook 'flyspell-mode)
-#+END_SRC
+  (use-package markdown-mode
+    :commands gfm-mode
 
-Associate =.md= files with GitHub-flavored Markdown.
+    :mode (("\\.md$" . gfm-mode))
 
-#+BEGIN_SRC emacs-lisp
-  (hrs/add-auto-mode 'gfm-mode "\\.md$")
-#+END_SRC
-
-Use =pandoc= to render the results.
-
-#+BEGIN_SRC emacs-lisp
-  (setq markdown-command "pandoc --standalone --mathjax --from=markdown")
-#+END_SRC
-
-Leave the code block font unchanged.
-
-#+BEGIN_SRC emacs-lisp
-  (custom-set-faces
-   '(markdown-code-face ((t nil))))
+    :config
+    (setq markdown-command "pandoc --standalone --mathjax --from=markdown")
+    (add-hook 'gfm-mode-hook 'flyspell-mode)
+    (custom-set-faces
+     '(markdown-code-face ((t nil)))))
 #+END_SRC
 
 ** Wrap paragraphs automatically
@@ -1665,19 +1582,20 @@ Use flycheck in the appropriate buffers:
 Load up the assorted =dired= extensions.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'dired-x)
-  (require 'dired+)
-  (require 'dired-open)
+  (use-package dired-details)
+  (use-package dired+)
 #+END_SRC
 
 Open media with the appropriate programs.
 
 #+BEGIN_SRC emacs-lisp
-  (setq dired-open-extensions
-        '(("pdf" . "evince")
-          ("mkv" . "vlc")
-          ("mp4" . "vlc")
-          ("avi" . "vlc")))
+  (use-package dired-open
+    :config
+    (setq dired-open-extensions
+          '(("pdf" . "evince")
+            ("mkv" . "vlc")
+            ("mp4" . "vlc")
+            ("avi" . "vlc"))))
 #+END_SRC
 
 These are the switches that get passed to =ls= when =dired= gets a list of
