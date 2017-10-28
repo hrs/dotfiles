@@ -3,6 +3,7 @@
 stow bash
 stow emacs
 stow email
+stow firefox
 stow git
 stow lisp
 stow ruby
