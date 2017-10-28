@@ -2,6 +2,10 @@
 noremap l gt
 noremap h gT
 
+" Scroll faster!
+noremap j 5j
+noremap k 5k
+
 " Use emacsclient as my external editor (invoked with `C-i` from a text field).
 set editor="emacsclient -c"
 
