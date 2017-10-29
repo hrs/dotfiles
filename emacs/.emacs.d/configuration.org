@@ -1683,6 +1683,17 @@ Assume that I always want to kill the current buffer when hitting =C-x k=.
   (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 
+** Save my location within a file
+
+Using =save-place-mode= saves the location of point for every file I visit. If I
+close the file or close the editor, then later re-open it, point will be at the
+last place I visited.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package save-place-mode
+    :config (save-place-mode t))
+#+END_SRC
+
 ** Always indent with spaces
 
 Never use tabs. Tabs are the devil’s whitespace.
