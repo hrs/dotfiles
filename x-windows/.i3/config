@@ -18,7 +18,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+l exec i3lock --image=/home/hrs/.wallpaper/dark-linen.png --tiling
 
 # Start a program launcher
-bindsym $mod+d exec ~/.bin/launcher.sh
+bindsym $mod+d exec PATH=~/bin:~/.bin:$PATH rofi -show run
 
 # Move the current workspace to the next monitor
 bindsym $mod+Tab exec i3-msg move workspace to output right

@@ -83,3 +83,14 @@ URxvt.pointerBlank: true
 !! white dark/light
 *color7: #eee8d5
 *color15: #fdf6e3
+
+!-------------------------------------------------------------------------------
+! Rofi
+!-------------------------------------------------------------------------------
+
+rofi.font: Inconsolata 24
+rofi.color-enabled: true
+rofi.color-window: #002b37, #002b37, #003642
+rofi.color-normal: #002b37, #819396, #003642, #008ed4, #ffffff
+rofi.color-active: #002b37, #008ed4, #003642, #008ed4, #66c6ff
+rofi.color-urgent: #002b37, #da4281, #003642, #008ed4, #890661

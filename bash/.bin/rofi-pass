@@ -6,13 +6,7 @@ basecommand=$(echo "$0" | gawk '{ print $1 }')
 
 # set default settings
 _rofi () {
-    rofi "$@" \
-    -font "Inconsolata 24" \
-    -color-enabled: true \
-    -color-window "#002b37,#002b37,#003642" \
-    -color-normal "#002b37,#819396,#003643,#008ed4,#ffffff" \
-    -color-active "#002b37,#008ed4,#003643,#008ed4,#66c6ff" \
-    -color-urgent "#002b37,#da4281,#003643,#008ed4,#890661"
+    rofi "$@"
 }
 
 # We expect to find these fields in pass(1)'s output
