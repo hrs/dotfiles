@@ -91,6 +91,9 @@ bindsym $mod+p exec ~/.bin/rofi-pass
 # Startup applications
 ########################################
 
+# Load up config in .Xresources (for DPI, urxvt, and rofi)
+exec xrdb -load ~/.Xresources
+
 # Use Caps Lock as an additional Control key
 exec setxkbmap -option ctrl:nocaps
 
