@@ -79,7 +79,7 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 bindsym --release $mod+c exec scrot --select --exec 'mv $f ~/pictures/screenshots/.'
 
 # Launch Telegram
-bindsym $mod+t exec telegram
+bindsym $mod+t exec ~/.local/share/TelegramDesktop/Telegram
 
 # Open a Nautilus file browser window
 bindsym $mod+n exec nautilus
