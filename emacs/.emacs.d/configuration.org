@@ -953,7 +953,7 @@ Bind a few handy keys.
 Hit =C-c i= to quickly open up my todo list.
 
 #+BEGIN_SRC emacs-lisp
-  (defun open-index-file ()
+  (defun hrs/open-index-file ()
     "Open the master org TODO list."
     (interactive)
     (hrs/copy-tasks-from-inbox)
@@ -961,7 +961,7 @@ Hit =C-c i= to quickly open up my todo list.
     (flycheck-mode -1)
     (end-of-buffer))
 
-  (global-set-key (kbd "C-c i") 'open-index-file)
+  (global-set-key (kbd "C-c i") 'hrs/open-index-file)
 #+END_SRC
 
 Hit =M-n= to quickly open up a capture template for a new todo.
@@ -1575,6 +1575,16 @@ Use flycheck in the appropriate buffers:
 #+BEGIN_SRC emacs-lisp
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
+#+END_SRC
+
+** Quickly explore my "notes" directory
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/visit-notes-directory ()
+    (interactive)
+    (ido-find-file-in-dir "~/documents/notes"))
+
+  (global-set-key (kbd "C-c n") 'hrs/visit-notes-directory)
 #+END_SRC
 
 * =dired=
