@@ -1539,6 +1539,22 @@ Sometimes, though, I don't wanna wrap text. This toggles wrapping with =C-c q=:
   (global-set-key (kbd "C-c q") 'auto-fill-mode)
 #+END_SRC
 
+** Cycle between spacing alternatives
+
+Successive calls to =cycle-spacing= rotate between changing the whitespace
+around point to:
+
+- A single space,
+- No spaces, or
+- The original spacing.
+
+Binding this to =M-SPC= it strictly better than the original binding of
+=just-one-space=.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-SPC") 'cycle-spacing)
+#+END_SRC
+
 ** Linting prose
 
 I use [[http://proselint.com/][proselint]] to check my prose for common errors. This creates a flycheck
