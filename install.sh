@@ -6,6 +6,7 @@ stow email
 stow firefox
 stow git
 stow lisp
+stow rss
 stow ruby
 stow x-windows
 

@@ -7,7 +7,7 @@ emacs/.emacs.d/*
 
 email/.mutt/temp
 
-rss/.newsbeuter/*
-!rss/.newsbeuter/config
+rss/.newsboat/*
+!rss/.newsboat/config
 
 ruby/.bundle/cache

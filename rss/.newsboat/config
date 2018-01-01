@@ -29,7 +29,7 @@ bind-key K prev article
 
 color background white default
 color listnormal white default
-color listfocus white blue  standout
+color listfocus white blue standout
 color info blue default standout
-color listfocus_unread white blue    standout
+color listfocus_unread white blue standout
 color listnormal_unread white default
