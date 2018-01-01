@@ -87,6 +87,9 @@ bindsym $mod+n exec nautilus
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
 
+# Insert a snippet
+bindsym $mod+s exec ~/bin/snippet.rb
+
 ########################################
 # Startup applications
 ########################################
