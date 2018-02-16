@@ -21,7 +21,7 @@ source /etc/bash_completion.d/password-store
 eval `opam config env`
 
 source "/usr/local/share/chruby/chruby.sh"
-chruby 2.4.0
+chruby 2.5.0
 
 ### local config settings, if any
 

@@ -620,7 +620,7 @@ to use within Emacs (for things like =xmp= or =rspec=).
 #+BEGIN_SRC emacs-lisp
   (use-package chruby
     :config
-    (chruby "2.4.0"))
+    (chruby "2.5.0"))
 #+END_SRC
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
