@@ -1748,8 +1748,7 @@ close the file or close the editor, then later re-open it, point will be at the
 last place I visited.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package save-place-mode
-    :config (save-place-mode t))
+  (save-place-mode t)
 #+END_SRC
 
 ** Always indent with spaces
@@ -1839,14 +1838,6 @@ results and =C-c C-c= to stop, just like in =dired=.
       (kbd "C-c C-c") 'wgrep-finish-edit))
 
   (setq wgrep-auto-save-buffer t)
-#+END_SRC
-
-** Configure =wrap-region=
-
-#+BEGIN_SRC emacs-lisp
-  (wrap-region-global-mode t)
-  (wrap-region-add-wrapper "/" "/" nil 'ruby-mode)
-  (wrap-region-add-wrapper "`" "`" nil '(markdown-mode ruby-mode))
 #+END_SRC
 
 ** Split horizontally for temporary buffers
