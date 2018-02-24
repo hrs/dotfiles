@@ -606,10 +606,39 @@ project root (if I'm not in a "real" project).
 
 ** Python
 
-Indent 2 spaces.
+Add =~/.local/bin= to load path. That's where =virtualenv= is installed, and
+we'll need that for =jedi=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq python-indent 2)
+  (hrs/append-to-path "~/.local/bin")
+#+END_SRC
+
+Enable =elpy=. This provides automatic indentation, auto-completion, syntax
+checking, etc.
+
+#+BEGIN_SRC emacs-lisp
+  (elpy-enable)
+#+END_SRC
+
+Use =flycheck= for syntax checking:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
+#+END_SRC
+
+Format code according to PEP8 on save:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'py-autopep8)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+#+END_SRC
+
+Configure Jedi
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'company-backends 'company-jedi)
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
 #+END_SRC
 
 ** Ruby and RSpec
