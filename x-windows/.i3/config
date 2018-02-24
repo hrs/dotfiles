@@ -109,12 +109,6 @@ exec --no-startup-id xbindkeys &
 # Start up the Dropbox client
 exec --no-startup-id dropbox start
 
-# Start up the Owncloud client
-exec --no-startup-id owncloud &
-
-# Start a polkit service
-exec --no-startup-id lxpolkit &
-
 # Hide the mouse cursor after a second
 exec --no-startup-id unclutter -idle 1 -noevents &
 
