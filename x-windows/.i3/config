@@ -1,5 +1,5 @@
 # Use Charter Regular in container titles
-font pango:Charter Regular 20
+font pango:Charter Regular 10
 
 # Use the win key as $mod
 set $mod Mod4
@@ -127,6 +127,6 @@ exec --no-startup-id emacs --daemon
 # Configure the i3 bar
 bar {
   status_command i3status
-  font pango:Charter Regular 20
+  font pango:Charter Regular 10
   position top
 }
