@@ -1531,26 +1531,6 @@ Synosaurus is hooked up to wordnet to provide access to a thesaurus. Hitting
   (add-hook 'after-init-hook #'synosaurus-mode)
 #+END_SRC
 
-** Configure =abbrev-mode=
-
-My email address is too long, so I like to keep some personal information as
-abbreviations.
-
-I'm prefixing them with =@= to avoid collisions with real words.
-
-#+BEGIN_SRC emacs-lisp
-  (define-abbrev-table 'global-abbrev-table
-    '(("@name" "Harry R. Schwartz")
-      ("@email" "hello@harryrschwartz.com")
-      ("@site" "http://harryrschwartz.com")))
-#+END_SRC
-
-Always enable =abbrev-mode=:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default abbrev-mode t)
-#+END_SRC
-
 ** Editing with Markdown
 
 Because I can't always use =org=.
