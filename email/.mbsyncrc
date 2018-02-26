@@ -82,7 +82,6 @@ Channel testdouble-drafts
 Channel testdouble-sent
 Channel testdouble-archive
 
-
 Group inboxes
 Channel personal-inbox
 Channel testdouble-inbox

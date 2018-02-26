@@ -8,3 +8,5 @@ macro index gt "<change-folder>+personal/inbox<enter>" "next account"
 
 macro index d "s=testdouble/archive\n" "archive message"
 macro pager d "s=testdouble/archive\n" "archive message"
+
+set crypt_autosign = no
