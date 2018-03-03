@@ -28,7 +28,7 @@ URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 
 ! Perl extensions
-URxvt.perl-ext-common: default,url-select,selection-to-clipboard
+URxvt.perl-ext-common: default,url-select,selection-to-clipboard,font-size
 URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.url-select.underline: true
 
