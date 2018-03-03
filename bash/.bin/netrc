@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require "netrc"
+
+USAGE = "Usage: #{ $0 } (login | password) machine".freeze
+
+if ARGV.size != 2
+  warn(USAGE)
+  exit(1)
+end
+
+field = ARGV[0]
+machine = ARGV[1]
+
+case field
+when "login"
+  puts Netrc.read[machine].login
+when "password"
+  puts Netrc.read[machine].password
+else
+  warn(USAGE)
+  exit(1)
+end

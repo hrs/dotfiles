@@ -9,7 +9,7 @@ SyncState *
 IMAPAccount personal
 Host mail.messagingengine.com
 User hrs@fastmail.fm
-PassCmd "~/.bin/netrc-password.rb mail.messagingengine.com"
+PassCmd "~/.bin/netrc password mail.messagingengine.com"
 SSLType IMAPS
 CertificateFile ~/.mutt/ca-bundle.crt
 
@@ -49,7 +49,7 @@ Channel personal-archive
 IMAPAccount testdouble
 Host imap.gmail.com
 User harry.schwartz@testdouble.com
-PassCmd "~/.bin/netrc-password.rb imap.gmail.com"
+PassCmd "~/.bin/netrc password imap.gmail.com"
 SSLType IMAPS
 CertificateFile ~/.mutt/ca-bundle.crt
 
