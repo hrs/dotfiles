@@ -14,7 +14,7 @@ external-url-viewer "urlscan"
 html-renderer "w3m -T text/html"
 pager internal
 
-bookmark-cmd instapaper.sh
+bookmark-cmd instapaper
 bookmark-autopilot yes
 bind-key i bookmark
 
