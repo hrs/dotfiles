@@ -7,6 +7,10 @@ Style/BlockDelimiters:
   Enabled: false
 Style/WhileUntilModifier:
   Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/EmptyMethod:
+  Enabled: false
 Naming/VariableNumber:
   Enabled: false
 Layout/SpaceInsideStringInterpolation:
@@ -125,14 +129,6 @@ Style/StringLiteralsInInterpolation:
   SupportedStyles:
   - single_quotes
   - double_quotes
-Style/TrailingCommaInLiteral:
-  Description: Checks for trailing comma in parameter lists and literals.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
-  Enabled: false
-  EnforcedStyleForMultiline: no_comma
-  SupportedStyles:
-  - comma
-  - no_comma
 Style/TrailingCommaInArguments:
   Enabled: false
 Metrics/AbcSize:
@@ -237,9 +233,6 @@ Lint/EachWithObjectArgument:
 Lint/HandleExceptions:
   Description: Don't suppress exception.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
-  Enabled: false
-Lint/LiteralInCondition:
-  Description: Checks of literals used in conditions.
   Enabled: false
 Lint/LiteralInInterpolation:
   Description: Checks for literals used in interpolation.
