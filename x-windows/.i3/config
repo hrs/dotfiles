@@ -110,7 +110,7 @@ exec --no-startup-id unclutter -idle 1 -noevents &
 exec --no-startup-id nm-applet &
 
 # Use Redshift to adjust screen color over the course of the day
-exec --no-startup-id redshift-gtk &
+exec --no-startup-id redshift &
 
 # Start the PulseAudio system tray
 exec --no-startup-id pasystray &
