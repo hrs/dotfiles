@@ -1068,9 +1068,9 @@ I'd like to always use Firefox, so:
 
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "~/bin/firefox.sh")
+        browse-url-generic-program "firefox")
 
-  (setenv "BROWSER" "firefox.sh")
+  (setenv "BROWSER" "firefox")
 #+END_SRC
 
 **** Exporting to PDF
