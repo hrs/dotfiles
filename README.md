@@ -4,10 +4,10 @@ I hope you like fiddling with your `.emacs.d` ad nauseam, 'cause I obviously do.
 
 #### Installation
 
-Clone this thing wherever you like (I use `~/.dotfiles`),
-install [GNU `stow`][], and run the `install.sh` script. That'll set up a bunch
-of symlinks in your home directory, e.g., `~/.bashrc` →
-`~/.dotfiles/bash/.bashrc`.
+Clone this thing wherever you like (I use `~/.dotfiles`), install [GNU
+`stow`][], and run the `install.sh` script. That'll set up a bunch of symlinks
+in your home directory (e.g., `~/.bashrc` → `~/.dotfiles/bash/.bashrc`) and
+install a handful of required Ruby gems.
 
 [GNU `stow`]: https://www.gnu.org/software/stow/
 
