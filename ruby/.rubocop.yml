@@ -15,6 +15,8 @@ Naming/VariableNumber:
   Enabled: false
 Layout/SpaceInsideStringInterpolation:
   Enabled: false
+Style/TrailingCommaInLiteral:
+  Enabled: false
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
