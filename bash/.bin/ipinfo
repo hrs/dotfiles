@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require "json"
+
+class QueryResult
+  def initialize(options)
+    @fields = options
+  end
+
+  def to_s
+    populated_fields.map { |key, value|
+      "#{ key }: #{ value }"
+    }.join("\n")
+  end
+
+  private
+
+  attr_reader :fields
+
+  def populated_fields
+    fields.reject { |_, value| value.empty? }
+  end
+end
+
+class HostQuery
+  def initialize(ip_or_host)
+    @ip_addr = ensure_ip(ip_or_host)
+  end
+
+  def result
+    json = JSON.parse(`curl --silent "ipinfo.io/#{ ip_addr }"`)
+    QueryResult.new(json)
+  end
+
+  private
+
+  attr_reader :ip_addr
+
+  def ensure_ip(ip_or_host)
+    if ip_addr?(ip_or_host)
+      ip_or_host
+    else
+      ip_for(ip_or_host)
+    end
+  end
+
+  def ip_addr?(ip_or_host)
+    ip_or_host =~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
+  end
+
+  def ip_for(hostname)
+    `host #{ hostname }`.lines.first.strip.split.last
+  end
+end
+
+if ARGV.size != 1
+  warn "Usage: #{ $0 } ip_or_hostname"
+  exit(1)
+end
+
+puts HostQuery.new(ARGV[0]).result
