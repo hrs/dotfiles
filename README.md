@@ -2,6 +2,10 @@
 
 I hope you like fiddling with your `.emacs.d` ad nauseam, 'cause I obviously do.
 
+Interesting, make issue of GIT CI: 65946bff9a5d2c187e41ff24fc964d3ac9502709
+
+Comment about 'instapaper!'
+
 #### Installation
 
 Clone this thing wherever you like (I use `~/.dotfiles`), install [GNU
