@@ -64,6 +64,7 @@
 (depends-on "solarized-theme")
 (depends-on "synosaurus")
 (depends-on "undo-tree")
+(depends-on "unicode-fonts")
 (depends-on "use-package")
 (depends-on "virtualenv")
 (depends-on "w3m")

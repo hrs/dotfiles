@@ -184,6 +184,19 @@ project:
   (setq frame-title-format '((:eval (projectile-project-name))))
 #+END_SRC
 
+** Maintain consistent line height with Unicode characters
+
+Depending on the font, including a Unicode character on a line sometimes makes
+that line bizarrely huge, which is super ugly. My preferred font (Inconsolata)
+doesn't seem to handle Unicode especially well.
+
+Luckily, the =unicode-fonts= package can totally mitigate this problem! I don't
+really know how it works, but I can't argue with the results.
+
+#+BEGIN_SRC emacs-lisp
+  (unicode-fonts-setup)
+#+END_SRC
+
 ** Use fancy lambdas
 
 Why not?
