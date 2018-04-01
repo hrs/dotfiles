@@ -6,7 +6,7 @@ basecommand=$(echo "$0" | gawk '{ print $1 }')
 
 # set default settings
 _rofi () {
-    rofi "$@"
+    rofi -matching fuzzy -i "$@"
 }
 
 # We expect to find these fields in pass(1)'s output
