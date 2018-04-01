@@ -1,5 +1,6 @@
 # -*- mode: sh -*-
 
+alias dc="docker-compose"
 alias gg="git grep -n"
 alias git="hub"
 alias gpg="gpg2"
