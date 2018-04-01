@@ -84,6 +84,9 @@ bindsym $mod+p exec ~/.bin/rofi-pass
 # Insert a snippet
 bindsym $mod+s exec ~/bin/snippet.rb
 
+# Minimize window chrome: no title bar, narrow margins.
+new_window 1pixel
+
 ########################################
 # Startup applications
 ########################################
