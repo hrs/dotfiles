@@ -880,12 +880,12 @@ Enable spell-checking in Org-mode.
 
 ** Task and org-capture management
 
-Store my org files in =~/org=, maintain an inbox in Dropbox, define the location
-of an index file (my main todo list), and archive finished tasks in
-=~/org/archive.org=.
+Store my org files in =~/documents/org=, maintain an inbox in Dropbox, define
+the location of an index file (my main todo list), and archive finished tasks in
+=~/documents/org/archive.org=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-directory "~/org")
+  (setq org-directory "~/documents/org")
 
   (defun org-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
@@ -911,8 +911,8 @@ them easily from that inbox file to my index.
         (delete-file org-inbox-file))))
 #+END_SRC
 
-I store all my todos in =~/org/index.org=, so I'd like to derive my agenda from
-there.
+I store all my todos in =~/documents/org/index.org=, so I'd like to derive my
+agenda from there.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (list org-index-file))
@@ -941,8 +941,8 @@ Record the time that a todo was archived.
 
 Define a few common tasks as capture templates. Specifically, I frequently:
 
-- Record ideas for future blog posts in =~/org/blog-ideas.org=,
-- Maintain a todo list in =~/org/index.org=.
+- Record ideas for future blog posts in =~/documents/org/blog-ideas.org=,
+- Maintain a todo list in =~/documents/org/index.org=.
 - Convert emails into todos to maintain an empty inbox.
 
 #+BEGIN_SRC emacs-lisp
