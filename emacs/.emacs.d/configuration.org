@@ -1179,11 +1179,23 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
   (defvar hrs/jekyll-posts-directory "~/documents/blog/_posts/")
   (defvar hrs/jekyll-post-extension ".md")
 
+  (defun hrs/replace-whitespace-with-hyphens (s)
+    (replace-regexp-in-string " " "-" s))
+
+  (defun hrs/replace-nonalphanumeric-with-whitespace (s)
+    (replace-regexp-in-string "[^A-Za-z0-9 ]" " " s))
+
+  (defun hrs/remove-quotes (s)
+    (replace-regexp-in-string "[\'\"]" "" s))
+
   (defun hrs/replace-unusual-characters (title)
-    "Replace characters that aren't alphanumeric with hyphens."
-    (replace-regexp-in-string " " "-"
-                              (s-trim
-                               (downcase (replace-regexp-in-string "[^A-Za-z0-9 ]" " " title)))))
+    "Remove quotes, downcase everything, and replace characters
+  that aren't alphanumeric with hyphens."
+    (hrs/replace-whitespace-with-hyphens
+     (s-trim
+      (downcase
+       (hrs/replace-nonalphanumeric-with-whitespace
+        (hrs/remove-quotes title))))))
 
   (defun hrs/slug-for (title)
     "Given a blog post title, return a convenient URL slug.
