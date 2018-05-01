@@ -11,7 +11,7 @@ Style/Documentation:
   Enabled: false
 Style/EmptyMethod:
   Enabled: false
-Naming/VariableNumber:
+Style/VariableNumber:
   Enabled: false
 Layout/SpaceInsideStringInterpolation:
   Enabled: false
@@ -37,7 +37,7 @@ Layout/DotPosition:
   SupportedStyles:
   - leading
   - trailing
-Naming/FileName:
+Style/FileName:
   Description: Use snake_case for source file names.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#snake-case-files
   Enabled: false
@@ -70,7 +70,7 @@ Style/PercentLiteralDelimiters:
     "%w": "()"
     "%W": "()"
     "%x": "()"
-Naming/PredicateName:
+Style/PredicateName:
   Description: Check the names of predicate methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark
   Enabled: true
@@ -180,7 +180,7 @@ Lint/AssignmentInCondition:
 Style/InlineComment:
   Description: Avoid inline comments.
   Enabled: false
-Naming/AccessorMethodName:
+Style/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
 Style/Alias:
