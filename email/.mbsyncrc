@@ -43,45 +43,45 @@ Channel personal-sent
 Channel personal-archive
 
 ########################################
-# Work
+# Iterable
 ########################################
 
-IMAPAccount testdouble
+IMAPAccount iterable
 Host imap.gmail.com
-User harry.schwartz@testdouble.com
-PassCmd "~/.bin/netrc password imap.gmail.com"
+User harry@iterable.com
+PassCmd "~/.bin/netrc password iterable-imap-gmail"
 SSLType IMAPS
 CertificateFile ~/.mutt/ca-bundle.crt
 
-IMAPStore testdouble-remote
-Account testdouble
+IMAPStore iterable-remote
+Account iterable
 
-MaildirStore testdouble-local
-Path ~/.mail/testdouble/
-Inbox ~/.mail/testdouble/inbox
+MaildirStore iterable-local
+Path ~/.mail/iterable/
+Inbox ~/.mail/iterable/inbox
 
-Channel testdouble-inbox
-Master :testdouble-remote:INBOX
-Slave :testdouble-local:inbox
+Channel iterable-inbox
+Master :iterable-remote:INBOX
+Slave :iterable-local:inbox
 
-Channel testdouble-drafts
-Master :testdouble-remote:[Gmail]/Drafts
-Slave :testdouble-local:drafts
+Channel iterable-drafts
+Master :iterable-remote:[Gmail]/Drafts
+Slave :iterable-local:drafts
 
-Channel testdouble-sent
-Master ":testdouble-remote:[Gmail]/Sent Mail"
-Slave :testdouble-local:sent
+Channel iterable-sent
+Master ":iterable-remote:[Gmail]/Sent Mail"
+Slave :iterable-local:sent
 
-Channel testdouble-archive
-Master ":testdouble-remote:[Gmail]/All Mail"
-Slave :testdouble-local:archive
+Channel iterable-archive
+Master ":iterable-remote:[Gmail]/All Mail"
+Slave :iterable-local:archive
 
-Group testdouble
-Channel testdouble-inbox
-Channel testdouble-drafts
-Channel testdouble-sent
-Channel testdouble-archive
+Group iterable
+Channel iterable-inbox
+Channel iterable-drafts
+Channel iterable-sent
+Channel iterable-archive
 
 Group inboxes
 Channel personal-inbox
-Channel testdouble-inbox
+Channel iterable-inbox

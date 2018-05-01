@@ -1,0 +1,12 @@
+set from = "harry@iterable.com"
+set sendmail = "msmtp -a iterable"
+set spoolfile = "+iterable/inbox"
+set mbox = "+iterable/archive"
+set postponed = "+iterable/drafts"
+macro index gi "<change-folder>+iterable/inbox<enter>" "go to the INBOX"
+macro index gt "<change-folder>+personal/inbox<enter>" "next account"
+
+macro index d "s=iterable/archive\n" "archive message"
+macro pager d "s=iterable/archive\n" "archive message"
+
+set crypt_autosign = no
