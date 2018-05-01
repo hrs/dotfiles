@@ -14,5 +14,6 @@ gem install \
     netrc \
     rcodetools \
     reek \
+    rest-client \
     ricepaper \
     rubocop
