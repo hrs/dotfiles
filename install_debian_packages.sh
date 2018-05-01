@@ -1,0 +1,50 @@
+#!/bin/sh
+
+sudo apt install \
+     abook \
+     aptitude \
+     arandr \
+     build-essential \
+     curl \
+     emacs25 \
+     feh \
+     git \
+     gksu \
+     gnupg2 \
+     i3 \
+     imagemagick \
+     isync \
+     libnotify-bin \
+     make \
+     msmtp \
+     mutt \
+     notmuch \
+     notmuch-mutt \
+     openssl \
+     pandoc \
+     pass \
+     pasystray \
+     procmail \
+     pwgen \
+     python3-proselint \
+     redshift \
+     rlwrap \
+     rofi \
+     rxvt-unicode \
+     scrot \
+     silversearcher-ag \
+     stow \
+     sudo \
+     texlive-base \
+     texlive-fonts-recommended \
+     texlive-latex-base \
+     tree \
+     unclutter \
+     urlscan \
+     urlview \
+     vim \
+     w3m \
+     xbindkeys \
+     xcape \
+     xdotool \
+     xsel
