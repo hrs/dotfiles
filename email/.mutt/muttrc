@@ -1,7 +1,6 @@
 # Paths ----------------------------------------------
 
 set folder           = ~/.mail               # mailbox location
-set mailcap_path     = ~/.mutt/mailcap       # entries for filetypes
 set tmpdir           = ~/.mutt/temp          # where to keep temp files
 
 # Basic Options --------------------------------------
