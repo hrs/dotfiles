@@ -9,11 +9,4 @@
 username=$(netrc login "instapaper.com")
 password=$(netrc password "instapaper.com")
 
-# If the title is non-empty, set it
-if [ ${#2} -gt 0  ]; then
-  ricepaper -u $username -p $password -t "$2" "$1" > /dev/null &
-else
-  ricepaper -u $username -p $password "$1" > /dev/null &
-fi
-
-exit 0
+ricepaper -u $username -p $password "$1" > /dev/null &
