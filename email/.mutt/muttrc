@@ -60,7 +60,7 @@ bind index <space> collapse-thread
 bind pager k  previous-line
 bind pager j  next-line
 
-bind attach <return> view-mailcap # for attachments
+bind attach <return> view-mailcap
 macro pager \Cu "| urlscan<enter>" "call urlscan to open links"
 
 macro index O "<shell-escape>killall mbsync; mbsync personal iterable; notmuch new<enter>" "run mbsync to sync all mail"
@@ -80,7 +80,9 @@ set tilde                  # show tildes like in vim
 unset markers              # no ugly plus signs
 
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
-alternative_order text/plain text/enriched text/html
+alternative_order text/plain text/html
+unauto_view *
+auto_view text/html
 
 # Compose View Options -------------------------------
 

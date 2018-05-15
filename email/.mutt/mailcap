@@ -1,18 +1,19 @@
 # Images
-image/jpg; ~/.mutt/view_attachment.sh %s jpg
-image/jpeg; ~/.mutt/view_attachment.sh %s jpg
-image/pjpeg; ~/.mutt/view_attachment.sh %s jpg
-image/png; ~/.mutt/view_attachment.sh %s png
-image/gif; ~/.mutt/view_attachment.sh %s gif
+image/jpg; feh %s
+image/jpeg; feh %s
+image/pjpeg; feh %s
+image/png; feh %s
+image/gif; feh %s
 
 # PDFs
-application/pdf; ~/.mutt/view_attachment.sh %s pdf
+application/pdf; evince %s
 
 # HTML
+text/html; /usr/bin/firefox '%s'\; sleep 1; needsterminal;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
 # Plain text
-text/plain; ~/bin/em %s
+text/plain; ~/.bin/em %s
 
 # Unidentified files
-application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
+application/octet-stream; xdg-open %s
