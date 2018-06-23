@@ -17,9 +17,6 @@ export PROMPT_DIRTRIM=3
 
 source /etc/bash_completion.d/password-store
 
-# Configure OCaml environment
-eval `opam config env`
-
 source "/usr/local/share/chruby/chruby.sh"
 chruby 2.5.0
 
