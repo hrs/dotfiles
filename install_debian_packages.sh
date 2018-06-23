@@ -11,6 +11,7 @@ sudo apt install \
      git \
      gksu \
      gnupg2 \
+     htop \
      i3 \
      imagemagick \
      isync \
