@@ -3,5 +3,5 @@
 if [[ $(uname) == Darwin ]]; then
   open "$@"
 else
-  gnome-open "$@" &> /dev/null
+  xdg-open "$@" &> /dev/null
 fi
