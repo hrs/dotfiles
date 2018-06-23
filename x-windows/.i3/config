@@ -134,9 +134,21 @@ exec --no-startup-id feh --bg-tile ~/.wallpaper/light-linen.png
 # Invoke the Emacs daemon
 exec --no-startup-id emacs --daemon
 
+# Start the appropriate programs on the right workspaces
+exec --no-startup-id i3-msg 'workspace 1; exec firefox'
+exec --no-startup-id i3-msg 'workspace 2; exec "urxvt -e mutt"'
+
 # Configure the i3 bar
 bar {
+  i3bar_command "i3bar -t"
   status_command i3status
   font pango:Charter Regular 10
   position top
+
+  bindsym button4 nop
+  bindsym button5 nop
+
+  colors {
+    background #00002b36
+  }
 }
