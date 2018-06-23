@@ -5,6 +5,7 @@ sudo apt install \
      aptitude \
      arandr \
      build-essential \
+     compton \
      curl \
      emacs25 \
      feh \

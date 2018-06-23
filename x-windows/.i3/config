@@ -94,6 +94,9 @@ new_window 1pixel
 # Load up config in .Xresources (for DPI, urxvt, and rofi)
 exec xrdb -load ~/.Xresources
 
+# Start the Compton compositor (for i3bar transparency)
+exec --no-startup-id compton &
+
 # Use Caps Lock as an additional Control key
 exec setxkbmap -option ctrl:nocaps
 
