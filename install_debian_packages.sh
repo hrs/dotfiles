@@ -47,4 +47,5 @@ sudo apt install \
      xbindkeys \
      xcape \
      xdotool \
+     xfce4-power-manager \
      xsel

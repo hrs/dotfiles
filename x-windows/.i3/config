@@ -118,6 +118,10 @@ exec --no-startup-id redshift &
 # Start the PulseAudio system tray
 exec --no-startup-id pasystray &
 
+# Start the XFCE4 power manager
+# Improves power usage and issues low battery alerts, etc.
+exec --no-startup-id xfce4-power-manager &
+
 # Start up a GPG agent
 exec --no-startup-id eval $(gpg-agent --daemon)
 
