@@ -75,8 +75,8 @@ bindsym --release $mod+c exec scrot --select --exec 'mv $f ~/pictures/screenshot
 # Launch Telegram
 bindsym $mod+t exec ~/.local/share/TelegramDesktop/Telegram
 
-# Open a Nautilus file browser window
-bindsym $mod+n exec nautilus
+# Open a file browser window
+bindsym $mod+n exec pcmanfm
 
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
