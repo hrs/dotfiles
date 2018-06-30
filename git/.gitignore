@@ -13,3 +13,5 @@ emacs.d/projects.el
 *.iml
 .idea
 .clover
+.ensime
+.ensime_cache

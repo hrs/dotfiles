@@ -751,6 +751,29 @@ Indent with 2 spaces.
                     sh-indentation 2)))
 #+END_SRC
 
+** Scala
+
+Ensure that =scala-mode= and =sbt-mode= are installed.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package scala-mode)
+  (use-package sbt-mode)
+#+END_SRC
+
+Install =dumb-jump-mode= and enable it. This lets me jump to definitions with
+=C-M-g=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump)
+  (dumb-jump-mode)
+#+END_SRC
+
+Don't show the startup message with launching ENSIME:
+
+#+BEGIN_SRC emacs-lisp
+  (setq ensime-startup-notification nil)
+#+END_SRC
+
 ** Slim
 
 If I'm editing Slim templates I'm probably in a Rails project. In that case, I'd
