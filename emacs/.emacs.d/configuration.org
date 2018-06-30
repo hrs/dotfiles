@@ -1818,6 +1818,12 @@ buffers.
   (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 
+Use =M-/= for completion.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-/") 'company-complete-common)
+#+END_SRC
+
 ** Save my location within a file
 
 Using =save-place-mode= saves the location of point for every file I visit. If I
@@ -1981,7 +1987,6 @@ Just a few handy functions.
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-w") 'backward-kill-word)
-  (global-set-key (kbd "M-/") 'hippie-expand)
   (global-set-key (kbd "M-o") 'other-window)
 #+END_SRC
 
