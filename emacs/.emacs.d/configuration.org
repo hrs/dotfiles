@@ -1770,6 +1770,19 @@ Assume that I always want to kill the current buffer when hitting =C-x k=.
   (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
 #+END_SRC
 
+** Set up =helpful=
+
+The =helpful= package provides, among other things, more context in Help
+buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful)
+
+  (global-set-key (kbd "C-h f") #'helpful-callable)
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h k") #'helpful-key)
+#+END_SRC
+
 ** Look for executables in =/usr/local/bin=.
 
 #+BEGIN_SRC emacs-lisp
