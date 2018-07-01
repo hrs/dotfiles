@@ -4,6 +4,9 @@ font pango:Charter Regular 10
 # Use the win key as $mod
 set $mod Mod4
 
+# No giant floating windows
+floating_maximum_size 1000 x 1000
+
 ########################################
 # Bindings
 ########################################
