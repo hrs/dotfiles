@@ -13,10 +13,11 @@ alias ll="ls -l"
 alias ln="ln -v"
 alias ls="ls --color -h"
 alias mkdir="mkdir -p"
-alias myip="ifconfig wlan0 | grep 'inet ' | cut --delimiter=' ' -f12 | sed s/addr://"
+alias myip="ip address | grep inet.*wlan0 | cut -d' ' -f6 | sed \"s/\/24//g\""
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 alias rss="newsboat -q -u ~/documents/rss/urls"
+alias speedtest='echo "scale=2; `curl  --progress-bar -w "%{speed_download}" http://speedtest.wdc01.softlayer.com/downloads/test10.zip -o /dev/null` / 131072" | bc | xargs -I {} echo {} mbps'
 alias tree="tree -C" # add colors
 alias ut="tar xavf"
 
