@@ -43,6 +43,7 @@ sudo apt install \
      texlive-latex-base \
      tree \
      unclutter \
+     unifont \
      urlscan \
      urlview \
      vim \

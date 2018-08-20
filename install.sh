@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Install all the necessary Debian packages, especially `stow`.
+./install_debian_packages.sh
+
 stow bash
 stow emacs
 stow email

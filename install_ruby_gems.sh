@@ -12,6 +12,7 @@ gem install \
     bundle \
     fuzz \
     netrc \
+    os \
     rcodetools \
     reek \
     rest-client \
