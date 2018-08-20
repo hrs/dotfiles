@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Hide regular, untargeted unread messages.
+
+sudo mv \
+     /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-unread.png \
+     /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-unread-backup.png
+sudo cp \
+     /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-rest.png \
+     /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-unread.png
+
+# Hide direct alerts.
+
+# sudo mv \
+#      /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-highlight.png \
+#      /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-highlight-backup.png
+# sudo cp \
+#      /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-rest.png \
+#      /usr/lib/slack/resources/app.asar.unpacked/src/static/slack-taskbar-highlight.png
