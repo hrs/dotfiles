@@ -1588,11 +1588,12 @@ so these definitions are a lot of fun.
 ** Look up words in a thesaurus
 
 Synosaurus is hooked up to wordnet to provide access to a thesaurus. Hitting
-=C-c s= summons it.
+=C-x s= searches for synonyms.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default synosaurus-backend 'synosaurus-backend-wordnet)
   (add-hook 'after-init-hook #'synosaurus-mode)
+  (define-key global-map "\C-xs" 'synosaurus-lookup)
 #+END_SRC
 
 ** Editing with Markdown
@@ -1644,7 +1645,7 @@ around point to:
 - No spaces, or
 - The original spacing.
 
-Binding this to =M-SPC= it strictly better than the original binding of
+Binding this to =M-SPC= is strictly better than the original binding of
 =just-one-space=.
 
 #+BEGIN_SRC emacs-lisp
