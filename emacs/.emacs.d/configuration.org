@@ -980,7 +980,7 @@ Record the time that a todo was archived.
 
 Define a few common tasks as capture templates. Specifically, I frequently:
 
-- Record ideas for future blog posts in =~/documents/org/blog-ideas.org=,
+- Record ideas for future blog posts in =~/documents/notes/blog-ideas.org=,
 - Maintain a todo list in =~/documents/org/index.org=.
 - Convert emails into todos to maintain an empty inbox.
 
@@ -988,7 +988,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
   (setq org-capture-templates
         '(("b" "Blog idea"
            entry
-           (file (org-file-path "blog-ideas.org"))
+           (file ("~/documents/notes/blog-ideas.org"))
            "* %?\n")
 
           ("e" "Email" entry
