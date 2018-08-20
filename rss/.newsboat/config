@@ -2,14 +2,16 @@ show-read-articles no
 show-read-feeds no
 macro o open-in-browser ; toggle-article-read "read"
 
-auto-reload yes
+auto-reload no
 reload-time 5
 reload-threads 32
+download-retries 4
 
 cache-file "~/documents/rss/cache.db"
+max-items 10000
 
-player "op"
-browser "op"
+player "opbg"
+browser "opbg"
 external-url-viewer "urlscan"
 html-renderer "w3m -T text/html"
 pager internal
