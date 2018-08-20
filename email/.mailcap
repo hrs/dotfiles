@@ -16,4 +16,4 @@ text/html; w3m -I %{charset} -T text/html; copiousoutput;
 text/plain; ~/.bin/em %s;
 
 # Unidentified files
-application/octet-stream; xdg-open %s;
+application/octet-stream; xdg-open %s &;
