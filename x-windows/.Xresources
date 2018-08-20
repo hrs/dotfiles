@@ -27,6 +27,15 @@ URxvt*font: xft:Inconsolata:pixelsize=36
 URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
 ! Perl extensions
 URxvt.perl-ext-common: default,url-select,selection-to-clipboard,font-size
 URxvt.keysym.M-u: perl:url-select:select_next
