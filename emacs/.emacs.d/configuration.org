@@ -1690,14 +1690,19 @@ Use flycheck in the appropriate buffers:
   (put 'upcase-region 'disabled nil)
 #+END_SRC
 
-** Quickly explore my "notes" directory
+** Quickly explore my "notes" directory with =deft=
 
 #+BEGIN_SRC emacs-lisp
-  (defun hrs/visit-notes-directory ()
-    (interactive)
-    (ido-find-file-in-dir "~/documents/notes"))
+  (use-package deft
+    :bind ("C-c n" . deft)
+    :commands (deft)
+    :config
 
-  (global-set-key (kbd "C-c n") 'hrs/visit-notes-directory)
+    (setq deft-directory "~/documents/notes"
+          deft-recursive t
+          deft-use-filename-as-title t)
+
+    (evil-set-initial-state 'deft-mode 'emacs))
 #+END_SRC
 
 * =dired=
