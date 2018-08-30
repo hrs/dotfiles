@@ -743,22 +743,23 @@ Indent with 2 spaces.
 Ensure that =scala-mode= and =sbt-mode= are installed.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package scala-mode)
+  (use-package scala-mode
+    :interpreter
+    ("scala" . scala-mode))
   (use-package sbt-mode)
-#+END_SRC
-
-Install =dumb-jump-mode= and enable it. This lets me jump to definitions with
-=C-M-g=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dumb-jump)
-  (dumb-jump-mode)
 #+END_SRC
 
 Don't show the startup message with launching ENSIME:
 
 #+BEGIN_SRC emacs-lisp
   (setq ensime-startup-notification nil)
+#+END_SRC
+
+Bind a few keys to common operations:
+
+#+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal ensime-mode-map (kbd "C-t") 'ensime-type-at-point)
+  (evil-define-key 'normal ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
 #+END_SRC
 
 ** Slim
