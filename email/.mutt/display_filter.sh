@@ -18,8 +18,4 @@ else
 fi
 message=$(formail -f -I "Date: $local_date" < "$tmp_file")
 
-if echo "${message}" | fgrep --silent "From: Trello"; then
-  echo "${message}" | trelloparse | recode_html_entities | fold -s
-else
-  echo "${message}" | recode_html_entities | fold -s
-fi
+echo "${message}" | ~/.bin/reformat-email

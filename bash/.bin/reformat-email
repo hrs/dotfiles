@@ -1,0 +1,169 @@
+#!/usr/bin/env ruby
+
+require "date"
+
+class Email
+  HTML_ENTITIES = {
+    "&#39;" => "'",
+    "&gt;" => ">",
+    "&lt;" => "<",
+    "&copy;" => "(c)",
+  }
+
+  attr_reader :body, :from_header, :to_header, :cc, :subject, :date, :body
+
+  def initialize(from_header:, to_header:, cc:, subject:, date:, body:)
+    @from_header = from_header
+    @to_header = to_header
+    @cc = cc
+    @subject = subject
+    @date = date
+    @body = body
+  end
+
+  def format_header
+    [
+      format_header_line("From", from_header),
+      format_header_line("To", to_header),
+      format_header_line("CC", cc),
+      format_header_line("Subject", subject),
+      format_header_line("Date", date),
+    ].compact.join("\n")
+  end
+
+  def self.from_text(text)
+    header_lines, body = text.split("\n\n", 2)
+    unwrapped_header_lines = header_lines.gsub("\n\t", " ")
+
+    headers = unwrapped_header_lines.split("\n").reduce({}) { |hash, line|
+      key, value = line.split(":", 2)
+      hash[key] = value.strip
+      hash
+    }
+
+    new(
+      from_header: headers["From"],
+      to_header: headers["To"],
+      cc: headers["Cc"],
+      subject: headers["Subject"],
+      date: DateTime.parse(headers["Date"]),
+      body: body.strip,
+    )
+  end
+
+  private
+
+  attr_reader :headers
+
+  def self.recoded_html_entities(body)
+    HTML_ENTITIES.reduce(body) { |content, (html, ascii)|
+      content.gsub(html, ascii)
+    }
+  end
+
+  def format_header_line(key, value)
+    if value
+      "#{ key }: #{ value }"
+    end
+  end
+end
+
+class JiraFormatter
+  def initialize(email)
+    @email = email
+  end
+
+  def format
+    <<~EOS
+      #{ email.format_header }
+
+      #{ format_body }
+
+      ---
+      https://iterable.atlassian.net/browse/#{ issue }
+    EOS
+  end
+
+  private
+
+  attr_reader :email
+
+  def format_body
+    lines = email.body.lines.map(&:strip)
+    body = lines.select { |line|
+      !attachment?(line) && !jira_marketing?(line)
+    }.join("\n")
+
+    while body.include?("\n\n")
+      body = body.gsub("\n\n", "\n")
+    end
+
+    body.strip
+  end
+
+  def attachment?(line)
+    line =~ /^\e\]9;\d\d\d\d\d\d\d\d\d\d\a\[\-\- /
+  end
+
+  def jira_marketing?(line)
+    line.include?("Add Comment") ||
+      line.include?("Get Jira notifications on your phone!") ||
+      line.include?("or iOS") ||
+      line.include?("Atlassian logo") ||
+      line.include?("-SNAPSHOT#") ||
+      line == ")" ||
+      line == "*" ||
+      line =~ /^━+$/
+  end
+
+  def issue
+    email.body.match(/[A-Z][A-Z][A-Z][A-Z]-\d\d\d\d/)
+  end
+end
+
+class PlainFormatter
+  def initialize(email)
+    @email = email
+  end
+
+  def format
+    <<~EOS
+      #{ email.format_header }
+
+      #{ email.body }
+    EOS
+  end
+
+  private
+
+  attr_reader :email
+end
+
+class Formatter
+  def initialize(email)
+    @email = email
+  end
+
+  def format
+    formatter.new(email).format
+  end
+
+  private
+
+  attr_reader :email
+
+  def formatter
+    if from_jira?
+      JiraFormatter
+    else
+      PlainFormatter
+    end
+  end
+
+  def from_jira?
+    email.from_header =~ /jira@.*\.atlassian\.net/
+  end
+end
+
+email = Email.from_text($stdin.read)
+puts Formatter.new(email).format
