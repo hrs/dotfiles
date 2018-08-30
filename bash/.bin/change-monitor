@@ -44,3 +44,5 @@ chosen_configuration = Fuzz::Selector.new(
 ).pick
 
 chosen_configuration.exec
+
+system(File.expand_path("~/.bin/set-wallpaper"))

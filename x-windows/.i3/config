@@ -134,7 +134,7 @@ exec --no-startup-id pasystray &
 exec --no-startup-id eval $(gpg-agent --daemon)
 
 # Set the wallpaper
-exec --no-startup-id feh --bg-tile ~/.wallpaper/light-linen.png
+exec --no-startup-id ~/.bin/set-wallpaper
 
 # Invoke the Emacs daemon
 exec --no-startup-id emacs --daemon
