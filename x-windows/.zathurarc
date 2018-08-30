@@ -1,0 +1,3 @@
+set scroll-step 80
+
+set selection-clipboard clipboard

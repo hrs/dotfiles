@@ -6,7 +6,7 @@ image/png; feh %s;
 image/gif; ffplay %s;
 
 # PDFs
-application/pdf; evince %s;
+application/pdf; zathura %s;
 
 # HTML
 text/html; /usr/bin/firefox '%s'\; sleep 1; needsterminal;
