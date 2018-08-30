@@ -53,3 +53,9 @@ sudo apt install \
      xdotool \
      xsel \
      zathura
+
+# For tlp power management.
+sudo apt install \
+     acpi-call-dkms \
+     tlp \
+     tp-smapi-dkms
