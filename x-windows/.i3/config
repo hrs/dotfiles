@@ -91,7 +91,10 @@ bindsym $mod+p exec ~/.bin/rofi-pass
 bindsym $mod+s exec ~/bin/snippet.rb
 
 # Minimize window chrome: no title bar, narrow margins.
-new_window 1pixel
+for_window [class="^.*"] border pixel 0
+
+# Use i3-gaps.
+gaps inner 8
 
 ########################################
 # Startup applications
