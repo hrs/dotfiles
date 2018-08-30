@@ -9,6 +9,7 @@ download-retries 4
 
 cache-file "~/documents/rss/cache.db"
 max-items 10000
+delete-read-articles-on-quit yes
 
 player "opbg"
 browser "opbg"
