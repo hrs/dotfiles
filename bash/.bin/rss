@@ -1,0 +1,3 @@
+#!/bin/sh
+
+newsboat -q -u ~/documents/rss/urls
