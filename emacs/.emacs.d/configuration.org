@@ -198,20 +198,22 @@ Why not?
   (global-prettify-symbols-mode t)
 #+END_SRC
 
-** Custom solarized-dark theme
+** Load up a theme
 
-I like the solarized-dark theme. I prefer keeping all the characters in the same
-side and font, though.
+I'm currently using the "nord" theme. I've got a scenic wallpaper, so just a
+hint of transparency looks lovely and isn't distracting or hard to read.
 
 #+BEGIN_SRC emacs-lisp
-  (defun hrs/apply-solarized-theme ()
-    (setq solarized-use-variable-pitch nil)
-    (setq solarized-height-plus-1 1.0)
-    (setq solarized-height-plus-2 1.0)
-    (setq solarized-height-plus-3 1.0)
-    (setq solarized-height-plus-4 1.0)
-    (setq solarized-high-contrast-mode-line t)
-    (load-theme 'solarized-dark t))
+  (defun transparency (value)
+    "Sets the transparency of the frame window. 0=transparent/100=opaque."
+    (interactive "nTransparency Value 0 - 100 opaque:")
+    (set-frame-parameter (selected-frame) 'alpha value))
+
+  (defun hrs/apply-theme ()
+    "Apply the `nord' theme and make frames just slightly transparent."
+    (interactive)
+    (load-theme 'nord t)
+    (transparency 90))
 #+END_SRC
 
 If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
@@ -221,9 +223,18 @@ frame is themed appropriately.
   (if (daemonp)
       (add-hook 'after-make-frame-functions
                 (lambda (frame)
-                    (hrs/apply-solarized-theme)))
-    (hrs/apply-solarized-theme))
+                  (with-selected-frame frame (hrs/apply-theme))))
+    (hrs/apply-theme))
 #+END_SRC
+
+** Configure =powerline-evil=
+
+#+BEGIN_SRC emacs-lisp
+  (use-package powerline-evil
+    :ensure t
+    :config
+    (powerline-evil-center-color-theme))
+#+end_SRC
 
 ** Disable visual bell
 
@@ -259,7 +270,7 @@ Note that this overrides the default font-related keybindings from
 
 #+BEGIN_SRC emacs-lisp
   (setq hrs/default-font "Inconsolata")
-  (setq hrs/default-font-size 12)
+  (setq hrs/default-font-size 8)
   (setq hrs/current-font-size hrs/default-font-size)
 
   (setq hrs/font-change-increment 1.1)
