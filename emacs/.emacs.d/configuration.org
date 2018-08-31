@@ -324,8 +324,7 @@ containing point. It makes it a bit easier to find point, and it's useful when
 pairing or presenting code.
 
 #+BEGIN_SRC emacs-lisp
-  (when window-system
-    (global-hl-line-mode))
+  (global-hl-line-mode)
 #+END_SRC
 
 ** Hide certain modes from the modeline
