@@ -1176,13 +1176,13 @@ use for DVIs.
   (setq TeX-PDF-mode t)
 #+END_SRC
 
-Open compiled PDFs in =evince= instead of in the editor.
+Open compiled PDFs in =zathura= instead of in the editor.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook
         '(lambda ()
            (delete '("\\.pdf\\'" . default) org-file-apps)
-           (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+           (add-to-list 'org-file-apps '("\\.pdf\\'" . "zathura %s"))))
 #+END_SRC
 
 Enable a minor mode for dealing with math (it adds a few useful keybindings),
@@ -1724,7 +1724,7 @@ Open media with the appropriate programs.
   (use-package dired-open
     :config
     (setq dired-open-extensions
-          '(("pdf" . "evince")
+          '(("pdf" . "zathura")
             ("mkv" . "vlc")
             ("mp4" . "vlc")
             ("avi" . "vlc"))))
