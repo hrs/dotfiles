@@ -90,11 +90,21 @@ bindsym $mod+p exec ~/.bin/rofi-pass
 # Insert a snippet
 bindsym $mod+s exec ~/bin/snippet.rb
 
+########################################
+# Windows and workspaces
+########################################
+
 # Minimize window chrome: no title bar, narrow margins.
 for_window [class="^.*"] border pixel 0
 
 # Use i3-gaps.
-gaps inner 8
+gaps inner 4
+
+# Put the first four workspaces on the external monitor when it's available.
+workspace 1 output DP-2-1
+workspace 2 output DP-2-1
+workspace 3 output DP-2-1
+workspace 4 output DP-2-1
 
 ########################################
 # Startup applications
