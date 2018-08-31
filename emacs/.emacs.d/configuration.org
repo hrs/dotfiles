@@ -663,9 +663,19 @@ I use =chruby= to switch between versions of Ruby. This sets a default version
 to use within Emacs (for things like =xmp= or =rspec=).
 
 #+BEGIN_SRC emacs-lisp
+  (setq hrs/ruby-version "2.5.1")
+
   (use-package chruby
     :config
-    (chruby "2.5.1"))
+    (chruby hrs/ruby-version))
+#+END_SRC
+
+Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that
+that's included in the path. In particular, we want that directory to be
+included because it contains the =xmpfilter= executable, which is used below.
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
 #+END_SRC
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
