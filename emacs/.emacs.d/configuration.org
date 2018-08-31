@@ -173,8 +173,14 @@ I don't usually use the menu or scroll bar, and they take up useful space.
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode 0)
   (menu-bar-mode 0)
-  (when window-system
-    (scroll-bar-mode -1))
+  (scroll-bar-mode -1)
+#+END_SRC
+
+There's a tiny scroll bar that appears in the minibuffer window. This disables
+that:
+
+#+BEGIN_SRC emacs-lisp
+  (set-window-scroll-bars (minibuffer-window) nil nil)
 #+END_SRC
 
 The default frame title isn't useful. This binds it to the name of the current
