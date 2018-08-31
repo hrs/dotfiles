@@ -1,5 +1,5 @@
-# Use Charter Regular in container titles
-font pango:Charter Regular 10
+# Use San Francisco Display in container titles
+font pango:San Francisco Display 8
 
 # Use the win key as $mod
 set $mod Mod4
@@ -151,14 +151,14 @@ exec --no-startup-id emacs --daemon
 
 # Start the appropriate programs on the right workspaces
 exec --no-startup-id i3-msg 'workspace 1; exec firefox'
-exec --no-startup-id i3-msg 'workspace 2; exec "urxvt -e mutt"'
+exec --no-startup-id i3-msg 'workspace 2; exec "urxvt -e bash -c mutt"'
 
 # Configure the i3 bar
 bar {
   i3bar_command "i3bar -t"
   status_command i3status
 
-  font pango:Charter Regular 10
+  font pango:San Francisco Display 8
   position top
   tray_output primary
 
