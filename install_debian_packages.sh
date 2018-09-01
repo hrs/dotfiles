@@ -45,6 +45,7 @@ sudo apt install \
      tree \
      unclutter \
      unifont \
+     unrar \
      urlscan \
      urlview \
      vim \
