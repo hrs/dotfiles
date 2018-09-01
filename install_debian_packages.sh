@@ -12,6 +12,7 @@ sudo apt install \
      git \
      gksu \
      gnupg2 \
+     graphviz \
      htop \
      i3 \
      imagemagick \
