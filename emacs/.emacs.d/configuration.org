@@ -1017,7 +1017,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
   (setq org-capture-templates
         '(("b" "Blog idea"
            entry
-           (file ("~/documents/notes/blog-ideas.org"))
+           (file "~/documents/notes/blog-ideas.org")
            "* %?\n")
 
           ("e" "Email" entry
