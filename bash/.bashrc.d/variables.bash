@@ -1,5 +1,4 @@
 source $HOME/.bin/git-completion.sh
-source $HOME/.bin/npm-completion.sh
 
 export ALTERNATE_EDITOR=""
 export BROWSER="firefox"
