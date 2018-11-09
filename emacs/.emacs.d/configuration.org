@@ -100,6 +100,20 @@ Bind =C-p= to fuzzy-finding files in the current project.
   (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
 #+END_SRC
 
+Use =evil= with Org agendas.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-org
+    :ensure t
+    :after org
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+              (lambda () (evil-org-set-key-theme)))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+#+END_SRC
+
 * Utility functions
 
 Define a big ol' bunch of handy utility functions.
