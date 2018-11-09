@@ -1,24 +1,24 @@
 [
   {
     "name": "laptop",
-    "command": "xrandr --output DP-2-1 --off --output eDP-1 --primary --mode 2560x1440 --pos 0x0 --rotate normal"
+    "command": "xrandr --output DP2-1 --off --output eDP1 --primary --mode 2560x1440 --pos 0x0 --rotate normal"
   },
   {
     "name": "external (video, left)",
-    "command": "xrandr --output DP-2-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output eDP-1 --mode 2560x1440 --pos 1920x0 --rotate normal"
+    "command": "xrandr --output DP2-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output eDP1 --mode 2560x1440 --pos 1920x0 --rotate normal"
   },
   {
     "name": "external (text, left)",
-    "command": "xrandr --output DP-2-1 --primary --mode 1920x1080 --pos 0x0 --rotate right --output eDP-1 --mode 2560x1440 --pos 1080x0 --rotate normal"
+    "command": "xrandr --output DP2-1 --primary --mode 1920x1080 --pos 0x0 --rotate right --output eDP1 --mode 2560x1440 --pos 1080x0 --rotate normal"
   },
   {
 
     "name": "external (video, right)",
-    "command": "xrandr --output DP-2-1 --primary --mode 1920x1080 --pos 2560x0 --rotate normal --output eDP-1 --mode 2560x1440 --pos 0x0 --rotate normal"
+    "command": "xrandr --output DP2-1 --primary --mode 1920x1080 --pos 2560x0 --rotate normal --output eDP1 --mode 2560x1440 --pos 0x0 --rotate normal"
   },
   {
 
     "name": "external (text, right)",
-    "command": "xrandr --output DP-2-1 --primary --mode 1920x1080 --pos 2560x0 --rotate left --output eDP-1 --mode 2560x1440 --pos 0x0 --rotate normal"
+    "command": "xrandr --output DP2-1 --primary --mode 1920x1080 --pos 2560x0 --rotate left --output eDP1 --mode 2560x1440 --pos 0x0 --rotate normal"
   }
 ]

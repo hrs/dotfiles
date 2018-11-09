@@ -101,10 +101,10 @@ for_window [class="^.*"] border pixel 0
 gaps inner 4
 
 # Put the first four workspaces on the external monitor when it's available.
-workspace 1 output DP-2-1
-workspace 2 output DP-2-1
-workspace 3 output DP-2-1
-workspace 4 output DP-2-1
+workspace 1 output DP2-1
+workspace 2 output DP2-1
+workspace 3 output DP2-1
+workspace 4 output DP2-1
 
 ########################################
 # Startup applications
