@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Trigger `scrot`, which takes the screenshot, then move the screenshot to the
+# appropriate directory.
+scrot --select --exec 'mv $f ~/pictures/screenshots/.'
+
+# Copy the path to the newest screenshot into my clipboard for pasting.
+find ~/pictures/screenshots/* | tail -1 | xsel --clipboard --input

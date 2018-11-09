@@ -73,7 +73,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec "i3-msg exit"
 
 # Take a screenshot
-bindsym --release $mod+c exec scrot --select --exec 'mv $f ~/pictures/screenshots/.'
+bindsym --release $mod+c exec ~/.bin/screenshot
 
 # Launch Telegram
 bindsym $mod+t exec ~/.local/share/TelegramDesktop/Telegram
