@@ -6,11 +6,11 @@
 "xbacklight -inc 10"
   XF86MonBrightnessUp
 
-"amixer sset Master toggle"
+"amixer -D pulse sset Master toggle"
   XF86AudioMute
 
-"amixer sset Master 5%- unmute"
+"amixer -D pulse sset Master 5%- unmute"
   XF86AudioLowerVolume
 
-"amixer sset Master 5%+ unmute"
+"amixer -D pulse sset Master 5%+ unmute"
   XF86AudioRaiseVolume
