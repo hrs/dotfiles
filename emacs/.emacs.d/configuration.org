@@ -363,6 +363,7 @@ package.
   (diminish-minor-mode 'flycheck 'flycheck-mode)
   (diminish-minor-mode 'flyspell 'flyspell-mode)
   (diminish-minor-mode 'global-whitespace 'global-whitespace-mode)
+  (diminish-minor-mode 'org-indent 'org-indent-mode)
   (diminish-minor-mode 'projectile 'projectile-mode)
   (diminish-minor-mode 'ruby-end 'ruby-end-mode)
   (diminish-minor-mode 'subword 'subword-mode)
