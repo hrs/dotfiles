@@ -1,9 +1,0 @@
-#! /usr/bin/env ruby
-
-if ARGV.length != 3
-  puts "#{File.basename(__FILE__)} converts decimal triples into hex color codes."
-  puts "usage: #{File.basename(__FILE__)} RED GREEN BLUE"
-  puts "example:\n   $ #{File.basename(__FILE__)} 0 158 160     # => 009EA0"
-else
-  puts ARGV.map {|a| sprintf( "%02x", a.to_i ).upcase}.join
-end
