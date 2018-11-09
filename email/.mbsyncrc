@@ -42,46 +42,5 @@ Channel personal-drafts
 Channel personal-sent
 Channel personal-archive
 
-########################################
-# Iterable
-########################################
-
-IMAPAccount iterable
-Host imap.gmail.com
-User harry@iterable.com
-PassCmd "~/.bin/netrc password iterable-imap-gmail"
-SSLType IMAPS
-CertificateFile ~/.mutt/ca-bundle.crt
-
-IMAPStore iterable-remote
-Account iterable
-
-MaildirStore iterable-local
-Path ~/.mail/iterable/
-Inbox ~/.mail/iterable/inbox
-
-Channel iterable-inbox
-Master :iterable-remote:INBOX
-Slave :iterable-local:inbox
-
-Channel iterable-drafts
-Master :iterable-remote:[Gmail]/Drafts
-Slave :iterable-local:drafts
-
-Channel iterable-sent
-Master ":iterable-remote:[Gmail]/Sent Mail"
-Slave :iterable-local:sent
-
-Channel iterable-archive
-Master ":iterable-remote:[Gmail]/All Mail"
-Slave :iterable-local:archive
-
-Group iterable
-Channel iterable-inbox
-Channel iterable-drafts
-Channel iterable-sent
-Channel iterable-archive
-
 Group inboxes
 Channel personal-inbox
-Channel iterable-inbox
