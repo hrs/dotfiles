@@ -27,7 +27,7 @@ class Email
       format_header_line("To", to_header),
       format_header_line("CC", cc),
       format_header_line("Subject", subject),
-      format_header_line("Date", date),
+      format_header_line("Date", date.strftime("%-I:%M on %A, %b. %-d, %Y")),
     ].compact.join("\n")
   end
 
@@ -37,7 +37,7 @@ class Email
 
     headers = unwrapped_header_lines.split("\n").reduce({}) { |hash, line|
       key, value = line.split(":", 2)
-      hash[key] = value.strip
+      hash[key] = (value || "").strip
       hash
     }
 
@@ -47,7 +47,7 @@ class Email
       cc: headers["Cc"],
       subject: headers["Subject"],
       date: DateTime.parse(headers["Date"]),
-      body: body.strip,
+      body: (body || "").strip,
     )
   end
 
