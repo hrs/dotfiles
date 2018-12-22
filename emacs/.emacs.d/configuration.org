@@ -605,6 +605,13 @@ I'd like to start in the insert state when writing a commit message.
     (add-hook 'with-editor-mode-hook 'evil-insert-state))
 #+END_SRC
 
+I've been playing around with the newly-released =forge= for managing GitHub PRs
+and issues. Seems slick so far.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package forge)
+#+END_SRC
+
 ** Projectile
 
 Projectile's default binding of =projectile-ag= to =C-c p s s= is clunky enough

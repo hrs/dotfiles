@@ -43,3 +43,5 @@
   name = Harry R. Schwartz
   email = hello@harryrschwartz.com
   signingkey = 25AE721B
+[github]
+	user = hrs
