@@ -40,8 +40,6 @@
 [rebase]
   autosquash = true
 [user]
-  name = Harry Schwartz
+  name = Harry R. Schwartz
   email = hello@harryrschwartz.com
   signingkey = 25AE721B
-[includeIf "gitdir:~/code/testdouble/"]
-  path = .gitconfig-testdouble
