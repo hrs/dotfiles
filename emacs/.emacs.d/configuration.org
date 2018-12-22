@@ -1864,6 +1864,7 @@ buffers.
   (global-set-key (kbd "C-h f") #'helpful-callable)
   (global-set-key (kbd "C-h v") #'helpful-variable)
   (global-set-key (kbd "C-h k") #'helpful-key)
+  (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)
 #+END_SRC
 
 ** Look for executables in =/usr/local/bin=.
