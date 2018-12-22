@@ -821,6 +821,7 @@ If I'm editing Slim templates I'm probably in a Rails project. In that case, I'd
 like to still be able to run my tests from a Slim buffer.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package slim-mode)
   (add-hook 'slim-mode-hook 'rspec-mode)
 #+END_SRC
 
