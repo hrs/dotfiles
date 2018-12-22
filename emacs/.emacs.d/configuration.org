@@ -218,6 +218,8 @@ I'm currently using the "nord" theme. I've got a scenic wallpaper, so just a
 hint of transparency looks lovely and isn't distracting or hard to read.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package nord-theme)
+
   (defun transparency (value)
     "Sets the transparency of the frame window. 0=transparent/100=opaque."
     (interactive "nTransparency Value 0 - 100 opaque:")
