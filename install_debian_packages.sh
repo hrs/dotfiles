@@ -21,6 +21,7 @@ sudo apt install \
      make \
      msmtp \
      mutt \
+     newsboat \
      notmuch \
      notmuch-mutt \
      openssl \
