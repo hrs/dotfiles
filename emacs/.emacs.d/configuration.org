@@ -473,6 +473,18 @@ Don't compile the current SCSS file every time I save.
     (setq scss-compile-at-save nil))
 #+END_SRC
 
+** =dumb-jump=
+
+The =dumb-jump= package works well enough in a ton of environments, and it
+doesn't require any additional setup. I've bound it's most useful command to
+=M-.=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump)
+  (define-key evil-normal-state-map (kbd "M-.") 'dumb-jump-go)
+  (setq dumb-jump-selector 'ivy)
+#+END_SRC
+
 ** Golang
 
 Define my =$GOPATH= and tell Emacs where to find the Go binaries.
