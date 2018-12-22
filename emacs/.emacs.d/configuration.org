@@ -94,12 +94,6 @@ Enable =surround= everywhere.
   (global-evil-surround-mode 1)
 #+END_SRC
 
-Bind =C-p= to fuzzy-finding files in the current project.
-
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-#+END_SRC
-
 Use =evil= with Org agendas.
 
 #+BEGIN_SRC emacs-lisp
@@ -626,6 +620,15 @@ easier-to-type =C-c C-v= and =C-c v= to useful searches.
 
   (global-set-key (kbd "C-c v") 'projectile-ag)
   (global-set-key (kbd "C-c C-v") 'hrs/search-project-for-symbol-at-point)
+#+END_SRC
+
+Bind =C-p= to fuzzy-finding files in the current project. We also need to
+explicitly set that in a few other modes.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+  (evil-define-key motion ag-mode-map (kbd "C-p") 'projectile-find-file)
+  (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
 #+END_SRC
 
 When I visit a project with =projectile-switch-project=, the default action is
