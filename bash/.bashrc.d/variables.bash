@@ -17,7 +17,7 @@ export PROMPT_DIRTRIM=3
 source /etc/bash_completion.d/password-store
 
 source "/usr/local/share/chruby/chruby.sh"
-chruby 2.5.1
+chruby 2.5.3
 
 ### local config settings, if any
 

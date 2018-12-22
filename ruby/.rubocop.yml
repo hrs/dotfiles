@@ -3,19 +3,36 @@ AllCops:
     - "vendor/**/*"
     - "db/schema.rb"
   UseCache: false
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+Layout/ElseAlignment:
+  Enabled: false
+Naming/UncommunicativeMethodParamName:
+  Enabled: true
+  AllowedNames: [_]
+Style/RegexpLiteral:
+  AllowInnerSlashes: true
 Style/BlockDelimiters:
   Enabled: false
 Style/WhileUntilModifier:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: required
 Style/EmptyMethod:
   Enabled: false
-Style/VariableNumber:
+Naming/VariableNumber:
   Enabled: false
 Layout/SpaceInsideStringInterpolation:
   Enabled: false
-Style/TrailingCommaInLiteral:
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: start_of_line
+Style/NegatedWhile:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
@@ -37,7 +54,7 @@ Layout/DotPosition:
   SupportedStyles:
   - leading
   - trailing
-Style/FileName:
+Naming/FileName:
   Description: Use snake_case for source file names.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#snake-case-files
   Enabled: false
@@ -70,7 +87,7 @@ Style/PercentLiteralDelimiters:
     "%w": "()"
     "%W": "()"
     "%x": "()"
-Style/PredicateName:
+Naming/PredicateName:
   Description: Check the names of predicate methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark
   Enabled: true
@@ -126,13 +143,7 @@ Style/StringLiterals:
   - single_quotes
   - double_quotes
 Style/StringLiteralsInInterpolation:
-  Description: Checks if uses of quotes inside expressions in interpolated strings
-    match the configured preference.
-  Enabled: true
-  EnforcedStyle: single_quotes
-  SupportedStyles:
-  - single_quotes
-  - double_quotes
+  Enabled: false
 Style/TrailingCommaInArguments:
   Enabled: false
 Metrics/AbcSize:
@@ -167,6 +178,8 @@ Metrics/ParameterLists:
   Enabled: false
   Max: 5
   CountKeywordArgs: true
+Style/WordArray:
+  EnforcedStyle: brackets
 Metrics/PerceivedComplexity:
   Description: A complexity metric geared towards measuring complexity for a human
     reader.
@@ -180,7 +193,7 @@ Lint/AssignmentInCondition:
 Style/InlineComment:
   Description: Avoid inline comments.
   Enabled: false
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
 Style/Alias:
