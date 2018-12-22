@@ -128,6 +128,9 @@ exec --no-startup-id xbindkeys &
 # Start up the Dropbox client
 exec --no-startup-id dropbox start
 
+# Start up the NextCloud client
+exec --no-startup-id nextcloud &
+
 # Hide the mouse cursor after a second
 exec --no-startup-id unclutter -idle 1 -noevents &
 
