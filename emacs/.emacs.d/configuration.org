@@ -465,6 +465,7 @@ I've been playing around with the newly-released =forge= for managing GitHub PRs
 and issues. Seems slick so far.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package ghub)
   (use-package forge)
 #+END_SRC
 
