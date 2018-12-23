@@ -85,12 +85,14 @@ frustrating.
 Use =evil=.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package evil)
   (evil-mode 1)
 #+END_SRC
 
 Enable =surround= everywhere.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package evil-surround)
   (global-evil-surround-mode 1)
 #+END_SRC
 
@@ -344,6 +346,8 @@ either hides or "renames" a variety of major or minor modes using the =diminish=
 package.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package diminish)
+
   (defmacro diminish-minor-mode (filename mode &optional abbrev)
     `(eval-after-load (symbol-name ,filename)
        '(diminish ,mode ,abbrev)))
@@ -388,198 +392,42 @@ programming.
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 #+END_SRC
 
-* Programming environments
+* Project management
 
-I like shallow indentation, but tabs are displayed as 8 characters by default.
-This reduces that.
+I use a few packages in virtually every programming or writing environment to
+manage the project, handle auto-completion, search for terms, and deal with
+version control. That's all in here.
 
-#+BEGIN_SRC emacs-lisp
-  (setq-default tab-width 2)
-#+END_SRC
+** =ag=
 
-Treating terms in CamelCase symbols as separate words makes editing a little
-easier for me, so I like to use =subword-mode= everywhere.
+Set up =ag= for displaying search results.
 
 #+BEGIN_SRC emacs-lisp
-  (global-subword-mode 1)
+  (use-package ag)
 #+END_SRC
 
-Compilation output goes to the =*compilation*= buffer. I rarely have that window
-selected, so the compilation output disappears past the bottom of the window.
-This automatically scrolls the compilation window so I can always see the
-output.
+** =company=
+
+Use =company-mode= everywhere.
 
 #+BEGIN_SRC emacs-lisp
-  (setq compilation-scroll-output t)
+  (use-package company)
+  (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 
-** Coq
-
-Use =company-coq-mode=, which really helps make Proof General a more useful IDE.
-
-I bind the right and left arrow keys to evaluating and retracting the next and
-previous statements. This is more convenient than the default bindings of =C-c
-C-n= and =C-c C-u=.
-
-I also like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
-they've always been unpleasant surprises for me.
+Use =M-/= for completion.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'coq-mode-hook
-            (lambda ()
-              (company-coq-mode)
-              (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
-              (evil-define-key 'normal coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command)
-              (evil-define-key 'normal coq-mode-map (kbd "<return>") 'company-coq-proof-goto-point)
-              (abbrev-mode 0)))
+  (global-set-key (kbd "M-/") 'company-complete-common)
 #+END_SRC
 
-The default Proof General layout stacks the code, goal, and response buffers on
-top of each other. I like to keep my code on one side and my goal and response
-buffers on the other.
+** =flycheck=
 
-#+BEGIN_SRC emacs-lisp
-  (setq proof-three-window-mode-policy 'hybrid)
-#+END_SRC
+ #+BEGIN_SRC emacs-lisp
+   (use-package flycheck)
+ #+END_SRC
 
-Don't move point when asserting and undoing proof commands.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-follow-mode 'ignore)
-#+END_SRC
-
-The Proof General splash screen's pretty cute, but I don't need to see it every
-time.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-splash-enable nil)
-#+END_SRC
-
-** CSS and Sass
-
-Indent by 2 spaces.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package css-mode
-    :config
-    (setq css-indent-offset 2))
-#+END_SRC
-
-Don't compile the current SCSS file every time I save.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package scss-mode
-    :config
-    (setq scss-compile-at-save nil))
-#+END_SRC
-
-** =dumb-jump=
-
-The =dumb-jump= package works well enough in a ton of environments, and it
-doesn't require any additional setup. I've bound it's most useful command to
-=M-.=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dumb-jump)
-  (define-key evil-normal-state-map (kbd "M-.") 'dumb-jump-go)
-  (setq dumb-jump-selector 'ivy)
-#+END_SRC
-
-** Golang
-
-Define my =$GOPATH= and tell Emacs where to find the Go binaries.
-
-#+BEGIN_SRC emacs-lisp
-  (setenv "GOPATH" "/home/hrs/code/go")
-  (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
-#+END_SRC
-
-Run =goimports= on every file when saving, which formats the file and
-automatically updates the list of imports. This requires that the =goimports=
-binary is installed.
-
-#+BEGIN_SRC emacs-lisp
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-#+END_SRC
-
-When I open a Go file,
-
-- Start up =company-mode= with the Go backend. This requires that the =gocode=
-  binary is installed,
-- Redefine the default =compile= command to something Go-specific, and
-- Enable =flycheck=.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'go-mode-hook
-            (lambda ()
-              (set (make-local-variable 'company-backends)
-                   '(company-go))
-              (company-mode)
-              (if (not (string-match "go" compile-command))
-                  (set (make-local-variable 'compile-command)
-                       "go build -v && go test -v && go vet"))
-              (flycheck-mode)))
-#+END_SRC
-
-** Haskell
-
-Enable =haskell-doc-mode=, which displays the type signature of a function, and
-use smart indentation.
-
-#+BEGIN_SRC emacs-lisp
-  (hrs/append-to-path "~/.cabal/bin")
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'haskell-mode-hook
-            (lambda ()
-              (haskell-doc-mode)
-              (turn-on-haskell-indent)))
-#+END_SRC
-
-** JavaScript and CoffeeScript
-
-Indent everything by 2 spaces.
-
-#+BEGIN_SRC emacs-lisp
-  (setq js-indent-level 2)
-
-  (add-hook 'coffee-mode-hook
-            (lambda ()
-              (yas-minor-mode 1)
-              (setq coffee-tab-width 2)))
-#+END_SRC
-
-** Lisps
-
-All the lisps have some shared features, so we want to do the same things for
-all of them. That includes using =paredit-mode= to balance parentheses (and
-more!), =rainbow-delimiters= to color matching parentheses, and highlighting the
-whole expression when point is on a paren.
-
-#+BEGIN_SRC emacs-lisp
-  (setq lispy-mode-hooks
-        '(clojure-mode-hook
-          emacs-lisp-mode-hook
-          lisp-mode-hook
-          scheme-mode-hook))
-
-  (dolist (hook lispy-mode-hooks)
-    (add-hook hook (lambda ()
-                     (setq show-paren-style 'expression)
-                     (paredit-mode)
-                     (rainbow-delimiters-mode))))
-#+END_SRC
-
-If I'm writing in Emacs lisp I'd like to use =eldoc-mode= to display
-documentation.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
-#+END_SRC
-
-** Magit
+** =magit=
 
 I bring up the status menu with =C-x g=.
 
@@ -601,10 +449,12 @@ I'd like to start in the insert state when writing a commit message.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :bind ("C-x g" . magit-status)
+    :bind
+    ("C-x g" . magit-status)
 
     :config
     (use-package evil-magit)
+    (use-package with-editor)
     (setq magit-push-always-verify nil)
     (setq git-commit-summary-max-length 50)
     (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
@@ -618,7 +468,13 @@ and issues. Seems slick so far.
   (use-package forge)
 #+END_SRC
 
-** Projectile
+** =projectile=
+
+Ensure that Projectile is installed.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile)
+#+END_SRC
 
 Projectile's default binding of =projectile-ag= to =C-c p s s= is clunky enough
 that I rarely use it (and forget it when I need it). This binds the
@@ -659,42 +515,306 @@ project root (if I'm not in a "real" project).
   (setq projectile-require-project-root nil)
 #+END_SRC
 
+** =undo-tree=
+
+I like tree-based undo management. I only rarely need it, but when I do, oh boy.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree)
+#+END_SRC
+
+* Programming environments
+
+I like shallow indentation, but tabs are displayed as 8 characters by default.
+This reduces that.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default tab-width 2)
+#+END_SRC
+
+Treating terms in CamelCase symbols as separate words makes editing a little
+easier for me, so I like to use =subword-mode= everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (global-subword-mode 1)
+#+END_SRC
+
+Compilation output goes to the =*compilation*= buffer. I rarely have that window
+selected, so the compilation output disappears past the bottom of the window.
+This automatically scrolls the compilation window so I can always see the
+output.
+
+#+BEGIN_SRC emacs-lisp
+  (setq compilation-scroll-output t)
+#+END_SRC
+
+** Coq
+
+I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-coq)
+#+END_SRC
+
+I bind the right and left arrow keys to evaluating and retracting the next and
+previous statements. This is more convenient than the default bindings of =C-c
+C-n= and =C-c C-u=.
+
+I also like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
+they've always been unpleasant surprises for me.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'coq-mode-hook
+            (lambda ()
+              (company-coq-mode)
+              (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
+              (evil-define-key 'normal coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command)
+              (evil-define-key 'normal coq-mode-map (kbd "<return>") 'company-coq-proof-goto-point)
+              (abbrev-mode 0)))
+#+END_SRC
+
+The default Proof General layout stacks the code, goal, and response buffers on
+top of each other. I like to keep my code on one side and my goal and response
+buffers on the other.
+
+#+BEGIN_SRC emacs-lisp
+  (setq proof-three-window-mode-policy 'hybrid)
+#+END_SRC
+
+Don't move point when asserting and undoing proof commands.
+
+#+BEGIN_SRC emacs-lisp
+  (setq proof-follow-mode 'ignore)
+#+END_SRC
+
+The Proof General splash screen's pretty cute, but I don't need to see it every
+time.
+
+#+BEGIN_SRC emacs-lisp
+  (setq proof-splash-enable nil)
+#+END_SRC
+
+** CSS, Sass, and Less
+
+Indent by 2 spaces.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package css-mode
+    :config
+    (setq css-indent-offset 2))
+#+END_SRC
+
+Don't compile the current SCSS file every time I save.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package scss-mode
+    :config
+    (setq scss-compile-at-save nil))
+#+END_SRC
+
+Install Less.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package less-css-mode)
+#+END_SRC
+
+** =dumb-jump=
+
+The =dumb-jump= package works well enough in a ton of environments, and it
+doesn't require any additional setup. I've bound it's most useful command to
+=M-.=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump)
+  (define-key evil-normal-state-map (kbd "M-.") 'dumb-jump-go)
+  (setq dumb-jump-selector 'ivy)
+#+END_SRC
+
+** Golang
+
+Install =go-mode= and related packages:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode)
+  (use-package go-errcheck)
+  (use-package company-go)
+#+END_SRC
+
+Define my =$GOPATH= and tell Emacs where to find the Go binaries.
+
+#+BEGIN_SRC emacs-lisp
+  (setenv "GOPATH" "/home/hrs/code/go")
+  (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
+#+END_SRC
+
+Run =goimports= on every file when saving, which formats the file and
+automatically updates the list of imports. This requires that the =goimports=
+binary be installed.
+
+#+BEGIN_SRC emacs-lisp
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+#+END_SRC
+
+When I open a Go file,
+
+- Start up =company-mode= with the Go backend. This requires that the =gocode=
+  binary is installed,
+- Redefine the default =compile= command to something Go-specific, and
+- Enable =flycheck=.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends)
+                   '(company-go))
+              (company-mode)
+              (if (not (string-match "go" compile-command))
+                  (set (make-local-variable 'compile-command)
+                       "go build -v && go test -v && go vet"))
+              (flycheck-mode)))
+#+END_SRC
+
+** Haml and Slim
+
+Install the Haml and Slim packages.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package haml-mode)
+  (use-package slim-mode)
+#+END_SRC
+
+If I'm editing Haml or Slim templates I'm probably in a Rails project. In that
+case, I'd like to still be able to run my tests from the appropriate buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'slim-mode-hook 'rspec-mode)
+  (add-hook 'haml-mode-hook 'rspec-mode)
+#+END_SRC
+
+** Haskell
+
+#+BEGIN_SRC emacs-lisp
+  (use-package haskell-mode)
+#+END_SRC
+
+Enable =haskell-doc-mode=, which displays the type signature of a function, and
+use smart indentation.
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/append-to-path "~/.cabal/bin")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'haskell-mode-hook
+            (lambda ()
+              (haskell-doc-mode)
+              (turn-on-haskell-indent)))
+#+END_SRC
+
+** JavaScript and CoffeeScript
+
+Install =coffee-mode= from editing CoffeeScript code.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package coffee-mode)
+#+END_SRC
+
+Indent everything by 2 spaces.
+
+#+BEGIN_SRC emacs-lisp
+  (setq js-indent-level 2)
+
+  (add-hook 'coffee-mode-hook
+            (lambda ()
+              (yas-minor-mode 1)
+              (setq coffee-tab-width 2)))
+#+END_SRC
+
+** Lisps
+
+All the lisps have some shared features, so we want to do the same things for
+all of them. That includes using =paredit-mode= to balance parentheses (and
+more!), =rainbow-delimiters= to color matching parentheses, and highlighting the
+whole expression when point is on a paren.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters)
+
+  (setq lispy-mode-hooks
+        '(clojure-mode-hook
+          emacs-lisp-mode-hook
+          lisp-mode-hook
+          scheme-mode-hook))
+
+  (dolist (hook lispy-mode-hooks)
+    (add-hook hook (lambda ()
+                     (setq show-paren-style 'expression)
+                     (paredit-mode)
+                     (rainbow-delimiters-mode))))
+#+END_SRC
+
+If I'm writing in Emacs lisp I'd like to use =eldoc-mode= to display
+documentation.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+#+END_SRC
+
+I also like using =flycheck-package= to ensure that my Elisp packages are
+correctly formatted.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-package)
+
+  (eval-after-load 'flycheck
+    '(flycheck-package-setup))
+#+END_SRC
+
 ** Python
 
-Add =~/.local/bin= to load path. That's where =virtualenv= is installed, and
-we'll need that for =jedi=.
+   #+BEGIN_SRC emacs-lisp
+     (use-package python-mode)
+   #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (hrs/append-to-path "~/.local/bin")
-#+END_SRC
+   Add =~/.local/bin= to load path. That's where =virtualenv= is installed, and
+   we'll need that for =jedi=.
 
-Enable =elpy=. This provides automatic indentation, auto-completion, syntax
-checking, etc.
+   #+BEGIN_SRC emacs-lisp
+     (hrs/append-to-path "~/.local/bin")
+   #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (elpy-enable)
-#+END_SRC
+   Enable =elpy=. This provides automatic indentation, auto-completion, syntax
+   checking, etc.
 
-Use =flycheck= for syntax checking:
+   #+BEGIN_SRC emacs-lisp
+     (use-package elpy)
+     (elpy-enable)
+   #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'elpy-mode-hook 'flycheck-mode)
-#+END_SRC
+   Use =flycheck= for syntax checking:
 
-Format code according to PEP8 on save:
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'elpy-mode-hook 'flycheck-mode)
+   #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (require 'py-autopep8)
-  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-#+END_SRC
+   Format code according to PEP8 on save:
 
-Configure Jedi
+   #+BEGIN_SRC emacs-lisp
+     (use-package py-autopep8)
+     (require 'py-autopep8)
+     (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+   #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'company-backends 'company-jedi)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
-#+END_SRC
+   Configure Jedi along with the associated =company= mode:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package company-jedi)
+     (add-to-list 'company-backends 'company-jedi)
+
+     (add-hook 'python-mode-hook 'jedi:setup)
+     (setq jedi:complete-on-dot t)
+   #+END_SRC
 
 ** Ruby and RSpec
 
@@ -717,11 +837,18 @@ included because it contains the =xmpfilter= executable, which is used below.
   (hrs/append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
 #+END_SRC
 
+Running tests from within Emacs is awfully convenient.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rspec-mode)
+#+END_SRC
+
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
 the results in "magic" (=# =>=) comments.
 
-I disable warnings in Ruby because I disagree with a few of them (complaining
-about private =attr_reader=, especially) and they gunk up my buffer.
+I disable warnings when running code through =xmp= because I disagree with a few
+of them (complaining about private =attr_reader=, especially) and they gunk up
+my buffer.
 
 #+BEGIN_SRC emacs-lisp
   (setq xmpfilter-command-name
@@ -745,6 +872,27 @@ match the beginning of the statement instead of indenting it all the way to the
   (setq ruby-align-to-stmt-keywords '(def if))
 #+END_SRC
 
+Ruby method comments are often formatted with Yard.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yard-mode)
+#+END_SRC
+
+Insert =end= keywords automatically when I start to define a method, class,
+module, or block.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ruby-end)
+#+END_SRC
+
+Install and enable =projectile-rails= mode in all Rail-related buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile-rails
+    :config
+    (projectile-rails-global-mode))
+#+END_SRC
+
 There are a bunch of things I'd like to do when I open a Ruby buffer:
 
 - I don't want to insert an encoding comment.
@@ -765,8 +913,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
               (local-set-key "\r" 'newline-and-indent)
               (setq rspec-command-options "--color --order random")
               (chruby-use-corresponding)
-              (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)
-              (projectile-rails-mode)))
+              (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
 #+END_SRC
 
 I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
@@ -827,17 +974,11 @@ Bind a few keys to common operations:
   (evil-define-key 'normal ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
 #+END_SRC
 
-** Slim
-
-If I'm editing Slim templates I'm probably in a Rails project. In that case, I'd
-like to still be able to run my tests from a Slim buffer.
+** =web-mode=
 
 #+BEGIN_SRC emacs-lisp
-  (use-package slim-mode)
-  (add-hook 'slim-mode-hook 'rspec-mode)
+  (use-package web-mode)
 #+END_SRC
-
-** =web-mode=
 
 If I'm in =web-mode=, I'd like to:
 
@@ -866,6 +1007,10 @@ Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
 
 ** YAML
 
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode)
+#+END_SRC
+
 If I'm editing YAML I'm usually in a Rails project. I'd like to be able to run
 the tests from any buffer.
 
@@ -878,6 +1023,7 @@ the tests from any buffer.
 I use =multi-term= to manage my shell sessions. It's bound to =C-c t=.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package multi-term)
   (global-set-key (kbd "C-c t") 'multi-term)
 #+END_SRC
 
@@ -1132,6 +1278,8 @@ Allow export to markdown and beamer (for presentations).
 Allow =babel= to evaluate Emacs lisp, Ruby, dot, or Gnuplot code.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package gnuplot)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -1149,6 +1297,7 @@ Don't ask before evaluating code blocks.
 Associate the "dot" language with the =graphviz-dot= major mode.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package graphviz-dot-mode)
   (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
 #+END_SRC
 
@@ -1252,6 +1401,7 @@ I sometimes use [[https://instapaper.com][Instapaper]] to store articles I want 
 =instapaper.el= library sends my URLs there.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package instapaper)
   (require 'instapaper)
 
   (setq instapaper-username (netrc-username "instapaper.com")
@@ -1390,6 +1540,7 @@ Use the =evil= bindings for navigation. They're very similar to the =mutt=
 bindings, which matches my muscle memory nicely. =)
 
 #+BEGIN_SRC emacs-lisp
+  (use-package evil-mu4e)
   (require 'evil-mu4e)
 #+END_SRC
 
@@ -1591,6 +1742,7 @@ instead of the search that resulted in that view.
 Use BBDB to handle my address book.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package bbdb)
   (require 'bbdb-mu4e)
 #+END_SRC
 
@@ -1645,6 +1797,7 @@ Synosaurus is hooked up to wordnet to provide access to a thesaurus. Hitting
 =C-x s= searches for synonyms.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package synosaurus)
   (setq-default synosaurus-backend 'synosaurus-backend-wordnet)
   (add-hook 'after-init-hook #'synosaurus-mode)
   (define-key global-map "\C-xs" 'synosaurus-lookup)
@@ -1867,22 +2020,10 @@ buffers.
   (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)
 #+END_SRC
 
-** Look for executables in =/usr/local/bin=.
+** Look for executables in =/usr/local/bin=
 
 #+BEGIN_SRC emacs-lisp
   (hrs/append-to-path "/usr/local/bin")
-#+END_SRC
-
-** Use =company-mode= everywhere
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook 'global-company-mode)
-#+END_SRC
-
-Use =M-/= for completion.
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "M-/") 'company-complete-common)
 #+END_SRC
 
 ** Save my location within a file
@@ -1917,6 +2058,10 @@ really helpful for some modes (like =projectile=, for example).
 
 ** Configure yasnippet
 
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet)
+#+END_SRC
+
 I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippet=
 enabled.
 
@@ -1936,6 +2081,10 @@ at the correct indentation for Python).
 ** Configure =ido=
 
 #+BEGIN_SRC emacs-lisp
+  (use-package flx-ido)
+  (use-package ido-completing-read+)
+  (use-package ido-vertical-mode)
+
   (setq ido-enable-flex-matching t)
   (setq ido-everywhere t)
   (ido-mode 1)
@@ -1948,6 +2097,7 @@ at the correct indentation for Python).
 ** Use =smex= to handle =M-x= with =ido=
 
 #+BEGIN_SRC emacs-lisp
+  (use-package smex)
   (smex-initialize)
 
   (global-set-key (kbd "M-x") 'smex)
@@ -1985,6 +2135,8 @@ in =dired=. These keybindings allow me to use =C-x C-q= to start editing =grep=
 results and =C-c C-c= to stop, just like in =dired=.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package wgrep)
+
   (eval-after-load 'grep
     '(define-key grep-mode-map
       (kbd "C-x C-q") 'wgrep-change-to-wgrep-mode))
@@ -2007,6 +2159,7 @@ results and =C-c C-c= to stop, just like in =dired=.
 Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few useful engines.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package engine-mode)
   (require 'engine-mode)
 
   (defengine duckduckgo
