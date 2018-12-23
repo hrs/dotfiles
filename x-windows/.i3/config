@@ -154,7 +154,6 @@ exec --no-startup-id emacs --daemon
 
 # Start the appropriate programs on the right workspaces
 exec --no-startup-id i3-msg 'workspace 1; exec firefox'
-exec --no-startup-id i3-msg 'workspace 2; exec "urxvt -e bash -c mutt"'
 
 # Configure the i3 bar
 bar {
