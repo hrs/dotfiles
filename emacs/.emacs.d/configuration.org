@@ -45,9 +45,9 @@ Always compile packages, and use the newest version available.
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Harry R. Schwartz"
         user-mail-address "hello@harryrschwartz.com"
-        calendar-latitude 37.4
-        calendar-longitude -122.1
-        calendar-location-name "Mountain View, CA")
+        calendar-latitude 40.00
+        calendar-longitude -105.16
+        calendar-location-name "Boulder, CO")
 #+END_SRC
 
 ** Access my netrc data
