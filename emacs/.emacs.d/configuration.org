@@ -484,49 +484,37 @@ and issues. Seems slick so far.
 
 ** =projectile=
 
-Ensure that Projectile is installed.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile)
-#+END_SRC
-
 Projectile's default binding of =projectile-ag= to =C-c p s s= is clunky enough
-that I rarely use it (and forget it when I need it). This binds the
-easier-to-type =C-c C-v= and =C-c v= to useful searches.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/search-project-for-symbol-at-point ()
-    "Use `projectile-ag' to search the current project for `symbol-at-point'."
-    (interactive)
-    (projectile-ag (projectile-symbol-at-point)))
-
-  (global-set-key (kbd "C-c v") 'projectile-ag)
-  (global-set-key (kbd "C-c C-v") 'hrs/search-project-for-symbol-at-point)
-#+END_SRC
+that I rarely use it (and forget it when I need it). This binds it to the
+easier-to-type =C-c v= to useful searches.
 
 Bind =C-p= to fuzzy-finding files in the current project. We also need to
 explicitly set that in a few other modes.
 
-#+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-  (evil-define-key motion ag-mode-map (kbd "C-p") 'projectile-find-file)
-  (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
-#+END_SRC
+I use =ivy= as my completion system.
 
 When I visit a project with =projectile-switch-project=, the default action is
 to search for a file in that project. I'd rather just open up the top-level
 directory of the project in =dired= and find (or create) new files from there.
 
-#+BEGIN_SRC emacs-lisp
-  (setq projectile-switch-project-action 'projectile-dired)
-#+END_SRC
-
 I'd like to /always/ be able to recursively fuzzy-search for files, not just
-when I'm in a Projecile-defined project. This uses the current directory as a
+when I'm in a Projectile-defined project. I use the current directory as a
 project root (if I'm not in a "real" project).
 
 #+BEGIN_SRC emacs-lisp
-  (setq projectile-require-project-root nil)
+  (use-package projectile
+    :diminish projectile-mode
+    :bind
+    ("C-c v" . 'projectile-ag)
+
+    :config
+    (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+    (evil-define-key 'motion ag-mode-map (kbd "C-p") 'projectile-find-file)
+    (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
+
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-switch-project-action 'projectile-dired)
+    (setq projectile-require-project-root nil))
 #+END_SRC
 
 ** =undo-tree=
