@@ -1222,7 +1222,7 @@ opening it up in order to start typing something, so this skips a step.
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
 #+END_SRC
 
-When refiling an item, I'd like to use ido for completion.
+Refiling according to the document's hierarchy.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-refile-use-outline-path t)
@@ -1491,7 +1491,7 @@ This selects and inserts a tag:
     "Select one of the current tags and insert it at point."
     (interactive)
     (insert
-     (ido-completing-read "Insert tag at point: " (hrs/existing-blog-tags))))
+     (ivy-completing-read "Insert tag at point: " (hrs/existing-blog-tags))))
 #+END_SRC
 
 * Daily checklist
@@ -2057,7 +2057,7 @@ really helpful for some modes (like =projectile=, for example).
     (which-key-mode))
 #+END_SRC
 
-** Configure yasnippet
+** Configure =yasnippet=
 
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet)
@@ -2071,7 +2071,7 @@ enabled.
   (yas-global-mode 1)
 #+END_SRC
 
-I /don’t/ want =ido= to automatically indent the snippets it inserts. Sometimes
+I /don’t/ want =yas= to automatically indent the snippets it inserts. Sometimes
 this looks pretty bad (when indenting org-mode, for example, or trying to guess
 at the correct indentation for Python).
 
@@ -2079,30 +2079,35 @@ at the correct indentation for Python).
   (setq yas/indent-line nil)
 #+END_SRC
 
-** Configure =ido=
+** Configure =ivy= and =counsel=
+
+I use =ivy= and =counsel= as my completion framework.
+
+This configuration:
+
+- Uses =counsel-M-x= for command completion,
+- Replaces =isearch= with =swiper=,
+- Enables fuzzy matching everywhere except swiper (where it's thoroughly
+  unhelpful), and
+- Includes recent files in the switch buffer.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package flx-ido)
-  (use-package ido-completing-read+)
-  (use-package ido-vertical-mode)
+  (use-package counsel
+    :diminish ivy-mode
+    :bind
+    ("M-x" . 'counsel-M-x)
+    ("C-s" . 'swiper)
 
-  (setq ido-enable-flex-matching t)
-  (setq ido-everywhere t)
-  (ido-mode 1)
-  (flx-ido-mode 1) ; better/faster matching
-  (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
-  (ido-vertical-mode 1)
-  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
-#+END_SRC
+    :config
+    (use-package flx)
 
-** Use =smex= to handle =M-x= with =ido=
-
-#+BEGIN_SRC emacs-lisp
-  (use-package smex)
-  (smex-initialize)
-
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-initial-inputs-alist nil)
+    (setq ivy-re-builders-alist
+          '((swiper . ivy--regex-plus)
+            (t . ivy--regex-fuzzy))))
 #+END_SRC
 
 ** Switch and rebalance windows when splitting
