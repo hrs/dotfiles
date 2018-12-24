@@ -2077,6 +2077,7 @@ This configuration:
 
 - Uses =counsel-M-x= for command completion,
 - Replaces =isearch= with =swiper=,
+- Uses =smex= to maintain history,
 - Enables fuzzy matching everywhere except swiper (where it's thoroughly
   unhelpful), and
 - Includes recent files in the switch buffer.
@@ -2090,6 +2091,7 @@ This configuration:
 
     :config
     (use-package flx)
+    (use-package smex)
 
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
