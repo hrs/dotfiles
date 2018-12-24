@@ -569,6 +569,14 @@ time.
   (setq proof-splash-enable nil)
 #+END_SRC
 
+Proof General usually evaluates each comment individually. In literate programs,
+this can result in evaluating a /ton/ of comments. This evaluates a series of
+consecutive comments as a single comment.
+
+#+BEGIN_SRC emacs-lisp
+  (setq proof-script-fly-past-comments t)
+#+END_SRC
+
 ** CSS, Sass, and Less
 
 Indent by 2 spaces.
