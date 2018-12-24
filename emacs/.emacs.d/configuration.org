@@ -3,6 +3,30 @@
 #+EMAIL: hello@harryrschwartz.com
 #+OPTIONS: toc:nil num:nil
 
+* Configure =use-package=
+
+I use =use-package= to install and configure my packages. My =init.el= includes
+the initial setup for =package.el= and ensures that =use-package= is installed,
+since I wanna do that right away.
+
+This makes sure that =use-package= will install the package if it's not already
+available. It also means that I should be able to open Emacs for the first time
+on a fresh Debian box and have my whole environment automatically installed. I'm
+not /totally/ sure about that, but we're gettin' close.
+
+#+BEGIN_SRC emacs-lisp
+  (setq use-package-always-ensure t)
+#+END_SRC
+
+Always compile packages, and use the newest version available.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-compile
+    :config (auto-compile-on-load-mode))
+
+  (setq load-prefer-newer t)
+#+END_SRC
+
 * Use sensible-defaults.el
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
@@ -12,30 +36,6 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
   (sensible-defaults/use-all-settings)
   (sensible-defaults/use-all-keybindings)
   (sensible-defaults/backup-to-temp-directory)
-#+END_SRC
-
-* Configure =use-package=
-
-I'm currently using Cask to manage my dependencies, but I'm gradually moving to
-=use-package=. I'm planning on converting packages lazily, as I need them, so
-expect to see a somewhat inconsistent state for a while. =)
-
-#+BEGIN_SRC emacs-lisp
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
-
-  (setq use-package-verbose t)
-  (setq use-package-always-ensure t)
-
-  (require 'use-package)
-#+END_SRC
-
-Always compile packages, and use the newest version available.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package auto-compile
-    :config (auto-compile-on-load-mode))
-  (setq load-prefer-newer t)
 #+END_SRC
 
 * Set personal information
@@ -51,6 +51,10 @@ Always compile packages, and use the newest version available.
 #+END_SRC
 
 ** Access my netrc data
+
+I store a few credentials in a =.netrc= file. Actually, I think the only creds I
+have in there right now are for Instapaper, but this is still a convenient way
+to store not-too-terribly-sensitive secrets.
 
 #+BEGIN_SRC emacs-lisp
   (require 'netrc)
@@ -339,16 +343,22 @@ pairing or presenting code.
   (global-hl-line-mode)
 #+END_SRC
 
+** Diminish unnecessary modes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish)
+#+END_SRC
+
 ** Highlight uncommitted changes
 
 Use the =diff-hl= package to highlight changed-and-uncommitted lines when
 programming.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'diff-hl)
-
-  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
-  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
+  (use-package diff-hl
+    :config
+    (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+    (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
 #+END_SRC
 
 * Project management
@@ -1718,6 +1728,14 @@ Don't try to do address completion with mu4e. Use BBDB instead:
 
 * RSS with =elfeed=
 
+Install elfeed:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elfeed)
+#+END_SRC
+
+Load up my feeds:
+
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed-org
     :config
@@ -1726,9 +1744,6 @@ Don't try to do address completion with mu4e. Use BBDB instead:
       (setq rmh-elfeed-org-files (list "~/feeds.org"))))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (use-package elfeed)
-#+END_SRC
 * Writing prose
 
 ** Enable spell-checking in the usual places
@@ -1894,13 +1909,6 @@ Use flycheck in the appropriate buffers:
 #+END_SRC
 
 * =dired=
-
-Load up the assorted =dired= extensions.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dired-details)
-  (use-package dired+)
-#+END_SRC
 
 Open media with the appropriate programs.
 
