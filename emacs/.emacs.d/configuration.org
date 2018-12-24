@@ -339,47 +339,6 @@ pairing or presenting code.
   (global-hl-line-mode)
 #+END_SRC
 
-** Hide certain modes from the modeline
-
-I'd rather have only a few necessary mode identifiers on my modeline. This
-either hides or "renames" a variety of major or minor modes using the =diminish=
-package.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish)
-
-  (defmacro diminish-minor-mode (filename mode &optional abbrev)
-    `(eval-after-load (symbol-name ,filename)
-       '(diminish ,mode ,abbrev)))
-
-  (defmacro diminish-major-mode (mode-hook abbrev)
-    `(add-hook ,mode-hook
-               (lambda () (setq mode-name ,abbrev))))
-
-  (diminish-minor-mode 'abbrev 'abbrev-mode)
-  (diminish-minor-mode 'simple 'auto-fill-function)
-  (diminish-minor-mode 'company 'company-mode)
-  (diminish-minor-mode 'eldoc 'eldoc-mode)
-  (diminish-minor-mode 'flycheck 'flycheck-mode)
-  (diminish-minor-mode 'flyspell 'flyspell-mode)
-  (diminish-minor-mode 'global-whitespace 'global-whitespace-mode)
-  (diminish-minor-mode 'org-indent 'org-indent-mode)
-  (diminish-minor-mode 'projectile 'projectile-mode)
-  (diminish-minor-mode 'ruby-end 'ruby-end-mode)
-  (diminish-minor-mode 'subword 'subword-mode)
-  (diminish-minor-mode 'undo-tree 'undo-tree-mode)
-  (diminish-minor-mode 'yard-mode 'yard-mode)
-  (diminish-minor-mode 'yasnippet 'yas-minor-mode)
-  (diminish-minor-mode 'wrap-region 'wrap-region-mode)
-
-  (diminish-minor-mode 'paredit 'paredit-mode " π")
-
-  (diminish-major-mode 'emacs-lisp-mode-hook "el")
-  (diminish-major-mode 'haskell-mode-hook "λ=")
-  (diminish-major-mode 'lisp-interaction-mode-hook "λ")
-  (diminish-major-mode 'python-mode-hook "Py")
-#+END_SRC
-
 ** Highlight uncommitted changes
 
 Use the =diff-hl= package to highlight changed-and-uncommitted lines when
@@ -411,7 +370,8 @@ Set up =ag= for displaying search results.
 Use =company-mode= everywhere.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package company)
+  (use-package company
+    :diminish company-mode)
   (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 
@@ -437,7 +397,8 @@ doesn't require any additional setup. I've bound its most useful command to
 ** =flycheck=
 
  #+BEGIN_SRC emacs-lisp
-   (use-package flycheck)
+   (use-package flycheck
+     :diminish flycheck-mode)
  #+END_SRC
 
 ** =magit=
@@ -470,7 +431,6 @@ I'd like to start in the insert state when writing a commit message.
     (use-package with-editor)
     (setq magit-push-always-verify nil)
     (setq git-commit-summary-max-length 50)
-    (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
     (add-hook 'with-editor-mode-hook 'evil-insert-state))
 #+END_SRC
 
@@ -522,7 +482,8 @@ project root (if I'm not in a "real" project).
 I like tree-based undo management. I only rarely need it, but when I do, oh boy.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package undo-tree)
+  (use-package undo-tree
+    :diminish undo-tree-mode)
 #+END_SRC
 
 * Programming environments
@@ -538,7 +499,9 @@ Treating terms in CamelCase symbols as separate words makes editing a little
 easier for me, so I like to use =subword-mode= everywhere.
 
 #+BEGIN_SRC emacs-lisp
-  (global-subword-mode 1)
+  (use-package subword
+    :diminish subword-mode
+    :config (global-subword-mode 1))
 #+END_SRC
 
 Compilation output goes to the =*compilation*= buffer. I rarely have that window
@@ -685,21 +648,23 @@ case, I'd like to still be able to run my tests from the appropriate buffers.
 ** Haskell
 
 #+BEGIN_SRC emacs-lisp
-  (use-package haskell-mode)
+  (use-package haskell-mode
+    :diminish haskell-doc-mode
+    :diminish haskell-indent-mode)
 #+END_SRC
 
 Enable =haskell-doc-mode=, which displays the type signature of a function, and
 use smart indentation.
 
 #+BEGIN_SRC emacs-lisp
-  (hrs/append-to-path "~/.cabal/bin")
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
   (add-hook 'haskell-mode-hook
             (lambda ()
               (haskell-doc-mode)
               (turn-on-haskell-indent)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/append-to-path "~/.cabal/bin")
 #+END_SRC
 
 ** JavaScript and CoffeeScript
@@ -723,14 +688,24 @@ Indent everything by 2 spaces.
 
 ** Lisps
 
-All the lisps have some shared features, so we want to do the same things for
-all of them. That includes using =paredit-mode= to balance parentheses (and
-more!), =rainbow-delimiters= to color matching parentheses, and highlighting the
-whole expression when point is on a paren.
+I like to use =paredit= in Lisp modes to balance parentheses (and more!).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package paredit
+    :diminish "π")
+#+END_SRC
+
+=rainbow-delimiters= is convenient for coloring matching parentheses.
 
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters)
+#+END_SRC
 
+All the lisps have some shared features, so we want to do the same things for
+all of them. That includes using =paredit=, =rainbow-delimiters=, and
+highlighting the whole expression when point is on a parenthesis.
+
+#+BEGIN_SRC emacs-lisp
   (setq lispy-mode-hooks
         '(clojure-mode-hook
           emacs-lisp-mode-hook
@@ -748,7 +723,10 @@ If I'm writing in Emacs lisp I'd like to use =eldoc-mode= to display
 documentation.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+  (use-package eldoc
+    :diminish eldoc-mode
+    :config
+    (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
 #+END_SRC
 
 I also like using =flycheck-package= to ensure that my Elisp packages are
@@ -763,48 +741,49 @@ correctly formatted.
 
 ** Python
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package python-mode)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package python-mode
+    :diminish (python-mode . "Py"))
+#+END_SRC
 
-   Add =~/.local/bin= to load path. That's where =virtualenv= is installed, and
-   we'll need that for =jedi=.
+Add =~/.local/bin= to load path. That's where =virtualenv= is installed, and
+we'll need that for =jedi=.
 
-   #+BEGIN_SRC emacs-lisp
-     (hrs/append-to-path "~/.local/bin")
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (hrs/append-to-path "~/.local/bin")
+#+END_SRC
 
-   Enable =elpy=. This provides automatic indentation, auto-completion, syntax
-   checking, etc.
+Enable =elpy=. This provides automatic indentation, auto-completion, syntax
+checking, etc.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package elpy)
-     (elpy-enable)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy)
+  (elpy-enable)
+#+END_SRC
 
-   Use =flycheck= for syntax checking:
+Use =flycheck= for syntax checking:
 
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'elpy-mode-hook 'flycheck-mode)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
+#+END_SRC
 
-   Format code according to PEP8 on save:
+Format code according to PEP8 on save:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package py-autopep8)
-     (require 'py-autopep8)
-     (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package py-autopep8)
+  (require 'py-autopep8)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+#+END_SRC
 
-   Configure Jedi along with the associated =company= mode:
+Configure Jedi along with the associated =company= mode:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package company-jedi)
-     (add-to-list 'company-backends 'company-jedi)
+#+BEGIN_SRC emacs-lisp
+  (use-package company-jedi)
+  (add-to-list 'company-backends 'company-jedi)
 
-     (add-hook 'python-mode-hook 'jedi:setup)
-     (setq jedi:complete-on-dot t)
-   #+END_SRC
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+#+END_SRC
 
 ** Ruby and RSpec
 
@@ -865,14 +844,16 @@ match the beginning of the statement instead of indenting it all the way to the
 Ruby method comments are often formatted with Yard.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yard-mode)
+  (use-package yard-mode
+    :diminish yard-mode)
 #+END_SRC
 
 Insert =end= keywords automatically when I start to define a method, class,
 module, or block.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ruby-end)
+  (use-package ruby-end
+    :diminish ruby-end-mode)
 #+END_SRC
 
 Install and enable =projectile-rails= mode in all Rail-related buffers.
@@ -1058,6 +1039,11 @@ I add a bunch of hooks to =term-mode=:
 
 * Publishing and task management with Org-mode
 
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :diminish org-indent-mode)
+#+END_SRC
+
 ** Display preferences
 
 I like to see an outline of pretty bullets instead of a list of asterisks.
@@ -1099,12 +1085,6 @@ Quickly insert a block of elisp:
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-structure-template-alist
                '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
-#+END_SRC
-
-Enable spell-checking in Org-mode.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook 'flyspell-mode)
 #+END_SRC
 
 ** Task and org-capture management
@@ -1640,12 +1620,6 @@ Enable Org-style tables and list manipulation.
   (add-hook 'message-mode-hook 'turn-on-orgstruct++)
 #+END_SRC
 
-Check my spelling while I'm writing.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
-#+END_SRC
-
 Once I've sent an email, kill the associated buffer instead of just burying it.
 
 #+BEGIN_SRC emacs-lisp
@@ -1757,6 +1731,24 @@ Don't try to do address completion with mu4e. Use BBDB instead:
 #+END_SRC
 * Writing prose
 
+** Enable spell-checking in the usual places
+
+I want to make sure that I've enabled spell-checking if I'm editing text,
+composing an email, or authoring a Git commit.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flyspell
+    :diminish flyspell-mode
+
+    :config
+    (add-hook 'text-mode-hook 'turn-on-auto-fill)
+    (add-hook 'gfm-mode-hook 'flyspell-mode)
+    (add-hook 'org-mode-hook 'flyspell-mode)
+
+    (add-hook 'git-commit-mode-hook 'flyspell-mode)
+    (add-hook 'mu4e-compose-mode-hook 'flyspell-mode))
+#+END_SRC
+
 ** Look up definitions in Webster 1913
 
 I look up definitions by hitting =C-x w=, which shells out to =sdcv=. I've
@@ -1798,7 +1790,6 @@ Synosaurus is hooked up to wordnet to provide access to a thesaurus. Hitting
 Because I can't always use =org=.
 
 - Associate =.md= files with GitHub-flavored Markdown.
-- I'd like spell-checking running when editing Markdown.
 - Use =pandoc= to render the results.
 - Leave the code block font unchanged.
 
@@ -1810,7 +1801,6 @@ Because I can't always use =org=.
 
     :config
     (setq markdown-command "pandoc --standalone --mathjax --from=markdown")
-    (add-hook 'gfm-mode-hook 'flyspell-mode)
     (custom-set-faces
      '(markdown-code-face ((t nil)))))
 #+END_SRC
@@ -1822,15 +1812,16 @@ a lot of paragraphs, so this automatically wraps 'em when I'm writing text,
 Markdown, or Org.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
-  (add-hook 'gfm-mode-hook 'turn-on-auto-fill)
-  (add-hook 'org-mode-hook 'turn-on-auto-fill)
+  (add-hook 'text-mode-hook 'auto-fill-mode)
+  (add-hook 'gfm-mode-hook 'auto-fill-mode)
+  (add-hook 'org-mode-hook 'auto-fill-mode)
 #+END_SRC
 
-Sometimes, though, I don't wanna wrap text. This toggles wrapping with =C-c q=:
+I don't really need to see the auto-fill indicator, though. We need to diminish
+on a confusing name for [[https://github.com/magnars/.emacs.d/blob/master/site-lisp/diminish.el#L87][historical reasons]].
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c q") 'auto-fill-mode)
+  (diminish 'auto-fill-function)
 #+END_SRC
 
 ** Cycle between spacing alternatives
@@ -2049,7 +2040,8 @@ really helpful for some modes (like =projectile=, for example).
 ** Configure =yasnippet=
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yasnippet)
+  (use-package yasnippet
+    :diminish yas-minor-mode)
 #+END_SRC
 
 I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippet=
