@@ -1911,6 +1911,15 @@ Use flycheck in the appropriate buffers:
 
 * =dired=
 
+Hide dotfiles by default, but toggle their visibility with =.=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-hide-dotfiles
+    :config
+    (dired-hide-dotfiles-mode)
+    (define-key dired-mode-map "." 'dired-hide-dotfiles-mode))
+#+END_SRC
+
 Open media with the appropriate programs.
 
 #+BEGIN_SRC emacs-lisp
@@ -1919,6 +1928,7 @@ Open media with the appropriate programs.
     (setq dired-open-extensions
           '(("pdf" . "zathura")
             ("mkv" . "vlc")
+            ("mp3" . "vlc")
             ("mp4" . "vlc")
             ("avi" . "vlc"))))
 #+END_SRC
