@@ -421,6 +421,19 @@ Use =M-/= for completion.
   (global-set-key (kbd "M-/") 'company-complete-common)
 #+END_SRC
 
+** =dumb-jump=
+
+The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/dumb-jump#supported-languages][ton of environments]], and it
+doesn't require any additional setup. I've bound its most useful command to
+=M-.=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump
+    :config
+    (define-key evil-normal-state-map (kbd "M-.") 'dumb-jump-go)
+    (setq dumb-jump-selector 'ivy))
+#+END_SRC
+
 ** =flycheck=
 
  #+BEGIN_SRC emacs-lisp
@@ -617,18 +630,6 @@ Install Less.
 
 #+BEGIN_SRC emacs-lisp
   (use-package less-css-mode)
-#+END_SRC
-
-** =dumb-jump=
-
-The =dumb-jump= package works well enough in a ton of environments, and it
-doesn't require any additional setup. I've bound it's most useful command to
-=M-.=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dumb-jump)
-  (define-key evil-normal-state-map (kbd "M-.") 'dumb-jump-go)
-  (setq dumb-jump-selector 'ivy)
 #+END_SRC
 
 ** Golang
