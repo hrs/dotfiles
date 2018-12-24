@@ -17,6 +17,5 @@
 (depends-on "muttrc-mode")
 (depends-on "package-build")
 (depends-on "package-lint")
-(depends-on "pallet")
 (depends-on "s")
 (depends-on "use-package")
