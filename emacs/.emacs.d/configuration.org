@@ -89,15 +89,17 @@ frustrating.
 Use =evil=.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package evil)
-  (evil-mode 1)
+  (use-package evil
+    :config
+    (evil-mode 1))
 #+END_SRC
 
 Enable =surround= everywhere.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package evil-surround)
-  (global-evil-surround-mode 1)
+  (use-package evil-surround
+    :config
+    (global-evil-surround-mode 1))
 #+END_SRC
 
 Use =evil= with Org agendas.
