@@ -413,23 +413,20 @@ doesn't require any additional setup. I've bound its most useful command to
 
 ** =magit=
 
-I bring up the status menu with =C-x g=.
+I use =magit= to handle version control. It's lovely, but I tweak a few things:
 
-Use =evil= keybindings with =magit=.
-
-The default behavior of =magit= is to ask before pushing. I haven't had any
-problems with accidentally pushing, so I'd rather not confirm that every time.
-
-Per [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][tpope's suggestions]], highlight commit text in the summary line that goes
-beyond 50 characters.
-
-Enable spellchecking when writing commit messages.
-
-I sometimes use =git= from the terminal, and I'll use =emacsclient --tty= to
-write commits. I'd like to be in the insert state when my editor pops open for
-that.
-
-I'd like to start in the insert state when writing a commit message.
+- I bring up the status menu with =C-x g=.
+- Use =evil= keybindings with =magit=.
+- The default behavior of =magit= is to ask before pushing. I haven't had any
+  problems with accidentally pushing, so I'd rather not confirm that every time.
+- Per [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][tpope's suggestions]], highlight commit text in the summary line that goes
+  beyond 50 characters.
+- On the command line I'll generally push a new branch with a plain old =git
+  push=, which automatically creates a tracking branch on (usually) =origin=.
+  Magit, by default, wants me to manually specify an upstream branch. This binds
+  =P P= to =magit-push-implicitly=, which is just a wrapper around =git push
+  -v=. Convenient!
+- I'd like to start in the insert state when writing a commit message.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -441,6 +438,12 @@ I'd like to start in the insert state when writing a commit message.
     (use-package with-editor)
     (setq magit-push-always-verify nil)
     (setq git-commit-summary-max-length 50)
+
+    (with-eval-after-load 'magit-remote
+      (magit-define-popup-action 'magit-push-popup ?P
+        'magit-push-implicitly--desc
+        'magit-push-implicitly ?p t))
+
     (add-hook 'with-editor-mode-hook 'evil-insert-state))
 #+END_SRC
 
