@@ -1069,7 +1069,6 @@ I like to see an outline of pretty bullets instead of a list of asterisks.
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :init
-    (setq org-bullets-bullet-list '("∙"))
     (add-hook 'org-mode-hook 'org-bullets-mode))
 #+END_SRC
 
