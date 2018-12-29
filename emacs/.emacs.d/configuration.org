@@ -145,18 +145,13 @@ Define a big ol' bunch of handy utility functions.
     (interactive)
     (kill-buffer (current-buffer)))
 
-  (defun hrs/visit-last-dired-file ()
-    "Open the last file in an open dired buffer."
-    (end-of-buffer)
-    (previous-line)
-    (dired-find-file))
-
   (defun hrs/visit-last-migration ()
-    "Open the last file in 'db/migrate/'. Relies on projectile. Pretty sloppy."
+    "Open the most recent Rails migration. Relies on projectile."
     (interactive)
-    (dired (expand-file-name "db/migrate" (projectile-project-root)))
-    (hrs/visit-last-dired-file)
-    (kill-buffer "migrate"))
+    (let ((migrations
+           (directory-files
+            (expand-file-name "db/migrate" (projectile-project-root)) t)))
+      (find-file (car (last migrations)))))
 
   (defun hrs/add-auto-mode (mode &rest patterns)
     "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
