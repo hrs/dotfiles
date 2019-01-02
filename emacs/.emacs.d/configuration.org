@@ -239,6 +239,18 @@ frame is themed appropriately.
     (hrs/apply-theme))
 #+END_SRC
 
+** Use =moody= for a beautiful modeline
+
+This gives me a truly lovely ribbon-based modeline.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package moody
+    :config
+    (setq x-underline-at-descent-line t)
+    (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode))
+#+END_SRC
+
 ** Use =minions= to hide all minor modes
 
 I never want to see a minor mode, and manually adding =:diminish= to every
