@@ -106,7 +106,6 @@ Use =evil= with Org agendas.
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-org
-    :diminish evil-org-mode
     :after org
     :config
     (add-hook 'org-mode-hook 'evil-org-mode)
@@ -240,14 +239,22 @@ frame is themed appropriately.
     (hrs/apply-theme))
 #+END_SRC
 
-** Configure =powerline-evil=
+** Use =minions= to hide all minor modes
+
+I never want to see a minor mode, and manually adding =:diminish= to every
+use-package declaration is a hassle. This uses =minions= to hide all the minor
+modes in the modeline. Nice!
+
+By default there's a =;-)= after the major mode; that's an adorable default, but
+I'd rather skip it.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package powerline-evil
-    :ensure t
-    :config
-    (powerline-evil-center-color-theme))
-#+end_SRC
+   (use-package minions
+     :config
+     (setq minions-mode-line-lighter ""
+           minions-mode-line-delimiters '("" . ""))
+     (minions-mode 1))
+#+END_SRC
 
 ** Disable visual bell
 
@@ -340,12 +347,6 @@ pairing or presenting code.
   (global-hl-line-mode)
 #+END_SRC
 
-** Diminish unnecessary modes
-
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish)
-#+END_SRC
-
 ** Highlight uncommitted changes
 
 Use the =diff-hl= package to highlight changed-and-uncommitted lines when
@@ -377,8 +378,7 @@ Set up =ag= for displaying search results.
 Use =company-mode= everywhere.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package company
-    :diminish company-mode)
+  (use-package company)
   (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 
@@ -404,8 +404,7 @@ doesn't require any additional setup. I've bound its most useful command to
 ** =flycheck=
 
  #+BEGIN_SRC emacs-lisp
-   (use-package flycheck
-     :diminish flycheck-mode)
+   (use-package flycheck)
  #+END_SRC
 
 ** =magit=
@@ -473,7 +472,6 @@ project root (if I'm not in a "real" project).
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :diminish projectile-mode
     :bind
     ("C-c v" . 'projectile-ag)
 
@@ -492,8 +490,7 @@ project root (if I'm not in a "real" project).
 I like tree-based undo management. I only rarely need it, but when I do, oh boy.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :diminish undo-tree-mode)
+  (use-package undo-tree)
 #+END_SRC
 
 * Programming environments
@@ -510,7 +507,6 @@ easier for me, so I like to use =subword-mode= everywhere.
 
 #+BEGIN_SRC emacs-lisp
   (use-package subword
-    :diminish subword-mode
     :config (global-subword-mode 1))
 #+END_SRC
 
@@ -666,9 +662,7 @@ case, I'd like to still be able to run my tests from the appropriate buffers.
 ** Haskell
 
 #+BEGIN_SRC emacs-lisp
-  (use-package haskell-mode
-    :diminish haskell-doc-mode
-    :diminish haskell-indent-mode)
+  (use-package haskell-mode)
 #+END_SRC
 
 Enable =haskell-doc-mode=, which displays the type signature of a function, and
@@ -709,8 +703,7 @@ Indent everything by 2 spaces.
 I like to use =paredit= in Lisp modes to balance parentheses (and more!).
 
 #+BEGIN_SRC emacs-lisp
-  (use-package paredit
-    :diminish "π")
+  (use-package paredit)
 #+END_SRC
 
 =rainbow-delimiters= is convenient for coloring matching parentheses.
@@ -742,7 +735,6 @@ documentation.
 
 #+BEGIN_SRC emacs-lisp
   (use-package eldoc
-    :diminish eldoc-mode
     :config
     (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
 #+END_SRC
@@ -760,8 +752,7 @@ correctly formatted.
 ** Python
 
 #+BEGIN_SRC emacs-lisp
-  (use-package python-mode
-    :diminish (python-mode . "Py"))
+  (use-package python-mode)
 #+END_SRC
 
 Add =~/.local/bin= to load path. That's where =virtualenv= is installed, and
@@ -862,16 +853,14 @@ match the beginning of the statement instead of indenting it all the way to the
 Ruby method comments are often formatted with Yard.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yard-mode
-    :diminish yard-mode)
+  (use-package yard-mode)
 #+END_SRC
 
 Insert =end= keywords automatically when I start to define a method, class,
 module, or block.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ruby-end
-    :diminish ruby-end-mode)
+  (use-package ruby-end)
 #+END_SRC
 
 Install and enable =projectile-rails= mode in all Rail-related buffers.
@@ -1058,8 +1047,7 @@ I add a bunch of hooks to =term-mode=:
 * Publishing and task management with Org-mode
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-    :diminish org-indent-mode)
+  (use-package org)
 #+END_SRC
 
 ** Display preferences
@@ -1761,8 +1749,6 @@ composing an email, or authoring a Git commit.
 
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
-    :diminish flyspell-mode
-
     :config
     (add-hook 'text-mode-hook 'turn-on-auto-fill)
     (add-hook 'gfm-mode-hook 'flyspell-mode)
@@ -1838,13 +1824,6 @@ Markdown, or Org.
   (add-hook 'text-mode-hook 'auto-fill-mode)
   (add-hook 'gfm-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'auto-fill-mode)
-#+END_SRC
-
-I don't really need to see the auto-fill indicator, though. We need to diminish
-on a confusing name for [[https://github.com/magnars/.emacs.d/blob/master/site-lisp/diminish.el#L87][historical reasons]].
-
-#+BEGIN_SRC emacs-lisp
-  (diminish 'auto-fill-function)
 #+END_SRC
 
 ** Cycle between spacing alternatives
@@ -2058,16 +2037,13 @@ really helpful for some modes (like =projectile=, for example).
 
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
-    :diminish
-    :config
-    (which-key-mode))
+    :config (which-key-mode))
 #+END_SRC
 
 ** Configure =yasnippet=
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yasnippet
-    :diminish yas-minor-mode)
+  (use-package yasnippet)
 #+END_SRC
 
 I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippet=
@@ -2101,7 +2077,6 @@ This configuration:
 
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
-    :diminish ivy-mode
     :bind
     ("M-x" . 'counsel-M-x)
     ("C-s" . 'swiper)
