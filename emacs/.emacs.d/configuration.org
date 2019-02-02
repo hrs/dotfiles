@@ -1118,7 +1118,7 @@ Quickly insert a block of elisp:
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-structure-template-alist
-               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+               '("el" . "src emacs-lisp"))
 #+END_SRC
 
 ** Task and org-capture management
