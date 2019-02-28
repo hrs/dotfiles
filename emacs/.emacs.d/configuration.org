@@ -15,6 +15,7 @@ on a fresh Debian box and have my whole environment automatically installed. I'm
 not /totally/ sure about that, but we're gettin' close.
 
 #+BEGIN_SRC emacs-lisp
+  (require 'use-package-ensure)
   (setq use-package-always-ensure t)
 #+END_SRC
 
