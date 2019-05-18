@@ -3,5 +3,5 @@
 if [[ $(uname) == Darwin ]]; then
   open "$@"
 else
-  xdg-open "$@" &> /dev/null
+  run-mailcap "$@" &> /dev/null
 fi
