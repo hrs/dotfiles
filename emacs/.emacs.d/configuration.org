@@ -778,6 +778,29 @@ correctly formatted.
     '(flycheck-package-setup))
 #+END_SRC
 
+** OCaml
+
+Use =tuareg-mode= for editing OCaml.
+
+#+begin_src emacs-lisp
+  (use-package tuareg
+    :config
+    (electric-indent-mode 0))
+#+end_src
+
+Configure Merlin. This also requires installing the Merlin package through OPAM
+with =opam install merlin=.
+
+#+begin_src emacs-lisp
+  (use-package merlin
+    :config
+    (add-hook 'tuareg-mode-hook 'merlin-mode t)
+
+    (with-eval-after-load 'company
+      (add-to-list 'company-backends 'merlin-company-backend))
+    (add-hook 'merlin-mode-hook 'company-mode))
+#+end_src
+
 ** Python
 
 #+BEGIN_SRC emacs-lisp

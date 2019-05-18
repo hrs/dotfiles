@@ -19,6 +19,8 @@ source /etc/bash_completion.d/password-store
 source "/usr/local/share/chruby/chruby.sh"
 chruby 2.5.3
 
+eval $(opam env)
+
 ### local config settings, if any
 
 if [ -e $HOME/.bashrc.local ]; then
