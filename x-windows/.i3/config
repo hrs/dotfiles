@@ -152,6 +152,9 @@ exec --no-startup-id ~/.bin/set-wallpaper
 # Invoke the Emacs daemon
 exec --no-startup-id emacs --daemon
 
+# Ensure my VPN client is running
+exec --no-startup-id ~/bin/pia.sh &
+
 # Start the appropriate programs on the right workspaces
 exec --no-startup-id i3-msg 'workspace 1; exec firefox'
 
