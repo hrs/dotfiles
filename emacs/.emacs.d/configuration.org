@@ -1124,6 +1124,12 @@ tells Org to open those links with the mailcap-defined applications.
                          (t . mailcap))))))
 #+END_SRC
 
+I'd like the initial scratch buffer to be in Org:
+
+#+begin_src emacs-lisp
+  (setq initial-major-mode 'org-mode)
+#+end_src
+
 ** Display preferences
 
 I like to see an outline of pretty bullets instead of a list of asterisks.
