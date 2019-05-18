@@ -1102,8 +1102,26 @@ I add a bunch of hooks to =term-mode=:
 
 * Publishing and task management with Org-mode
 
+Including =org-tempo= restores the =<s=-style easy-templates that were
+deprecated in Org 9.2.
+
+I'd like to open =file:= links in Org with the applications defined in my
+[[file:~/.dotfiles/email/.mailcap][mailcap]]. This clears the existing MIME mapping, parses my personal mailcap, and
+tells Org to open those links with the mailcap-defined applications.
+
 #+BEGIN_SRC emacs-lisp
-  (use-package org)
+  (use-package org
+    :config
+    (require 'org-tempo)
+
+    (add-hook 'org-mode-hook
+              '(lambda ()
+                 (setq mailcap-mime-data '())
+                 (mailcap-parse-mailcap "~/.mailcap")
+                 (setq org-file-apps
+                       '((remote . emacs)
+                         (system . mailcap)
+                         (t . mailcap))))))
 #+END_SRC
 
 ** Display preferences
