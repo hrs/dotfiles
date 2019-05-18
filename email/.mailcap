@@ -1,19 +1,16 @@
-# Images
-image/jpg; feh %s;
-image/jpeg; feh %s;
-image/pjpeg; feh %s;
-image/png; feh %s;
 image/gif; ffplay %s;
+image/*; feh %s;
 
-# PDFs
 application/pdf; zathura %s;
 
-# HTML
 text/html; /usr/bin/firefox '%s'\; sleep 1; needsterminal;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
-# Plain text
 text/plain; ~/.bin/em %s;
+text/x-tex; ~/.bin/em %s;
 
-# Unidentified files
+video/*; vlc %s;
+
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; gnumeric %s;
+
 application/octet-stream; xdg-open %s &;
