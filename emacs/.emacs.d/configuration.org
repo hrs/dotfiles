@@ -1431,15 +1431,6 @@ use for DVIs.
   (setq TeX-PDF-mode t)
 #+END_SRC
 
-Open compiled PDFs in =zathura= instead of in the editor.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook
-        '(lambda ()
-           (delete '("\\.pdf\\'" . default) org-file-apps)
-           (add-to-list 'org-file-apps '("\\.pdf\\'" . "zathura %s"))))
-#+END_SRC
-
 Enable a minor mode for dealing with math (it adds a few useful keybindings),
 and always treat the current file as the "main" file. That's intentional, since
 I'm usually actually in an org document.
