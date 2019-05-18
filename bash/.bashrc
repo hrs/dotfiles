@@ -6,3 +6,5 @@ source ~/.bashrc.d/prompt.bash
 source ~/.bashrc.d/utils.bash
 
 source ~/.bashrc.local
+
+export PATH="$HOME/.cargo/bin:$PATH"
