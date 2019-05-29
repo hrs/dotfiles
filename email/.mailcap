@@ -14,4 +14,6 @@ video/*; vlc %s;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; gnumeric %s;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; abiword %s;
 
+application/x-cbr; comix %s;
+
 application/octet-stream; xdg-open %s &;
