@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - "vendor/**/*"
     - "db/schema.rb"
+  TargetRubyVersion: 2.3
   UseCache: false
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
