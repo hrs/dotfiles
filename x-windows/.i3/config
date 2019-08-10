@@ -87,6 +87,9 @@ bindsym $mod+n exec pcmanfm
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
 
+# Paste a 2FA code
+bindsym $mod+a exec ~/.bin/totp
+
 # Insert a snippet
 bindsym $mod+s exec ~/bin/snippet.rb
 
