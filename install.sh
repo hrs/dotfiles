@@ -13,9 +13,14 @@ stow rss
 stow ruby
 stow x-windows
 
-# Link .bash_profile -> .bashrc
+# Link ~/.bash_profile -> ~/.bashrc
 rm -f ~/.bash_profile
 ln -s ~/.bashrc ~/.bash_profile
+
+# Link ~/.config/zathura/zathurarc -> ~/.zathurarc
+rm -f ~/.config/zathura/zathurarc
+mkdir -p ~/.config/zathura
+ln -s ~/.zathurarc ~/.config/zathura/zathurarc
 
 # Many of the tools in this repo are written in Ruby, and some depend on
 # external libraries. This installs those.

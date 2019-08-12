@@ -1,3 +1,8 @@
+# Scroll a bit faster than normal (40).
 set scroll-step 80
 
+# Write selections into the main (C-v) clipboard, not the "primary" one.
 set selection-clipboard clipboard
+
+# Hide statusbar by default. Toggle with C-n.
+set guioptions none
