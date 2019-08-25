@@ -1,3 +1,3 @@
 #!/bin/sh
 
-feh --bg-fill .wallpaper/mountains.jpg
+feh --bg-fill ~/.wallpaper/meeker-and-longs-peak.jpg
