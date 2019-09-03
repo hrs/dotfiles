@@ -1984,6 +1984,7 @@ Open media with the appropriate programs.
     :config
     (setq dired-open-extensions
           '(("pdf" . "zathura")
+            ("xlsx" . "gnumeric")
             ("mkv" . "vlc")
             ("mp3" . "vlc")
             ("mp4" . "vlc")
