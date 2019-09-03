@@ -1797,21 +1797,37 @@ Don't try to do address completion with mu4e. Use BBDB instead:
 
 * RSS with =elfeed=
 
-Install elfeed:
+Install elfeed and load up my feeds.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package elfeed)
-#+END_SRC
-
-Load up my feeds:
-
-#+BEGIN_SRC emacs-lisp
   (use-package elfeed-org
     :config
     (progn
       (elfeed-org)
-      (setq rmh-elfeed-org-files (list "~/feeds.org"))))
-#+END_SRC
+      (setq rmh-elfeed-org-files (list "~/documents/rss/feeds.org"))))
+#+end_src
+
+Open =elfeed= with =C-c r=:
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c r") 'elfeed)
+#+end_src
+
+Use =j= and =k= to navigate feeds and =o= to browse the entry in a Web browser.
+
+#+begin_src emacs-lisp
+  (define-key elfeed-show-mode-map "j" 'next-line)
+  (define-key elfeed-show-mode-map "k" 'previous-line)
+  (define-key elfeed-show-mode-map "o" 'elfeed-show-visit)
+
+  (define-key elfeed-search-mode-map "j" 'next-line)
+  (define-key elfeed-search-mode-map "k" 'previous-line)
+  (define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
+
+  (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
+  (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+#+end_src
 
 * Writing prose
 
