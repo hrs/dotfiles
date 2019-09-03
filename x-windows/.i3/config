@@ -101,7 +101,7 @@ bindsym $mod+s exec ~/bin/snippet.rb
 for_window [class="^.*"] border pixel 0
 
 # Use i3-gaps.
-gaps inner 4
+gaps inner 8
 
 # Put the first four workspaces on the external monitor when it's available.
 workspace 1 output DP2-1
@@ -163,7 +163,7 @@ exec --no-startup-id i3-msg 'workspace 1; exec firefox'
 
 # Configure the i3 bar
 bar {
-  i3bar_command "i3bar -t"
+  i3bar_command "i3bar"
   status_command i3status
 
   font pango:San Francisco Display 8
