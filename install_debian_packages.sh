@@ -18,12 +18,11 @@ sudo apt install \
      imagemagick \
      isync \
      libnotify-bin \
+     maildir-utils \
      make \
      msmtp \
      mutt \
      newsboat \
-     notmuch \
-     notmuch-mutt \
      openssl \
      pandoc \
      pass \
