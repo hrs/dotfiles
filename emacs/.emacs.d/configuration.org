@@ -1663,6 +1663,13 @@ a dedicated =i3= workspace.
   (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
 #+END_SRC
 
+I don't really need to see the =*mu4e-main*= buffer (or, really, more than one
+mu4e buffer of any kind at a time).
+
+#+begin_src emacs-lisp
+  (setq mu4e-split-view 'single-window)
+#+end_src
+
 Open my inbox and sent messages folders with =J-i= and =J-s=, respectively.
 These are the only two folders I visit regularly enough to warrant shortcuts.
 
@@ -1739,10 +1746,10 @@ If a message is encrypted, my reply should always be encrypted, too.
 
 #+BEGIN_SRC emacs-lisp
   (defun hrs/encrypt-responses ()
+    "Encrypt the current message if it's a reply to another encrypted message."
     (let ((msg mu4e-compose-parent-message))
-      (when msg
-        (when (member 'encrypted (mu4e-message-field msg :flags))
-          (mml-secure-message-encrypt-pgpmime)))))
+      (when (and msg (member 'encrypted (mu4e-message-field msg :flags)))
+          (mml-secure-message-encrypt-pgpmime))))
 
   (add-hook 'mu4e-compose-mode-hook 'hrs/encrypt-responses)
 #+END_SRC
