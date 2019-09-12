@@ -1903,14 +1903,12 @@ so these definitions are a lot of fun.
 
 ** Look up words in a thesaurus
 
-Synosaurus is hooked up to wordnet to provide access to a thesaurus. Hitting
-=C-x s= searches for synonyms.
+Hitting =C-x s= searches for synonyms for the word at point.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package synosaurus)
-  (setq-default synosaurus-backend 'synosaurus-backend-wordnet)
-  (add-hook 'after-init-hook #'synosaurus-mode)
-  (define-key global-map "\C-xs" 'synosaurus-lookup)
+  (use-package powerthesaurus
+    :bind
+    ("C-x s" . powerthesaurus-lookup-word-dwim))
 #+END_SRC
 
 ** Editing with Markdown
