@@ -509,6 +509,8 @@ project root (if I'm not in a "real" project).
     ("C-c v" . 'projectile-ag)
 
     :config
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
     (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
     (evil-define-key 'motion ag-mode-map (kbd "C-p") 'projectile-find-file)
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
