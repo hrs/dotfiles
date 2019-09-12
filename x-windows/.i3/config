@@ -163,7 +163,7 @@ exec --no-startup-id i3-msg 'workspace 1; exec firefox'
 
 # Configure the i3 bar
 bar {
-  i3bar_command "i3bar"
+  i3bar_command "i3bar -t"
   status_command i3status
 
   font pango:San Francisco Display 8
