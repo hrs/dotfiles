@@ -1684,6 +1684,13 @@ mu4e buffer of any kind at a time).
   (setq mu4e-split-view 'single-window)
 #+end_src
 
+I don't need to see the context of a thread (with all the deleted messages) in
+my inbox.
+
+#+begin_src emacs-lisp
+  (setq mu4e-headers-include-related nil)
+#+end_src
+
 Open my inbox and sent messages folders with =J-i= and =J-s=, respectively.
 These are the only two folders I visit regularly enough to warrant shortcuts.
 
