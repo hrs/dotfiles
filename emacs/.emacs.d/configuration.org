@@ -1113,6 +1113,7 @@ tells Org to open those links with the mailcap-defined applications.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
+    :ensure org-plus-contrib
     :config
     (require 'org-tempo)
 
@@ -1248,6 +1249,17 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            entry
            (file "~/documents/notes/blog-ideas.org")
            "* %?\n")
+
+          ("c" "Contact"
+           entry
+           (file "~/documents/contacts.org")
+           "* %(org-contacts-template-name)
+  :PROPERTIES:
+  :ADDRESS: %^{123 Fake St., City, ST 12345}
+  :PHONE: %^{555-555-5555}
+  :EMAIL: %(org-contacts-template-email)
+  :NOTE: %^{note}
+  :END:")
 
           ("e" "Email" entry
            (file+headline org-index-file "Inbox")
@@ -1789,20 +1801,22 @@ instead of the search that resulted in that view.
   (setq org-mu4e-link-query-in-headers-mode nil)
 #+END_SRC
 
-** Configure BBDB with mu4e
+** Configure =org-contacts= with =mu4e=
 
-Use BBDB to handle my address book.
+Use an =org-contacts= file to manage my address book.
 
-#+BEGIN_SRC emacs-lisp
-  (use-package bbdb)
-  (require 'bbdb-mu4e)
-#+END_SRC
+ #+begin_src emacs-lisp
+   (use-package org-contacts
+     :ensure nil
+     :after org
+     :custom (org-contacts-files '("~/documents/contacts.org")))
 
-Don't try to do address completion with mu4e. Use BBDB instead:
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-compose-complete-addresses nil)
-#+END_SRC
+  (setq mu4e-org-contacts-file (car org-contacts-files))
+  (add-to-list 'mu4e-headers-actions
+    '("org-contact-add" . mu4e-action-add-org-contact) t)
+  (add-to-list 'mu4e-view-actions
+    '("org-contact-add" . mu4e-action-add-org-contact) t)
+ #+end_src
 
 * RSS with =elfeed=
 
