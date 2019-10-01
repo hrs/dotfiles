@@ -1,0 +1,34 @@
+#!/usr/bin/ruby
+
+require "fuzz"
+
+class Wallpaper
+  WALLPAPER_DIRECTORY = File.expand_path("~/.wallpaper-directory")
+
+  attr_reader :path
+
+  def initialize(path)
+    @path = path
+  end
+
+  def self.all
+    Dir.
+      glob("#{ WALLPAPER_DIRECTORY }/*").
+      map { |path| new(path) }
+  end
+
+  def to_s
+    File.basename(path)
+  end
+end
+
+def selected_wallpaper
+  Fuzz::Selector.new(
+    Wallpaper.all,
+    cache: Fuzz::Cache.new("~/.cache/fuzz/wallpaper"),
+  ).pick
+end
+
+system("rm ~/.wallpaper")
+system("ln -s \"#{ selected_wallpaper.path }\" ~/.wallpaper")
+system(File.expand_path("~/.bin/paint-wallpaper"))

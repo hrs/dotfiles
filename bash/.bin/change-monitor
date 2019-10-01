@@ -49,4 +49,4 @@ end
 
 chosen_configuration.exec
 
-system(File.expand_path("~/.bin/set-wallpaper"))
+system(File.expand_path("~/.bin/paint-wallpaper"))

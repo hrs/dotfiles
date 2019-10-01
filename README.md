@@ -18,6 +18,15 @@ way of doing things (duh), so, you know, be prepared for that.
 
 Enjoy! =)
 
+#### Wallpaper
+
+To ensure that wallpaper is set correctly, create a `~/.wallpaper-directory`
+symlink to the directory where you keep your wallpapers:
+
+``` shell
+$ ln -s /where/your/wallpapers/live ~/.wallpaper-directory
+```
+
 #### Contributing
 
 I'm open to non-malicious contributions. Shoot me a pull request, yo.
