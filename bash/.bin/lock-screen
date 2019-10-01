@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Pause VLC if it's running.
+dbus-send --type=method_call \
+          --dest=org.mpris.MediaPlayer2.vlc \
+          /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+
+# Pause quodlibet if it's running.
+quodlibet --pause
+
+# Lock the screen with a simple tiling background.
+i3lock --image=/home/hrs/pictures/wallpaper/tile/background-tile.png --tiling

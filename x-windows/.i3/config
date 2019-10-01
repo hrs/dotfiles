@@ -18,7 +18,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+q kill
 
 # Lock the screen
-bindsym $mod+Shift+l exec i3lock --image=/home/hrs/pictures/wallpaper/tile/background-tile.png --tiling
+bindsym $mod+Shift+l exec ~/.bin/lock-screen
 
 # Start a program launcher
 bindsym $mod+d exec PATH=~/bin:~/.bin:$PATH rofi -matching fuzzy -show run
