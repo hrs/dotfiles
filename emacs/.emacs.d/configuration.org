@@ -982,6 +982,19 @@ When running RSpec tests I'd like to scroll to the first error.
               (setq compilation-scroll-output 'first-error)))
 #+END_SRC
 
+** Rust
+
+Use =rust-mode= to edit Rust code.
+
+Run =rustfmt= automatically when saving a file.
+
+#+begin_src emacs-lisp
+  (use-package rust-mode
+    :config
+    (hrs/append-to-path "~/.cargo/bin")
+    (setq rust-format-on-save t))
+#+end_src
+
 ** =sh=
 
 Indent with 2 spaces.
