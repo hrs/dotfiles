@@ -21,10 +21,6 @@ alias speedtest='echo "scale=2; `curl  --progress-bar -w "%{speed_download}" htt
 alias tree="tree -C" # add colors
 alias ut="tar xavf"
 
-usage() {
-  du -sch "$@" | sort -h
-}
-
 ### Ruby/Rails-specific
 alias be="bundle exec"
 alias migrate="be rake db:migrate db:test:prepare"
