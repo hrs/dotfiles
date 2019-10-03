@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Some custom actions associated with `feh` to make viewing, selecting, and
+# editing images in a slideshow a bit easier.
+
+feh --recursive --fullscreen --auto-zoom \
+    --edit \
+    --action1 ";[print filename] echo %f" \
+    --action2 ";[copy to home] cp \"%f\" ~" \
+    --action9 "[delete image] rm \"%f\"" \
+    "$@"
