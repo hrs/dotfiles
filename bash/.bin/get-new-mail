@@ -10,5 +10,4 @@ killall mbsync mu
 mbsync personal
 
 # Index new mail
-notmuch new
 mu index --maildir=/home/hrs/.mail
