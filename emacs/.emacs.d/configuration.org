@@ -252,8 +252,8 @@ just a hint of transparency looks lovely and isn't distracting or hard to read.
   (defun hrs/apply-theme ()
     "Apply the `solarized-light' theme and make frames just slightly transparent."
     (interactive)
-    (load-theme 'solarized-light t)
-    (transparency 90))
+    (load-theme 'solarized-dark t)
+    (transparency 80))
 #+END_SRC
 
 If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
@@ -444,6 +444,7 @@ doesn't require any additional setup. I've bound its most useful command to
 ** =flycheck=
 
  #+BEGIN_SRC emacs-lisp
+   (use-package let-alist)
    (use-package flycheck)
  #+END_SRC
 
