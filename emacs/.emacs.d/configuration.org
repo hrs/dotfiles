@@ -1659,12 +1659,12 @@ My full name is defined earlier in this configuration file.
 
 ** Fetching new mail
 
-I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
+I fetch my email with a [[file:~/.dotfiles/bash/.bin/get-new-mail][custom script]] (though, in practice, this is never
+called; I have a cron job regularly calling the script to fetch my mail
+asynchronously).
 
 #+BEGIN_SRC emacs-lisp
-  (setq mu4e-get-mail-command "killall --quiet mbsync; mbsync inboxes")
-
-  (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
+  (setq mu4e-get-mail-command "~/.bin/get-new-mail")
 #+END_SRC
 
 Rename files when moving them between directories. =mbsync= supposedly prefers
@@ -1674,24 +1674,14 @@ this; I'm cargo-culting.
   (setq mu4e-change-filenames-when-moving t)
 #+END_SRC
 
-Poll the server for new mail every 5 minutes.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-update-interval 300)
-#+END_SRC
-
 ** Viewing mail
 
 I check my email pretty often! Probably more than I should. This binds =C-c m=
 to close any other windows and open my personal inbox.
 
-In practice, I keep an =*mu4e-headers*= buffer in its own frame, full-screen, on
-a dedicated =i3= workspace.
-
 #+BEGIN_SRC emacs-lisp
   (defun hrs/visit-inbox ()
     (interactive)
-    (delete-other-windows)
     (mu4e~headers-jump-to-maildir "/personal/inbox"))
 
   (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
