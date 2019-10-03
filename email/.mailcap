@@ -1,5 +1,5 @@
 image/gif; ffplay %s;
-image/*; feh %s;
+image/*; ~/.bin/s %s;
 
 application/pdf; zathura %s;
 
