@@ -1,7 +1,6 @@
 #!/bin/sh
 
 sudo apt install \
-     abook \
      aptitude \
      arandr \
      build-essential \
@@ -21,7 +20,6 @@ sudo apt install \
      maildir-utils \
      make \
      msmtp \
-     mutt \
      newsboat \
      openssl \
      pandoc \
