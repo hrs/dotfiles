@@ -1083,7 +1083,7 @@ I use =multi-term= to manage my shell sessions. It's bound to =C-c t=.
   (global-set-key (kbd "C-c t") 'multi-term)
 #+END_SRC
 
-Use a login shell:
+Use a login =bash= shell:
 
 #+BEGIN_SRC emacs-lisp
   (setq multi-term-program-switches "--login")
@@ -1840,7 +1840,9 @@ Use an =org-contacts= file to manage my address book.
 Install elfeed and load up my feeds.
 
 #+begin_src emacs-lisp
-  (use-package elfeed)
+  (use-package elfeed
+    :config
+    (elfeed-set-max-connections 32))
   (use-package elfeed-org
     :config
     (progn
@@ -1854,19 +1856,17 @@ Open =elfeed= with =C-c r=:
   (global-set-key (kbd "C-c r") 'elfeed)
 #+end_src
 
-Use =j= and =k= to navigate feeds and =o= to browse the entry in a Web browser.
+Use =o= to browse the entry in a Web browser.
 
 #+begin_src emacs-lisp
-  (define-key elfeed-show-mode-map "j" 'next-line)
-  (define-key elfeed-show-mode-map "k" 'previous-line)
-  (define-key elfeed-show-mode-map "o" 'elfeed-show-visit)
-
-  (define-key elfeed-search-mode-map "j" 'next-line)
-  (define-key elfeed-search-mode-map "k" 'previous-line)
-  (define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
-
   (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
   (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+
+  (evil-add-hjkl-bindings elfeed-search-mode-map)
+  (evil-add-hjkl-bindings elfeed-show-mode-map)
+
+  (define-key elfeed-show-mode-map "o" 'elfeed-show-visit)
+  (define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
 #+end_src
 
 * Writing prose
