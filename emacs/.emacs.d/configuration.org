@@ -2042,10 +2042,10 @@ Open media with the appropriate programs.
     (setq dired-open-extensions
           '(("pdf" . "zathura")
             ("xlsx" . "gnumeric")
-            ("mkv" . "vlc")
-            ("mp3" . "vlc")
-            ("mp4" . "vlc")
-            ("avi" . "vlc"))))
+            ("mkv" . "mpv")
+            ("mp3" . "mpv")
+            ("mp4" . "mpv")
+            ("avi" . "mpv"))))
 #+END_SRC
 
 These are the switches that get passed to =ls= when =dired= gets a list of

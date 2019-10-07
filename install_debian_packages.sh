@@ -19,6 +19,7 @@ sudo apt install \
      libnotify-bin \
      maildir-utils \
      make \
+     mpv \
      msmtp \
      newsboat \
      openssl \

@@ -9,7 +9,7 @@ text/html; w3m -I %{charset} -T text/html; copiousoutput;
 text/plain; ~/.bin/em %s;
 text/x-tex; ~/.bin/em %s;
 
-video/*; vlc %s;
+video/*; mpv %s;
 
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; gnumeric %s;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; abiword %s;
