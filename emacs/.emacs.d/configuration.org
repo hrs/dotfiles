@@ -1702,14 +1702,6 @@ my inbox.
   (setq mu4e-headers-include-related nil)
 #+end_src
 
-Open my inbox and sent messages folders with =J-i= and =J-s=, respectively.
-These are the only two folders I visit regularly enough to warrant shortcuts.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-maildir-shortcuts '(("/personal/inbox" . ?i)
-                                 ("/personal/sent" . ?s)))
-#+END_SRC
-
 =mu4e= starts approximately instantaneously, so I don't know why I'd want to
 reconsider quitting it.
 
@@ -1769,7 +1761,9 @@ sometimes best done in a browser. This effectively binds =a h= to open the
 current email in my default Web browser.
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'mu4e-view-actions '("html in browser" . mu4e-action-view-in-browser) t)
+  (add-to-list 'mu4e-view-actions
+               '("html in browser" . mu4e-action-view-in-browser)
+               t)
 #+END_SRC
 
 ** Encryption
