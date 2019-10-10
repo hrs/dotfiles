@@ -10,4 +10,4 @@ killall mbsync mu
 mbsync personal
 
 # Index new mail
-mu index --maildir=/home/hrs/.mail
+mu index --nocolor --maildir=/home/hrs/.mail
