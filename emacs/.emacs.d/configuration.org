@@ -1848,7 +1848,7 @@ Install elfeed and load up my feeds.
     :config
     (progn
       (elfeed-org)
-      (setq rmh-elfeed-org-files (list "~/documents/rss/feeds.org"))))
+      (setq rmh-elfeed-org-files (list "~/documents/rss-feeds.org"))))
 #+end_src
 
 Open =elfeed= with =C-c r=:
