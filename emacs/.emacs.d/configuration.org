@@ -1756,16 +1756,27 @@ Hit =C-c C-o= to open a URL in the browser.
   (define-key mu4e-view-mode-map (kbd "C-c C-o") 'mu4e~view-browse-url-from-binding)
 #+end_src
 
-While HTML emails are undeniably sinful, we often have to read them. That's
-sometimes best done in a browser. This effectively binds =a h= to open the
-current email in my default Web browser.
+While HTML emails are just fundamentally awful, we usually still need to read
+them. This ensures that their formatting in Emacs isn't too hideous:
+
+#+begin_src emacs-lisp
+  (require 'mu4e-contrib)
+  (setq mu4e-html2text-command 'mu4e-shr2text
+        shr-color-visible-luminance-min 60
+        shr-color-visible-distance-min 5
+        shr-use-colors nil)
+  (advice-add #'shr-colorize-region
+              :around (defun shr-no-colourise-region (&rest ignore)))
+#+end_src
+
+But some HTML emails are just too messy to display in Emacs. This binds =a h= to
+open the current email in my default Web browser.
 
 #+begin_src emacs-lisp
   (add-to-list 'mu4e-view-actions
                '("html in browser" . mu4e-action-view-in-browser)
                t)
 #+end_src
-
 
 ** Encryption
 
