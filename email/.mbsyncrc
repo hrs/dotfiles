@@ -36,11 +36,16 @@ Channel personal-sent
 Master ":personal-remote:INBOX/Sent Items"
 Slave :personal-local:sent
 
+Channel personal-types-announce
+Master :personal-remote:INBOX/mailing-lists/types-announce
+Slave :personal-local:types-announce
+
 Group personal
 Channel personal-inbox
 Channel personal-drafts
 Channel personal-sent
 Channel personal-archive
+Channel personal-types-announce
 
 Group inboxes
 Channel personal-inbox
