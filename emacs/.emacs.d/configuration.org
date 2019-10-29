@@ -405,12 +405,14 @@ I use a few packages in virtually every programming or writing environment to
 manage the project, handle auto-completion, search for terms, and deal with
 version control. That's all in here.
 
-** =ag=
+** =ripgrep=
 
-Set up =ag= for displaying search results.
+Install and configure [[https://github.com/Wilfred/deadgrep][deadgrep]] as an interface to =ripgrep=. I prefer =evil=
+bindings.
 
 #+begin_src emacs-lisp
-  (use-package ag)
+  (use-package deadgrep
+    :config (evil-collection-deadgrep-setup))
 #+end_src
 
 ** =company=
@@ -514,7 +516,7 @@ project root (if I'm not in a "real" project).
 #+begin_src emacs-lisp
   (use-package projectile
     :bind
-    ("C-c v" . 'projectile-ag)
+    ("C-c v" . deadgrep)
 
     :config
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
