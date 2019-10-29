@@ -253,7 +253,7 @@ just a hint of transparency looks lovely and isn't distracting or hard to read.
     "Apply the `solarized-light' theme and make frames just slightly transparent."
     (interactive)
     (load-theme 'solarized-dark t)
-    (transparency 80))
+    (transparency 95))
 #+end_src
 
 If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
