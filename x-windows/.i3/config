@@ -104,10 +104,10 @@ for_window [class="^.*"] border pixel 0
 gaps inner 8
 
 # Put the first four workspaces on the external monitor when it's available.
-workspace 1 output DP2-1
-workspace 2 output DP2-1
-workspace 3 output DP2-1
-workspace 4 output DP2-1
+workspace 1 output HDMI2
+workspace 2 output HDMI2
+workspace 3 output HDMI2
+workspace 4 output HDMI2
 
 ########################################
 # Startup applications
@@ -150,7 +150,7 @@ exec --no-startup-id pasystray &
 exec --no-startup-id eval $(gpg-agent --daemon)
 
 # Set the wallpaper
-exec --no-startup-id ~/.bin/set-wallpaper
+exec --no-startup-id ~/.bin/paint-wallpaper
 
 # Invoke the Emacs daemon
 exec --no-startup-id emacs --daemon
