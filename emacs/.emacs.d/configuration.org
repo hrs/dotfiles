@@ -1899,6 +1899,28 @@ Use =o= to browse the entry in a Web browser.
   (define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
 #+end_src
 
+Use =i= to send the current entry to Instapaper.
+
+#+begin_src emacs-lisp
+  (defun hrs/elfeed-current-entry ()
+    (cond ((eq major-mode 'elfeed-show-mode)
+           elfeed-show-entry)
+          ((eq major-mode 'elfeed-search-mode)
+           (elfeed-search-selected t))))
+
+  (defun hrs/elfeed-instapaper-entry (entry)
+    (let ((url (elfeed-entry-link entry))
+          (title (elfeed-entry-title entry)))
+      (instapaper-add url title)))
+
+  (defun hrs/elfeed-instapaper-current-entry ()
+    (interactive)
+    (hrs/elfeed-instapaper-entry (hrs/elfeed-current-entry)))
+
+  (define-key elfeed-show-mode-map "i" 'hrs/elfeed-instapaper-current-entry)
+  (define-key elfeed-search-mode-map "i" 'hrs/elfeed-instapaper-current-entry)
+#+end_src
+
 * Writing prose
 
 ** Enable spell-checking in the usual places
