@@ -1387,6 +1387,12 @@ Don't ask before evaluating code blocks.
   (setq org-confirm-babel-evaluate nil)
 #+end_src
 
+Use =htmlize= to ensure that exported code blocks use syntax highlighting.
+
+#+begin_src emacs-lisp
+  (use-package htmlize)
+#+end_src
+
 Associate the "dot" language with the =graphviz-dot= major mode.
 
 #+begin_src emacs-lisp
