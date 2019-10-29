@@ -102,6 +102,13 @@ Use =evil=.
     (evil-mode 1))
 #+end_src
 
+Install =evil-collection=, which provides evil-friendly bindings for many modes.
+
+#+begin_src emacs-lisp
+  (use-package evil-collection
+    :after evil)
+#+end_src
+
 Enable =surround= everywhere.
 
 #+begin_src emacs-lisp
@@ -492,6 +499,13 @@ and issues. Seems slick so far.
 #+begin_src emacs-lisp
   (use-package ghub)
   (use-package forge)
+#+end_src
+
+I'm also partial to =git-timemachine=, which lets you quickly page through the
+history of a file.
+
+#+begin_src emacs-lisp
+  (use-package git-timemachine)
 #+end_src
 
 ** =projectile=
