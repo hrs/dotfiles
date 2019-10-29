@@ -81,6 +81,9 @@ bindsym $mod+t exec ~/.local/share/TelegramDesktop/Telegram
 # Launch Signal
 bindsym $mod+Shift+t exec ~/bin/signal
 
+# Launch Slack, when I must.
+bindsym $mod+Shift+s exec slack
+
 # Open a file browser window
 bindsym $mod+n exec pcmanfm
 
