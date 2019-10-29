@@ -1298,8 +1298,8 @@ Define a few common tasks as capture templates. Specifically, I frequently:
 
           ("s" "Subscribe to an RSS feed"
            plain
-           (file "~/documents/rss/urls")
-           "%^{Feed URL} \"~%^{Feed name}\"")
+           (file "~/documents/rss-feeds.org")
+           "*** [[%^{Feed URL}][%^{Feed name}]]")
 
           ("t" "Todo"
            entry
