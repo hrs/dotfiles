@@ -1772,6 +1772,7 @@ them. This ensures that their formatting in Emacs isn't too hideous:
   (setq mu4e-html2text-command 'mu4e-shr2text
         shr-color-visible-luminance-min 60
         shr-color-visible-distance-min 5
+        shr-use-fonts nil
         shr-use-colors nil)
   (advice-add #'shr-colorize-region
               :around (defun shr-no-colourise-region (&rest ignore)))
