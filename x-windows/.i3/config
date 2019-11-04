@@ -152,6 +152,9 @@ exec --no-startup-id pasystray &
 # Start up a GPG agent
 exec --no-startup-id eval $(gpg-agent --daemon)
 
+# Start the mpd daemon
+exec mpd
+
 # Set the wallpaper
 exec --no-startup-id ~/.bin/paint-wallpaper
 
