@@ -154,9 +154,9 @@ exec --no-startup-id eval $(gpg-agent --daemon)
 
 # Start the mpd daemon
 exec mpd
-bindsym $mod+Left exec mpc prev; exec ~/.bin/notify-current-song
-bindsym $mod+Right exec mpc next; exec ~/.bin/notify-current-song
-bindsym $mod+space exec mpc toggle; exec ~/.bin/notify-current-song
+bindsym $mod+Left exec mpc prev
+bindsym $mod+Right exec mpc next
+bindsym $mod+space exec mpc toggle
 
 # Set the wallpaper
 exec --no-startup-id ~/.bin/paint-wallpaper
