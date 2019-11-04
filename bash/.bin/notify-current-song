@@ -1,0 +1,3 @@
+#!/bin/sh
+
+notify-send -t 2000 "$(mpc -f %artist% current)" "$(mpc -f %title% current)"
