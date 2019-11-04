@@ -1923,6 +1923,64 @@ Use =i= to send the current entry to Instapaper.
   (define-key elfeed-search-mode-map "i" 'hrs/elfeed-instapaper-current-entry)
 #+end_src
 
+* Music through =mpd= via =emms=
+
+I've recently started using EMMS as my music interface. The heavy lifting is
+handled by the =mpd= daemon (configured elsewhere).
+
+#+begin_src emacs-lisp
+  (use-package emms
+    :config
+    (require 'emms-setup)
+    (require 'emms-player-mpd)
+    (emms-all))
+#+end_src
+
+Use =mpd= as both the music player and the source of track information.
+
+#+begin_src emacs-lisp
+  (setq emms-player-list '(emms-player-mpd))
+  (setq emms-info-functions '(emms-info-mpd))
+#+end_src
+
+Bind an appropriate set of =evil= keys.
+
+#+begin_src emacs-lisp
+  (evil-collection-emms-setup)
+  (evil-collection-emms-browser-setup)
+#+end_src
+
+Seek forward and backward by 5 seconds (instead of the default of 10).
+
+#+begin_src emacs-lisp
+  (setq emms-seek-seconds 5)
+#+end_src
+
+Don't change the size of my fonts! Sheesh. How many times do I need to tell you,
+packages? =)
+
+#+begin_src emacs-lisp
+  (set-face-attribute 'emms-browser-artist-face nil :height 1.0)
+  (set-face-attribute 'emms-browser-album-face nil :height 1.0)
+  (set-face-attribute 'emms-browser-track-face nil :height 1.0)
+#+end_src
+
+Bind some keys to summon the browser and playlist with the =M-s= prefix pair.
+
+#+begin_src emacs-lisp
+  (defun hrs/music-browser ()
+    (interactive)
+    (delete-other-windows)
+    (emms-smart-browse))
+
+  (defun hrs/music-playlist ()
+    (interactive)
+    (switch-to-buffer " *EMMS Playlist*"))
+
+  (global-set-key (kbd "M-s-b") 'hrs/music-browser)
+  (global-set-key (kbd "M-s-<return>") 'hrs/music-playlist)
+#+end_src
+
 * Writing prose
 
 ** Enable spell-checking in the usual places
