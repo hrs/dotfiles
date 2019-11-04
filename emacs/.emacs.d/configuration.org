@@ -351,7 +351,9 @@ Note that this overrides the default font-related keybindings from
   Set that for the current frame, and also make it the default for
   other, future frames."
     (let ((font-code (hrs/font-code)))
-      (add-to-list 'default-frame-alist (cons 'font font-code))
+      (if (assoc 'font default-frame-alist)
+          (setcdr (assoc 'font default-frame-alist) font-code)
+        (add-to-list 'default-frame-alist (cons 'font font-code)))
       (set-frame-font font-code)))
 
   (defun hrs/reset-font-size ()
