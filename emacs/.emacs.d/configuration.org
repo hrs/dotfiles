@@ -1251,11 +1251,12 @@ them easily from that inbox file to my index.
         (delete-file org-inbox-file))))
 #+end_src
 
-I store all my todos in =~/documents/org/index.org=, so I'd like to derive my
-agenda from there.
+I store most of my personal tasks in my index and maintain a separate file for
+work-related tasks, so I'd like to derive my agenda from those two files.
 
 #+begin_src emacs-lisp
-  (setq org-agenda-files (list org-index-file))
+  (setq org-agenda-files (list org-index-file
+                               (org-file-path "work.org")))
 #+end_src
 
 Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
