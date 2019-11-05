@@ -37,6 +37,7 @@
   ff = only
 [push]
   default = current
+  followTags = true
 [rebase]
   autosquash = true
 [user]
