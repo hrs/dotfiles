@@ -1294,6 +1294,55 @@ weeks /today/, not on the last Monday.
   (setq org-agenda-start-on-weekday nil)
 #+end_src
 
+I've got some custom agenda views that I use to visualize what I'm working on.
+
+The "Personal agenda" view is a bit complicated; it searches only my personal
+list of tasks (that is, not including work tasks) and displays:
+
+1. The high-priority tasks (that is, the ones marked =[#A]=),
+2. My agenda for the next few days,
+3. All the other, not-high-priority TODO items, and
+4. All the PENDING tasks, which are awaiting a response from someone else but
+   still require my attention (I might need to ping someone, say).
+
+I effectively use the "A" priority to decide where I want to focus my attention
+on a given day (I'll assign those priorities the night before, if I'm really on
+top of things), so displaying them at the top makes sense.
+
+A lot of this is based on [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Aaron Bieber's agenda configuration]], including the
+=skip-subtree-if-priority= function, which I've shamelessly stolen and
+re-prefixed.
+
+#+begin_src emacs-lisp
+  (defun hrs/org-skip-subtree-if-priority (priority)
+    "Skip an agenda subtree if it has a priority of PRIORITY.
+
+  PRIORITY may be one of the characters ?A, ?B, or ?C."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (pri-value (* 1000 (- org-lowest-priority priority)))
+          (pri-current (org-get-priority (thing-at-point 'line t))))
+      (if (= pri-value pri-current)
+          subtree-end
+        nil)))
+
+  (setq org-agenda-custom-commands
+        '(("p" "Personal agenda"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "Today's high-priority tasks:")))
+            (agenda "")
+            (todo "TODO"
+                  ((org-agenda-skip-function '(hrs/org-skip-subtree-if-priority ?A))
+                   (org-agenda-overriding-header "Other tasks:")))
+            (todo "PENDING"
+                  ((org-agenda-skip-function '(hrs/org-skip-subtree-if-priority ?A))
+                   (org-agenda-overriding-header "Waiting to hear about these:"))))
+           ((org-agenda-files (list org-index-file))))
+          ("w" "Workday agenda"
+           ((agenda "") (todo "TODO") (todo "PENDING"))
+           ((org-agenda-files (list (org-file-path "work.org")))))))
+#+end_src
+
 **** Capturing tasks
 
 Define a few common tasks as capture templates. Specifically, I frequently:
