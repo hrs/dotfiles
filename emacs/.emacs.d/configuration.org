@@ -2012,14 +2012,17 @@ played or paused.
     (cdr (assoc 'info-title
                 (emms-playlist-current-selected-track))))
 
+  (defun hrs/entity-escape (string)
+    (s-replace-all '(("&" . "&amp;") ("<" . "&lt;") (">" "&gt;")) string))
+
   (defun hrs/music-notification-message (album artist)
     "Format a nice notification message about the current song.
   Include the album if it's non-nil. Escape some entities in the
   message, since Pango (?) can't seem to parse them."
-    (s-replace-all (("&" . "&amp;") ("<" . "&lt;") (">" . "&gt;"))
-               (if album
-                   (concat "by: <i>" artist "</i>\nfrom: <i>" album "</i>")
-                 (concat "by: <i>" artist "</i>"))))
+    (if album
+        (concat "by: <i>" (hrs/entity-escape artist) "</i>\n"
+                "from: <i>" (hrs/entity-escape album) "</i>")
+      (concat "by: <i>" (hrs/entity-escape artist) "</i>")))
 
   (defun hrs/notify-current-song ()
     (let* ((album (hrs/music-current-album))
