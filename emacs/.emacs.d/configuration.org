@@ -2247,7 +2247,7 @@ Use flycheck in the appropriate buffers:
     (evil-set-initial-state 'deft-mode 'emacs))
 #+end_src
 
-* =dired=
+* File management with =dired=
 
 Hide dotfiles by default, but toggle their visibility with =.=.
 
@@ -2307,6 +2307,18 @@ Ask before recursively /deleting/ a directory, though.
 
 #+begin_src emacs-lisp
   (setq dired-recursive-deletes 'top)
+#+end_src
+
+Files are normally moved and copied synchronously. This is fine for small or
+local files, but copying a large file or moving a file across a mounted network
+drive blocks Emacs until the process is completed. Unacceptable!
+
+This uses =emacs-async= to make =dired= perform actions asynchronously.
+
+#+begin_src emacs-lisp
+  (use-package async
+    :config
+    (dired-async-mode 1))
 #+end_src
 
 Open a file with an external program (that is, through =xdg-open=) by hitting

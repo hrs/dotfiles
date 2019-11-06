@@ -27,7 +27,6 @@ sudo apt install \
      pandoc \
      pass \
      pasystray \
-     pcmanfm \
      procmail \
      pwgen \
      python3-proselint \
