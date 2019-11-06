@@ -1882,8 +1882,7 @@ If a message is encrypted, my reply should always be encrypted, too.
 
 ** Sending mail over SMTP
 
-I send my email through =msmtp=. It's very fast, and I've already got it
-configured from using =mutt=. These settings describe how to send a message:
+I send my email through =msmtp=. These settings describe how to send a message:
 
 - Use a sendmail program instead of sending directly from Emacs,
 - Tell =msmtp= to infer the correct account from the =From:= address,

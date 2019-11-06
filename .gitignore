@@ -4,9 +4,4 @@ emacs/.emacs.d/*
 !emacs/.emacs.d/resources
 !emacs/.emacs.d/snippets
 
-email/.mutt/temp
-
-rss/.newsboat/*
-!rss/.newsboat/config
-
 ruby/.bundle/cache

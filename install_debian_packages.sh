@@ -22,7 +22,6 @@ sudo apt install \
      mpd \
      mpv \
      msmtp \
-     newsboat \
      openssl \
      pandoc \
      pass \

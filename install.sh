@@ -11,7 +11,6 @@ stow firefox
 stow git
 stow lisp
 stow music
-stow rss
 stow ruby
 stow x-windows
 
