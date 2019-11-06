@@ -1252,10 +1252,15 @@ them easily from that inbox file to my index.
 #+end_src
 
 I store most of my personal tasks in my index and maintain a separate file for
-work-related tasks, so I'd like to derive my agenda from those two files.
+work-related tasks, so I'd like to derive my agenda from those files.
+
+I also keep some recurring events in, reasonably, a =recurring-events.org= file.
+Those are (mostly) structured as =org-habit= items so they can recur according
+to a schedule.
 
 #+begin_src emacs-lisp
   (setq org-agenda-files (list org-index-file
+                               (org-file-path "recurring-events.org")
                                (org-file-path "work.org")))
 #+end_src
 
@@ -1307,11 +1312,11 @@ redundant.
 
 I've got some custom agenda views that I use to visualize what I'm working on.
 
-The "Personal agenda" view is a bit complicated; it searches only my personal
-list of tasks (that is, not including work tasks) and displays:
+The "Personal agenda" view is a bit complicated; it displays:
 
 1. The high-priority tasks (that is, the ones marked =[#A]=),
-2. My agenda for the next few days,
+2. My agenda for the next few days, including any recurring habits or scheduled
+   events,
 3. All the other, not-high-priority TODO items, and
 4. All the PENDING tasks, which are awaiting a response from someone else but
    still require my attention (I might need to ping someone, say).
@@ -1319,10 +1324,6 @@ list of tasks (that is, not including work tasks) and displays:
 I effectively use the "A" priority to decide where I want to focus my attention
 on a given day (I'll assign those priorities the night before, if I'm really on
 top of things), so displaying them at the top makes sense.
-
-I also keep some recurring events in, reasonably, a =recurring-events.org= file.
-Those are structured as =org-habit= items so they can recur according to a
-schedule.
 
 A lot of this is based on [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Aaron Bieber's agenda configuration]], including the
 =skip-subtree-if-priority= function, which I've shamelessly stolen and
@@ -1353,21 +1354,17 @@ re-prefixed.
                    (org-agenda-overriding-header "Other tasks:")))
             (todo "PENDING"
                   ((org-agenda-skip-function '(hrs/org-skip-subtree-if-priority ?A))
-                   (org-agenda-overriding-header "Waiting to hear about these:"))))
-           ((org-agenda-files (list org-index-file
-                                    (org-file-path "recurring-events.org")))))
-          ("w" "Workday agenda"
-           ((agenda "") (todo "TODO") (todo "PENDING"))
-           ((org-agenda-files (list (org-file-path "work.org")))))))
+                   (org-agenda-overriding-header "Waiting to hear about these:")))))
 #+end_src
 
-I consult my agenda pretty often, so I bind =C-c d= to open up a full-screen
-version of it.
+I consult my agenda pretty often, so I bind =C-c d= to open it a it faster. This
+also copies any files I've sent through Drafts into my index file before
+displaying the index, so they'll be in the agenda view, too.
 
 #+begin_src emacs-lisp
   (defun hrs/dashboard ()
     (interactive)
-    (delete-other-windows)
+    (hrs/copy-tasks-from-inbox)
     (org-agenda nil "p"))
 
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
