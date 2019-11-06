@@ -2,6 +2,10 @@
 
 I hope you like fiddling with your `.emacs.d` ad nauseam, 'cause I obviously do.
 
+You're probably here for the [Emacs config][].
+
+[Emacs config]: ./emacs/.emacs.d/configuration.org
+
 #### Installation
 
 Clone this thing wherever you like (I use `~/.dotfiles`), install [GNU
