@@ -1715,9 +1715,7 @@ Open the checklist and my TODO list side-by-side:
     (interactive)
     (delete-other-windows)
     (hrs/today)
-    (split-window-right)
-    (hrs/open-index-file)
-    (balance-windows))
+    (org-agenda nil "p"))
 
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
 #+end_src
