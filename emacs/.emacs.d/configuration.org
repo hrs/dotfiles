@@ -1314,7 +1314,8 @@ I've got some custom agenda views that I use to visualize what I'm working on.
 
 The "Personal agenda" view is a bit complicated; it displays:
 
-1. The high-priority tasks (that is, the ones marked =[#A]=),
+1. The high-priority, actionable tasks (that is, the ones marked =[#A]= that
+   aren't =BLOCKED= or =PENDING=),
 2. My agenda for the next few days, including any recurring habits or scheduled
    events,
 3. All the other, not-high-priority TODO items, and
@@ -1353,7 +1354,8 @@ shamelessly stolen and re-prefixed.
   (setq org-agenda-custom-commands
         '(("p" "Personal agenda"
            ((tags "PRIORITY=\"A\""
-                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if
+                                               'todo '("DONE" "PENDING" "BLOCKED")))
                    (org-agenda-overriding-header "Today's high-priority tasks:")))
             (agenda "")
             (todo "TODO"
