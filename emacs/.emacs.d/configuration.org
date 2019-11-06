@@ -1326,8 +1326,8 @@ on a given day (I'll assign those priorities the night before, if I'm really on
 top of things), so displaying them at the top makes sense.
 
 A lot of this is based on [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Aaron Bieber's agenda configuration]], including the
-=skip-subtree-if-priority= function, which I've shamelessly stolen and
-re-prefixed.
+=skip-subtree-if-priority= and =skip-subtree-if-habit= functions, which I've
+shamelessly stolen and re-prefixed.
 
 #+begin_src emacs-lisp
   (require 'org-habit)
@@ -1343,6 +1343,13 @@ re-prefixed.
           subtree-end
         nil)))
 
+  (defun hrs/org-skip-subtree-if-habit ()
+    "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (string= (org-entry-get nil "STYLE") "habit")
+          subtree-end
+        nil)))
+
   (setq org-agenda-custom-commands
         '(("p" "Personal agenda"
            ((tags "PRIORITY=\"A\""
@@ -1350,11 +1357,12 @@ re-prefixed.
                    (org-agenda-overriding-header "Today's high-priority tasks:")))
             (agenda "")
             (todo "TODO"
-                  ((org-agenda-skip-function '(hrs/org-skip-subtree-if-priority ?A))
+                  ((org-agenda-skip-function '(or (hrs/org-skip-subtree-if-priority ?A)
+                                                  (hrs/org-skip-subtree-if-habit)))
                    (org-agenda-overriding-header "Other tasks:")))
             (todo "PENDING"
                   ((org-agenda-skip-function '(hrs/org-skip-subtree-if-priority ?A))
-                   (org-agenda-overriding-header "Waiting to hear about these:")))))
+                   (org-agenda-overriding-header "Waiting to hear about these:")))))))
 #+end_src
 
 I consult my agenda pretty often, so I bind =C-c d= to open it a it faster. This
