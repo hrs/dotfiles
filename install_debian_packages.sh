@@ -28,7 +28,7 @@ sudo apt install \
      pasystray \
      procmail \
      pwgen \
-     python3-proselint \
+     python3 \
      redshift \
      rlwrap \
      rofi \

@@ -31,3 +31,6 @@ ln -s ~/.mpd.conf ~/.config/mpd/mpd.conf
 # Many of the tools in this repo are written in Ruby, and some depend on
 # external libraries. This installs those.
 ./install_ruby_gems.sh
+
+# Similarly, we use a couple of Python packages.
+./install_python_packages.sh
