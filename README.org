@@ -1,0 +1,70 @@
+#+OPTIONS: toc:nil num:nil
+
+** hrs's dotfiles
+
+I hope you like fiddling with your =.emacs.d= ad nauseam, 'cause I obviously do.
+
+I'm currently running [[https://www.debian.org/][Debian]] on a 3rd-gen Lenovo X1 Carbon. I use the [[https://i3wm.org/][i3 window
+manager]], [[https://www.mozilla.org/en-US/firefox/][Firefox]], and [[https://www.gnu.org/software/emacs/][Emacs]].
+
+You're probably here for my literate [[./emacs/.emacs.d/configuration.org][Emacs config]]! Most of my time is spent in
+either Emacs or Firefox. I think a text editor is just a terrific environment
+for editing text, so I use Emacs for all kinds of things that "normal" people
+use specialized tools for, including:
+
+- Task management and general writing with [[https://orgmode.org/][Org]],
+- Email browsing with [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]], backed by:
+  - [[http://isync.sourceforge.net/][mbsync]] for synchronization over IMAP,
+  - [[https://marlam.de/msmtp/][msmtp]] for sending messages over SMTP,
+  - [[https://github.com/djcb/mu][mu]] for managing a local searchable index,
+  - [[https://gnupg.org/][gpg]] for encryption and signatures,
+  - [[https://orgmode.org/worg/org-contrib/][org-contacts]] for managing contacts and addresses, and
+  - [[https://www.fastmail.com][Fastmail]] for hosting,
+- RSS feed reading and management with [[https://github.com/skeeto/elfeed][elfeed]] and [[https://github.com/remyhonig/elfeed-org][elfeed-org]], with keybindings
+  to send articles to [[https://www.instapaper.com/][Instapaper]] to read on my phone later,
+- Music playing with [[https://www.gnu.org/software/emms/][EMMS]], backed by [[https://www.musicpd.org/][mpd]],
+- Git with [[https://magit.vc/][magit]], and
+- File management with [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html][dired]] and [[https://github.com/jwiegley/emacs-async][async]].
+
+There's also a lot of programming-specific configuration in there. I write a lot
+of Ruby, but there's plenty of other stuff in there.
+
+I also use some non-Emacs tools! I like:
+
+- [[https://git.pwmt.org/pwmt/zathura][zathura]] as a PDF viewer,
+- [[https://feh.finalrewind.org/][feh]] as my image viewer,
+- [[https://www.passwordstore.org/][pass]] for password management,
+- [[https://github.com/davatorium/rofi][rofi]] for launching applications, and to use with a few custom scripts,
+- [[https://mpv.io/][mpv]] and [[https://ytdl-org.github.io/youtube-dl/][youtube-dl]] for watching videos,
+- [[https://calibre-ebook.com/][calibre]] for managing books and syncing to my Kindle, and
+- a hodgepodge of [[https://www.signal.org/][Signal]], [[https://telegram.org/][Telegram]], [[https://www.skype.com/en/][Skype]], [[https://zoom.us/][Zoom]], and [[https://slack.com/][Slack]] for synchronous
+  communication. I can't say I really /like/ any of them, aside from Signal
+  (most of the time), but network effects mean the matter's mostly out of my
+  hands.
+
+This whole repository isn't /really/ intended for anyone's use but my own, and
+of course it's catered to my way of doing things, so, you know, be prepared for
+that.
+
+Enjoy! =)
+
+*** Installation
+
+Clone this thing wherever you like (I use =~/.dotfiles=) and run the
+=install.sh= script. That will:
+
+- Install a bunch of Debian packages,
+- Set up a bunch of symlinks in your home directory (e.g., =~/.bashrc= →
+  =~/.dotfiles/bash/.bashrc=), and
+- Install a handful of required Ruby gems.
+
+It (mostly) won't overwrite existing files, so move those out of the way first.
+
+*** Wallpaper
+
+To ensure that wallpaper is set correctly, create a =~/.wallpaper-directory=
+symlink to the directory where you keep your wallpapers:
+
+#+begin_src
+$ ln -s /where/your/wallpapers/live ~/.wallpaper-directory
+#+end_src
