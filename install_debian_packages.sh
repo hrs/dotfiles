@@ -7,6 +7,7 @@ sudo apt install \
      compton \
      curl \
      emacs25 \
+     etckeeper \
      feh \
      git \
      gksu \
