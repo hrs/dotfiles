@@ -2248,7 +2248,10 @@ Open media with the appropriate programs.
     (setq dired-open-extensions
           '(("pdf" . "zathura")
             ("xlsx" . "gnumeric")
+            ("jpg" . "~/.bin/s")
+            ("png" . "~/.bin/s")
             ("mkv" . "mpv")
+            ("mov" . "mpv")
             ("mp3" . "mpv")
             ("mp4" . "mpv")
             ("avi" . "mpv"))))
@@ -2264,13 +2267,6 @@ files. We're using:
 
 #+begin_src emacs-lisp
   (setq-default dired-listing-switches "-lhvA")
-#+end_src
-
-Use "j" and "k" to move around in =dired=.
-
-#+begin_src emacs-lisp
-  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
-  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
 #+end_src
 
 Kill buffers of files/directories that are deleted in =dired=.
@@ -2303,17 +2299,23 @@ This uses =emacs-async= to make =dired= perform actions asynchronously.
     (dired-async-mode 1))
 #+end_src
 
-Open a file with an external program (that is, through =xdg-open=) by hitting
-=C-c C-o=.
+Use "j" and "k" to move around in =dired=.
 
 #+begin_src emacs-lisp
-  (defun dired-xdg-open ()
-    "In dired, open the file named on this line."
-    (interactive)
-    (let* ((file (dired-get-filename nil t)))
-      (call-process "xdg-open" nil 0 nil file)))
+  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
+  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
+#+end_src
 
-  (define-key dired-mode-map (kbd "C-c C-o") 'dired-xdg-open)
+I'm often browsing directories of photos and images, so this binds "v" to view a
+slideshow of the current directory with =s= (a custom =feh= wrapper defined
+elsewhere in this repo).
+
+#+begin_src emacs-lisp
+  (defun hrs/dired-slideshow ()
+    (interactive)
+    (start-process "dired-slideshow" nil "s" (dired-current-directory)))
+
+  (evil-define-key 'normal dired-mode-map (kbd "v") 'hrs/dired-slideshow)
 #+end_src
 
 * Editing settings
