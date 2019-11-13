@@ -5,8 +5,8 @@ dbus-send --type=method_call \
           --dest=org.mpris.MediaPlayer2.vlc \
           /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause
 
-# Pause quodlibet if it's running.
-quodlibet --pause
+# Pause mpd if it's playing.
+mpc pause
 
 # Disable dunst notifications.
 pkill -u "$USER" -USR1 dunst
