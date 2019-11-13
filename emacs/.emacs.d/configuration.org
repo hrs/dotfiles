@@ -1627,8 +1627,11 @@ automate creating a new post, but staying in my editor minimizes friction and
 encourages me to write.
 
 This defines a =hrs/new-blog-post= function, which prompts the user for a title
-and creates a new post (with a timestamped and slugged file name) in the blog's
-=_posts/= directory. The new post includes appropriate YAML header information.
+and creates a new draft (with a slugged file name) in the blog's =_drafts/=
+directory. The new post includes appropriate YAML header information.
+
+This also defines =hrs/publish-post= and =hrs/unpublish-post=, which adjust the
+date in the YAML front matter and rename the file appropriately.
 
 #+begin_src emacs-lisp
   (defvar hrs/jekyll-drafts-directory "/home/hrs/documents/blog/_drafts/")
@@ -1664,10 +1667,6 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
         (setq slug (replace-regexp-in-string "--" "-" slug)))
       slug))
 
-  (defun hrs/timestamped-slug-for (title)
-    "Turn a string into a slug with a timestamp and title."
-    (concat (hrs/timestamp) "-" (hrs/slug-for title)))
-
   (defun hrs/jekyll-yaml-template (title)
     "Return the YAML header information appropriate for a blog
      post. Include the title, the current date, the post layout,
@@ -1675,17 +1674,17 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
     (concat
      "---\n"
      "title: " title "\n"
-     "date: " (hrs/timestamp) "\n"
+     "date:\n"
      "layout: post\n"
      "# pdf_file: " (hrs/slug-for title) ".pdf\n"
      "tags: []\n"
      "---\n\n"))
 
   (defun hrs/new-blog-post (title)
-    "Create a new blog post in Jekyll."
+    "Create a new blog draft in Jekyll."
     (interactive "sPost title: ")
-    (let ((post (concat hrs/jekyll-posts-directory
-                        (hrs/timestamped-slug-for title)
+    (let ((post (concat hrs/jekyll-drafts-directory
+                        (hrs/slug-for title)
                         hrs/jekyll-post-extension)))
       (if (file-exists-p post)
           (find-file post)
@@ -1704,7 +1703,7 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
      (file-name-directory (buffer-file-name (current-buffer)))
      hrs/jekyll-posts-directory))
 
-  (defun hrs/jekyll-publish-post ()
+  (defun hrs/publish-post ()
     "Move a draft post to the posts directory, rename it to include
   the date, reopen the new file, and insert the date in the YAML
   front matter."
@@ -1731,7 +1730,7 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
              (save-buffer)
              (message "Published post!")))))
 
-  (defun hrs/jekyll-unpublish-post ()
+  (defun hrs/unpublish-post ()
     "Move a published post to the drafts directory, rename it to
   exclude the date, reopen the new file, and remove the date in the
   YAML front matter."
