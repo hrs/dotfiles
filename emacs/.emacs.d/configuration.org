@@ -1767,10 +1767,16 @@ This selects and inserts a tag:
     (split-string (shell-command-to-string "cd ~/documents/blog && rake tags")))
 
   (defun hrs/insert-blog-tag ()
-    "Select one of the current tags and insert it at point."
+    "Prompt for one of the existing tags used in the blog and
+  insert it in the YAML front matter appropriately."
     (interactive)
-    (insert
-     (ivy-completing-read "Insert tag at point: " (hrs/existing-blog-tags))))
+    (save-excursion
+      (beginning-of-buffer)
+      (search-forward-regexp "^tags: \\[")
+      (insert
+       (ivy-completing-read "Insert tag: " (hrs/existing-blog-tags))
+       (if (looking-at "\\]") "" ", ")))
+    (message "Tagged!"))
 #+end_src
 
 * Email with =mu4e=
