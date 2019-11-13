@@ -1631,8 +1631,12 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
 =_posts/= directory. The new post includes appropriate YAML header information.
 
 #+begin_src emacs-lisp
-  (defvar hrs/jekyll-posts-directory "~/documents/blog/_posts/")
+  (defvar hrs/jekyll-drafts-directory "/home/hrs/documents/blog/_drafts/")
+  (defvar hrs/jekyll-posts-directory "/home/hrs/documents/blog/_posts/")
   (defvar hrs/jekyll-post-extension ".md")
+
+  (defun hrs/timestamp ()
+    (format-time-string "%Y-%m-%d"))
 
   (defun hrs/replace-whitespace-with-hyphens (s)
     (replace-regexp-in-string " " "-" s))
@@ -1662,9 +1666,7 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
 
   (defun hrs/timestamped-slug-for (title)
     "Turn a string into a slug with a timestamp and title."
-    (concat (format-time-string "%Y-%m-%d")
-            "-"
-            (hrs/slug-for title)))
+    (concat (hrs/timestamp) "-" (hrs/slug-for title)))
 
   (defun hrs/jekyll-yaml-template (title)
     "Return the YAML header information appropriate for a blog
@@ -1673,7 +1675,7 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
     (concat
      "---\n"
      "title: " title "\n"
-     "date: " (format-time-string "%Y-%m-%d") "\n"
+     "date: " (hrs/timestamp) "\n"
      "layout: post\n"
      "# pdf_file: " (hrs/slug-for title) ".pdf\n"
      "tags: []\n"
@@ -1689,6 +1691,73 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
           (find-file post)
         (find-file post)
         (insert (hrs/jekyll-yaml-template title)))))
+
+  (defun hrs/jekyll-draft-p ()
+    "Return true if the current buffer is a draft."
+    (equal
+     (file-name-directory (buffer-file-name (current-buffer)))
+     hrs/jekyll-drafts-directory))
+
+  (defun hrs/jekyll-published-p ()
+    "Return true if the current buffer is a published post."
+    (equal
+     (file-name-directory (buffer-file-name (current-buffer)))
+     hrs/jekyll-posts-directory))
+
+  (defun hrs/jekyll-publish-post ()
+    "Move a draft post to the posts directory, rename it to include
+  the date, reopen the new file, and insert the date in the YAML
+  front matter."
+    (interactive)
+    (cond ((not (hrs/jekyll-draft-p))
+           (message "This is not a draft post."))
+          ((buffer-modified-p)
+           (message "Can't publish post; buffer has modifications."))
+          (t
+           (let ((filename
+                  (concat hrs/jekyll-posts-directory
+                          (hrs/timestamp) "-"
+                          (file-name-nondirectory
+                           (buffer-file-name (current-buffer)))))
+                 (old-point (point)))
+             (rename-file (buffer-file-name (current-buffer))
+                          filename)
+             (kill-buffer nil)
+             (find-file filename)
+             (set-window-point (selected-window) old-point)
+             (save-excursion
+               (beginning-of-buffer)
+               (replace-regexp "^date:$" (concat "date: " (hrs/timestamp))))
+             (save-buffer)
+             (message "Published post!")))))
+
+  (defun hrs/jekyll-unpublish-post ()
+    "Move a published post to the drafts directory, rename it to
+  exclude the date, reopen the new file, and remove the date in the
+  YAML front matter."
+    (interactive)
+    (cond ((not (hrs/jekyll-published-p))
+           (message "This is not a published post."))
+          ((buffer-modified-p)
+           (message "Can't publish post; buffer has modifications."))
+          (t
+           (let ((filename
+                  (concat hrs/jekyll-drafts-directory
+                          (substring
+                           (file-name-nondirectory
+                            (buffer-file-name (current-buffer)))
+                           11 nil)))
+                 (old-point (point)))
+             (rename-file (buffer-file-name (current-buffer))
+                          filename)
+             (kill-buffer nil)
+             (find-file filename)
+             (set-window-point (selected-window) old-point)
+             (save-excursion
+               (beginning-of-buffer)
+               (replace-regexp "^date: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$" "date:"))
+             (save-buffer)
+             (message "Returned post to drafts!")))))
 #+end_src
 
 This selects and inserts a tag:
