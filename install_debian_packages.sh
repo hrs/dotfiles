@@ -9,6 +9,7 @@ sudo apt install \
      emacs25 \
      etckeeper \
      feh \
+     fbreader \
      git \
      gksu \
      gnupg2 \

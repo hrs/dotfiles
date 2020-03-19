@@ -1165,6 +1165,7 @@ tells Org to open those links with the mailcap-defined applications.
                  (mailcap-parse-mailcap "~/.mailcap")
                  (setq org-file-apps
                        '((remote . emacs)
+                         ("mobi" . "fbreader %s")
                          (system . mailcap)
                          (t . mailcap))))))
 #+end_src
