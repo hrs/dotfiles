@@ -260,9 +260,9 @@ just a hint of transparency looks lovely and isn't distracting or hard to read.
     (set-frame-parameter (selected-frame) 'alpha value))
 
   (defun hrs/apply-theme ()
-    "Apply the `solarized-dark' theme and make frames just slightly transparent."
+    "Apply the `solarized-light' theme and make frames just slightly transparent."
     (interactive)
-    (load-theme 'solarized-dark t)
+    (load-theme 'solarized-light t)
     (transparency 90))
 #+end_src
 
