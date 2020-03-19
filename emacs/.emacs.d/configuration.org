@@ -2492,7 +2492,7 @@ this looks pretty bad (when indenting org-mode, for example, or trying to guess
 at the correct indentation for Python).
 
 #+begin_src emacs-lisp
-  (setq yas/indent-line nil)
+  (setq yas-indent-line 'auto)
 #+end_src
 
 ** Configure =ivy= and =counsel=
