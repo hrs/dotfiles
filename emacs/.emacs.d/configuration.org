@@ -773,6 +773,26 @@ Indent everything by 2 spaces.
 
 ** Lisps
 
+*** Racket
+
+#+begin_src emacs-lisp
+  (use-package racket-mode)
+#+end_src
+
+[[https://docs.racket-lang.org/pollen/][Pollen]] uses a lozenge ◊ to mark preprocessor commands (like defining and
+dereferencing variables). That's awkward to type, so this lets me hit =M-^= to
+insert one.
+
+#+begin_src emacs-lisp
+  (defun hrs/insert-lozenge ()
+    (interactive)
+    (insert "◊"))
+
+  (define-key racket-mode-map (kbd "M-^") 'hrs/insert-lozenge)
+#+end_src
+
+*** All Lisps
+
 I like to use =paredit= in Lisp modes to balance parentheses (and more!).
 
 #+begin_src emacs-lisp
