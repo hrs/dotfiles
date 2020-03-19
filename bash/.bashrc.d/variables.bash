@@ -18,7 +18,7 @@ export TEXINPUTS=/home/hrs/.texmf:$TEXINPUTS
 source /etc/bash_completion.d/password-store
 
 source "/usr/local/share/chruby/chruby.sh"
-chruby 2.5.3
+chruby 2.7.0
 
 eval $(opam env)
 

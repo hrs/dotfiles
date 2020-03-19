@@ -8,7 +8,7 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 Layout/ElseAlignment:
   Enabled: false
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: true
   AllowedNames: [_]
 Style/RegexpLiteral:
@@ -18,6 +18,8 @@ Style/BlockDelimiters:
 Style/WhileUntilModifier:
   Enabled: false
 Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: required
@@ -96,7 +98,7 @@ Naming/PredicateName:
   - is_
   - has_
   - have_
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
   - is_
   Exclude:
   - spec/**/*
@@ -248,7 +250,7 @@ Style/WhenThen:
 Lint/EachWithObjectArgument:
   Description: Check for immutable argument given to each_with_object.
   Enabled: true
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Description: Don't suppress exception.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
   Enabled: false
