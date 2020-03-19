@@ -146,6 +146,7 @@ exec --no-startup-id pasystray &
 # Start up a GPG agent
 exec --no-startup-id eval $(gpg-agent --daemon)
 
+bindsym $mod+n exec pcmanfm
 # Start the mpd daemon
 exec mpd
 bindsym $mod+Left exec mpc prev
