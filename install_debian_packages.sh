@@ -31,6 +31,7 @@ sudo apt install \
      procmail \
      pwgen \
      python3 \
+     python3-pip \
      redshift \
      rlwrap \
      rofi \
