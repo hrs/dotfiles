@@ -549,6 +549,15 @@ project root (if I'm not in a "real" project).
     (setq projectile-require-project-root nil))
 #+end_src
 
+** =restclient=
+
+#+begin_src emacs-lisp
+  (use-package restclient)
+  (use-package company-restclient
+    :config
+    (add-to-list 'company-backends 'company-restclient))
+#+end_src
+
 ** =undo-tree=
 
 I like tree-based undo management. I only rarely need it, but when I do, oh boy.
