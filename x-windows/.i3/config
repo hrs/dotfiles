@@ -75,6 +75,9 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 # Take a screenshot
 bindsym --release $mod+c exec ~/.bin/screenshot
 
+# Open a new Emacs frame
+bindsym $mod+o exec "emacsclient --create-frame"
+
 # Launch Telegram
 bindsym $mod+t exec ~/.local/share/TelegramDesktop/Telegram
 
