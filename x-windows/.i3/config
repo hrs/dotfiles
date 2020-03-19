@@ -97,12 +97,6 @@ bindsym $mod+s exec ~/bin/snippet.rb
 # Windows and workspaces
 ########################################
 
-# Minimize window chrome: no title bar, narrow margins.
-for_window [class="^.*"] border pixel 0
-
-# Use i3-gaps.
-gaps inner 8
-
 # Put the first four workspaces on the external monitor when it's available.
 workspace 1 output HDMI2
 workspace 2 output HDMI2
