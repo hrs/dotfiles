@@ -141,7 +141,7 @@ Define a big ol' bunch of handy utility functions.
       (if filename
           (progn
             (when (buffer-modified-p)
-               (save-buffer))
+              (save-buffer))
             (rename-file filename new-name t)
             (kill-buffer (current-buffer))
             (find-file new-name)
@@ -150,7 +150,7 @@ Define a big ol' bunch of handy utility functions.
 
   (defun hrs/generate-scratch-buffer ()
     "Create and switch to a temporary scratch buffer with a random
-       name."
+         name."
     (interactive)
     (switch-to-buffer (make-temp-name "scratch-")))
 
