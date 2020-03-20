@@ -1,22 +1,64 @@
 #!/bin/sh
 
+# Return the dimensions of the screen in the form of "2560x1440".
+screen_dimensions() {
+  xdpyinfo | grep dimensions | cut -f7 -d" "
+}
+
+# Return a path to a version of the current wallpaper. This file will be of a
+# size and format suitable for i3lock. The file will be created if it doesn't
+# already exist.
+lockscreen_background_file_path() {
+  # Ensure that the PNG wallpaper directory exists.
+  directory="$HOME/.wallpaper-lockscreens"
+  mkdir -p "$directory"
+
+  # Determine the monitor size and current wallpaper. Use those to build the
+  # name for the lockscreen background file.
+  current_wallpaper_image=$(readlink -f ~/.wallpaper)
+  dims=$(screen_dimensions)
+  extension="${current_wallpaper_image##*.}"
+  png_file="$directory/$dims-$(basename "$current_wallpaper_image" "$extension")png"
+
+  # If the lockscreen background file doesn't exist, create it. Notify the user
+  # that the file is being converted, and close that notification once the
+  # process is complete (so it doesn't pop up when they unlock).
+  if [ ! -f "$png_file" ]; then
+    notification_id="987654321"
+
+    ~/bin/dunstify --replace="$notification_id" \
+                   "lock-screen" \
+                   "Converting wallpaper to PNG..."
+    convert -resize "$dims^" \
+            -extent "$dims" \
+            -gravity center \
+            "$current_wallpaper_image" \
+            "$png_file"
+    ~/bin/dunstify --close="$notification_id"
+  fi
+
+  # Return the path to the lockscreen background file.
+  echo "$png_file"
+}
+
 # Pause VLC if it's running.
 dbus-send --type=method_call \
           --dest=org.mpris.MediaPlayer2.vlc \
           /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause
 
 # Pause music if it's playing.
-mpc pause
-quodlibet --pause
+mpc pause >/dev/null
+quodlibet --pause >/dev/null 2>&1
+
+background="$(lockscreen_background_file_path)"
 
 # Disable dunst notifications.
 pkill -u "$USER" -USR1 dunst
 
-# Lock the screen with a simple tiling background. The `--nofork` option blocks,
-# ensuring that dunst messages aren't re-enabled immediately.
+# Lock the screen, using the current wallpaper as a background. The `--nofork`
+# option blocks, ensuring that dunst messages aren't re-enabled immediately.
 i3lock --nofork \
-       --tiling \
-       --image=/home/hrs/pictures/wallpaper/tile/background-tile.png
+       --image="$background"
 
 # Re-enable dunst notifications.
 pkill -u "$USER" -USR2 dunst
