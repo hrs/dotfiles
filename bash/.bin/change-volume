@@ -1,0 +1,12 @@
+#!/bin/sh
+
+percent_change="$1"
+
+if [ -z "$percent_change" ]; then
+  echo "Usage: $(basename "$0") VOLUME" &>2
+  exit 1
+fi
+
+default_sink=$(pacmd list-sinks | grep "*" | cut -f5 -d" ")
+
+pactl set-sink-volume "$default_sink" "$percent_change"
