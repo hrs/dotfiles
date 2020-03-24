@@ -5,7 +5,7 @@ font pango:San Francisco Display 8
 set $mod Mod4
 
 # No giant floating windows
-floating_maximum_size 1000 x 1000
+floating_maximum_size 1200 x 1200
 
 ########################################
 # Bindings
