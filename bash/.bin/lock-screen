@@ -41,6 +41,8 @@ lockscreen_background_file_path() {
   echo "$png_file"
 }
 
+background="$(lockscreen_background_file_path)"
+
 # Pause VLC if it's running.
 dbus-send --type=method_call \
           --dest=org.mpris.MediaPlayer2.vlc \
@@ -49,8 +51,6 @@ dbus-send --type=method_call \
 # Pause music if it's playing.
 mpc pause >/dev/null
 quodlibet --pause >/dev/null 2>&1
-
-background="$(lockscreen_background_file_path)"
 
 # Disable dunst notifications.
 pkill -u "$USER" -USR1 dunst
