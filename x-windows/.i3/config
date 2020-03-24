@@ -107,16 +107,16 @@ workspace 4 output HDMI2
 ########################################
 
 # Load up config in .Xresources (for DPI, urxvt, and rofi)
-exec xrdb -load ~/.Xresources
+exec --no-startup-id xrdb -load ~/.Xresources
 
 # Start the Compton compositor (for i3bar transparency)
 exec --no-startup-id compton &
 
 # Use Caps Lock as an additional Control key
-exec setxkbmap -option ctrl:nocaps
+exec --no-startup-id setxkbmap -option ctrl:nocaps
 
 # Treat hitting and releasing Control without chording as Escape
-exec xcape &
+exec --no-startup-id xcape &
 
 # Bind media/volume keys
 exec --no-startup-id xbindkeys &
