@@ -92,6 +92,13 @@ bindsym $mod+a exec ~/.bin/totp
 # Insert a snippet
 bindsym $mod+s exec ~/bin/snippet.rb
 
+# Control music and volume
+bindsym $mod+Left exec quodlibet --previous
+bindsym $mod+Right exec quodlibet --next
+bindsym $mod+space exec quodlibet --play-pause
+bindsym $mod+Up exec ~/.bin/change-volume +10%
+bindsym $mod+Down exec ~/.bin/change-volume -10%
+
 ########################################
 # Windows and workspaces
 ########################################
@@ -143,15 +150,6 @@ exec --no-startup-id pasystray &
 exec --no-startup-id eval $(gpg-agent --daemon)
 
 bindsym $mod+n exec pcmanfm
-# Start the mpd daemon
-exec mpd
-bindsym $mod+Left exec mpc prev
-bindsym $mod+Right exec mpc next
-bindsym $mod+space exec mpc toggle
-
-# Volume control
-bindsym $mod+Up exec ~/.bin/change-volume +10%
-bindsym $mod+Down exec ~/.bin/change-volume -10%
 
 # Set the wallpaper
 exec --no-startup-id ~/.bin/paint-wallpaper
