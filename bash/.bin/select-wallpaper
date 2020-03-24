@@ -18,7 +18,7 @@ class Wallpaper
   end
 
   def to_s
-    File.basename(path)
+    File.basename(path, File.extname(path))
   end
 end
 
