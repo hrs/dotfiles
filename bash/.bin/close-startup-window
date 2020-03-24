@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+
+# I've got a number of i3 applications that open a window on startup, like
+# Slack, Telegram, my VPN client, Signal... I don't actually want those windows
+# to be open.
+#
+# This script checks every second until a given class of window opens, closes
+# the i3 window (but doesn't terminate the application), and ends.
+#
+# In my i3 config, that looks like:
+#
+#     exec --no-startup-id ~/.bin/close_startup_window Slack
+#     exec --no-startup-id slack
+
+require "json"
+
+def i3_tree
+  JSON.parse(`i3-msg -t get_tree`)
+end
+
+def open_windows(tree = i3_tree)
+  if tree.key?("window_properties")
+    [tree["window_properties"]["class"]]
+  elsif tree.key?("nodes")
+    nodes = tree.fetch("nodes", []) + tree.fetch("floating_nodes", [])
+    nodes.flat_map { |node| open_windows(node) }
+  else
+    []
+  end
+end
+
+def window_open?(window_class)
+  open_windows.include?(window_class)
+end
+
+def wait_until_window_opens(window_class)
+  while !window_open?(window_class)
+    sleep 1
+  end
+end
+
+def close_window(window_class)
+  system("i3-msg '[class=\"#{ window_class }\"] kill'")
+end
+
+window_class = ARGV[0]
+
+if window_class.nil?
+  warn "Usage: kill_once WINDOW_CLASS"
+  exit 1
+end
+
+wait_until_window_opens(window_class)
+close_window(window_class)

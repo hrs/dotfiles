@@ -76,12 +76,12 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 bindsym --release $mod+c exec ~/.bin/screenshot
 
 # Open a new Emacs frame
-bindsym $mod+o exec "emacsclient --create-frame"
+bindsym $mod+o exec "emacsclient --create-frame"; workspace 2
 
 # Launch assorted chat applications
-bindsym $mod+t exec telegram
-bindsym $mod+Shift+t exec ~/bin/signal
-bindsym $mod+Shift+s exec slack
+bindsym $mod+t exec telegram; workspace 4
+bindsym $mod+Shift+t exec ~/bin/signal; workspace 4
+bindsym $mod+Shift+s exec slack; workspace 4
 
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
@@ -154,14 +154,33 @@ bindsym $mod+n exec pcmanfm
 # Set the wallpaper
 exec --no-startup-id ~/.bin/paint-wallpaper
 
-# Invoke the Emacs daemon
-exec --no-startup-id emacs --daemon
-
 # Ensure my VPN client is running
-exec --no-startup-id ~/bin/vpn-client &
+exec --no-startup-id ~/.bin/close-startup-window privateinternetaccess
+exec --no-startup-id ~/bin/start-pia-client &
 
-# Start the appropriate programs on the right workspaces
-exec --no-startup-id i3-msg 'workspace 1; exec firefox'
+# Start Firefox on workspace 1
+for_window [class="Firefox"] move to workspace 1
+exec --no-startup-id firefox
+
+# Start Emacs on workspace 2
+for_window [class="Emacs"] move to workspace 2
+exec --no-startup-id "emacs --daemon && emacsclient --create-frame"
+
+# Start chat applications on workspace 4
+for_window [class="Signal"] move to workspace 4
+for_window [class="Slack"] move to workspace 4
+for_window [class="Telegram"] move to workspace 4
+for_window [workspace=4] layout tabbed
+exec --no-startup-id ~/.bin/close-startup-window Slack
+exec --no-startup-id ~/.bin/close-startup-window Signal
+exec --no-startup-id ~/.bin/close-startup-window TelegramDesktop
+exec --no-startup-id ~/bin/signal
+exec --no-startup-id telegram
+exec --no-startup-id slack
+exec --no-startup-id sleep 5s; workspace 4; kill
+
+# Visit Emacs
+exec --no-startup-id "i3-msg workspace 2"
 
 # Configure the i3 bar
 bar {
