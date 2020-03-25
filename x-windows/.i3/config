@@ -23,9 +23,6 @@ bindsym $mod+Shift+l exec ~/.bin/lock-screen
 # Start a program launcher
 bindsym $mod+d exec PATH=~/bin:~/.bin:$PATH rofi -matching fuzzy -show run
 
-# Move the current workspace to the next monitor
-bindsym $mod+Tab exec i3-msg move workspace to output right
-
 # Change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -45,26 +42,30 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+1 workspace number 1 www
+bindsym $mod+2 workspace number 2 emacs
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4 chat
+bindsym $mod+5 workspace number 5 music
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+
+# Cycle workspaces
+bindsym $mod+Tab workspace next_on_output
+bindsym $mod+Shift+Tab workspace prev_on_output
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+1 move container to workspace number 1 www
+bindsym $mod+Shift+2 move container to workspace number 2 emacs
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4 chat
+bindsym $mod+Shift+5 move container to workspace number 5 music
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -76,12 +77,12 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 bindsym --release $mod+c exec ~/.bin/screenshot
 
 # Open a new Emacs frame
-bindsym $mod+o exec "emacsclient --create-frame"; workspace 2
+bindsym $mod+o exec "emacsclient --create-frame"; workspace number 2 emacs
 
 # Launch assorted chat applications
-bindsym $mod+t exec telegram; workspace 4
-bindsym $mod+Shift+t exec ~/bin/signal; workspace 4
-bindsym $mod+Shift+s exec slack; workspace 4
+bindsym $mod+t exec telegram; workspace number 4 chat
+bindsym $mod+Shift+t exec ~/bin/signal; workspace number 4 chat
+bindsym $mod+Shift+s exec slack; workspace number 4 chat
 
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
@@ -160,17 +161,17 @@ exec --no-startup-id ~/.bin/close-startup-window privateinternetaccess
 exec --no-startup-id ~/bin/start-pia-client &
 
 # Start Firefox on workspace 1
-for_window [class="Firefox"] move to workspace 1
+for_window [class="Firefox"] move to workspace number 1 www
 exec --no-startup-id firefox
 
 # Start Emacs on workspace 2
-for_window [class="Emacs"] move to workspace 2
+for_window [class="Emacs"] move to workspace number 2 emacs
 exec --no-startup-id "emacs --daemon && emacsclient --create-frame"
 
 # Start chat applications on workspace 4
-for_window [class="Signal"] move to workspace 4
-for_window [class="Slack"] move to workspace 4
-for_window [class="Telegram"] move to workspace 4
+for_window [class="Signal"] move to workspace number 4 chat
+for_window [class="Slack"] move to workspace number 4 chat
+for_window [class="Telegram"] move to workspace number 4 chat
 for_window [workspace=4] layout tabbed
 exec --no-startup-id ~/.bin/close-startup-window Slack
 exec --no-startup-id ~/.bin/close-startup-window Signal
@@ -180,11 +181,11 @@ exec --no-startup-id telegram
 exec --no-startup-id slack
 
 # Start music player on workspace 5
-for_window [class="Quodlibet"] move to workspace number 5
+for_window [class="Quodlibet"] move to workspace number 5 music
 exec --no-startup-id quodlibet
 
 # Visit Emacs
-exec --no-startup-id "i3-msg workspace 2"
+exec --no-startup-id "i3-msg workspace number 2 emacs"
 
 # Configure the i3 bar
 bar {
@@ -194,6 +195,7 @@ bar {
   font pango:San Francisco Display 8
   position top
   tray_output primary
+  strip_workspace_numbers yes
 
   bindsym button4 nop
   bindsym button5 nop
