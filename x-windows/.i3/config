@@ -92,6 +92,9 @@ bindsym $mod+a exec ~/.bin/totp
 # Insert a snippet
 bindsym $mod+s exec ~/bin/snippet.rb
 
+# Open up the file manager
+bindsym $mod+n exec pcmanfm
+
 # Control music and volume
 bindsym $mod+Left exec quodlibet --previous
 bindsym $mod+Right exec quodlibet --next
@@ -149,8 +152,6 @@ exec --no-startup-id pasystray &
 # Start up a GPG agent
 exec --no-startup-id eval $(gpg-agent --daemon)
 
-bindsym $mod+n exec pcmanfm
-
 # Set the wallpaper
 exec --no-startup-id ~/.bin/paint-wallpaper
 
@@ -177,7 +178,10 @@ exec --no-startup-id ~/.bin/close-startup-window TelegramDesktop
 exec --no-startup-id ~/bin/signal
 exec --no-startup-id telegram
 exec --no-startup-id slack
-exec --no-startup-id sleep 5s; workspace 4; kill
+
+# Start music player on workspace 5
+for_window [class="Quodlibet"] move to workspace number 5
+exec --no-startup-id quodlibet
 
 # Visit Emacs
 exec --no-startup-id "i3-msg workspace 2"
