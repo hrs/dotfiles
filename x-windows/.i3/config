@@ -44,7 +44,7 @@ bindsym $mod+e layout toggle split
 # Switch to workspace
 bindsym $mod+1 workspace number 1 www
 bindsym $mod+2 workspace number 2 emacs
-bindsym $mod+3 workspace number 3
+bindsym $mod+3 workspace number 3 terms
 bindsym $mod+4 workspace number 4 chat
 bindsym $mod+5 workspace number 5 music
 bindsym $mod+6 workspace number 6
@@ -59,7 +59,7 @@ bindsym $mod+Shift+Tab workspace prev_on_output
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1 www
 bindsym $mod+Shift+2 move container to workspace number 2 emacs
-bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+3 move container to workspace number 3 terms
 bindsym $mod+Shift+4 move container to workspace number 4 chat
 bindsym $mod+Shift+5 move container to workspace number 5 music
 bindsym $mod+Shift+6 move container to workspace number 6
