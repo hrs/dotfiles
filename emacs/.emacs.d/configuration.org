@@ -535,7 +535,7 @@ project root (if I'm not in a "real" project).
 #+begin_src emacs-lisp
   (use-package projectile
     :bind
-    ("C-c v" . deadgrep)
+    ("C-c v" . projectile-ag)
 
     :config
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
