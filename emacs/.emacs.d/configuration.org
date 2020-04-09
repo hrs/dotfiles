@@ -2085,7 +2085,7 @@ Use =o= to browse the entry in a Web browser.
   (define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
 #+end_src
 
-Use =i= to send the current entry to Instapaper.
+Some external integrations need access to the current entry at point:
 
 #+begin_src emacs-lisp
   (defun hrs/elfeed-current-entry ()
@@ -2093,7 +2093,45 @@ Use =i= to send the current entry to Instapaper.
            elfeed-show-entry)
           ((eq major-mode 'elfeed-search-mode)
            (elfeed-search-selected t))))
+#+end_src
 
+** Add links to Pinboard
+
+I store some articles on [[https://pinboard.in/][Pinboard]]. The =pinboard.el= library handles that.
+
+I bind =a= (for "archive," let's say) to send the current entry to Pinboard.
+
+#+begin_src emacs-lisp
+    (use-package pinboard)
+
+    (defun hrs/elfeed-pinboard-current-entry ()
+      (interactive)
+      (let ((url (elfeed-entry-link (hrs/elfeed-current-entry)))
+            (title (elfeed-entry-title (hrs/elfeed-current-entry))))
+        (pinboard-auth)
+        (pinboard-not-too-soon :pinboard-save
+          (pinboard-save url title "" "" t nil))))
+
+    (define-key elfeed-show-mode-map "a" 'hrs/elfeed-pinboard-current-entry)
+    (define-key elfeed-search-mode-map "a" 'hrs/elfeed-pinboard-current-entry)
+#+end_src
+
+** Add links to Instapaper
+
+I sometimes use [[https://instapaper.com][Instapaper]] to store articles I want to read later. The
+=instapaper.el= library sends my URLs there.
+
+#+begin_src emacs-lisp
+  (use-package instapaper)
+  (require 'instapaper)
+
+  (setq instapaper-username (netrc-username "instapaper.com")
+        instapaper-password (netrc-password "instapaper.com"))
+#+end_src
+
+Use =i= to send the current entry to Instapaper.
+
+#+begin_src emacs-lisp
   (defun hrs/elfeed-instapaper-entry (entry)
     (let ((url (elfeed-entry-link entry))
           (title (elfeed-entry-title entry)))
