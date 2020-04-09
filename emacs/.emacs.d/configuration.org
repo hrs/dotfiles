@@ -2048,6 +2048,24 @@ Install elfeed and load up my feeds.
       (setq rmh-elfeed-org-files (list "~/documents/rss-feeds.org"))))
 #+end_src
 
+Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then
+by name of the feed, and finally by publication date.
+
+#+begin_src emacs-lisp
+  (defun hrs/custom-elfeed-sort (a b)
+    (let* ((a-tags (format "%s" (elfeed-entry-tags a)))
+           (b-tags (format "%s" (elfeed-entry-tags b)))
+           (a-title (elfeed-feed-title (elfeed-entry-feed a)))
+           (b-title (elfeed-feed-title (elfeed-entry-feed b))))
+      (if (string= a-tags b-tags)
+          (if (string= a-title b-title)
+              (< (elfeed-entry-date b) (elfeed-entry-date a))
+            (string< b-title a-title))
+        (string< a-tags b-tags))))
+
+  (setf elfeed-search-sort-function #'hrs/custom-elfeed-sort)
+#+end_src
+
 Open =elfeed= with =C-c r=:
 
 #+begin_src emacs-lisp
