@@ -82,8 +82,8 @@ bindsym --release $mod+c exec ~/.bin/screenshot
 bindsym $mod+o exec "emacsclient --create-frame"; workspace number 2 emacs
 
 # Launch assorted chat applications
-bindsym $mod+t exec telegram; workspace number 4 chat
-bindsym $mod+Shift+t exec ~/bin/signal; workspace number 4 chat
+bindsym $mod+t exec telegram-desktop; workspace number 4 chat
+bindsym $mod+Shift+t exec signal-desktop --start-in-tray; workspace number 4 chat
 bindsym $mod+Shift+s exec slack; workspace number 4 chat
 
 # Open a password manager
@@ -127,9 +127,6 @@ exec --no-startup-id xbindkeys &
 # Start up the Dropbox client
 exec --no-startup-id dropbox start
 
-# Start up the NextCloud client
-exec --no-startup-id nextcloud &
-
 # Hide the mouse cursor after a second
 exec --no-startup-id unclutter -idle 1 -noevents &
 
@@ -169,12 +166,11 @@ exec --no-startup-id ~/.bin/close-startup-window Slack
 exec --no-startup-id ~/.bin/close-startup-window Signal
 exec --no-startup-id ~/.bin/close-startup-window TelegramDesktop
 exec --no-startup-id ~/bin/signal
-exec --no-startup-id telegram
+exec --no-startup-id telegram-desktop
 exec --no-startup-id slack
 
-# Start music player on workspace 5
+# Keep music player on workspace 5
 for_window [class="Quodlibet"] move to workspace number 5 music
-exec --no-startup-id quodlibet
 
 # Visit Emacs
 exec --no-startup-id "i3-msg workspace number 2 emacs"
