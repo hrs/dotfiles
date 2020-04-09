@@ -1,6 +1,8 @@
 # Use San Francisco Display in container titles
 font pango:San Francisco Display 8
 
+exec --no-startup-id xrandr --output HDMI-A-0 --primary
+
 # Use the win key as $mod
 set $mod Mod4
 
@@ -102,16 +104,6 @@ bindsym $mod+Right exec quodlibet --next
 bindsym $mod+space exec quodlibet --play-pause
 bindsym $mod+Up exec ~/.bin/change-volume +10%
 bindsym $mod+Down exec ~/.bin/change-volume -10%
-
-########################################
-# Windows and workspaces
-########################################
-
-# Put the first four workspaces on the external monitor when it's available.
-workspace 1 output HDMI2
-workspace 2 output HDMI2
-workspace 3 output HDMI2
-workspace 4 output HDMI2
 
 ########################################
 # Startup applications
