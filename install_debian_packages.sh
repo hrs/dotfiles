@@ -30,6 +30,7 @@ sudo apt install \
      pandoc \
      pass \
      pasystray \
+     pcmanfm \
      procmail \
      proofgeneral \
      pwgen \
