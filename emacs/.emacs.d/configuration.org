@@ -2406,15 +2406,24 @@ Open media with the appropriate programs.
   (use-package dired-open
     :config
     (setq dired-open-extensions
-          '(("pdf" . "zathura")
-            ("xlsx" . "gnumeric")
-            ("jpg" . "~/.bin/s")
-            ("png" . "~/.bin/s")
+          '(("avi" . "mpv")
+            ("cbr" . "comix")
+            ("doc" . "abiword")
+            ("docx" . "abiword")
+            ("gif" . "ffplay")
+            ("gnumeric" . "gnumeric")
+            ("html" . "firefox")
+            ("jpeg" . "s")
+            ("jpg" . "s")
             ("mkv" . "mpv")
             ("mov" . "mpv")
             ("mp3" . "mpv")
             ("mp4" . "mpv")
-            ("avi" . "mpv"))))
+            ("pdf" . "zathura")
+            ("png" . "s")
+            ("webm" . "mpv")
+            ("xls" . "gnumeric")
+            ("xlsx" . "gnumeric"))))
 #+end_src
 
 These are the switches that get passed to =ls= when =dired= gets a list of
