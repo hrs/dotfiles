@@ -2434,8 +2434,20 @@ files. We're using:
 - =v=: Sort numbers naturally.
 - =A=: Almost all. Doesn't include "=.=" or "=..=".
 
+That said, I'd usually like to hide those extra details.
+=dired-hide-details-mode= can be toggled with =(=.
+
 #+begin_src emacs-lisp
   (setq-default dired-listing-switches "-lhvA")
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
+#+end_src
+
+Set up DWIM ("do what I mean") for =dired=. When I've got two =dired= windows
+side-by-side, and I move or copy files in one window, this sets the default
+location to the other window.
+
+#+begin_src emacs-lisp
+  (setq dired-dwim-target t)
 #+end_src
 
 Kill buffers of files/directories that are deleted in =dired=.
