@@ -6,12 +6,11 @@ sudo apt install \
      build-essential \
      compton \
      curl \
-     emacs25 \
+     emacs \
      etckeeper \
      feh \
      fbreader \
      git \
-     gksu \
      gnupg2 \
      graphviz \
      htop \
@@ -19,16 +18,20 @@ sudo apt install \
      imagemagick \
      isync \
      libnotify-bin \
+     lightdm \
      maildir-utils \
      make \
-     mpd \
      mpv \
      msmtp \
+     mu4e \
+     oathtool \
+     opam \
      openssl \
      pandoc \
      pass \
      pasystray \
      procmail \
+     proofgeneral \
      pwgen \
      python3 \
      python3-pip \
@@ -51,6 +54,7 @@ sudo apt install \
      urlview \
      vim \
      w3m \
+     wget \
      xbindkeys \
      xcape \
      xdotool \
