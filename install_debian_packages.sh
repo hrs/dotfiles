@@ -4,6 +4,7 @@ sudo apt install \
      aptitude \
      arandr \
      build-essential \
+     calibre \
      compton \
      curl \
      emacs \
@@ -18,6 +19,7 @@ sudo apt install \
      imagemagick \
      isync \
      libnotify-bin \
+     libsqlite3-dev \
      lightdm \
      maildir-utils \
      make \
@@ -35,13 +37,16 @@ sudo apt install \
      proofgeneral \
      pwgen \
      python3 \
+     python3-gpg \
      python3-pip \
      redshift \
+     restic \
      rlwrap \
      rofi \
      rxvt-unicode \
      scrot \
      silversearcher-ag \
+     sqlite3 \
      stow \
      sudo \
      texlive-base \
