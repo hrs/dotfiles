@@ -28,6 +28,10 @@ rm -f ~/.config/mpd/mpd.conf
 mkdir -p ~/.config/mpd
 ln -s ~/.mpd.conf ~/.config/mpd/mpd.conf
 
+# Link ~/.config/feh -> ~/feh
+rm -rf ~/.config/feh
+ln -s ~/.feh ~/.config/feh
+
 # Many of the tools in this repo are written in Ruby, and some depend on
 # external libraries. This installs those.
 ./install_ruby_gems.sh
