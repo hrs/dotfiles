@@ -417,14 +417,13 @@ I use a few packages in virtually every programming or writing environment to
 manage the project, handle auto-completion, search for terms, and deal with
 version control. That's all in here.
 
-** =ripgrep=
+** =ag=
 
-Install and configure [[https://github.com/Wilfred/deadgrep][deadgrep]] as an interface to =ripgrep=. I prefer =evil=
-bindings.
+Install =ag= to provide search within projects (usually through
+=projectile-ag=).
 
 #+begin_src emacs-lisp
-  (use-package deadgrep
-    :config (evil-collection-deadgrep-setup))
+  (use-package ag)
 #+end_src
 
 ** =company=
