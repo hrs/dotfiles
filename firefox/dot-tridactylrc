@@ -1,0 +1,3 @@
+" Use `l` and `h` to navigate between tabs.
+bind l tabnext
+bind h tabprev
