@@ -1667,19 +1667,6 @@ I'm usually actually in an org document.
               (setq TeX-master t)))
 #+end_src
 
-** Add links to Instapaper
-
-I sometimes use [[https://instapaper.com][Instapaper]] to store articles I want to read later. The
-=instapaper.el= library sends my URLs there.
-
-#+begin_src emacs-lisp
-  (use-package instapaper)
-  (require 'instapaper)
-
-  (setq instapaper-username (netrc-username "instapaper.com")
-        instapaper-password (netrc-password "instapaper.com"))
-#+end_src
-
 * Blogging
 
 I maintain a blog written in Jekyll. There are plenty of command-line tools to
