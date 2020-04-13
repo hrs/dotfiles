@@ -4,4 +4,4 @@ emacs/.emacs.d/*
 !emacs/.emacs.d/resources
 !emacs/.emacs.d/snippets
 
-ruby/.bundle/cache
+ruby/dot-bundle/cache

@@ -24,6 +24,9 @@ source /etc/bash_completion.d/password-store
 source "/usr/local/share/chruby/chruby.sh"
 chruby 2.7.0
 
+# Remove this once Rails gets past 6.0.2.2.
+export RUBYOPT="-W:no-deprecated"
+
 eval $(opam env)
 
 ### local config settings, if any

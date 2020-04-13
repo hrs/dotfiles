@@ -4,15 +4,15 @@
 ./install_debian_packages.sh
 ./configure_services.sh
 
-stow bash
-stow emacs
-stow email
-stow firefox
-stow git
-stow lisp
-stow music
-stow ruby
-stow x-windows
+stow --dotfiles bash
+stow --dotfiles emacs
+stow --dotfiles email
+stow --dotfiles firefox
+stow --dotfiles git
+stow --dotfiles lisp
+stow --dotfiles music
+stow --dotfiles ruby
+stow --dotfiles x-windows
 
 # Link ~/.bash_profile -> ~/.bashrc
 rm -f ~/.bash_profile
