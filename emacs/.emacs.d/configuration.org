@@ -1247,7 +1247,7 @@ Quickly insert a block of elisp:
                '("el" . "src emacs-lisp"))
 #+end_src
 
-** Task and org-capture management
+** Task management and agenda views
 
 Store my org files in =~/documents/org=, maintain an inbox in Dropbox, define
 the location of an index file (my main todo list), and archive finished tasks in
@@ -1283,12 +1283,13 @@ them easily from that inbox file to my index.
 I store most of my personal tasks in my index and maintain a separate file for
 work-related tasks, so I'd like to derive my agenda from those files.
 
-I also keep some recurring events in, reasonably, a =recurring-events.org= file.
-Those are (mostly) structured as =org-habit= items so they can recur according
-to a schedule.
+I also keep a schedule in =events.org=. Plus some recurring events in,
+reasonably, a =recurring-events.org= file. Those are (mostly) structured as
+=org-habit= items so they can recur according to a schedule.
 
 #+begin_src emacs-lisp
   (setq org-agenda-files (list org-index-file
+                               (org-file-path "events.org")
                                (org-file-path "recurring-events.org")
                                (org-file-path "work.org")))
 #+end_src
@@ -1320,11 +1321,9 @@ checklist items. This is handy for organizing "blocking" tasks hierarchically.
   (setq org-enforce-todo-checkbox-dependencies t)
 #+end_src
 
-Default to two weeks of agenda (instead of the default single week). Begin those
-weeks /today/, not on the last Monday.
+Begin weeks /today/, not on the last Monday.
 
 #+begin_src emacs-lisp
-  (setq org-agenda-span 14)
   (setq org-agenda-start-on-weekday nil)
 #+end_src
 
@@ -1339,6 +1338,22 @@ redundant.
                                    (search . " %i ")))
 #+end_src
 
+I use =org=habit= to schedule recurring events and reminders for myself.
+
+#+begin_src emacs-lisp
+  (require 'org-habit)
+#+end_src
+
+Don't show the =org-habit= consistency graph. I don't actually find it
+motivating, personally, and it kinda visually fills up my agenda. There's no
+provided way to disable the graph, as far as I can tell, so I've just redefined
+the function to do nothing.
+
+#+begin_src emacs-lisp
+  (defun org-habit-build-graph (habit starting current ending) "")
+  (setq org-habit-graph-column 80)
+#+end_src
+
 I've got some custom agenda views that I use to visualize what I'm working on.
 
 The "Personal agenda" view is a bit complicated; it displays:
@@ -1347,9 +1362,11 @@ The "Personal agenda" view is a bit complicated; it displays:
    aren't =BLOCKED= or =PENDING=),
 2. My agenda for the next few days, including any recurring habits or scheduled
    events,
-3. All the other, not-high-priority TODO items, and
+3. All the other, not-high-priority non-habit TODO items,
 4. All the PENDING tasks, which are awaiting a response from someone else but
-   still require my attention (I might need to ping someone, say).
+   still require my attention (I might need to ping someone, say), and
+5. All the BLOCKED tasks, which are pending other tasks (but might be worth
+   keeping an eye on anyway).
 
 I effectively use the "A" priority to decide where I want to focus my attention
 on a given day (I'll assign those priorities the night before, if I'm really on
@@ -1360,8 +1377,6 @@ A lot of this is based on [[https://blog.aaronbieber.com/2016/09/24/an-agenda-fo
 shamelessly stolen and re-prefixed.
 
 #+begin_src emacs-lisp
-  (require 'org-habit)
-
   (defun hrs/org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
 
@@ -1393,7 +1408,10 @@ shamelessly stolen and re-prefixed.
                    (org-agenda-overriding-header "Other tasks:")))
             (todo "PENDING"
                   ((org-agenda-skip-function '(hrs/org-skip-subtree-if-priority ?A))
-                   (org-agenda-overriding-header "Waiting to hear about these:")))))))
+                   (org-agenda-overriding-header "Pending:")))
+            (todo "BLOCKED"
+                  ((org-agenda-skip-function '(hrs/org-skip-subtree-if-priority ?A))
+                   (org-agenda-overriding-header "Blocked:")))))))
 #+end_src
 
 I consult my agenda pretty often, so I bind =C-c d= to open it a it faster. This
@@ -1409,7 +1427,7 @@ displaying the index, so they'll be in the agenda view, too.
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
 #+end_src
 
-**** Capturing tasks
+*** Capturing tasks
 
 Define a few common tasks as capture templates. Specifically, I frequently:
 
@@ -1435,6 +1453,10 @@ Define a few common tasks as capture templates. Specifically, I frequently:
   :NOTE: %^{note}
   :END:")
 
+          ("d" "Delivery" entry
+           (file+headline "~/documents/org/events.org" "Deliveries")
+           "** %?\n   SCHEDULED: %t\n")
+
           ("e" "Email" entry
            (file+headline org-index-file "Inbox")
            "* TODO %?\n\n%a\n\n")
@@ -1442,10 +1464,6 @@ Define a few common tasks as capture templates. Specifically, I frequently:
           ("f" "Finished book"
            table-line (file "~/documents/notes/books-read.org")
            "| %^{Title} | %^{Author} | %u |")
-
-          ("r" "Reading"
-           checkitem
-           (file (org-file-path "to-read.org")))
 
           ("s" "Subscribe to an RSS feed"
            plain
@@ -1472,7 +1490,7 @@ Refiling according to the document's hierarchy.
   (setq org-outline-path-complete-in-steps nil)
 #+end_src
 
-**** Keybindings
+*** Keybindings
 
 Bind a few handy keys.
 
@@ -1508,6 +1526,19 @@ Hit =M-n= to quickly open up a capture template for a new todo.
             (lambda () (local-set-key (kbd "M-n") 'org-capture-todo)))
   (add-hook 'haskell-mode-hook
             (lambda () (local-set-key (kbd "M-n") 'org-capture-todo)))
+#+end_src
+
+Hit =C-c w= to quickly open up my work todo list.
+
+#+begin_src emacs-lisp
+  (defun hrs/open-work-file ()
+    "Open the work TODO list."
+    (interactive)
+    (find-file (org-file-path "work.org"))
+    (flycheck-mode -1)
+    (end-of-buffer))
+
+  (global-set-key (kbd "C-c w") 'hrs/open-work-file)
 #+end_src
 
 ** Exporting
