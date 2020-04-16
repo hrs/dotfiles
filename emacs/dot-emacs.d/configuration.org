@@ -426,6 +426,16 @@ Install =ag= to provide search within projects (usually through
   (use-package ag)
 #+end_src
 
+** =avy=
+
+Install =avy= to skip around the screen quickly.
+
+#+begin_src emacs-lisp
+  (use-package avy
+    :bind*
+    ("C-;" . evil-avy-goto-char-2))
+#+end_src
+
 ** =company=
 
 Use =company-mode= everywhere.
