@@ -1473,7 +1473,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
           ("t" "Todo"
            entry
            (file+headline org-index-file "Inbox")
-           "* TODO %?\n")))
+           "* TODO %?\n:PROPERTIES:\nCREATED: %u\n:END:\n")))
 #+end_src
 
 When I'm starting an Org capture template I'd like to begin in insert mode. I'm
