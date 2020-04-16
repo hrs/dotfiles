@@ -1640,14 +1640,6 @@ Include the =minted= package in all of my LaTeX exports.
   (setq org-latex-listings 'minted)
 #+end_src
 
-**** Exporting projects
-
-I have a few Org project definitions that I maintain in a separate elisp file.
-
-#+begin_src emacs-lisp
-  (load-file ".emacs.d/projects.el")
-#+end_src
-
 ** TeX configuration
 
 I rarely write LaTeX directly any more, but I often export through it with
