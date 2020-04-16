@@ -1257,6 +1257,12 @@ Quickly insert a block of elisp:
                '("el" . "src emacs-lisp"))
 #+end_src
 
+Don't indent newly expanded blocks, even if they're under a heading.
+
+#+begin_src emacs-lisp
+  (setq org-adapt-indentation nil)
+#+end_src
+
 ** Task management and agenda views
 
 Store my org files in =~/documents/org=, maintain an inbox in Dropbox, define
