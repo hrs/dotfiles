@@ -340,7 +340,7 @@ Note that this overrides the default font-related keybindings from
 
 #+begin_src emacs-lisp
   (setq hrs/default-font "Inconsolata")
-  (setq hrs/default-font-size 11)
+  (setq hrs/default-font-size 9)
   (setq hrs/current-font-size hrs/default-font-size)
 
   (setq hrs/font-change-increment 1.1)
