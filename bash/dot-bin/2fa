@@ -1,3 +1,0 @@
-#!/bin/sh
-
-oathtool --totp -b $(pass tokens/"$1" | head -1)

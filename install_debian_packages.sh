@@ -11,6 +11,7 @@ sudo apt install \
      etckeeper \
      feh \
      fbreader \
+     gawk \
      git \
      gnupg2 \
      graphviz \
@@ -26,11 +27,11 @@ sudo apt install \
      mpv \
      msmtp \
      mu4e \
-     oathtool \
      opam \
      openssl \
      pandoc \
      pass \
+     pass-extension-otp \
      pasystray \
      pcmanfm \
      procmail \
