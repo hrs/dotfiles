@@ -1,3 +1,24 @@
+" Use a blank page for new tabs.
+set newtab about:blank
+
+" Use Emacs as my editor. Of course.
+set editorcmd emacsclient --create-frame
+
 " Use `l` and `h` to navigate between tabs.
 bind l tabnext
 bind h tabprev
+
+" Scroll smoothly and slowly.
+set smoothscroll true
+bind j scrollline 5
+bind k scrollline -5
+
+" Follow promising-looking links to visit the likely next and previous pages of content.
+bind gh followpage prev
+bind gl followpage next
+
+" Open the current page (presumably a video) with mpv, my preferred media player.
+bind v js tri.native.run(`mpv '${document.location.href}'`)
+
+" Download the current page (presumably a video), with a youtube-dl wrapper.
+bind nn js tri.native.run(`~/bin/smart-download '${document.location.href}'`)
