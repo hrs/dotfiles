@@ -11,7 +11,7 @@ Host mail.messagingengine.com
 User hrs@fastmail.fm
 PassCmd "~/.bin/netrc password mail.messagingengine.com"
 SSLType IMAPS
-CertificateFile ~/.dotfiles/email/ca-bundle.crt
+CertificateFile ~/.ca-bundle.crt
 
 IMAPStore personal-remote
 Account personal
