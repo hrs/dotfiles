@@ -1297,7 +1297,8 @@ them easily from that inbox file to my index.
 #+end_src
 
 I store most of my personal tasks in my index and maintain a separate file for
-work-related tasks, so I'd like to derive my agenda from those files.
+work-related tasks, so I'd like to derive my agenda from those files. I've also
+got some annual OKRs in =goals.org=.
 
 I also keep a schedule in =events.org=. Plus some recurring events in,
 reasonably, a =recurring-events.org= file. Those are (mostly) structured as
@@ -1306,6 +1307,7 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
 #+begin_src emacs-lisp
   (setq org-agenda-files (list org-index-file
                                (org-file-path "events.org")
+                               (org-file-path "goals.org")
                                (org-file-path "recurring-events.org")
                                (org-file-path "work.org")))
 #+end_src
@@ -1438,6 +1440,7 @@ displaying the index, so they'll be in the agenda view, too.
   (defun hrs/dashboard ()
     (interactive)
     (hrs/copy-tasks-from-inbox)
+    (find-file org-index-file)
     (org-agenda nil "p"))
 
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
