@@ -1998,6 +1998,24 @@ open the current email in my default Web browser.
                t)
 #+end_src
 
+** Archiving mail
+
+Marking a message for deletion applies the "Trashed" flag. This is unfortunate,
+since Fastmail will automatically delete any messages with that flag (as is the
+IMAP standard).
+
+I want to archive my messages, not delete them, so I've rebound =d= to move
+email to my "Archive" folder without applying that flag.
+
+#+begin_src emacs-lisp
+  (setq mu4e-maildir-shortcuts
+      '(("/personal/archive" . ?A)))
+
+  (fset 'hrs/mu4e-move-to-archive "mA")
+  (evil-define-key 'normal mu4e-headers-mode-map (kbd "d") 'hrs/mu4e-move-to-archive)
+  (evil-define-key 'normal mu4e-view-mode-map (kbd "d") 'hrs/mu4e-move-to-archive)
+#+end_src
+
 ** Encryption
 
 If a message is encrypted, my reply should always be encrypted, too.
