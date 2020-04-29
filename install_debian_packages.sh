@@ -14,6 +14,7 @@ sudo apt install \
      fbreader \
      gawk \
      git \
+     gnumeric \
      gnupg2 \
      graphviz \
      htop \
