@@ -106,7 +106,9 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
 
 #+begin_src emacs-lisp
   (use-package evil-collection
-    :after evil)
+    :after evil
+    :config
+    (evil-collection-init))
 #+end_src
 
 Enable =surround= everywhere.
@@ -1839,12 +1841,13 @@ This selects and inserts a tag:
 
 * Email with =mu4e=
 
-Use the =evil= bindings for navigation. They're very similar to the =mutt=
-bindings, which matches my muscle memory nicely. =)
+Inconveniently, =mu4e= is distributed along with =mu= in my system's package
+manager instead of as a package on MELPA. This loads up =mu4e= from the usual
+location:
 
 #+begin_src emacs-lisp
-  (use-package evil-mu4e)
-  (require 'evil-mu4e)
+	(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+  (require 'mu4e)
 #+end_src
 
 ** Where's my mail? Who am I?
