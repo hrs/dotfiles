@@ -151,23 +151,23 @@ exec --no-startup-id ~/bin/start-pia-client &
 
 # Start Firefox on workspace 1
 for_window [class="Firefox"] move to workspace number 1 www
-exec --no-startup-id firefox
+exec --no-startup-id firefox &
 
 # Start Emacs on workspace 2
 for_window [class="Emacs"] move to workspace number 2 emacs
-exec --no-startup-id "emacs --daemon && emacsclient --create-frame"
+exec --no-startup-id "emacs --daemon && emacsclient --create-frame &"
 
 # Start chat applications on workspace 4
 for_window [class="Signal"] move to workspace number 4 chat
 for_window [class="Slack"] move to workspace number 4 chat
 for_window [class="Telegram"] move to workspace number 4 chat
 for_window [workspace=4] layout tabbed
-exec --no-startup-id ~/.bin/close-startup-window Slack
-exec --no-startup-id ~/.bin/close-startup-window Signal
-exec --no-startup-id ~/.bin/close-startup-window TelegramDesktop
-exec --no-startup-id ~/bin/signal
-exec --no-startup-id telegram-desktop
-exec --no-startup-id slack
+exec --no-startup-id ~/.bin/close-startup-window Slack &
+exec --no-startup-id ~/.bin/close-startup-window Signal &
+exec --no-startup-id ~/.bin/close-startup-window TelegramDesktop &
+exec --no-startup-id signal-desktop &
+exec --no-startup-id telegram-desktop &
+exec --no-startup-id slack &
 
 # Keep music player on workspace 5
 for_window [class="Quodlibet"] move to workspace number 5 music
