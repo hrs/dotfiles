@@ -31,6 +31,8 @@ lockscreen_background_file_path() {
                    "Converting wallpaper to PNG..."
     convert -resize "$dims^" \
             -extent "$dims" \
+            -filter Gaussian \
+            -blur 0x8 \
             -gravity center \
             "$current_wallpaper_image" \
             "$png_file"
