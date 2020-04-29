@@ -7,6 +7,7 @@ sudo apt install \
      calibre \
      compton \
      curl \
+     dvipng \
      emacs \
      etckeeper \
      feh \
