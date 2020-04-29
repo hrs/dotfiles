@@ -189,6 +189,6 @@ bar {
   bindsym button5 nop
 
   colors {
-    background #00000000
+    background #11111177
   }
 }
