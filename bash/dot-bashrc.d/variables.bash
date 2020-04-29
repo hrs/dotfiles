@@ -21,7 +21,8 @@ export SAM_CLI_TELEMETRY=0
 # Enable tab-completion in `pass`
 source /etc/bash_completion.d/password-store
 
-source "/usr/local/share/chruby/chruby.sh"
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
 chruby 2.7.0
 
 # Remove this once Rails gets past 6.0.2.2.
