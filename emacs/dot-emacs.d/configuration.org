@@ -1212,7 +1212,8 @@ tells Org to open those links with the mailcap-defined applications.
                        '((remote . emacs)
                          ("mobi" . "fbreader %s")
                          (system . mailcap)
-                         (t . emacs))))))
+                         ("org" . emacs)
+                         (t . mailcap))))))
 #+end_src
 
 I'd like the initial scratch buffer to be in Org:
