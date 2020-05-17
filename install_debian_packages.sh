@@ -69,4 +69,5 @@ sudo apt install \
      xcape \
      xdotool \
      xsel \
-     zathura
+     zathura \
+     zathura-cb
