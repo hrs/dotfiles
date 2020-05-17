@@ -48,6 +48,7 @@ sudo apt install \
      rofi \
      rxvt-unicode \
      scrot \
+     shellcheck \
      silversearcher-ag \
      sqlite3 \
      stow \
