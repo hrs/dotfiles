@@ -1,13 +1,18 @@
 #!/bin/bash
 
-# set -euo pipefail
-# IFS=$'\n\t'
+set -euo pipefail
+IFS=$'\n\t'
 
 # Kill any running processes
-killall mbsync mu
+if pgrep --exact mbsync; then
+  pkill --exact mbsync
+fi
+if pgrep --exact mu; then
+  pkill --exact mu
+fi
 
 # Fetch new mail
 mbsync personal
 
 # Index new mail
-mu index --nocolor --maildir=/home/hrs/.mail
+mu index --nocolor
