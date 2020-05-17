@@ -1376,8 +1376,9 @@ provided way to disable the graph, as far as I can tell, so I've just redefined
 the function to do nothing.
 
 #+begin_src emacs-lisp
-  (defun org-habit-build-graph (habit starting current ending) "")
-  (setq org-habit-graph-column 80)
+  (defun org-habit-build-graph (habit starting current ending)
+    "                             ")
+  (setq org-habit-graph-column 60)
 #+end_src
 
 I've got some custom agenda views that I use to visualize what I'm working on.
