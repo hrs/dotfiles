@@ -286,7 +286,8 @@ This gives me a truly lovely ribbon-based modeline.
 #+begin_src emacs-lisp
   (use-package moody
     :config
-    (setq x-underline-at-descent-line t)
+    (setq x-underline-at-descent-line t
+          moody-mode-line-height 30)
     (moody-replace-mode-line-buffer-identification)
     (moody-replace-vc-mode))
 #+end_src
