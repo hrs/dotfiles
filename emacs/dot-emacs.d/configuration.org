@@ -1945,13 +1945,6 @@ Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
   (setq mail-user-agent 'mu4e-user-agent)
 #+end_src
 
-Enable Org-style tables and list manipulation.
-
-#+begin_src emacs-lisp
-  (add-hook 'message-mode-hook 'turn-on-orgtbl)
-  (add-hook 'message-mode-hook 'turn-on-orgstruct++)
-#+end_src
-
 Once I've sent an email, kill the associated buffer instead of just burying it.
 
 #+begin_src emacs-lisp
@@ -2287,6 +2280,39 @@ played or paused.
 
 * Writing prose
 
+I write prose in several modes: I might be editing an Org document, or a commit
+message, or an email. These are the main ones, with sub-items being /derived/
+from their parents:
+
+- =git-commit-mode=
+- =text-mode=
+  - =markdown-mode=
+    - =gfm-mode=
+  - =message-mode=
+    - =mu4e-compose-mode=
+  - =org-mode=
+
+Recall that derived modes "inherit" their parent's hooks, so a hook added onto
+e.g. =text-mode= will also be executed by =mu4e-compose-mode=.
+
+There are some exceptions, but I can usually associate a hook with every
+prose-related mode, so I store those in a list:
+
+#+begin_src emacs-lisp
+  (defvar prose-modes
+    '(gfm-mode
+      git-commit-mode
+      markdown-mode
+      message-mode
+      mu4e-compose-mode
+      org-mode
+      text-mode))
+
+  (defvar prose-mode-hooks
+    (mapcar (lambda (mode) (intern (format "%s-hook" mode)))
+            prose-modes))
+#+end_src
+
 ** Enable spell-checking in the usual places
 
 I want to make sure that I've enabled spell-checking if I'm editing text,
@@ -2295,12 +2321,72 @@ composing an email, or authoring a Git commit.
 #+begin_src emacs-lisp
   (use-package flyspell
     :config
-    (add-hook 'text-mode-hook 'turn-on-auto-fill)
-    (add-hook 'gfm-mode-hook 'flyspell-mode)
-    (add-hook 'org-mode-hook 'flyspell-mode)
+    (dolist (hook prose-mode-hooks)
+      (add-hook hook 'flyspell-mode)))
+#+end_src
 
-    (add-hook 'git-commit-mode-hook 'flyspell-mode)
-    (add-hook 'mu4e-compose-mode-hook 'flyspell-mode))
+** Wrap paragraphs automatically
+
+=AutoFillMode= automatically wraps paragraphs, kinda like hitting =M-q=. I wrap
+a lot of paragraphs, so this automatically wraps 'em when I'm writing text,
+Markdown, or Org.
+
+#+begin_src emacs-lisp
+  (dolist (hook prose-mode-hooks)
+    (add-hook hook 'turn-on-auto-fill))
+#+end_src
+
+** Use Org-style lists and tables everywhere
+
+Enable Org-style tables.
+
+#+begin_src emacs-lisp
+  (add-hook 'git-commit-mode-hook 'orgtbl-mode)
+  (add-hook 'markdown-mode-hook 'orgtbl-mode)
+  (add-hook 'message-mode-hook 'orgtbl-mode)
+#+end_src
+
+Use the [[https://elpa.gnu.org/packages/orgalist.html][=orgalist=]] package for more convenient list manipulation.
+
+#+begin_src emacs-lisp
+  (use-package orgalist
+    :config
+    (add-hook 'git-commit-mode-hook 'orgalist-mode)
+    (add-hook 'markdown-mode-hook 'orgalist-mode)
+    (add-hook 'message-mode-hook 'orgalist-mode))
+#+end_src
+
+** Linting prose
+
+I use [[http://proselint.com/][proselint]] to check my prose for common errors. This creates a flycheck
+checker that runs proselint in texty buffers and displays my errors.
+
+#+begin_src emacs-lisp
+  (require 'flycheck)
+
+  (flycheck-def-executable-var proselint "proselint")
+  (flycheck-define-command-checker 'proselint
+    "A linter for prose."
+    :command '("proselint" source-inplace)
+    :error-patterns
+    '((warning line-start (file-name) ":" line ":" column ": "
+               (id (one-or-more (not (any " "))))
+               (message (one-or-more not-newline)
+                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+               line-end))
+    :modes prose-modes
+    :next-checkers 'nil
+    :standard-input 'nil
+    :working-directory 'nil)
+
+  (add-to-list 'flycheck-checkers 'proselint)
+#+end_src
+
+Use flycheck in the appropriate buffers:
+
+#+begin_src emacs-lisp
+  (dolist (hook prose-mode-hooks)
+    (add-hook hook 'flycheck-mode))
 #+end_src
 
 ** Look up definitions in Webster 1913
@@ -2357,18 +2443,6 @@ Because I can't always use =org=.
      '(markdown-code-face ((t nil)))))
 #+end_src
 
-** Wrap paragraphs automatically
-
-=AutoFillMode= automatically wraps paragraphs, kinda like hitting =M-q=. I wrap
-a lot of paragraphs, so this automatically wraps 'em when I'm writing text,
-Markdown, or Org.
-
-#+begin_src emacs-lisp
-  (add-hook 'text-mode-hook 'auto-fill-mode)
-  (add-hook 'gfm-mode-hook 'auto-fill-mode)
-  (add-hook 'org-mode-hook 'auto-fill-mode)
-#+end_src
-
 ** Cycle between spacing alternatives
 
 Successive calls to =cycle-spacing= rotate between changing the whitespace
@@ -2383,37 +2457,6 @@ Binding this to =M-SPC= is strictly better than the original binding of
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "M-SPC") 'cycle-spacing)
-#+end_src
-
-** Linting prose
-
-I use [[http://proselint.com/][proselint]] to check my prose for common errors. This creates a flycheck
-checker that runs proselint in texty buffers and displays my errors.
-
-#+begin_src emacs-lisp
-  (require 'flycheck)
-
-  (flycheck-define-checker proselint
-    "A linter for prose."
-    :command ("proselint" source-inplace)
-    :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": "
-              (id (one-or-more (not (any " "))))
-              (message (one-or-more not-newline)
-                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-              line-end))
-    :modes (text-mode markdown-mode gfm-mode org-mode))
-
-  (add-to-list 'flycheck-checkers 'proselint)
-#+end_src
-
-Use flycheck in the appropriate buffers:
-
-#+begin_src emacs-lisp
-  (add-hook 'markdown-mode-hook #'flycheck-mode)
-  (add-hook 'gfm-mode-hook #'flycheck-mode)
-  (add-hook 'text-mode-hook #'flycheck-mode)
-  (add-hook 'org-mode-hook #'flycheck-mode)
 #+end_src
 
 ** Enable region case modification
