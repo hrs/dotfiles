@@ -1093,6 +1093,15 @@ Bind a few keys to common operations:
   (evil-define-key 'normal ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
 #+end_src
 
+** Terraform
+
+Install =terraform-mode=.
+
+#+begin_src emacs-lisp
+  (use-package terraform-mode)
+  (use-package company-terraform)
+#+end_src
+
 ** =web-mode=
 
 #+begin_src emacs-lisp
