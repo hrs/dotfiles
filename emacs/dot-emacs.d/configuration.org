@@ -1427,10 +1427,7 @@ shamelessly stolen and re-prefixed.
 
   (setq org-agenda-custom-commands
         '(("p" "Personal agenda"
-           ((tags "PRIORITY=\"A\""
-                  ((org-agenda-skip-function '(org-agenda-skip-entry-if
-                                               'todo '("DONE" "PENDING" "BLOCKED")))
-                   (org-agenda-overriding-header "Today's high-priority tasks:")))
+           ((tags ":today:" ((org-agenda-overriding-header "Today's tasks:")))
             (agenda "")
             (todo "TODO"
                   ((org-agenda-skip-function '(or (hrs/org-skip-subtree-if-priority ?A)
