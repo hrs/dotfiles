@@ -82,9 +82,9 @@ bindsym --release $mod+c exec ~/.bin/screenshot
 bindsym $mod+o exec "emacsclient --create-frame"; workspace number 2 emacs
 
 # Launch assorted chat applications
-bindsym $mod+t exec telegram-desktop; workspace number 4 chat
-bindsym $mod+Shift+t exec signal-desktop --start-in-tray; workspace number 4 chat
-bindsym $mod+Shift+s exec slack; workspace number 4 chat
+bindsym $mod+t exec workspace number 4 chat; telegram-desktop
+bindsym $mod+Shift+t workspace number 4 chat; exec ~/bin/signal
+bindsym $mod+Shift+s workspace number 4 chat; exec slack
 
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
