@@ -499,13 +499,8 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
     :config
     (use-package evil-magit)
     (use-package with-editor)
-    (setq magit-push-always-verify nil)
-    (setq git-commit-summary-max-length 50)
-
-    (with-eval-after-load 'magit-remote
-      (magit-define-popup-action 'magit-push-popup ?P
-        'magit-push-implicitly--desc
-        'magit-push-implicitly ?p t))
+    (setq magit-push-always-verify nil
+          git-commit-summary-max-length 50)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state))
 #+end_src
