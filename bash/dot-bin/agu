@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+# Refresh package lists from all repositories.
+sudo apt update
+
+# Upgrade the whole system, possibly removing packages if needed.
+sudo apt full-upgrade
+
+# Remove any dependencies that are no longer necessary.
+sudo apt autoremove
+
+# Tidy up the package cache, deleting any package files that no longer exist in
+# our repository sources.
+sudo aptitude autoclean
