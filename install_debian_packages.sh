@@ -29,6 +29,7 @@ sudo apt install \
      mpv \
      msmtp \
      mu4e \
+     npm \
      opam \
      openssl \
      pandoc \

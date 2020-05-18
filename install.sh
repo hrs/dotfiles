@@ -24,3 +24,6 @@ ln -s ~/.bashrc ~/.bash_profile
 
 # Similarly, we use a couple of Python packages.
 ./install_python_packages.sh
+
+# Finally, the Node packages. Dang, computers are complicated.
+./install_node_packages.sh
