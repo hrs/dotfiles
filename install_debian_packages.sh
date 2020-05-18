@@ -52,6 +52,7 @@ sudo apt install \
      shellcheck \
      silversearcher-ag \
      sqlite3 \
+     sqlite3-pcre \
      stow \
      sudo \
      texlive-base \
