@@ -6,3 +6,6 @@ set selection-clipboard clipboard
 
 # Hide statusbar by default. Toggle with C-n.
 set guioptions none
+
+# Set the title to the filename.
+set window-title-basename true
