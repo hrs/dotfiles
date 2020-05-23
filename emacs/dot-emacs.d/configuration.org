@@ -595,6 +595,12 @@ output.
   (setq compilation-scroll-output t)
 #+end_src
 
+I use =eglot= as my LSP client.
+
+#+begin_src emacs-lisp
+  (use-package eglot)
+#+end_src
+
 ** Coq
 
 I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
@@ -1007,6 +1013,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
               (rspec-mode)
               (yard-mode)
               (flycheck-mode)
+              (eglot-ensure)
               (local-set-key "\r" 'newline-and-indent)
               (setq rspec-command-options "--color --order random")
               (chruby-use-corresponding)

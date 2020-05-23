@@ -17,4 +17,5 @@ gem install \
     reek \
     rest-client \
     ricepaper \
-    rubocop
+    rubocop \
+    solargraph
