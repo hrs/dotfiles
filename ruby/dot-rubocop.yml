@@ -2,7 +2,7 @@ AllCops:
   Exclude:
     - "vendor/**/*"
     - "db/schema.rb"
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7
   UseCache: false
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
@@ -16,8 +16,6 @@ Style/RegexpLiteral:
 Style/BlockDelimiters:
   Enabled: false
 Style/WhileUntilModifier:
-  Enabled: false
-Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
