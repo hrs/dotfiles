@@ -22,6 +22,7 @@ sudo apt install \
      imagemagick \
      isync \
      libnotify-bin \
+     libpq-dev \
      libsqlite3-dev \
      lightdm \
      maildir-utils \
@@ -37,6 +38,7 @@ sudo apt install \
      pass-extension-otp \
      pasystray \
      pcmanfm \
+     postgresql \
      procmail \
      proofgeneral \
      pwgen \
