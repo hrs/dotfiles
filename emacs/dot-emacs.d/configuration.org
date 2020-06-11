@@ -160,11 +160,6 @@ Define a big ol' bunch of handy utility functions.
     (interactive)
     (switch-to-buffer (make-temp-name "scratch-")))
 
-  (defun hrs/kill-current-buffer ()
-    "Kill the current buffer without prompting."
-    (interactive)
-    (kill-buffer (current-buffer)))
-
   (defun hrs/visit-last-migration ()
     "Open the most recent Rails migration. Relies on projectile."
     (interactive)
@@ -2622,6 +2617,11 @@ Emacs configuration file.
 Assume that I always want to kill the current buffer when hitting =C-x k=.
 
 #+begin_src emacs-lisp
+  (defun hrs/kill-current-buffer ()
+    "Kill the current buffer without prompting."
+    (interactive)
+    (kill-buffer (current-buffer)))
+
   (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
 #+end_src
 
