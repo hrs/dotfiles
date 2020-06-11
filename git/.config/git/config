@@ -33,6 +33,8 @@
   prune = true
 [grep]
   linenumber = true
+[init]
+  templateDir = ~/.config/git/template/
 [merge]
   ff = only
 [push]
