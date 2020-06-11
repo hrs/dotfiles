@@ -468,10 +468,13 @@ doesn't require any additional setup. I've bound its most useful command to
 
 ** =flycheck=
 
- #+begin_src emacs-lisp
-   (use-package let-alist)
-   (use-package flycheck)
- #+end_src
+I'd like to enable flycheck all kinds of places.
+
+#+begin_src emacs-lisp
+  (use-package let-alist)
+  (use-package flycheck
+    :hook ruby-mode)
+#+end_src
 
 ** =magit=
 
@@ -733,14 +736,6 @@ Install the Haml and Slim packages.
   (use-package slim-mode)
 #+end_src
 
-If I'm editing Haml or Slim templates I'm probably in a Rails project. In that
-case, I'd like to still be able to run my tests from the appropriate buffers.
-
-#+begin_src emacs-lisp
-  (add-hook 'slim-mode-hook 'rspec-mode)
-  (add-hook 'haml-mode-hook 'rspec-mode)
-#+end_src
-
 ** Haskell
 
 #+begin_src emacs-lisp
@@ -940,10 +935,26 @@ included because it contains the =xmpfilter= executable, which is used below.
   (hrs/append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
 #+end_src
 
-Running tests from within Emacs is awfully convenient.
+Running tests from within Emacs is awfully convenient. I enable =rspec-mode=
+basically everywhere, since working with a Rails project involves a ton of
+modes.
 
 #+begin_src emacs-lisp
-  (use-package rspec-mode)
+  (use-package rspec-mode
+    :hook (ag-mode
+           css-mode
+           haml-mode
+           js-mode
+           magit-status-mode
+           ruby-mode
+           scss-mode
+           slim-mode
+           web-mode
+           yard-mode)
+    :config
+    (setenv "RUBYOPT" "-W:no-deprecated -W:no-experimental")
+    (setq rspec-use-chruby t
+          rspec-command-options "--color --order random"))
 #+end_src
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
@@ -978,7 +989,8 @@ match the beginning of the statement instead of indenting it all the way to the
 Ruby method comments are often formatted with Yard.
 
 #+begin_src emacs-lisp
-  (use-package yard-mode)
+  (use-package yard-mode
+    :hook ruby-mode)
 #+end_src
 
 Insert =end= keywords automatically when I start to define a method, class,
@@ -999,7 +1011,7 @@ Install and enable =projectile-rails= mode in all Rail-related buffers.
 There are a bunch of things I'd like to do when I open a Ruby buffer:
 
 - I don't want to insert an encoding comment.
-- I want to enable =yas=, =rspec=, =yard=, =flycheck=, and =projectile-rails=.
+- I want to enable =yas=.
 - I'd like my RSpec tests to be run in a random order, and I'd like the output
   to be colored.
 - Chruby should automatically determine the correct version for me.
@@ -1010,13 +1022,8 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
             (lambda ()
               (setq ruby-insert-encoding-magic-comment nil)
               (yas-minor-mode)
-              (rspec-mode)
-              (yard-mode)
-              (flycheck-mode)
               (eglot-ensure)
               (local-set-key "\r" 'newline-and-indent)
-              (setq rspec-command-options "--color --order random")
-              (chruby-use-corresponding)
               (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
 #+end_src
 
@@ -1103,21 +1110,19 @@ Install =terraform-mode=.
 ** =web-mode=
 
 #+begin_src emacs-lisp
-  (use-package web-mode)
+  (use-package web-mode
+    :config
+    (setq web-mode-markup-indent-offset 2
+          web-mode-css-indent-offset 2
+          web-mode-code-indent-offset 2
+          web-mode-indent-style 2))
 #+end_src
 
-If I'm in =web-mode=, I'd like to:
-
-- Color color-related words with =rainbow-mode=.
-- Still be able to run RSpec tests from =web-mode= buffers.
-- Indent everything with 2 spaces.
+I'd like to see colors with =rainbow-mode=, so we'll need to install that, too:
 
 #+begin_src emacs-lisp
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (rainbow-mode)
-              (rspec-mode)
-              (setq web-mode-markup-indent-offset 2)))
+  (use-package rainbow-mode
+    :hook web-mode)
 #+end_src
 
 Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
@@ -1135,13 +1140,6 @@ Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
 
 #+begin_src emacs-lisp
   (use-package yaml-mode)
-#+end_src
-
-If I'm editing YAML I'm usually in a Rails project. I'd like to be able to run
-the tests from any buffer.
-
-#+begin_src emacs-lisp
-  (add-hook 'yaml-mode-hook 'rspec-mode)
 #+end_src
 
 * Terminal
