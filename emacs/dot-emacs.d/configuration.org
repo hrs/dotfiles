@@ -545,10 +545,11 @@ project root (if I'm not in a "real" project).
     (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
     (evil-define-key 'motion ag-mode-map (kbd "C-p") 'projectile-find-file)
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
+    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'projectile-find-file)
 
-    (setq projectile-completion-system 'ivy)
-    (setq projectile-switch-project-action 'projectile-dired)
-    (setq projectile-require-project-root nil))
+    (setq projectile-completion-system 'ivy
+          projectile-switch-project-action 'projectile-dired
+          projectile-require-project-root nil))
 #+end_src
 
 ** =restclient=
