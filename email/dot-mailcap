@@ -2,6 +2,10 @@ image/gif; ffplay %s;
 image/*; ~/.bin/s %s;
 
 application/pdf; zathura %s;
+application/x-cbr; zathura %s;
+application/x-cbz; zathura %s;
+
+application/epub+zip; mupdf '%s';
 
 text/html; /usr/bin/firefox '%s'\; sleep 1; needsterminal;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
@@ -13,9 +17,5 @@ video/*; mpv %s;
 
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; gnumeric %s;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; abiword %s;
-
-application/epub+zip; fbreader %s;
-
-application/x-cbr; comix %s;
 
 application/octet-stream; xdg-open %s &;
