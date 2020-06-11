@@ -86,18 +86,20 @@ to store not-too-terribly-sensitive secrets.
 
 * =evil-mode=
 
+Load and configure =evil-mode=.
+
 I'd prefer not to expand abbrevs when I hit escape. That's always jarring and
 usually not what I want. In particular, it makes working with Coq really
 frustrating.
 
-#+begin_src emacs-lisp
-  (setq evil-want-abbrev-expand-on-insert-exit nil)
-#+end_src
-
-Use =evil=.
+Don't automatically load Evil bindings in different modes.
 
 #+begin_src emacs-lisp
   (use-package evil
+    :init
+    (setq evil-want-abbrev-expand-on-insert-exit nil
+          evil-want-keybinding nil)
+
     :config
     (evil-mode 1))
 #+end_src
@@ -108,6 +110,8 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
   (use-package evil-collection
     :after evil
     :config
+    (setq evil-collection-mode-list
+          '(ag dired magit mu4e which-key))
     (evil-collection-init))
 #+end_src
 
