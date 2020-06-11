@@ -1574,7 +1574,7 @@ Allow export to markdown and beamer (for presentations).
   (require 'ox-beamer)
 #+end_src
 
-Allow =babel= to evaluate Emacs lisp, Ruby, dot, or Gnuplot code.
+Allow =babel= to evaluate Emacs lisp, Ruby, =ditaa=, Graphviz, or Gnuplot code.
 
 #+begin_src emacs-lisp
   (use-package gnuplot)
@@ -1583,6 +1583,7 @@ Allow =babel= to evaluate Emacs lisp, Ruby, dot, or Gnuplot code.
    'org-babel-load-languages
    '((emacs-lisp . t)
      (ruby . t)
+     (ditaa . t)
      (dot . t)
      (gnuplot . t)))
 #+end_src
