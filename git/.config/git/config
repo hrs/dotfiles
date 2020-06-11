@@ -25,10 +25,10 @@
   linenumber = bold blue
 [commit]
   gpgsign = true
-  template = ~/.gitmessage
+  template = ~/.config/git/message
 [core]
   excludesfile = ~/.gitignore
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [fetch]
   prune = true
 [grep]
@@ -45,4 +45,4 @@
   email = hello@harryrschwartz.com
   signingkey = 25AE721B
 [github]
-	user = hrs
+  user = hrs
