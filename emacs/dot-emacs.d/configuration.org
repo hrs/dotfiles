@@ -1213,6 +1213,7 @@ tells Org to open those links with the mailcap-defined applications.
                        '((remote . emacs)
                          ("mobi" . "fbreader %s")
                          (system . mailcap)
+                         ("md" . emacs)
                          ("org" . emacs)
                          (t . mailcap))))))
 #+end_src
