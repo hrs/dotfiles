@@ -88,6 +88,7 @@ bindsym $mod+Shift+s workspace number 4 chat; exec slack
 
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
+bindsym $mod+Shift+p exec ~/.bin/rofi-pass --last-used
 
 # Paste a 2FA code
 bindsym $mod+a exec ~/.bin/totp
