@@ -1,10 +1,13 @@
 # Use San Francisco Display in container titles
 font pango:San Francisco Display 8
 
-exec --no-startup-id xrandr --output HDMI-A-0 --primary
+exec xrandr --output HDMI-A-0 --primary
 
 # Use the win key as $mod
 set $mod Mod4
+
+# Always use --no-startup-id
+set $exec exec --no-startup-id
 
 # No giant floating windows
 floating_maximum_size 1200 x 1200
@@ -111,70 +114,70 @@ bindsym $mod+Down exec ~/.bin/change-volume -10%
 ########################################
 
 # Load up config in .Xresources (for DPI, urxvt, and rofi)
-exec --no-startup-id xrdb -load ~/.Xresources
+exec xrdb -load ~/.Xresources
 
 # Start the Compton compositor (for i3bar transparency)
-exec --no-startup-id compton &
+exec compton &
 
 # Use Caps Lock as an additional Control key
-exec --no-startup-id setxkbmap -option ctrl:nocaps
+exec setxkbmap -option ctrl:nocaps
 
 # Treat hitting and releasing Control without chording as Escape
-exec --no-startup-id xcape &
+exec xcape &
 
 # Bind media/volume keys
-exec --no-startup-id xbindkeys &
+exec xbindkeys &
 
 # Start up the Dropbox client
-exec --no-startup-id dropbox start
+exec dropbox start
 
 # Hide the mouse cursor after a second
-exec --no-startup-id unclutter -idle 1 -noevents &
+exec unclutter -idle 1 -noevents &
 
 # Launch the networking widget
-exec --no-startup-id nm-applet &
+exec nm-applet &
 
 # Use Redshift to adjust screen color over the course of the day
-exec --no-startup-id redshift &
+exec redshift &
 
 # Start the PulseAudio system tray
-exec --no-startup-id pasystray &
+exec pasystray &
 
 # Start up a GPG agent
-exec --no-startup-id eval $(gpg-agent --daemon)
+exec eval $(gpg-agent --daemon)
 
 # Set the wallpaper
-exec --no-startup-id ~/.bin/paint-wallpaper
+exec ~/.bin/paint-wallpaper
 
 # Ensure my VPN client is running
-exec --no-startup-id ~/.bin/close-startup-window privateinternetaccess
-exec --no-startup-id ~/bin/start-pia-client &
+exec ~/.bin/close-startup-window privateinternetaccess
+exec ~/bin/start-pia-client &
 
 # Start Firefox on workspace 1
 for_window [class="Firefox"] move to workspace number 1 www
-exec --no-startup-id firefox &
+exec firefox &
 
 # Start Emacs on workspace 2
 for_window [class="Emacs"] move to workspace number 2 emacs
-exec --no-startup-id "emacs --daemon && emacsclient --create-frame &"
+exec "emacs --daemon && emacsclient --create-frame &"
 
 # Start chat applications on workspace 4
 for_window [class="Signal"] move to workspace number 4 chat
 for_window [class="Slack"] move to workspace number 4 chat
 for_window [class="Telegram"] move to workspace number 4 chat
 for_window [workspace=4] layout tabbed
-exec --no-startup-id ~/.bin/close-startup-window Slack &
-exec --no-startup-id ~/.bin/close-startup-window Signal &
-exec --no-startup-id ~/.bin/close-startup-window TelegramDesktop &
-exec --no-startup-id ~/bin/signal &
-exec --no-startup-id telegram-desktop &
-exec --no-startup-id slack &
+exec ~/.bin/close-startup-window Slack &
+exec ~/.bin/close-startup-window Signal &
+exec ~/.bin/close-startup-window TelegramDesktop &
+exec ~/bin/signal &
+exec telegram-desktop &
+exec slack &
 
 # Keep music player on workspace 5
 for_window [class="Quodlibet"] move to workspace number 5 music
 
 # Visit Emacs
-exec --no-startup-id "i3-msg workspace number 2 emacs"
+exec "i3-msg workspace number 2 emacs"
 
 # Configure the i3 bar
 bar {
