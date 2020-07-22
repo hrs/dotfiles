@@ -166,7 +166,7 @@ for_window [workspace=4] layout tabbed
 exec --no-startup-id ~/.bin/close-startup-window Slack &
 exec --no-startup-id ~/.bin/close-startup-window Signal &
 exec --no-startup-id ~/.bin/close-startup-window TelegramDesktop &
-exec --no-startup-id signal-desktop &
+exec --no-startup-id ~/bin/signal &
 exec --no-startup-id telegram-desktop &
 exec --no-startup-id slack &
 
