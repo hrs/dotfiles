@@ -1209,6 +1209,10 @@ I like seeing a little downward-pointing arrow instead of the usual ellipsis
   (setq org-ellipsis "⤵")
 #+end_src
 
+#+begin_src emacs-lisp
+  (setq org-hide-emphasis-markers t)
+#+end_src
+
 Use syntax highlighting in source blocks while editing.
 
 #+begin_src emacs-lisp
