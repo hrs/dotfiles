@@ -2118,7 +2118,7 @@ Open =elfeed= with =C-c r=:
   (global-set-key (kbd "C-c r") 'elfeed)
 #+end_src
 
-Use =o= to browse the entry in a Web browser.
+Use =o= to browse the entry in a Web browser and open links with =C-c C-o=.
 
 #+begin_src emacs-lisp
   (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
@@ -2129,6 +2129,8 @@ Use =o= to browse the entry in a Web browser.
 
   (define-key elfeed-show-mode-map "o" 'elfeed-show-visit)
   (define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
+
+  (define-key elfeed-show-mode-map (kbd "C-c C-o") 'org-open-at-point)
 #+end_src
 
 Some external integrations need access to the current entry at point:
