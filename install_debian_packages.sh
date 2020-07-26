@@ -51,6 +51,7 @@ sudo apt install \
      rofi \
      rxvt-unicode \
      scrot \
+     sdcv \
      shellcheck \
      silversearcher-ag \
      sqlite3 \
