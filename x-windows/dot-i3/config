@@ -167,11 +167,10 @@ for_window [class="Slack"] move to workspace number 4 chat
 for_window [class="Telegram"] move to workspace number 4 chat
 for_window [workspace=4] layout tabbed
 exec ~/.bin/close-startup-window Slack &
-exec ~/.bin/close-startup-window Signal &
 exec ~/.bin/close-startup-window TelegramDesktop &
-exec ~/bin/signal &
-exec telegram-desktop &
 exec slack &
+exec telegram-desktop &
+exec ~/bin/signal &
 
 # Keep music player on workspace 5
 for_window [class="Quodlibet"] move to workspace number 5 music
