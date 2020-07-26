@@ -53,9 +53,9 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 #+begin_src emacs-lisp
   (setq user-full-name "Harry R. Schwartz"
         user-mail-address "hello@harryrschwartz.com"
-        calendar-latitude 40.00
-        calendar-longitude -105.16
-        calendar-location-name "Boulder, CO")
+        calendar-latitude 39.75
+        calendar-longitude -105.21
+        calendar-location-name "Golden, CO")
 #+end_src
 
 ** Access my netrc data
