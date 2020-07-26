@@ -27,6 +27,7 @@ sudo apt install \
      lightdm \
      maildir-utils \
      make \
+     mlocate \
      mpv \
      msmtp \
      mu4e \
