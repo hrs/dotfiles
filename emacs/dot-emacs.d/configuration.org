@@ -235,25 +235,12 @@ Why not?
 
 ** Load up a theme
 
-I'm currently using the "solarized-light" theme. I've got a scenic wallpaper, so
-just a hint of transparency looks lovely and isn't distracting or hard to read.
+I'm currently trying out the "modus-operandi" theme. I've got a scenic
+wallpaper, so just a hint of transparency looks lovely and isn't distracting or
+hard to read.
 
 #+begin_src emacs-lisp
-  (use-package solarized-theme
-    :config
-    (setq solarized-use-variable-pitch nil
-          solarized-height-plus-1 1.0
-          solarized-height-plus-2 1.0
-          solarized-height-plus-3 1.0
-          solarized-height-plus-4 1.0)
-
-    (let ((line (face-attribute 'mode-line :underline)))
-      (set-face-attribute 'mode-line          nil :overline   line)
-      (set-face-attribute 'mode-line-inactive nil :overline   line)
-      (set-face-attribute 'mode-line-inactive nil :underline  line)
-      (set-face-attribute 'mode-line          nil :box        nil)
-      (set-face-attribute 'mode-line-inactive nil :box        nil)
-      (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
+  (use-package modus-operandi-theme)
 
   (defun transparency (value)
     "Sets the transparency of the frame window. 0=transparent/100=opaque."
@@ -261,9 +248,9 @@ just a hint of transparency looks lovely and isn't distracting or hard to read.
     (set-frame-parameter (selected-frame) 'alpha value))
 
   (defun hrs/apply-theme ()
-    "Apply the `solarized-light' theme and make frames just slightly transparent."
+    "Apply my chosen theme and make frames just slightly transparent."
     (interactive)
-    (load-theme 'solarized-light t)
+    (load-theme 'modus-operandi t)
     (transparency 90))
 #+end_src
 
@@ -276,19 +263,6 @@ frame is themed appropriately.
                 (lambda (frame)
                   (with-selected-frame frame (hrs/apply-theme))))
     (hrs/apply-theme))
-#+end_src
-
-** Use =moody= for a beautiful modeline
-
-This gives me a truly lovely ribbon-based modeline.
-
-#+begin_src emacs-lisp
-  (use-package moody
-    :config
-    (setq x-underline-at-descent-line t
-          moody-mode-line-height 30)
-    (moody-replace-mode-line-buffer-identification)
-    (moody-replace-vc-mode))
 #+end_src
 
 ** Use =minions= to hide all minor modes
@@ -342,7 +316,7 @@ Note that this overrides the default font-related keybindings from
 
 #+begin_src emacs-lisp
   (setq hrs/default-font "Inconsolata")
-  (setq hrs/default-font-size 9)
+  (setq hrs/default-font-size 7)
   (setq hrs/current-font-size hrs/default-font-size)
 
   (setq hrs/font-change-increment 1.1)
@@ -2327,8 +2301,8 @@ composing an email, or authoring a Git commit.
 
 ** Wrap paragraphs automatically
 
-=AutoFillMode= automatically wraps paragraphs, kinda like hitting =M-q=. I wrap
-a lot of paragraphs, so this automatically wraps 'em when I'm writing text,
+=AutoFillMode= automatically wraps paragraphs, kinda like hitting =M-q=. I wrap a
+lot of paragraphs, so this automatically wraps 'em when I'm writing text,
 Markdown, or Org.
 
 #+begin_src emacs-lisp
