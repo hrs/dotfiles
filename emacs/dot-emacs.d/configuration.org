@@ -2510,7 +2510,6 @@ Open media with the appropriate programs.
             ("docx" . "abiword")
             ("gif" . "ffplay")
             ("gnumeric" . "gnumeric")
-            ("html" . "firefox")
             ("jpeg" . "s")
             ("jpg" . "s")
             ("mkv" . "mpv")
