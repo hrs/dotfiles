@@ -5,9 +5,9 @@
 
 * Configure =use-package=
 
-I use =use-package= to install and configure my packages. My =init.el= includes
-the initial setup for =package.el= and ensures that =use-package= is installed,
-since I wanna do that right away.
+I use =use-package= to install and configure my packages. My =init.el= includes the
+initial setup for =package.el= and ensures that =use-package= is installed, since I
+wanna do that right away.
 
 This makes sure that =use-package= will install the package if it's not already
 available. It also means that I should be able to open Emacs for the first time
@@ -35,7 +35,7 @@ Disable TLS 1.3; ELPA has higher standards. That'll be the default in Emacs
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 #+end_src
 
-* Use sensible-defaults.el
+* Use =sensible-defaults.el=
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
 
@@ -235,7 +235,7 @@ Why not?
 
 ** Load up a theme
 
-I'm currently using the "solarized-dark" theme. I've got a scenic wallpaper, so
+I'm currently using the "solarized-light" theme. I've got a scenic wallpaper, so
 just a hint of transparency looks lovely and isn't distracting or hard to read.
 
 #+begin_src emacs-lisp
