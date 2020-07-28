@@ -3,6 +3,7 @@
 sudo apt install \
      aptitude \
      arandr \
+     bash-completion \
      build-essential \
      calibre \
      compton \
