@@ -82,7 +82,7 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 bindsym --release $mod+c exec ~/.bin/screenshot
 
 # Open a new Emacs frame
-bindsym $mod+o exec "emacsclient --create-frame"; workspace number 2 emacs
+bindsym $mod+o exec "emacsclient --create-frame --alternate-editor=''"; workspace number 2 emacs
 
 # Launch assorted chat applications
 bindsym $mod+t workspace number 4 chat; exec telegram-desktop
