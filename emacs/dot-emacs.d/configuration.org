@@ -1868,6 +1868,13 @@ My full name is defined earlier in this configuration file.
                     (mu4e-drafts-folder . "/personal/drafts")))))
 #+end_src
 
+Ordinarily =mu4e= would ask me which context I'd like to use, but since I've only
+got the one, let's just default to that every time and avoid the prompt.
+
+#+begin_src emacs-lisp
+  (setq mu4e-context-policy 'pick-first)
+#+end_src
+
 ** Fetching new mail
 
 I fetch my email with a [[file:~/.dotfiles/bash/.bin/get-new-mail][custom script]] (though, in practice, this is never
@@ -1893,6 +1900,7 @@ to close any other windows and open my personal inbox.
 #+begin_src emacs-lisp
   (defun hrs/visit-inbox ()
     (interactive)
+    (mu4e)
     (mu4e~headers-jump-to-maildir "/personal/inbox"))
 
   (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
