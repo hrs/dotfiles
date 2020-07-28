@@ -1,0 +1,19 @@
+#!/bin/bash
+
+index="/home/hrs/documents/org/index.org"
+
+if [ $# -eq 0 ]; then
+   echo "Usage: create-url-task URL [title]"
+   exit 1
+fi
+
+url="$1"
+title="$2"
+
+if [[ "$title" == "" ]]; then
+  echo "** TODO [[$url]]" >> "$index"
+else
+  echo "** TODO [[$url][$title]]" >> "$index"
+fi
+
+notify-send "Task created!"

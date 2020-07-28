@@ -22,3 +22,9 @@ bind v js tri.native.run(`mpv '${document.location.href}'`)
 
 " Download the current page (presumably a video), with a youtube-dl wrapper.
 bind nn js tri.native.run(`~/bin/smart-download '${document.location.href}'`)
+
+" Save the current page's URL as an Org-mode bookmark.
+bind nb js tri.native.run(`~/.bin/bookmark '${document.location.href}' '${document.title}'`)
+
+" Transform the current page's URL into a TODO item.
+bind nt js tri.native.run(`~/.bin/create-url-task '${document.location.href}' '${document.title}'`)

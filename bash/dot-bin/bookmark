@@ -1,0 +1,19 @@
+#!/bin/bash
+
+bookmarks="/home/hrs/documents/org/articles.org"
+
+if [ $# -eq 0 ]; then
+   echo "Usage: bookmark URL [title]"
+   exit 1
+fi
+
+url="$1"
+title="$2"
+
+if [[ "$title" == "" ]]; then
+  echo "* [[$url]]" >> "$bookmarks"
+else
+  echo "* [[$url][$title]]" >> "$bookmarks"
+fi
+
+notify-send "Bookmarked!"
