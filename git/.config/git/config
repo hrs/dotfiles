@@ -34,6 +34,7 @@
 [grep]
   linenumber = true
 [init]
+  defaultBranch = main
   templateDir = ~/.config/git/template/
 [merge]
   ff = only
