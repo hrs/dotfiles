@@ -1724,6 +1724,7 @@ date in the YAML front matter and rename the file appropriately.
      "title: " title "\n"
      "date:\n"
      "layout: post\n"
+     "# mathjax: true\n"
      "# pdf_file: " (hrs/slug-for title) ".pdf\n"
      "tags: []\n"
      "---\n\n"))
