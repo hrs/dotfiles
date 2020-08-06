@@ -2459,18 +2459,18 @@ Because I can't always use =org=.
 
 - Associate =.md= files with GitHub-flavored Markdown.
 - Use =pandoc= to render the results.
-- Leave the code block font unchanged.
+- Apply syntax highlighting in code blocks.
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
     :commands gfm-mode
-
     :mode (("\\.md$" . gfm-mode))
-
     :config
-    (setq markdown-command "pandoc --standalone --mathjax --from=markdown")
     (custom-set-faces
-     '(markdown-code-face ((t nil)))))
+     '(markdown-pre-face ((t nil))))
+
+  (setq markdown-command "pandoc --standalone --mathjax --from=markdown"
+        markdown-fontify-code-blocks-natively t))
 #+end_src
 
 ** Cycle between spacing alternatives
