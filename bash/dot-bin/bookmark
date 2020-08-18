@@ -11,9 +11,9 @@ url="$1"
 title="$2"
 
 if [[ "$title" == "" ]]; then
-  echo "* [[$url]]" >> "$bookmarks"
+  echo "** [[$url]]" >> "$bookmarks"
 else
-  echo "* [[$url][$title]]" >> "$bookmarks"
+  echo "** [[$url][$title]]" >> "$bookmarks"
 fi
 
 notify-send "Bookmarked!"
