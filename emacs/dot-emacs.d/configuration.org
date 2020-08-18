@@ -1264,20 +1264,6 @@ the location of an index file (my main todo list), and archive finished tasks in
         (concat (org-file-path "archive.org") "::* From %s"))
 #+end_src
 
-I use [[http://agiletortoise.com/drafts/][Drafts]] to create new tasks, format them according to a template, and
-append them to an "inbox.org" file in my Dropbox. This function lets me import
-them easily from that inbox file to my index.
-
-#+begin_src emacs-lisp
-  (defun hrs/copy-tasks-from-inbox ()
-    (when (file-exists-p org-inbox-file)
-      (save-excursion
-        (find-file org-index-file)
-        (goto-char (point-max))
-        (insert-file-contents org-inbox-file)
-        (delete-file org-inbox-file))))
-#+end_src
-
 I store most of my personal tasks in my index and maintain a separate file for
 work-related tasks, so I'd like to derive my agenda from those files. I've also
 got some annual OKRs in =goals.org=.
@@ -1416,7 +1402,6 @@ displaying the index, so they'll be in the agenda view, too.
 #+begin_src emacs-lisp
   (defun hrs/dashboard ()
     (interactive)
-    (hrs/copy-tasks-from-inbox)
     (find-file org-index-file)
     (org-agenda nil "p"))
 
@@ -1502,7 +1487,6 @@ Hit =C-c i= to quickly open up my todo list.
   (defun hrs/open-index-file ()
     "Open the master org TODO list."
     (interactive)
-    (hrs/copy-tasks-from-inbox)
     (find-file org-index-file)
     (flycheck-mode -1)
     (end-of-buffer))
