@@ -304,7 +304,7 @@ as point goes.
 
 ** Set default font and configure font resizing
 
-I'm partial to Inconsolata.
+I'm partial to Inconsolata for code and Libre Baskerville for prose.
 
 The standard =text-scale-= functions just resize the text in the current buffer;
 I'd generally like to resize the text in /every/ buffer, and I usually want to
@@ -315,6 +315,11 @@ Note that this overrides the default font-related keybindings from
 =sensible-defaults=.
 
 #+begin_src emacs-lisp
+  (custom-theme-set-faces
+   'user
+   '(variable-pitch ((t (:family "Libre Baskerville" :height 70 :weight thin))))
+   '(fixed-pitch ((t ( :family "Inconsolata" :height 70)))))
+
   (setq hrs/default-font "Inconsolata")
   (setq hrs/default-font-size 7)
   (setq hrs/current-font-size hrs/default-font-size)
@@ -2260,8 +2265,8 @@ played or paused.
 * Writing prose
 
 I write prose in several modes: I might be editing an Org document, or a commit
-message, or an email. These are the main ones, with sub-items being /derived/
-from their parents:
+message, or an email. These are the main ones, with sub-items being /derived/ from
+their parents:
 
 - =git-commit-mode=
 - =text-mode=
@@ -2292,6 +2297,30 @@ prose-related mode, so I store those in a list:
             prose-modes))
 #+end_src
 
+** Use =variable-pitch= fonts when writing prose
+
+I've been writing prose in a monospace font for like twenty years now. And,
+y'know what? It's just not sparking joy.
+
+I've recently started using a variable-pitch font for prose, and it's quite
+nice! This ensures that that happens everywhere it's appropriate.
+
+Yes, that even includes git commit messages! They're as much prose as a README
+is, right?
+
+#+begin_src emacs-lisp
+  (dolist (hook prose-mode-hooks)
+    (add-hook hook 'variable-pitch-mode))
+#+end_src
+
+That said, tables and links in Org should still be monospaced. They look kinda
+goofy otherwise, I think. Embedded code block remain monospace already.
+
+#+begin_src emacs-lisp
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-link nil :inherit 'fixed-pitch)
+#+end_src
+
 ** Enable spell-checking in the usual places
 
 I want to make sure that I've enabled spell-checking if I'm editing text,
@@ -2302,13 +2331,6 @@ composing an email, or authoring a Git commit.
     :config
     (dolist (hook prose-mode-hooks)
       (add-hook hook 'flyspell-mode)))
-#+end_src
-
-
-
-#+begin_src emacs-lisp
-    :config
-    (dolist (hook prose-mode-hooks)
 #+end_src
 
 ** Wrap paragraphs automatically
