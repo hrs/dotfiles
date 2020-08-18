@@ -843,6 +843,13 @@ with =opam install merlin=.
     (add-hook 'merlin-mode-hook 'company-mode))
 #+end_src
 
+Add =~/.opam/default/bin= to load path. That's where =dune=, our build tool, is
+installed.
+
+#+begin_src emacs-lisp
+  (hrs/append-to-path "~/.opam/default/bin")
+#+end_src
+
 ** Python
 
 #+begin_src emacs-lisp
