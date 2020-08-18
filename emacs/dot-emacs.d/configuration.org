@@ -387,18 +387,6 @@ programming.
     (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
 #+end_src
 
-** Center text to the middle of the buffer
-
-I like to have my text centered in the middle of the buffer in certain
-environments (like when writing prose, reading or editing email, or reading RSS
-entries). [[https://github.com/rnkn/olivetti][Olivetti]] provides that!
-
-#+begin_src emacs-lisp
-  (use-package olivetti
-    :config
-    (setq-default olivetti-body-width 100))
-#+end_src
-
 * Project management
 
 I use a few packages in virtually every programming or writing environment to
@@ -1928,16 +1916,6 @@ reconsider quitting it.
   (setq mu4e-confirm-quit nil)
 #+end_src
 
-Center content to the middle of the buffer with =olivetti-mode=.
-
-#+begin_src emacs-lisp
-  (use-package olivetti
-    :config
-    (add-hook 'mu4e-compose-mode-hook 'olivetti-mode)
-    (add-hook 'mu4e-main-mode-hook 'olivetti-mode)
-    (add-hook 'mu4e-view-mode-hook 'olivetti-mode))
-#+end_src
-
 ** Composing a new message
 
 When I'm composing a new email, default to using the first context.
@@ -2114,15 +2092,6 @@ by name of the feed, and finally by publication date.
         (string< a-tags b-tags))))
 
   (setf elfeed-search-sort-function #'hrs/custom-elfeed-sort)
-#+end_src
-
-Center content to the middle of the buffer with =olivetti-mode=.
-
-#+begin_src emacs-lisp
-  (use-package olivetti
-    :config
-    (add-hook 'elfeed-search-mode-hook 'olivetti-mode)
-    (add-hook 'elfeed-show-mode-hook 'olivetti-mode))
 #+end_src
 
 Open =elfeed= with =C-c r=:
@@ -2344,15 +2313,11 @@ composing an email, or authoring a Git commit.
       (add-hook hook 'flyspell-mode)))
 #+end_src
 
-** Center text to the middle of the buffer
 
-I like using =olivetti-mode= to simplify my writing environment.
 
 #+begin_src emacs-lisp
-  (use-package olivetti
     :config
     (dolist (hook prose-mode-hooks)
-      (add-hook hook 'olivetti-mode)))
 #+end_src
 
 ** Wrap paragraphs automatically
