@@ -441,7 +441,8 @@ doesn't require any additional setup. I've bound its most useful command to
 #+begin_src emacs-lisp
   (use-package dumb-jump
     :config
-    (define-key evil-normal-state-map (kbd "M-.") 'dumb-jump-go)
+    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+    (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions)
     (setq dumb-jump-selector 'ivy))
 #+end_src
 
