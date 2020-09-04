@@ -1,3 +1,10 @@
 Pry.config.commands.alias_command("c", "continue")
 Pry.config.commands.alias_command("n", "next")
 Pry.config.commands.alias_command("s", "step")
+
+begin
+  require "awesome_print"
+  AwesomePrint.pry!
+rescue LoadError
+  puts "For prettier visual output, `gem install awesome_print`"
+end
