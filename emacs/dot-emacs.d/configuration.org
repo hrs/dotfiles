@@ -1119,8 +1119,12 @@ Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
 
 ** YAML
 
+Ensure that we always use =fixed-pitch= fonts for YAML.
+
 #+begin_src emacs-lisp
-  (use-package yaml-mode)
+  (use-package yaml-mode
+    :config
+    (add-hook 'yaml-mode-hook (lambda () (variable-pitch-mode 0))))
 #+end_src
 
 * Terminal
@@ -2300,7 +2304,7 @@ prose-related mode, so I store those in a list:
 
 ** Use =variable-pitch= fonts when writing prose
 
-I've been writing prose in a monospace font for like twenty years now. And,
+I've been writing prose in a monospace font for at least fifteen years now. And,
 y'know what? It's just not sparking joy.
 
 I've recently started using a variable-pitch font for prose, and it's quite
@@ -2310,8 +2314,13 @@ Yes, that even includes git commit messages! They're as much prose as a README
 is, right?
 
 #+begin_src emacs-lisp
+  (defun hrs/enable-variable-pitch-mode ()
+    (variable-pitch-mode 1))
+
   (dolist (hook prose-mode-hooks)
-    (add-hook hook 'variable-pitch-mode))
+    (add-hook hook 'hrs/enable-variable-pitch-mode))
+
+  (add-hook 'org-agenda-mode-hook 'hrs/enable-variable-pitch-mode)
 #+end_src
 
 That said, tables and links in Org should still be monospaced. They look kinda
