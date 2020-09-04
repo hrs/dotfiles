@@ -1828,16 +1828,7 @@ location:
   (require 'mu4e)
 #+end_src
 
-** Where's my mail? Who am I?
-
-I keep my mail in =~/.mail=. The default maildir would be =~/Maildir=, but I'd
-rather hide it; I don't poke around in there manually very often.
-
-This setting matches the paths in my =mbsync= configuration.
-
-#+begin_src emacs-lisp
-  (setq mu4e-maildir "~/.mail")
-#+end_src
+** Who am I?
 
 I only have one context at the moment. If I had another email account, though,
 I'd define it in here with an additional =make-mu4e-context= block.
@@ -1867,8 +1858,8 @@ got the one, let's just default to that every time and avoid the prompt.
 
 ** Fetching new mail
 
-I fetch my email with a [[file:~/.dotfiles/bash/.bin/get-new-mail][custom script]] (though, in practice, this is never
-called; I have a cron job regularly calling the script to fetch my mail
+I fetch my email with a [[file:~/.dotfiles/bash/.bin/get-new-mail][custom script]] (though, in practice, I rarely fetch mail
+manually; I have a cron job regularly calling the script to fetch my mail
 asynchronously).
 
 #+begin_src emacs-lisp
