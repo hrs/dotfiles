@@ -452,7 +452,7 @@ I'd like to enable flycheck all kinds of places.
 #+begin_src emacs-lisp
   (use-package let-alist)
   (use-package flycheck
-    :hook ruby-mode)
+    :init (global-flycheck-mode))
 #+end_src
 
 ** =magit=
