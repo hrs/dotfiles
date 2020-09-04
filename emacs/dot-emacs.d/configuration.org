@@ -1928,6 +1928,28 @@ Once I've sent an email, kill the associated buffer instead of just burying it.
   (setq message-kill-buffer-on-exit t)
 #+end_src
 
+Write HTML emails in Org by toggling =org-msg-mode=.
+
+I don't enable this by default because I usually prefer plain-text email, but
+every now and then it's nice to be able to send a message with syntax
+highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
+
+#+begin_src emacs-lisp
+  (use-package org-msg
+    :config
+    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng \\n:t"
+          org-msg-startup "inlineimages"
+          org-msg-greeting-fmt "\nHello, %s,\n\n"
+          org-msg-greeting-name-limit 3
+          org-msg-text-plain-alternative t
+          org-msg-signature "
+
+  Cheers,
+  #+begin_signature
+  Harry Schwartz
+  #+end_signature"))
+#+end_src
+
 ** Reading an email
 
 Display the sender's email address along with their name.
@@ -2019,7 +2041,7 @@ I send my email through =msmtp=. These settings describe how to send a message:
   (setq sendmail-program "msmtp")
 #+end_src
 
-** Org integration
+** Agenda integration
 
 =org-mu4e= lets me store links to emails. I use this to reference emails in my
 TODO list while keeping my inbox empty.
@@ -2312,6 +2334,7 @@ is, right?
     (add-hook hook 'hrs/enable-variable-pitch-mode))
 
   (add-hook 'org-agenda-mode-hook 'hrs/enable-variable-pitch-mode)
+  (add-hook 'mu4e-view-mode-hook 'hrs/enable-variable-pitch-mode)
 #+end_src
 
 That said, tables and links in Org should still be monospaced. They look kinda
