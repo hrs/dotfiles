@@ -27,12 +27,8 @@ source /etc/bash_completion.d/password-store
     . /usr/share/bash-completion/bash_completion
 
 source /usr/local/share/chruby/chruby.sh
-# Re-enable this once Rails fixes its deprecation warnings:
-# source /usr/local/share/chruby/auto.sh
+source /usr/local/share/chruby/auto.sh
 chruby 2.7.1
-
-# Remove this once Rails fixes its deprecation warnings:
-export RUBYOPT='-W:no-deprecated -W:no-experimental'
 
 eval $(opam env)
 

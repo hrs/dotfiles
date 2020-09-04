@@ -907,7 +907,7 @@ I use =chruby= to switch between versions of Ruby. This sets a default version
 to use within Emacs (for things like =xmp= or =rspec=).
 
 #+begin_src emacs-lisp
-  (setq hrs/ruby-version "2.7.0")
+  (setq hrs/ruby-version "2.7.1")
 
   (use-package chruby
     :config
@@ -940,7 +940,6 @@ modes.
            web-mode
            yard-mode)
     :config
-    (setenv "RUBYOPT" "-W:no-deprecated -W:no-experimental")
     (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter)
     (setq compilation-scroll-output nil
           rspec-command-options "--color --order random"
