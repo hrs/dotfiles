@@ -120,7 +120,7 @@ exec xrdb -load ~/.Xresources
 exec compton &
 
 # Use Caps Lock as an additional Control key
-exec setxkbmap -option ctrl:nocaps
+exec setxkbmap -option ctrl:nocaps &
 
 # Treat hitting and releasing Control without chording as Escape
 exec xcape &
@@ -180,18 +180,19 @@ exec "i3-msg workspace number 2 emacs"
 
 # Configure the i3 bar
 bar {
-  i3bar_command "i3bar -t"
+  i3bar_command i3bar --transparency
   status_command i3status
 
-  font pango:San Francisco Display 8
+  font pango:San Francisco Display 6
   position top
   tray_output primary
+  tray_padding 0
   strip_workspace_numbers yes
 
   bindsym button4 nop
   bindsym button5 nop
 
   colors {
-    background #11111177
+    background #11111133
   }
 }
