@@ -1001,9 +1001,9 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 
 - I don't want to insert an encoding comment.
 - I want to enable =yas=.
+- =chruby= should automatically determine the correct Ruby version.
 - I'd like my RSpec tests to be run in a random order, and I'd like the output
   to be colored.
-- Chruby should automatically determine the correct version for me.
 - =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
 
 #+begin_src emacs-lisp
@@ -1012,6 +1012,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
               (setq ruby-insert-encoding-magic-comment nil)
               (yas-minor-mode)
               (eglot-ensure)
+              (chruby-use-corresponding)
               (local-set-key "\r" 'newline-and-indent)
               (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
 #+end_src
