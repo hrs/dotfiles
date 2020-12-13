@@ -8,12 +8,23 @@ if [ $# -eq 0 ]; then
 fi
 
 url="$1"
-title="$2"
+shift
+title="$*"
 
 if [[ "$title" == "" ]]; then
-  echo "** [[$url]]" >> "$bookmarks"
+  if grep "\\** \[\[$url\]\]" "$bookmarks"; then
+    notify-send "Already bookmarked!"
+    exit 1
+  else
+    echo "** [[$url]]" >> "$bookmarks"
+    notify-send "Bookmarked!"
+  fi
 else
-  echo "** [[$url][$title]]" >> "$bookmarks"
+  if grep "\\** \[\[$url\]\[$title\]\]" "$bookmarks"; then
+    notify-send "Already bookmarked!"
+    exit 1
+  else
+    echo "** [[$url][$title]]" >> "$bookmarks"
+    notify-send "Bookmarked!"
+  fi
 fi
-
-notify-send "Bookmarked!"
