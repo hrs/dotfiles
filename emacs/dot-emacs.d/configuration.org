@@ -1886,6 +1886,19 @@ this; I'm cargo-culting.
   (setq mu4e-change-filenames-when-moving t)
 #+end_src
 
+I don't want to be interrupted with a new mail alert, but I'd also like to know
+when I've got some. This adds an unobtrusive notification to my modeline and
+updates it every minute.
+
+#+begin_src emacs-lisp
+  (use-package mu4e-alert
+    :after mu4e
+    :init
+    (setq mu4e-alert-interesting-mail-query "flag:unread maildir:/personal/inbox")
+    (mu4e-alert-enable-mode-line-display)
+    (run-with-timer 0 60 'mu4e-alert-enable-mode-line-display))
+#+end_src
+
 ** Viewing mail
 
 I check my email pretty often! Probably more than I should. This binds =C-c m=
