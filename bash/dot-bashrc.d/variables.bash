@@ -30,8 +30,6 @@ source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 chruby 2.7.1
 
-eval $(opam env)
-
 ### local config settings, if any
 
 if [ -e $HOME/.bashrc.local ]; then
