@@ -315,50 +315,59 @@ Note that this overrides the default font-related keybindings from
 =sensible-defaults=.
 
 #+begin_src emacs-lisp
-  (custom-theme-set-faces
-   'user
-   '(variable-pitch ((t (:family "Libre Baskerville" :height 60))))
-   '(fixed-pitch ((t ( :family "Inconsolata" :height 70)))))
+  (setq hrs/default-fixed-font "Inconsolata")
+  (setq hrs/default-fixed-font-size 70)
+  (setq hrs/current-fixed-font-size hrs/default-fixed-font-size)
+  (set-face-attribute 'default nil
+                      :family hrs/default-fixed-font
+                      :height hrs/current-fixed-font-size)
+  (set-face-attribute 'fixed-pitch nil
+                      :family hrs/default-fixed-font
+                      :height hrs/current-fixed-font-size)
 
-  (setq hrs/default-font "Inconsolata")
-  (setq hrs/default-font-size 7)
-  (setq hrs/current-font-size hrs/default-font-size)
+  (setq hrs/default-variable-font "Libre Baskerville")
+  (setq hrs/default-variable-font-size 60)
+  (setq hrs/current-variable-font-size hrs/default-variable-font-size)
+  (set-face-attribute 'variable-pitch nil
+                      :family hrs/default-variable-font
+                      :height hrs/current-variable-font-size)
 
   (setq hrs/font-change-increment 1.1)
 
-  (defun hrs/font-code ()
-    "Return a string representing the current font (like \"Inconsolata-14\")."
-    (concat hrs/default-font "-" (number-to-string hrs/current-font-size)))
-
   (defun hrs/set-font-size ()
-    "Set the font to `hrs/default-font' at `hrs/current-font-size'.
-    Set that for the current frame, and also make it the default for
-    other, future frames."
-    (let ((font-code (hrs/font-code)))
-      (if (assoc 'font default-frame-alist)
-          (setcdr (assoc 'font default-frame-alist) font-code)
-        (add-to-list 'default-frame-alist (cons 'font font-code)))
-      (set-frame-font font-code)))
+    "Change default, fixed-pitch, and variable-pitch font sizes to match respective variables."
+    (set-face-attribute 'default nil
+                        :height hrs/current-fixed-font-size)
+    (set-face-attribute 'fixed-pitch nil
+                        :height hrs/current-fixed-font-size)
+    (set-face-attribute 'variable-pitch nil
+                        :height hrs/current-variable-font-size))
 
   (defun hrs/reset-font-size ()
-    "Change font size back to `hrs/default-font-size'."
+    "Revert font sizes back to defaults."
     (interactive)
-    (setq hrs/current-font-size hrs/default-font-size)
+    (setq hrs/current-fixed-font-size hrs/default-fixed-font-size)
+    (setq hrs/current-variable-font-size hrs/default-variable-font-size)
     (hrs/set-font-size))
 
   (defun hrs/increase-font-size ()
-    "Increase current font size by a factor of `hrs/font-change-increment'."
+    "Increase current font sizes by a factor of `hrs/font-change-increment'."
     (interactive)
-    (setq hrs/current-font-size
-          (ceiling (* hrs/current-font-size hrs/font-change-increment)))
+    (setq hrs/current-fixed-font-size
+          (ceiling (* hrs/current-fixed-font-size hrs/font-change-increment)))
+    (setq hrs/current-variable-font-size
+          (ceiling (* hrs/current-variable-font-size hrs/font-change-increment)))
     (hrs/set-font-size))
 
   (defun hrs/decrease-font-size ()
-    "Decrease current font size by a factor of `hrs/font-change-increment', down to a minimum size of 1."
+    "Decrease current font sizes by a factor of `hrs/font-change-increment', down to a minimum size of 1."
     (interactive)
-    (setq hrs/current-font-size
+    (setq hrs/current-fixed-font-size
           (max 1
-               (floor (/ hrs/current-font-size hrs/font-change-increment))))
+               (floor (/ hrs/current-fixed-font-size hrs/font-change-increment))))
+    (setq hrs/current-variable-font-size
+          (max 1
+               (floor (/ hrs/current-variable-font-size hrs/font-change-increment))))
     (hrs/set-font-size))
 
   (define-key global-map (kbd "C-)") 'hrs/reset-font-size)
