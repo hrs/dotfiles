@@ -1611,17 +1611,6 @@ of every exported HTML document.
   (setq org-html-postamble nil)
 #+end_src
 
-Exporting to HTML and opening the results triggers =/usr/bin/sensible-browser=,
-which checks the =$BROWSER= environment variable to choose the right browser.
-I'd like to always use Firefox, so:
-
-#+begin_src emacs-lisp
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "firefox")
-
-  (setenv "BROWSER" "firefox")
-#+end_src
-
 **** Exporting to PDF
 
 I want to produce PDFs with syntax highlighting in the code. The best way to do
@@ -2217,6 +2206,32 @@ Use =i= to send the current entry to Instapaper.
   (define-key elfeed-search-mode-map "i" 'hrs/elfeed-instapaper-current-entry)
 #+end_src
 
+* Browsing the Web
+
+I use Firefox to browse the Web, but I'd like to open [[https://gemini.circumlunar.space/][Gemini]] links in =elpher=.
+This checks the prefix of each URL and uses the appropriate program to open it.
+
+#+begin_src emacs-lisp
+  (use-package elpher)
+
+  (setq hrs/gemini-browser 'elpher-go)
+
+  (defun hrs/browse-url (url &rest args)
+    (if (s-prefix? "gemini:" url)
+        (funcall hrs/gemini-browser url)
+      (browse-url-default-browser url args)))
+
+  (setq browse-url-browser-function 'hrs/browse-url)
+#+end_src
+
+Exporting Org files to HTML and opening the result triggers
+=/usr/bin/sensible-browser=, which checks the =$BROWSER= environment variable to
+choose the right browser. I'd like to always use Firefox for that, so:
+
+#+begin_src emacs-lisp
+  (setenv "BROWSER" "firefox")
+#+end_src
+
 * Writing prose
 
 I write prose in several modes: I might be editing an Org document, or a commit
@@ -2270,9 +2285,10 @@ is, right?
   (dolist (hook prose-mode-hooks)
     (add-hook hook 'hrs/enable-variable-pitch-mode))
 
-  (add-hook 'org-agenda-mode-hook 'hrs/enable-variable-pitch-mode)
-  (add-hook 'mu4e-view-mode-hook 'hrs/enable-variable-pitch-mode)
   (add-hook 'elfeed-show-mode-hook 'hrs/enable-variable-pitch-mode)
+  (add-hook 'elpher-mode-hook 'hrs/enable-variable-pitch-mode)
+  (add-hook 'mu4e-view-mode-hook 'hrs/enable-variable-pitch-mode)
+  (add-hook 'org-agenda-mode-hook 'hrs/enable-variable-pitch-mode)
 #+end_src
 
 That said, tables and links in Org should still be monospaced. They look kinda
