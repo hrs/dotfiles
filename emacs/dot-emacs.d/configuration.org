@@ -760,6 +760,8 @@ Indent everything by 2 spaces.
 *** Racket
 
 #+begin_src emacs-lisp
+  (use-package geiser
+    :config (setq geiser-active-implementations '(racket)))
   (use-package racket-mode)
 #+end_src
 
@@ -798,12 +800,12 @@ highlighting the whole expression when point is on a parenthesis.
         '(clojure-mode-hook
           emacs-lisp-mode-hook
           lisp-mode-hook
+          racket-mode-hook
           scheme-mode-hook))
 
   (dolist (hook lispy-mode-hooks)
     (add-hook hook (lambda ()
                      (setq show-paren-style 'expression)
-                     (paredit-mode)
                      (rainbow-delimiters-mode))))
 #+end_src
 
