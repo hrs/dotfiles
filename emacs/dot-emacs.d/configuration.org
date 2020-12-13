@@ -2348,6 +2348,7 @@ is, right?
 
   (add-hook 'org-agenda-mode-hook 'hrs/enable-variable-pitch-mode)
   (add-hook 'mu4e-view-mode-hook 'hrs/enable-variable-pitch-mode)
+  (add-hook 'elfeed-show-mode-hook 'hrs/enable-variable-pitch-mode)
 #+end_src
 
 That said, tables and links in Org should still be monospaced. They look kinda
