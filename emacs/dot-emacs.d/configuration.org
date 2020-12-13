@@ -434,16 +434,24 @@ Use =M-/= for completion.
 
 ** =dumb-jump=
 
-The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/dumb-jump#supported-languages][ton of environments]], and it
-doesn't require any additional setup. I've bound its most useful command to
-=M-.=.
+The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/dumb-jump#supported-languages][ton of environments]], and it doesn't
+require any additional setup. I've bound its most useful command to =M-.=.
 
 #+begin_src emacs-lisp
   (use-package dumb-jump
     :config
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-    (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions)
-    (setq dumb-jump-selector 'ivy))
+    (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions))
+#+end_src
+
+The =xref-find-definitions= function creates an =XREF= buffer of results if more
+than one thing matches. That's inconvenient; I'd rather use Ivy to select among
+them.
+
+#+begin_src emacs-lisp
+  (use-package ivy-xref
+    :init
+    (setq xref-show-definitions-function #'ivy-xref-show-defs))
 #+end_src
 
 ** =flycheck=
