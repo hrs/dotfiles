@@ -1228,6 +1228,8 @@ I like seeing a little downward-pointing arrow instead of the usual ellipsis
   (setq org-ellipsis "⤵")
 #+end_src
 
+This hides the slashes and stars that denote /emphasis/ and *bold* text.
+
 #+begin_src emacs-lisp
   (setq org-hide-emphasis-markers t)
 #+end_src
