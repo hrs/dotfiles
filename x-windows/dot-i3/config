@@ -9,6 +9,9 @@ set $mod Mod4
 # Always use --no-startup-id
 set $exec exec --no-startup-id
 
+# No borders.
+for_window [class="^.*"] border pixel 0
+
 # No giant floating windows
 floating_maximum_size 1200 x 1200
 
