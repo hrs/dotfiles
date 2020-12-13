@@ -31,6 +31,8 @@
   pager = diff-so-fancy | less --tabs=4 -RFX
 [fetch]
   prune = true
+[github]
+  user = hrs
 [grep]
   linenumber = true
 [init]
@@ -43,9 +45,9 @@
   followTags = true
 [rebase]
   autosquash = true
+[sendemail]
+  smtpserver = /usr/bin/msmtp
 [user]
   name = Harry R. Schwartz
   email = hello@harryrschwartz.com
   signingkey = 25AE721B
-[github]
-  user = hrs
