@@ -1466,6 +1466,16 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            table-line (file "~/documents/notes/books-read.org")
            "| %^{Title} | %^{Author} | %u |")
 
+          ("j" "Work task"
+           entry
+           (file+headline "~/documents/org/work.org" "Tasks")
+           "* TODO %?\n")
+
+          ("k" "Kookaburra ingest"
+           entry
+           (file+headline "~/documents/org/kookaburra-ingest.org" "Queue")
+           "* TODO %?\n")
+
           ("s" "Subscribe to an RSS feed"
            plain
            (file "~/documents/rss-feeds.org")
