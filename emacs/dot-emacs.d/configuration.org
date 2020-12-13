@@ -1294,7 +1294,7 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
 #+begin_src emacs-lisp
   (setq org-agenda-files (list org-index-file
                                (org-file-path "events.org")
-                               (org-file-path "goals.org")
+                               (org-file-path "habits.org")
                                (org-file-path "recurring-events.org")
                                (org-file-path "work.org")))
 #+end_src
@@ -1421,6 +1421,7 @@ displaying the index, so they'll be in the agenda view, too.
 #+begin_src emacs-lisp
   (defun hrs/dashboard ()
     (interactive)
+    (call-process-shell-command "daily-checklist")
     (find-file org-index-file)
     (org-agenda nil "p"))
 
