@@ -39,6 +39,7 @@ sudo apt install \
      pass \
      pass-extension-otp \
      pasystray \
+     pavucontrol \
      pcmanfm \
      postgresql \
      procmail \
@@ -51,6 +52,7 @@ sudo apt install \
      restic \
      rlwrap \
      rofi \
+     rsync \
      rxvt-unicode \
      scrot \
      sdcv \
