@@ -317,7 +317,7 @@ Note that this overrides the default font-related keybindings from
 #+begin_src emacs-lisp
   (custom-theme-set-faces
    'user
-   '(variable-pitch ((t (:family "Libre Baskerville" :height 70 :weight thin))))
+   '(variable-pitch ((t (:family "Libre Baskerville" :height 60))))
    '(fixed-pitch ((t ( :family "Inconsolata" :height 70)))))
 
   (setq hrs/default-font "Inconsolata")
