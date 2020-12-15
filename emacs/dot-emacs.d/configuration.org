@@ -455,10 +455,11 @@ Use =company-mode= everywhere.
   :hook (company-mode . company-box-mode))
 #+end_src
 
-Use =M-/= for completion.
+I'm trying [[https://github.com/TommyX12/company-tabnine][company-tabnine]] for smarter auto-completion.
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "M-/") 'company-complete-common)
+  (use-package company-tabnine)
+  (add-to-list 'company-backends #'company-tabnine)
 #+end_src
 
 ** =dumb-jump=
