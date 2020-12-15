@@ -439,8 +439,20 @@ Install =avy= to skip around the screen quickly.
 Use =company-mode= everywhere.
 
 #+begin_src emacs-lisp
-  (use-package company)
-  (add-hook 'after-init-hook 'global-company-mode)
+  (use-package company
+    :custom
+    (company-idle-delay 0)
+    (company-tooltip-align-annotations t)
+    :config
+    (global-company-mode t))
+#+end_src
+
+[[https://github.com/sebastiencs/company-box][company-box]] adds some semantic icons to the =company= completion menu.
+
+#+begin_src emacs-lisp
+(use-package company-box
+  :after company
+  :hook (company-mode . company-box-mode))
 #+end_src
 
 Use =M-/= for completion.
