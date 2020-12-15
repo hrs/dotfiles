@@ -35,6 +35,14 @@ Disable TLS 1.3; ELPA has higher standards. That'll be the default in Emacs
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 #+end_src
 
+Disable deprecation warnings about =cl=. The =cl= library has been deprecated, but
+lots of packages still use it. I can't control that, but I can disable the
+warnings.
+
+#+begin_src emacs-lisp
+  (setq byte-compile-warnings '(cl-functions))
+#+end_src
+
 * Use =sensible-defaults.el=
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
