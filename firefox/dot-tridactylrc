@@ -25,6 +25,9 @@ bind nn js tri.native.run(`~/bin/smart-download '${document.location.href}'`)
 
 " Save the current page's URL as an Org-mode bookmark.
 bind nb js tri.native.run(`~/.bin/bookmark '${document.location.href}' "${document.title}"`)
+" Save the current page to Pinboard.
+bind np js document.location.href = 'https://pinboard.in/add?next=same&url=' + encodeURIComponent(document.location.href) + '&title=' + encodeURIComponent(document.title)
+
 
 " Transform the current page's URL into a TODO item.
 bind nt js tri.native.run(`~/.bin/create-url-task '${document.location.href}' '${document.title}'`)
