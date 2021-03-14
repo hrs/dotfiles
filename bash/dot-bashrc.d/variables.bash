@@ -14,6 +14,7 @@ export NAME="Harry R. Schwartz"
 export PROMPT_DIRTRIM=3
 export TEXINPUTS=/home/hrs/.texmf:$TEXINPUTS
 export TEXMFHOME=/home/hrs/.texmf
+export Z3_EXE="/usr/bin/z3"
 
 # Don't spy on me, folks.
 export HOMEBREW_NO_ANALYTICS=1

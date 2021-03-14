@@ -444,7 +444,7 @@ Use =company-mode= everywhere.
     (company-idle-delay 0)
     (company-tooltip-align-annotations t)
     :config
-    (global-company-mode t))
+    (add-hook 'prog-mode-hook 'company-mode))
 #+end_src
 
 [[https://github.com/sebastiencs/company-box][company-box]] adds some semantic icons to the =company= completion menu.
@@ -613,6 +613,12 @@ I use =eglot= as my LSP client.
 
 #+begin_src emacs-lisp
   (use-package eglot)
+#+end_src
+
+** Boogie
+
+#+begin_src emacs-lisp
+  (use-package boogie-friends)
 #+end_src
 
 ** Coq
