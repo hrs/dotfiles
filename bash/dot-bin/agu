@@ -17,3 +17,9 @@ sudo apt autoremove
 # Tidy up the package cache, deleting any package files that no longer exist in
 # our repository sources.
 sudo aptitude autoclean
+
+# Upgrade all installed Python libraries.
+pip3 list | tail +3 |  cut -d' ' -f1 | xargs pip3 install --upgrade
+
+# Upgrade all installed Racket libraries.
+raco pkg update --all
