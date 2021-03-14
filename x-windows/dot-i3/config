@@ -9,8 +9,8 @@ set $mod Mod4
 # Always use --no-startup-id
 set $exec exec --no-startup-id
 
-# No borders.
-for_window [class="^.*"] border pixel 0
+# Minimal window border.
+for_window [class="^.*"] border pixel 1
 
 # No giant floating windows
 floating_maximum_size 1200 x 1200
@@ -26,7 +26,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+q kill
 
 # Lock the screen
-bindsym Scroll_Lock exec ~/.bin/lock-screen
+bindsym $mod+Shift+l exec ~/.bin/lock-screen
 
 # Start a program launcher
 bindsym $mod+d exec PATH=~/bin:~/.bin:$PATH rofi -matching fuzzy -show run
@@ -82,7 +82,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec "i3-msg exit"
 
 # Take a screenshot
-bindsym --release Print exec ~/.bin/screenshot
+bindsym --release $mod+c exec ~/.bin/screenshot
 
 # Open a new Emacs frame
 bindsym $mod+o exec "emacsclient --create-frame --alternate-editor=''"; workspace number 2 emacs
