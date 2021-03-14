@@ -12,8 +12,11 @@ inode/directory; pcmanfm '%s';
 text/html; /usr/bin/firefox '%s'\; sleep 1; needsterminal;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
+# Open text files, Markdown, LaTeX, and Org with Emacs.
 text/plain; ~/.bin/em %s;
+text/markdown; ~/.bin/em %s;
 text/x-tex; ~/.bin/em %s;
+application/vnd.lotus-organizer; ~/.bin/em %s;
 
 video/*; mpv %s;
 
