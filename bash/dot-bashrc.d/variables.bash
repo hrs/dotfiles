@@ -13,6 +13,7 @@ export LC_CTYPE="en_US.UTF-8"
 export NAME="Harry R. Schwartz"
 export PROMPT_DIRTRIM=3
 export TEXINPUTS=/home/hrs/.texmf:$TEXINPUTS
+export TEXMFHOME=/home/hrs/.texmf
 
 # Don't spy on me, folks.
 export HOMEBREW_NO_ANALYTICS=1
