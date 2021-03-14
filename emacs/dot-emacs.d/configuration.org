@@ -799,19 +799,16 @@ Indent everything by 2 spaces.
 #+begin_src emacs-lisp
   (use-package geiser
     :config (setq geiser-active-implementations '(racket)))
-  (use-package racket-mode)
+
+  (use-package racket-mode
+    :hook (racket-mode . racket-xp-mode)
+    :mode "\\.rkt\\'")
 #+end_src
 
-[[https://docs.racket-lang.org/pollen/][Pollen]] uses a lozenge ◊ to mark preprocessor commands (like defining and
-dereferencing variables). That's awkward to type, so this lets me hit =M-^= to
-insert one.
+Quit documentation buffers.
 
 #+begin_src emacs-lisp
-  (defun hrs/insert-lozenge ()
-    (interactive)
-    (insert "◊"))
-
-  (define-key racket-mode-map (kbd "M-^") 'hrs/insert-lozenge)
+  (evil-define-key 'normal racket-describe-mode (kbd "q") 'quit-window)
 #+end_src
 
 *** All Lisps
