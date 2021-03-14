@@ -2873,6 +2873,7 @@ Remap when working in terminal Emacs.
 #+begin_src emacs-lisp
   (define-key input-decode-map "\e[1;2A" [S-up])
 #+end_src
+
 * Extra
 
 #+begin_src emacs-lisp

@@ -7,6 +7,8 @@ application/x-cbz; zathura %s;
 
 application/epub+zip; mupdf '%s';
 
+inode/directory; pcmanfm '%s';
+
 text/html; /usr/bin/firefox '%s'\; sleep 1; needsterminal;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
