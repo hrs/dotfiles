@@ -1383,7 +1383,14 @@ redundant.
                                    (search . " %i ")))
 #+end_src
 
-I use =org=habit= to schedule recurring events and reminders for myself.
+Shorten the default (lengthy) =org-agenda= modeline.
+
+#+begin_src emacs-lisp
+  (defun org-agenda-set-mode-name ()
+    (setq mode-name '("Org-agenda")))
+#+end_src
+
+I use =org-habit= to schedule recurring events and reminders for myself.
 
 #+begin_src emacs-lisp
   (require 'org-habit)
