@@ -28,7 +28,7 @@ source /etc/bash_completion.d/password-store
 
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
-chruby 2.7.1
+chruby 2.7.2
 
 ### local config settings, if any
 
