@@ -85,7 +85,7 @@ bindsym $mod+Shift+e exec "i3-msg exit"
 bindsym --release $mod+c exec ~/.bin/screenshot
 
 # Open a new Emacs frame
-bindsym $mod+o exec "emacsclient --create-frame --alternate-editor=''"; workspace number 2 emacs
+bindsym $mod+o exec "emacsclient --create-frame --alternate-editor=''"
 
 # Launch assorted chat applications
 bindsym $mod+t workspace number 4 chat; exec telegram-desktop
@@ -156,25 +156,29 @@ exec ~/.bin/paint-wallpaper
 exec ~/.bin/close-startup-window privateinternetaccess
 exec ~/bin/start-pia-client &
 
-# Start Firefox on workspace 1
-for_window [class="Firefox"] move to workspace number 1 www
+# Start Firefox on workspace 1 www
+assign [class="Firefox"] 1 www
 exec firefox &
 
-# Start Emacs on workspace 2
-for_window [class="Emacs"] move to workspace number 2 emacs
+# Start Emacs on workspace 2 emacs
+assign [class="Emacs"] 2 emacs
 exec "emacs --daemon && emacsclient --create-frame &"
 
-# Start chat applications on workspace 4
-for_window [class="Signal"] move to workspace number 4 chat
-for_window [class="Slack"] move to workspace number 4 chat
-for_window [class="Telegram"] move to workspace number 4 chat
-for_window [workspace=4] layout tabbed
-exec ~/.bin/close-startup-window TelegramDesktop &
-exec telegram-desktop &
+# Start chat applications on workspace 4 chat
+assign [class="Signal"] 4 chat
+exec ~/bin/signal &
 exec ~/bin/signal &
 
+assign [class="Telegram"] 4 chat
+exec ~/.bin/close-startup-window TelegramDesktop &
+exec telegram-desktop &
+
+assign [class="Slack"] 4 chat
+assign [class="discord"] 4 chat
+assign [class="Zoom"] 4 chat
+
 # Keep music player on workspace 5
-for_window [class="Quodlibet"] move to workspace number 5 music
+assign [class="Quodlibet"] 5 music
 
 # Visit Emacs
 exec "i3-msg workspace number 2 emacs"

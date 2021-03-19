@@ -9,8 +9,8 @@
 #
 # In my i3 config, that looks like:
 #
-#     exec --no-startup-id ~/.bin/close_startup_window Slack
-#     exec --no-startup-id slack
+#     exec ~/.bin/close_startup_window Slack
+#     exec slack
 
 require "json"
 
