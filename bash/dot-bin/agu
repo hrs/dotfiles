@@ -9,10 +9,10 @@ sudo rm -rf /etc/apt/sources.list.d
 sudo apt update
 
 # Upgrade the whole system, possibly removing packages if needed.
-sudo apt full-upgrade
+sudo apt --assume-yes full-upgrade
 
 # Remove any dependencies that are no longer necessary.
-sudo apt autoremove
+sudo apt --assume-yes autoremove
 
 # Tidy up the package cache, deleting any package files that no longer exist in
 # our repository sources.
