@@ -19,7 +19,10 @@ sudo apt --assume-yes autoremove
 sudo aptitude autoclean
 
 # Upgrade all installed Python libraries.
-pip3 list | tail +3 |  cut -d' ' -f1 | xargs pip3 install --upgrade
+pip3 list | tail +3 |  cut -d' ' -f1 | xargs pip3 install --upgrade --quiet
 
 # Upgrade all installed Racket libraries.
 raco pkg update --all
+
+# Upgrade Rust.
+rustup update
