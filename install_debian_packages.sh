@@ -11,8 +11,9 @@ sudo apt install \
      dvipng \
      emacs \
      etckeeper \
-     feh \
      fbreader \
+     feh \
+     fuse \
      gawk \
      git \
      gnumeric \
