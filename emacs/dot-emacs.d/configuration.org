@@ -1326,6 +1326,13 @@ the location of an index file (my main todo list), and archive finished tasks in
   (setq org-index-file (org-file-path "index.org"))
   (setq org-archive-location
         (concat (org-file-path "archive.org") "::* From %s"))
+
+  (setq org-refile-targets `((,org-index-file :level . 1)
+                             (,(org-file-path "environment.org") :level . 1)
+                             (,(org-file-path "links.org") :level . 1)
+                             (,(org-file-path "media.org") :level . 1)
+                             (,(org-file-path "someday-maybe.org") :level . 1)
+                             (,(org-file-path "work.org") :level . 1)))
 #+end_src
 
 I store most of my personal tasks in my index and maintain a separate file for
