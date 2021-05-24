@@ -1482,16 +1482,19 @@ Define a few common tasks as capture templates. Specifically, I frequently:
   :NOTE: %^{note}
   :END:")
 
-          ("d" "Delivery" entry
+          ("d" "Delivery"
+           entry
            (file+headline "~/documents/org/events.org" "Deliveries")
            "** %?\n   SCHEDULED: %t\n")
 
-          ("e" "Email" entry
+          ("e" "Email"
+           entry
            (file+headline org-index-file "Inbox")
            "* TODO %?\n\n%a\n\n")
 
           ("f" "Finished book"
-           table-line (file "~/documents/notes/books-read.org")
+           table-line
+           (file "~/documents/notes/books-read.org")
            "| %^{Title} | %^{Author} | %u |")
 
           ("j" "Work task"
