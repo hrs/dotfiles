@@ -1504,6 +1504,11 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            (file+headline "~/documents/org/kookaburra-ingest.org" "Queue")
            "* TODO %?\n")
 
+          ("m" "Media queue"
+           item
+           (file+headline "~/documents/org/media.org" "Inbox")
+           "- %?\n")
+
           ("s" "Subscribe to an RSS feed"
            plain
            (file "~/documents/rss-feeds.org")
