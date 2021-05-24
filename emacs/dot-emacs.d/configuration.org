@@ -1347,6 +1347,7 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
   (setq org-agenda-files (list org-index-file
                                (org-file-path "events.org")
                                (org-file-path "habits.org")
+                               (org-file-path "news.org")
                                (org-file-path "recurring-events.org")
                                (org-file-path "work.org")))
 #+end_src
@@ -1436,10 +1437,20 @@ the function to do nothing.
 The "Personal agenda" view is simple! I just include my agenda for the next two
 weeks, including any recurring habits or scheduled events.
 
+I have a number of standing weekly video calls with friends and family, and I
+like keeping track of what happened in the last week to share on those calls.
+Because my memories only exist in text files =), I have a custom view to list
+news items from the last week.
+
 #+begin_src emacs-lisp
   (setq org-agenda-custom-commands
         '(("p" "Personal agenda"
-           ((agenda "")))))
+           ((agenda ""))
+           ((org-agenda-tag-filter-preset '("-news"))
+            (org-agenda-overriding-header "Personal agenda")))
+          ("n" "News from this week"
+           ((tags "+news&SCHEDULED<=\"<today>\"&SCHEDULED>=\"<-7d>\""))
+           ((org-agenda-overriding-header "News from this week")))))
 #+end_src
 
 I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster. This
@@ -1511,6 +1522,11 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            item
            (file+headline "~/documents/org/media.org" "Inbox")
            "- %?\n")
+
+          ("n" "News item"
+           entry
+           (file "~/documents/org/news.org")
+           "* %?\n   SCHEDULED: %t\n")
 
           ("s" "Subscribe to an RSS feed"
            plain
