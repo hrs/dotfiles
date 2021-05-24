@@ -8,6 +8,11 @@ set editorcmd emacsclient --create-frame
 bind l tabnext
 bind h tabprev
 
+" Re-enable Firefox's default C-f binding for search. I prefer using `/` and
+" default to it, but some "helpful" sites rebind that to a custom search widget,
+" so I need a fallback.
+unbind <C-f>
+
 " Scroll smoothly and slowly.
 set smoothscroll true
 bind j scrollline 5
