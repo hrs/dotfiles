@@ -2329,6 +2329,13 @@ goofy otherwise, I think. Embedded code block remain monospace already.
   (set-face-attribute 'org-link nil :inherit 'fixed-pitch)
 #+end_src
 
+The same is true for =crontab= files (which derive from =text-mode=, apparently!):
+
+#+begin_src emacs-lisp
+  (add-hook 'crontab-mode-hook
+            (lambda () (variable-pitch-mode 0)))
+#+end_src
+
 ** Enable spell-checking in the usual places
 
 I want to make sure that I've enabled spell-checking if I'm editing text,
