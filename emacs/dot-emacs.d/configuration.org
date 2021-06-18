@@ -1281,13 +1281,6 @@ I like to see an outline of pretty bullets instead of a list of asterisks.
     (add-hook 'org-mode-hook 'org-bullets-mode))
 #+end_src
 
-I like seeing a little downward-pointing arrow instead of the usual ellipsis
-(=...=) that org displays when there's stuff under a header.
-
-#+begin_src emacs-lisp
-  (setq org-ellipsis "⤵")
-#+end_src
-
 This hides the slashes and stars that denote /emphasis/ and *bold* text.
 
 #+begin_src emacs-lisp
