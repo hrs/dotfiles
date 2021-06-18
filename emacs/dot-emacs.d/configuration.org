@@ -2467,7 +2467,9 @@ so these definitions are a lot of fun.
     (let* ((word (hrs/dictionary-prompt))
            (buffer-name (concat "Definition: " word)))
       (with-output-to-temp-buffer buffer-name
-        (shell-command (format "sdcv -n %s" word) buffer-name))))
+        (shell-command (format "sdcv -n %s" word) buffer-name))
+      (with-current-buffer buffer-name
+        (variable-pitch-mode 1))))
 
   (define-key global-map (kbd "C-x w") 'hrs/dictionary-define-word)
 #+end_src
