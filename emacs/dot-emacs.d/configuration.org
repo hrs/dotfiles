@@ -43,6 +43,18 @@ warnings.
   (setq byte-compile-warnings '(cl-functions))
 #+end_src
 
+Set up =auto-package-update= to let me update packages from the command line (say,
+in a =cron= job), with:
+
+=$ emacs --no-window-system --funcall=auto-package-update-now --kill=
+
+#+begin_src emacs-lisp
+  (use-package auto-package-update
+    :ensure t
+    :config
+    (setq auto-package-update-delete-old-versions t))
+#+end_src
+
 * Use =sensible-defaults.el=
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
