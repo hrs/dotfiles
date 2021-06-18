@@ -21,7 +21,8 @@ floating_maximum_size 1200 x 1200
 ########################################
 
 # Launch a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec kitty
+bindsym $mod+Shift+Return exec "emacsclient --create-frame --alternate-editor='' --eval '(multi-term)'"
 
 # Kill focused window
 bindsym $mod+Shift+q kill

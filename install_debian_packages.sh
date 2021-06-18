@@ -26,6 +26,7 @@ sudo apt install \
      libpq-dev \
      libsqlite3-dev \
      lightdm \
+     kitty \
      maildir-utils \
      make \
      mlocate \
