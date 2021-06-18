@@ -1340,6 +1340,7 @@ the location of an index file (my main todo list), and archive finished tasks in
          "::* From %s"))
 
   (setq org-refile-targets `((,org-index-file :level . 1)
+                             (,(org-file-path "deliveries.org") :level . 1)
                              (,(org-file-path "environment.org") :level . 1)
                              (,(org-file-path "links.org") :level . 1)
                              (,(org-file-path "media.org") :level . 1)
@@ -1357,6 +1358,7 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
 
 #+begin_src emacs-lisp
   (setq org-agenda-files (list org-index-file
+                               (org-file-path "deliveries.org")
                                (org-file-path "events.org")
                                (org-file-path "habits.org")
                                (org-file-path "news.org")
@@ -1508,13 +1510,13 @@ Define a few common tasks as capture templates. Specifically, I frequently:
 
           ("d" "Delivery"
            entry
-           (file+headline "~/documents/org/events.org" "Deliveries")
+           (file+headline "~/documents/org/deliveries.org" "Deliveries")
            "** %?\n   SCHEDULED: %t\n")
 
           ("e" "Email"
            entry
            (file+headline org-index-file "Inbox")
-           "* TODO %?\n\n%a\n\n")
+           "* TODO %?\n%a\n")
 
           ("f" "Finished book"
            table-line
