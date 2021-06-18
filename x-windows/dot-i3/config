@@ -130,8 +130,8 @@ bindsym $mod+Down exec ~/.bin/change-volume -10%
 # Load up config in .Xresources (for DPI, urxvt, and rofi)
 exec xrdb -load ~/.Xresources
 
-# Start the Compton compositor (for i3bar transparency)
-exec compton &
+# Start the Picom compositor (for i3bar transparency)
+exec_always picom &
 
 # Use Caps Lock as an additional Control key
 exec setxkbmap -option ctrl:nocaps &

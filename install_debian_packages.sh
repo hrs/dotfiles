@@ -6,7 +6,6 @@ sudo apt install \
      bash-completion \
      build-essential \
      calibre \
-     compton \
      curl \
      dvipng \
      emacs \
@@ -42,6 +41,7 @@ sudo apt install \
      pasystray \
      pavucontrol \
      pcmanfm \
+     picom \
      postgresql \
      procmail \
      proofgeneral \
