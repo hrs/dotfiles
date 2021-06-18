@@ -1335,7 +1335,9 @@ the location of an index file (my main todo list), and archive finished tasks in
   (setq org-inbox-file "~/sync/Dropbox/inbox.org")
   (setq org-index-file (org-file-path "index.org"))
   (setq org-archive-location
-        (concat (org-file-path "archive.org") "::* From %s"))
+        (concat
+         (org-file-path (format "archive/archive-%s.org" (format-time-string "%Y")))
+         "::* From %s"))
 
   (setq org-refile-targets `((,org-index-file :level . 1)
                              (,(org-file-path "environment.org") :level . 1)
