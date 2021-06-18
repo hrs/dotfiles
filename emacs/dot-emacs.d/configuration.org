@@ -291,15 +291,22 @@ I never want to see a minor mode, and manually adding =:diminish= to every
 use-package declaration is a hassle. This uses =minions= to hide all the minor
 modes in the modeline. Nice!
 
-By default there's a =;-)= after the major mode; that's an adorable default, but
-I'd rather skip it.
+#+begin_src emacs-lisp
+  (use-package minions
+    :config
+    (setq minions-mode-line-lighter "⚙"
+          minions-mode-line-delimiters (cons "" ""))
+    (minions-mode 1))
+#+end_src
+
+** Configure a pretty modeline
 
 #+begin_src emacs-lisp
-   (use-package minions
-     :config
-     (setq minions-mode-line-lighter ""
-           minions-mode-line-delimiters '("" . ""))
-     (minions-mode 1))
+  (use-package moody
+    :config
+    (setq x-underline-at-descent-line t)
+    (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode))
 #+end_src
 
 ** Disable visual bell
