@@ -46,7 +46,7 @@ end
 window_class = ARGV[0]
 
 if window_class.nil?
-  warn "Usage: kill_once WINDOW_CLASS"
+  warn "Usage: close-startup-window WINDOW_CLASS"
   exit 1
 end
 
