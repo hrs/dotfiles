@@ -8,6 +8,7 @@ set $mod Mod4
 
 # Always use --no-startup-id
 set $exec exec --no-startup-id
+set $exec_always exec_always --no-startup-id
 
 # Minimal window border.
 for_window [class="^.*"] border pixel 1
@@ -49,16 +50,26 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
+set $ws1 1 www
+set $ws2 2 emacs
+set $ws3 3 terms
+set $ws4 4 chat
+set $ws5 5 music
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+
 # Switch to workspace
-bindsym $mod+1 workspace number 1 www
-bindsym $mod+2 workspace number 2 emacs
-bindsym $mod+3 workspace number 3 terms
-bindsym $mod+4 workspace number 4 chat
-bindsym $mod+5 workspace number 5 music
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
 
 # Cycle workspaces
 bindsym $mod+Tab workspace next_on_output
@@ -156,32 +167,33 @@ exec ~/.bin/paint-wallpaper
 exec ~/.bin/close-startup-window privateinternetaccess
 exec ~/bin/start-pia-client &
 
-# Start Firefox on workspace 1 www
-assign [class="Firefox"] 1 www
+# Start Firefox on workspace 1
+assign [class="Firefox"] $ws1
 exec firefox &
 
-# Start Emacs on workspace 2 emacs
-assign [class="Emacs"] 2 emacs
+# Start Emacs on workspace 2
+# assign [class="Emacs"] $ws2
+exec ~/.bin/move-startup-window Emacs "2 emacs" &
 exec "emacs --daemon && emacsclient --create-frame &"
 
-# Start chat applications on workspace 4 chat
-assign [class="Signal"] 4 chat
+# Start chat applications on workspace $ws4
+assign [class="Signal"] $ws4
 exec ~/bin/signal &
 exec ~/bin/signal &
 
-assign [class="Telegram"] 4 chat
+assign [class="Telegram"] $ws4
 exec ~/.bin/close-startup-window TelegramDesktop &
 exec telegram-desktop &
 
-assign [class="Slack"] 4 chat
-assign [class="discord"] 4 chat
-assign [class="Zoom"] 4 chat
+assign [class="Slack"] $ws4
+assign [class="discord"] $ws4
+assign [class="Zoom"] $ws4
 
-# Keep music player on workspace 5
-assign [class="Quodlibet"] 5 music
+# Keep music player on workspace $ws5
+assign [class="Quodlibet"] $ws5
 
 # Visit Emacs
-exec "i3-msg workspace number 2 emacs"
+exec "i3-msg workspace number $ws2"
 
 # Configure the i3 bar
 bar {
