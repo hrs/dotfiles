@@ -1422,13 +1422,6 @@ redundant.
                                    (search . " %i ")))
 #+end_src
 
-Shorten the default (lengthy) =org-agenda= modeline.
-
-#+begin_src emacs-lisp
-  (defun org-agenda-set-mode-name ()
-    (setq mode-name '("Org-agenda")))
-#+end_src
-
 I use =org-habit= to schedule recurring events and reminders for myself.
 
 #+begin_src emacs-lisp
@@ -1473,10 +1466,18 @@ displaying the index, so they'll be in the agenda view, too.
   (defun hrs/dashboard ()
     (interactive)
     (call-process-shell-command "daily-checklist")
+    (delete-other-windows)
     (find-file org-index-file)
     (org-agenda nil "p"))
 
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
+#+end_src
+
+Shorten the default (lengthy) =org-agenda= modeline.
+
+#+begin_src emacs-lisp
+  (defun org-agenda-set-mode-name ()
+    (setq mode-name '("Org-agenda")))
 #+end_src
 
 *** Capturing tasks
