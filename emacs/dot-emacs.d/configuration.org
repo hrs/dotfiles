@@ -2357,12 +2357,14 @@ is, right?
   (add-hook 'mu4e-view-mode-hook 'hrs/enable-variable-pitch-mode)
 #+end_src
 
-That said, tables and links in Org should still be monospaced. They look kinda
-goofy otherwise, I think. Embedded code block remain monospace already.
+That said, code, links, and tables in Org should still be monospaced. They look
+kinda goofy otherwise, I think.
 
 #+begin_src emacs-lisp
-  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-link nil :inherit 'fixed-pitch)
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+              (set-face-attribute 'org-table nil :inherit 'fixed-pitch)))
 #+end_src
 
 The same is true for =crontab= files (which derive from =text-mode=, apparently!):
