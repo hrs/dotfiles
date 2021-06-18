@@ -1358,6 +1358,7 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
 
 #+begin_src emacs-lisp
   (setq org-agenda-files (list org-index-file
+                               (org-file-path "calendars")
                                (org-file-path "deliveries.org")
                                (org-file-path "events.org")
                                (org-file-path "habits.org")
