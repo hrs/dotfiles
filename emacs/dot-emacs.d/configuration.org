@@ -1987,6 +1987,12 @@ reconsider quitting it.
   (setq mu4e-confirm-quit nil)
 #+end_src
 
+I'd rather word-wrap long lines when viewing mail.
+
+#+begin_src emacs-lisp
+  (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
+#+end_src
+
 ** Composing a new message
 
 When I'm composing a new email, default to using the first context.
