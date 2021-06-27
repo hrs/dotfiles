@@ -596,8 +596,13 @@ project root (if I'm not in a "real" project).
 
 I like tree-based undo management. I only rarely need it, but when I do, oh boy.
 
+This also registers =undo-tree= for use in =evil-mode=.
+
 #+begin_src emacs-lisp
-  (use-package undo-tree)
+  (use-package undo-tree
+    :config
+    (global-undo-tree-mode)
+    (evil-set-undo-system 'undo-tree))
 #+end_src
 
 * Programming environments
