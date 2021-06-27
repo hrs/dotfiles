@@ -278,11 +278,12 @@ If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
 frame is themed appropriately.
 
 #+begin_src emacs-lisp
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (with-selected-frame frame (hrs/apply-theme))))
-    (hrs/apply-theme))
+  (when (daemonp)
+    (hrs/apply-theme)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (with-selected-frame frame
+                  (transparency 90)))))
 #+end_src
 
 ** Use =minions= to hide all minor modes
