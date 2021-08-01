@@ -5,6 +5,7 @@ exec xrandr --output HDMI-A-0 --primary
 
 # Use the win key as $mod
 set $mod Mod4
+set $alt Mod1
 
 # Always use --no-startup-id
 set $exec exec --no-startup-id
@@ -14,7 +15,7 @@ set $exec_always exec_always --no-startup-id
 for_window [class="^.*"] border pixel 1
 
 # No giant floating windows
-floating_maximum_size 1200 x 1200
+floating_maximum_size 1800 x 1200
 
 ########################################
 # Bindings
@@ -40,9 +41,10 @@ bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
 # Move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+$alt+h move left 20px
+bindsym $mod+$alt+j move down 20px
+bindsym $mod+$alt+k move up 20px
+bindsym $mod+$alt+l move right 20px
 
 # Toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
