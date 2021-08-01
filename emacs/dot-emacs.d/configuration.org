@@ -2462,31 +2462,8 @@ Use the [[https://elpa.gnu.org/packages/orgalist.html][=orgalist=]] package for 
 
 ** Linting prose
 
-I use [[http://proselint.com/][proselint]] to check my prose for common errors. This creates a flycheck
-checker that runs proselint in texty buffers and displays my errors.
-
-#+begin_src emacs-lisp
-  (require 'flycheck)
-
-  (flycheck-def-executable-var proselint "proselint")
-  (flycheck-define-command-checker 'proselint
-    "A linter for prose."
-    :command '("proselint" source-inplace)
-    :error-patterns
-    '((warning line-start (file-name) ":" line ":" column ": "
-               (id (one-or-more (not (any " "))))
-               (message (one-or-more not-newline)
-                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-               line-end))
-    :modes prose-modes
-    :next-checkers 'nil
-    :standard-input 'nil
-    :working-directory 'nil)
-
-  (add-to-list 'flycheck-checkers 'proselint)
-#+end_src
-
-Use flycheck in the appropriate buffers:
+I use [[http://proselint.com/][proselint]] to check my prose for common errors, so I need to use flycheck
+in the appropriate buffers:
 
 #+begin_src emacs-lisp
   (dolist (hook prose-mode-hooks)
