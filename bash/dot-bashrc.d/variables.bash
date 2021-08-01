@@ -30,7 +30,7 @@ source /etc/bash_completion.d/password-store
 
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
-chruby 2.7.2
+chruby 3.0.1
 
 source "$HOME/.cargo/env"
 
