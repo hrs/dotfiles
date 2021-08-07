@@ -1351,11 +1351,10 @@ tells Org to open those links with the mailcap-defined applications.
                  (setq mailcap-mime-data '())
                  (mailcap-parse-mailcap "~/.mailcap")
                  (setq org-file-apps
-                       '((remote . emacs)
+                       '((auto-mode . emacs)
                          ("mobi" . "fbreader %s")
+                         ("pdf" . mailcap)
                          (system . mailcap)
-                         ("md" . emacs)
-                         ("org" . emacs)
                          (t . mailcap))))))
 #+end_src
 
