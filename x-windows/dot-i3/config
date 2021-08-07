@@ -23,7 +23,7 @@ floating_maximum_size 1800 x 1200
 
 # Launch a terminal
 bindsym $mod+Return exec kitty
-bindsym $mod+Shift+Return exec "emacsclient --create-frame --alternate-editor='' --eval '(multi-term)'"
+bindsym $mod+Shift+Return exec "emacsclient --create-frame --alternate-editor='' --eval '(eshell (quote N))'"
 
 # Kill focused window
 bindsym $mod+Shift+q kill

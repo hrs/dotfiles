@@ -1227,50 +1227,91 @@ Ensure that we always use =fixed-pitch= fonts for YAML.
 
 * Terminal
 
-I use =multi-term= to manage my shell sessions. It's bound to =C-c t=.
+I'm trying =eshell=. Seems promising so far.
 
 #+begin_src emacs-lisp
-  (use-package multi-term)
-  (global-set-key (kbd "C-c t") 'multi-term)
-#+end_src
+  (add-to-list 'eshell-modules-list 'eshell-rebind)
 
-Use a login =bash= shell:
-
-#+begin_src emacs-lisp
-  (setq multi-term-program-switches "--login")
-#+end_src
-
-I'd rather not use Evil in the terminal. It's not especially useful (I don't use
-vi bindings in xterm) and it shadows useful keybindings (=C-d= for EOF, for
-example).
-
-#+begin_src emacs-lisp
-  (evil-set-initial-state 'term-mode 'emacs)
-#+end_src
-
-I add a bunch of hooks to =term-mode=:
-
-- I'd like links (URLs, etc) to be clickable.
-- Yanking in =term-mode= doesn't quite work. The text from the paste appears in
-  the buffer but isn't sent to the shell process. This correctly binds =C-y= and
-  middle-click to yank the way we'd expect.
-- I bind =M-o= to quickly change windows. I'd like that in terminals, too.
-- I don't want to perform =yasnippet= expansion when tab-completing.
-
-#+begin_src emacs-lisp
-  (defun hrs/term-paste (&optional string)
-    (interactive)
-    (process-send-string
-     (get-buffer-process (current-buffer))
-     (if string string (current-kill 0))))
-
-  (add-hook 'term-mode-hook
+  (add-hook 'eshell-mode-hook
             (lambda ()
-              (goto-address-mode)
-              (define-key term-raw-map (kbd "C-y") 'hrs/term-paste)
-              (define-key term-raw-map (kbd "<mouse-2>") 'hrs/term-paste)
-              (define-key term-raw-map (kbd "M-o") 'other-window)
-              (setq yas-dont-activate t)))
+              (evil-define-key 'insert eshell-mode-map (kbd "C-r") 'counsel-esh-history)
+              (evil-define-key 'insert eshell-mode-map (kbd "C-d") 'hrs/kill-process)))
+#+end_src
+
+Don't show the =eshell= welcome message.
+
+#+begin_src emacs-lisp
+ (setq eshell-banner-message "")
+#+end_src
+
+I open up a new shell instance with =C-c t=.
+
+#+begin_src emacs-lisp
+  (defun hrs/new-eshell ()
+    "Open a fresh eshell buffer."
+    (interactive)
+    (eshell 'N))
+
+  (global-set-key (kbd "C-c t") 'hrs/new-eshell)
+#+end_src
+
+Suppose I've got an Emacs frame open and displaying an =eshell= process. If I hit
+=C-d=, I'd like the following behavior:
+
+- If this is the only visible Emacs frame, just kill the process and kill the
+  associated buffer.
+- If there's another visible Emacs frame, kill the process and buffer, and then
+  also delete the frame.
+
+The idea here is to /mostly/ replicate the behavior of terminal emulators like
+=xterm=, in that I'd like to be able to pop open an =eshell= on an i3 desktop, run a
+command, and quickly close it with =C-d=. But if I'm running a terminal in the
+only remaining Emacs frame, I usually want to leave that open so I can do other
+Emacsitting after I'm done with that shell.
+
+#+begin_src emacs-lisp
+  (defun daemon-frame-p (frame)
+    "Return t if FRAME is the virtual frame associated with the daemon.
+
+When starting Emacs with `--daemon', a virtual frame is created
+that `contains' the daemon. This frame isn't actually visible to
+the user."
+    (and (framep frame)
+         (string-equal "initial_terminal"
+                       (terminal-name frame))))
+
+  (defun visible-frames ()
+    "Return a list of all frames that are currently visible to the user.
+
+This excludes both invisible frames and the daemon's virtual frame."
+    (-filter (lambda (frame)
+               (and (frame-visible-p frame)
+                    (not (daemon-frame-p frame))))
+             (frame-list)))
+
+  (defun last-visible-frame-p ()
+    "Return t if only one frame is currently visible to the user."
+    (= 1 (length (visible-frames))))
+
+  (defun hrs/kill-process ()
+    "Kill the current `eshell' buffer.
+
+If this isn't the only visible frame, kill the frame, too."
+    (interactive)
+    (when (eobp)
+      (cond
+       ((/= (point) eshell-last-output-end)
+        (beep))
+       ((eshell-interactive-process)
+        (process-send-eof))
+       (t
+        (eshell-life-is-too-much)
+        (when (not (last-visible-frame-p))
+          (delete-frame))))))
+
+    (add-hook 'term-mode-hook
+              (lambda ()
+                (evil-define-key 'insert term-raw-map (kbd "C-d") 'hrs/kill-process)))
 #+end_src
 
 * Publishing and task management with Org-mode
