@@ -2664,6 +2664,13 @@ Hide dotfiles by default, but toggle their visibility with =.=.
     (define-key dired-mode-map "." 'dired-hide-dotfiles-mode))
 #+end_src
 
+Kill the current buffer when selecting a new directory, so I don't end up with
+dozens of =dired= buffers open when navigating around.
+
+#+begin_src emacs-lisp
+  (setq dired-kill-when-opening-new-dired-buffer t)
+#+end_src
+
 Open media with the appropriate programs.
 
 #+begin_src emacs-lisp
