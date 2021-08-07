@@ -1878,6 +1878,20 @@ Include the =minted= package in all of my LaTeX exports.
   (setq org-latex-listings 'minted)
 #+end_src
 
+I often want to export a book without "Part I":
+
+#+begin_src emacs-lisp
+  (add-to-list 'org-latex-classes
+             '("book-noparts"
+                "\\documentclass{book}"
+                ("\\chapter{%s}" . "\\chapter*{%s}")
+                ("\\section{%s}" . "\\section*{%s}")
+                ("\\subsection{%s}" . "\\subsection*{%s}")
+                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+end_src
+
 ** TeX configuration
 
 I rarely write LaTeX directly any more, but I often export through it with
@@ -1905,6 +1919,15 @@ I'm usually actually in an org document.
             (lambda ()
               (LaTeX-math-mode)
               (setq TeX-master t)))
+#+end_src
+
+Quickly run =make= in a LaTeX project by hitting =<f5>=.
+
+#+begin_src emacs-lisp
+	(define-key latex-mode-map (kbd "<f5>")
+	  (lambda ()
+	    (interactive)
+	    (compile "make")))
 #+end_src
 
 * Blogging
