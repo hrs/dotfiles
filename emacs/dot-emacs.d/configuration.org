@@ -1619,74 +1619,88 @@ and pop it open when I'm ready to write.
 
 *** Capturing tasks
 
-Define a few common tasks as capture templates. Specifically, I frequently:
-
-- Record ideas for future blog posts in =~/documents/notes/blog-ideas.org=,
-- Maintain a todo list in =~/documents/org/index.org=.
-- Convert emails into todos to maintain an empty inbox.
+Define a few common tasks as capture templates.
 
 #+begin_src emacs-lisp
-  (setq org-capture-templates
-        '(("b" "Blog idea"
-           entry
-           (file "~/documents/notes/blog-ideas.org")
-           "* %?\n")
+  (defvar org-capture-templates '())
 
-          ("c" "Contact"
-           entry
-           (file "~/documents/contacts.org")
-           "* %(org-contacts-template-name)
-  :PROPERTIES:
-  :ADDRESS: %^{123 Fake St., City, ST 12345}
-  :PHONE: %^{555-555-5555}
-  :EMAIL: %(org-contacts-template-email)
-  :NOTE: %^{note}
-  :END:")
+  (add-to-list 'org-capture-templates
+               '("b" "Blog idea"
+                 entry
+                 (file "~/documents/notes/blog-ideas.org")
+                 "* %?\n"))
 
-          ("d" "Delivery"
-           entry
-           (file+headline "~/documents/org/deliveries.org" "Deliveries")
-           "** %?\n   SCHEDULED: %t\n")
+  (add-to-list 'org-capture-templates
+               '("c" "Contact"
+                 entry
+                 (file "~/documents/contacts.org")
+                 "* %(org-contacts-template-name)
+:PROPERTIES:
+:ADDRESS: %^{123 Fake St., City, ST 12345}
+:PHONE: %^{555-555-5555}
+:EMAIL: %(org-contacts-template-email)
+:NOTE: %^{note}
+:END:"))
 
-          ("e" "Email"
-           entry
-           (file+headline org-index-file "Inbox")
-           "* TODO %?\n%a\n")
+  (add-to-list 'org-capture-templates
+               '("d" "Delivery"
+                 entry
+                 (file+headline "~/documents/org/deliveries.org" "Deliveries")
+                 "** %?\n   SCHEDULED: %t\n"))
 
-          ("f" "Finished book"
-           table-line
-           (file "~/documents/notes/books-read.org")
-           "| %^{Title} | %^{Author} | %u |")
+  (add-to-list 'org-capture-templates
+               '("e" "Email"
+                 entry
+                 (file+headline org-index-file "Inbox")
+                 "* TODO %?\n%a\n"))
 
-          ("j" "Work task"
-           entry
-           (file+headline "~/documents/org/work.org" "Tasks")
-           "* TODO %?\n")
+  (add-to-list 'org-capture-templates
+               '("f" "Finished book"
+                 entry
+                 (file+headline "~/documents/notes/books-read.org" "Books")
+                 "* %^{Title} -- %^{Author}\n%t\n"))
 
-          ("k" "Kookaburra ingest"
-           entry
-           (file+headline "~/documents/org/kookaburra-ingest.org" "Queue")
-           "* TODO %?\n")
+  (add-to-list 'org-capture-templates
+               '("k" "Kookaburra ingest"
+                 entry
+                 (file+headline "~/documents/org/kookaburra-ingest.org" "Queue")
+                 "* TODO %?\n"))
 
-          ("m" "Media queue"
-           item
-           (file+headline "~/documents/org/media.org" "Inbox")
-           "- %?\n")
+  (add-to-list 'org-capture-templates
+               '("m" "Media queue"
+                 item
+                 (file+headline "~/documents/org/media.org" "Inbox")
+                 "- %?\n"))
 
-          ("n" "News item"
-           entry
-           (file "~/documents/org/news.org")
-           "* %?\n   SCHEDULED: %t\n")
+  (add-to-list 'org-capture-templates
+               '("n" "News item"
+                 entry
+                 (file "~/documents/org/news.org")
+                 "* %?\n%t\n"))
 
-          ("s" "Subscribe to an RSS feed"
-           plain
-           (file "~/documents/rss-feeds.org")
-           "*** [[%^{Feed URL}][%^{Feed name}]]")
+  (add-to-list 'org-capture-templates
+               '("r" "Writing prompt"
+                 entry
+                 (file "~/documents/org/writing.org")
+                 "* %?\n   %t\n"))
 
-          ("t" "Todo"
-           entry
-           (file+headline org-index-file "Inbox")
-           "* TODO %?\n")))
+  (add-to-list 'org-capture-templates
+               '("s" "Subscribe to an RSS feed"
+                 plain
+                 (file "~/documents/rss-feeds.org")
+                 "*** [[%^{Feed URL}][%^{Feed name}]]"))
+
+  (add-to-list 'org-capture-templates
+               '("t" "Task"
+                 entry
+                 (file+headline org-index-file "Inbox")
+                 "* TODO %?\n"))
+
+  (add-to-list 'org-capture-templates
+               '("w" "Work task"
+                 entry
+                 (file+headline "~/documents/org/work.org" "Tasks")
+                 "* TODO %?\n"))
 #+end_src
 
 When I'm starting an Org capture template I'd like to begin in insert mode. I'm
