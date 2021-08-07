@@ -255,13 +255,35 @@ Why not?
 
 ** Load up a theme
 
-I'm currently trying out the "modus-operandi" theme. I've got a scenic
-wallpaper, so just a hint of transparency looks lovely and isn't distracting or
-hard to read.
+This sets up the current theme.
 
 #+begin_src emacs-lisp
-  (use-package modus-operandi-theme)
+  (use-package solarized-theme
+    :config
+    (load-theme 'solarized-light t)
 
+    (setq solarized-use-variable-pitch nil
+          solarized-height-plus-1 1.0
+          solarized-height-plus-2 1.0
+          solarized-height-plus-3 1.0
+          solarized-height-plus-4 1.0)
+
+    (let ((line (face-attribute 'mode-line :underline)))
+      (set-face-attribute 'mode-line          nil :overline   line)
+      (set-face-attribute 'mode-line-inactive nil :overline   line)
+      (set-face-attribute 'mode-line-inactive nil :underline  line)
+      (set-face-attribute 'mode-line          nil :box        nil)
+      (set-face-attribute 'mode-line-inactive nil :box        nil)
+      (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
+#+end_src
+
+If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
+frame is themed appropriately.
+
+I've usually got a scenic wallpaper, so just a hint of transparency looks lovely
+and isn't distracting or hard to read.
+
+#+begin_src emacs-lisp
   (defun transparency (value)
     "Sets the transparency of the frame window. 0=transparent/100=opaque."
     (interactive "nTransparency Value 0 - 100 opaque:")
@@ -270,14 +292,9 @@ hard to read.
   (defun hrs/apply-theme ()
     "Apply my chosen theme and make frames just slightly transparent."
     (interactive)
-    (load-theme 'modus-operandi t)
+    (load-theme 'solarized-light t)
     (transparency 90))
-#+end_src
 
-If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
-frame is themed appropriately.
-
-#+begin_src emacs-lisp
   (when (daemonp)
     (hrs/apply-theme)
     (add-hook 'after-make-frame-functions
