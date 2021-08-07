@@ -1489,6 +1489,24 @@ checklist items. This is handy for organizing "blocking" tasks hierarchically.
   (setq org-enforce-todo-checkbox-dependencies t)
 #+end_src
 
+Schedule a task for today.
+
+#+begin_src emacs-lisp
+  (defun hrs/refile-to (file headline)
+    "Move current headline to specified location"
+    (let ((pos (save-excursion
+                 (find-file file)
+                 (org-find-exact-headline-in-buffer headline))))
+      (org-refile nil nil (list headline file nil pos))))
+
+  (defun hrs/schedule-today ()
+    "Schedule this item for today and file under `Today'."
+    (interactive)
+    (org--deadline-or-schedule nil 'scheduled (current-time))
+    (hrs/refile-to org-index-file "Today")
+    (save-buffer))
+#+end_src
+
 Begin weeks /today/, not on the last Monday.
 
 #+begin_src emacs-lisp
