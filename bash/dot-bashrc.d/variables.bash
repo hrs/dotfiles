@@ -36,6 +36,8 @@ source "$HOME/.cargo/env"
 
 ### local config settings, if any
 
+test -r /home/hrs/.opam/opam-init/init.sh && . /home/hrs/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
 if [ -e $HOME/.bashrc.local ]; then
   source $HOME/.bashrc.local
 fi
