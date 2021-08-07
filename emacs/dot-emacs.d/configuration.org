@@ -1457,7 +1457,8 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
                                (org-file-path "habits.org")
                                (org-file-path "news.org")
                                (org-file-path "recurring-events.org")
-                               (org-file-path "work.org")))
+                               (org-file-path "work.org")
+                               (org-file-path "writing.org")))
 #+end_src
 
 Hitting =C-c C-x C-s= will mark a task as done, move it to an appropriate place in
@@ -1558,25 +1559,17 @@ the function to do nothing.
 The "Personal agenda" view is simple! I just include my agenda for the next two
 weeks, including any recurring habits or scheduled events.
 
-I have a number of standing weekly video calls with friends and family, and I
-like keeping track of what happened in the last week to share on those calls.
-Because my memories only exist in text files =), I have a custom view to list
-news items from the last week.
-
 #+begin_src emacs-lisp
-  (setq org-agenda-custom-commands
-        '(("p" "Personal agenda"
-           ((agenda ""))
-           ((org-agenda-tag-filter-preset '("-news"))
-            (org-agenda-overriding-header "Personal agenda")))
-          ("n" "News from this week"
-           ((tags "+news&SCHEDULED<=\"<today>\"&SCHEDULED>=\"<-7d>\""))
-           ((org-agenda-overriding-header "News from this week")))))
+  (add-to-list 'org-agenda-custom-commands
+               '("p" "Personal agenda"
+                 ((agenda ""))
+                 ((org-agenda-tag-filter-preset '("-news" "-writing"))
+                  (org-agenda-overriding-header "Personal agenda"))))
 #+end_src
 
 I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster. This
 also copies any files I've sent through Drafts into my index file before
-displaying the index, so they'll be in the agenda view, too.
+displaying the index so that they'll appear in the agenda view, too.
 
 #+begin_src emacs-lisp
   (defun hrs/dashboard ()
@@ -1594,6 +1587,34 @@ Shorten the default (lengthy) =org-agenda= modeline.
 #+begin_src emacs-lisp
   (defun org-agenda-set-mode-name ()
     (setq mode-name '("Org-agenda")))
+#+end_src
+
+I have a number of standing weekly video calls with friends and family, and I
+like keeping track of what happened in the last week to share on those calls.
+Because my memories only exist in text files, I have a custom view to list news
+items from the last week.
+
+#+begin_src emacs-lisp
+  (add-to-list 'org-agenda-custom-commands
+               '("n" "News from this week"
+                 ((agenda ""))
+                 ((org-agenda-overriding-header "News from this week")
+                  (org-agenda-start-day "-6d")
+                  (org-agenda-span 14)
+                  (org-agenda-files '("~/documents/org/news.org"
+                                      "~/documents/org/recurring-events.org"
+                                      "~/documents/notes/books-read.org")))))
+#+end_src
+
+I do a ton of journaling! I maintain a list of topics I'd like to think through
+and pop it open when I'm ready to write.
+
+#+begin_src emacs-lisp
+  (add-to-list 'org-agenda-custom-commands
+               '("w" "Writing prompts"
+                 ((tags "+writing"))
+                 ((org-agenda-overriding-header "Writing prompts")
+                  (org-agenda-sorting-strategy '((agenda ts-down))))))
 #+end_src
 
 *** Capturing tasks
