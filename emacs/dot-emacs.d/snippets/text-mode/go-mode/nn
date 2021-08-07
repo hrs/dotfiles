@@ -1,0 +1,3 @@
+if err != nil {
+   return fmt.Errorf("$0 : %w", err)
+}
