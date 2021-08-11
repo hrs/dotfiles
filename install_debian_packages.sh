@@ -79,6 +79,7 @@ sudo apt install \
      xbindkeys \
      xcape \
      xdotool \
+     xfce4-clipman \
      xsel \
      zathura \
      zathura-cb
