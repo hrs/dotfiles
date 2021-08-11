@@ -1563,6 +1563,7 @@ weeks, including any recurring habits or scheduled events.
   (add-to-list 'org-agenda-custom-commands
                '("p" "Personal agenda"
                  ((agenda ""))
+                 "-TODO=\"DONE\""
                  ((org-agenda-tag-filter-preset '("-news" "-writing"))
                   (org-agenda-overriding-header "Personal agenda"))))
 #+end_src
