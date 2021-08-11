@@ -1563,9 +1563,11 @@ weeks, including any recurring habits or scheduled events.
   (add-to-list 'org-agenda-custom-commands
                '("p" "Personal agenda"
                  ((agenda ""))
-                 "-TODO=\"DONE\""
-                 ((org-agenda-tag-filter-preset '("-news" "-writing"))
-                  (org-agenda-overriding-header "Personal agenda"))))
+                 ((org-agenda-overriding-header "Personal agenda")
+                  (org-agenda-skip-deadline-if-done t)
+                  (org-agenda-skip-scheduled-if-done t)
+                  (org-agenda-skip-timestamp-if-done t)
+                  (org-agenda-tag-filter-preset '("-news" "-writing")))))
 #+end_src
 
 I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster. This
