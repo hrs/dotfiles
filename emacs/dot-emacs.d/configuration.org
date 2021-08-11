@@ -1924,10 +1924,12 @@ I'm usually actually in an org document.
 Quickly run =make= in a LaTeX project by hitting =<f5>=.
 
 #+begin_src emacs-lisp
-	(define-key latex-mode-map (kbd "<f5>")
-	  (lambda ()
-	    (interactive)
-	    (compile "make")))
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (define-key LaTeX-mode-map (kbd "<f5>")
+                (lambda ()
+                  (interactive)
+                  (compile "make")))))
 #+end_src
 
 * Blogging
