@@ -1851,7 +1851,7 @@ Associate the "dot" language with the =graphviz-dot= major mode.
   (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
 #+end_src
 
-Translate regular ol' straight quotes to typographically-correct curly quotes
+Translate regular ol' straight quotes to typographically correct curly quotes
 when exporting.
 
 #+begin_src emacs-lisp
@@ -1871,8 +1871,8 @@ of every exported HTML document.
 
 I want to produce PDFs with syntax highlighting in the code. The best way to do
 that seems to be with the =minted= package, but that package shells out to
-=pygments= to do the actual work. =pdflatex= usually disallows shell commands;
-this enables that.
+=pygments= to do the actual work. =xelatex= usually disallows shell commands; this
+enables that.
 
 #+begin_src emacs-lisp
   (setq org-latex-pdf-process
@@ -1886,6 +1886,12 @@ Include the =minted= package in all of my LaTeX exports.
 #+begin_src emacs-lisp
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-listings 'minted)
+#+end_src
+
+Remove the intermediate TeX file when exporting to PDF.
+
+#+begin_src emacs-lisp
+  (add-to-list 'org-latex-logfiles-extensions "tex")
 #+end_src
 
 I often want to export a book without "Part I":
