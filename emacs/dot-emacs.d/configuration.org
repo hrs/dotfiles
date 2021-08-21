@@ -2732,21 +2732,6 @@ Binding this to =M-SPC= is strictly better than the original binding of
   (put 'upcase-region 'disabled nil)
 #+end_src
 
-** Quickly explore my "notes" directory with =deft=
-
-#+begin_src emacs-lisp
-  (use-package deft
-    :bind ("C-c n" . deft)
-    :commands (deft)
-    :config
-
-    (setq deft-directory "~/documents/notes"
-          deft-recursive t
-          deft-use-filename-as-title t)
-
-    (evil-set-initial-state 'deft-mode 'emacs))
-#+end_src
-
 * File management with =dired=
 
 Hide dotfiles by default, but toggle their visibility with =.=.
