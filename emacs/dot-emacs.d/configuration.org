@@ -1612,7 +1612,8 @@ items from the last week.
                   (org-agenda-span 14)
                   (org-agenda-files '("~/documents/org/news.org"
                                       "~/documents/org/recurring-events.org"
-                                      "~/documents/notes/books-read.org")))))
+                                      "~/documents/notes/books-read.org"
+                                      "~/documents/notes/papers-read.org")))))
 #+end_src
 
 I do a ton of journaling! I maintain a list of topics I'd like to think through
@@ -1686,6 +1687,12 @@ Define a few common tasks as capture templates.
                  entry
                  (file "~/documents/org/news.org")
                  "* %?\n%t\n"))
+
+  (add-to-list 'org-capture-templates
+               '("p" "Finished paper"
+                 entry
+                 (file+headline "~/documents/notes/papers-read.org" "Papers")
+                 "* %^{Title} -- %^{Author}\n%t\n"))
 
   (add-to-list 'org-capture-templates
                '("r" "Writing prompt"
