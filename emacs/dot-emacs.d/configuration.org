@@ -1386,6 +1386,14 @@ is on said text.
     :hook (org-mode . org-appear-mode))
 #+end_src
 
+Show linked images directly in my Org document. Don't fully expand enormous
+images; instead, use =imagemagick= to display them at a manageable size.
+
+#+begin_src emacs-lisp
+  (setq org-startup-with-inline-images t
+        org-image-actual-width '(600))
+#+end_src
+
 Use syntax highlighting in source blocks while editing.
 
 #+begin_src emacs-lisp
