@@ -1376,10 +1376,14 @@ I like to see an outline of pretty bullets instead of a list of asterisks.
                                (org-superstar-mode 1))))
 #+end_src
 
-This hides the slashes and stars that denote /emphasis/ and *bold* text.
+This hides the slashes and stars that denote /emphasis/ and *bold* text unless point
+is on said text.
 
 #+begin_src emacs-lisp
   (setq org-hide-emphasis-markers t)
+
+  (use-package org-appear
+    :hook (org-mode . org-appear-mode))
 #+end_src
 
 Use syntax highlighting in source blocks while editing.
