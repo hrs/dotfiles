@@ -1369,9 +1369,11 @@ I'd like the initial scratch buffer to be in Org:
 I like to see an outline of pretty bullets instead of a list of asterisks.
 
 #+begin_src emacs-lisp
-  (use-package org-bullets
-    :init
-    (add-hook 'org-mode-hook 'org-bullets-mode))
+  (use-package org-superstar
+    :config
+    (setq org-superstar-special-todo-items t)
+    (add-hook 'org-mode-hook (lambda ()
+                               (org-superstar-mode 1))))
 #+end_src
 
 This hides the slashes and stars that denote /emphasis/ and *bold* text.
