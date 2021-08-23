@@ -161,7 +161,7 @@ exec unclutter -idle 1 -noevents &
 exec nm-applet &
 
 # Use Redshift to adjust screen color over the course of the day
-exec redshift &
+exec redshift -l 49:-123 &
 
 # Start the PulseAudio system tray
 exec pasystray &
