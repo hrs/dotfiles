@@ -130,6 +130,9 @@ bindsym $mod+Down exec ~/.bin/change-volume -10%
 # Start the Emacs daemon
 exec emacs --daemon
 
+# Start the dunst notification service
+exec dunst &
+
 # Mount the s3 bucket
 exec mount ~/s3
 
