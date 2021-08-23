@@ -137,7 +137,7 @@ exec dunst &
 exec mount ~/s3
 
 # Load up config in .Xresources (for DPI, urxvt, and rofi)
-exec xrdb -load ~/.Xresources
+exec xrdb -load ~/.Xresources &
 
 # Start the Picom compositor (for i3bar transparency)
 exec_always picom &
@@ -167,16 +167,16 @@ exec redshift &
 exec pasystray &
 
 # Start up a GPG agent
-exec eval $(gpg-agent --daemon)
+exec eval $(gpg-agent --daemon) &
 
 # Set the wallpaper
-exec ~/.bin/paint-wallpaper
+exec ~/.bin/paint-wallpaper &
 
 # Start my clipboard manager
 exec xfce4-clipman &
 
 # Ensure my VPN client is running
-exec ~/.bin/close-startup-window privateinternetaccess
+exec ~/.bin/close-startup-window privateinternetaccess &
 exec ~/bin/start-pia-client &
 
 # Start Firefox on workspace 1
