@@ -130,6 +130,9 @@ bindsym $mod+Down exec ~/.bin/change-volume -10%
 # Startup applications
 ########################################
 
+# Start the Emacs daemon
+exec emacs --daemon
+
 # Mount the s3 bucket
 exec mount ~/s3
 
@@ -181,9 +184,8 @@ assign [class="Firefox"] $ws1
 exec firefox &
 
 # Start Emacs on workspace 2
-# assign [class="Emacs"] $ws2
 exec ~/.bin/move-startup-window Emacs "2 emacs" &
-exec "emacs --daemon && emacsclient --create-frame &"
+exec "emacsclient --create-frame &"
 
 # Start chat applications on workspace $ws4
 assign [class="Signal"] $ws4
