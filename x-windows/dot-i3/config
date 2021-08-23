@@ -103,7 +103,7 @@ bindsym $mod+o exec "emacsclient --create-frame --alternate-editor=''"
 
 # Launch assorted chat applications
 bindsym $mod+t workspace number 4 chat; exec telegram-desktop
-bindsym $mod+Shift+t workspace number 4 chat; exec ~/bin/signal
+bindsym $mod+Shift+t workspace number 4 chat; exec signal-desktop
 bindsym $mod+Shift+s workspace number 4 chat; exec slack
 
 # Open a password manager
@@ -189,8 +189,7 @@ exec "emacsclient --create-frame &"
 
 # Start chat applications on workspace $ws4
 assign [class="Signal"] $ws4
-exec ~/bin/signal &
-exec ~/bin/signal &
+exec signal-desktop --start-in-tray &
 
 assign [class="Telegram"] $ws4
 exec ~/.bin/close-startup-window TelegramDesktop &
