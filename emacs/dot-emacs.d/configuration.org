@@ -479,8 +479,11 @@ Use =company-mode= everywhere.
   (use-package company
     :custom
     (company-idle-delay 0)
+    (company-minimum-prefix-length 1)
     (company-tooltip-align-annotations t)
+
     :config
+    (setq lsp-completion-provider :capf)
     (add-hook 'prog-mode-hook 'company-mode))
 #+end_src
 
@@ -744,9 +747,9 @@ Install Less.
 Install =go-mode= and related packages:
 
 #+begin_src emacs-lisp
-  (use-package go-mode)
-  (use-package go-errcheck)
-  (use-package company-go)
+  (use-package go-mode
+    :bind
+    (:map go-mode-map ("C-c C-c" . compile)))
 #+end_src
 
 Define my =$GOPATH= and tell Emacs where to find the Go binaries.
@@ -756,32 +759,36 @@ Define my =$GOPATH= and tell Emacs where to find the Go binaries.
   (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
 #+end_src
 
-Run =goimports= on every file when saving, which formats the file and
-automatically updates the list of imports. This requires that the =goimports=
-binary be installed.
+Start the =lsp= server once the buffer is visible. Note that this requires =gopls=
+to be installed locally.
 
 #+begin_src emacs-lisp
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'go-mode-hook #'lsp-deferred)
 #+end_src
 
-When I open a Go file,
-
-- Start up =company-mode= with the Go backend. This requires that the =gocode=
-  binary is installed,
-- Redefine the default =compile= command to something Go-specific, and
-- Enable =flycheck=.
+When I save a Go file, reformat the buffer (per =gofmt=) and organize the imports
+(per =goimports=).
 
 #+begin_src emacs-lisp
-  (add-hook 'go-mode-hook
-            (lambda ()
-              (set (make-local-variable 'company-backends)
-                   '(company-go))
-              (company-mode)
-              (if (not (string-match "go" compile-command))
-                  (set (make-local-variable 'compile-command)
-                       "go build -v && go test -v && go vet"))
-              (flycheck-mode)))
+  (defun hrs/install-go-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+
+  (add-hook 'go-mode-hook #'hrs/install-go-save-hooks)
+#+end_src
+
+Redefine the default =compile= command to build the whole project, run tests, and
+run =go vet= without requiring any additional confirmation. That's bound to =C-c
+C-c= in the =use-package= configuration above.
+
+#+begin_src emacs-lisp
+  (defun hrs/set-go-compilation-configuration ()
+    (set (make-local-variable 'compilation-read-command) nil)
+    (set (make-local-variable 'compile-command)
+         "go build -v ./... && go test -v ./... && go vet ./...")
+    (set (make-local-variable 'default-directory) (projectile-project-root)))
+
+  (add-hook 'go-mode-hook #'hrs/set-go-compilation-configuration)
 #+end_src
 
 ** Haml and Slim
