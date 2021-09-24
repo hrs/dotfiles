@@ -189,7 +189,7 @@ exec "emacsclient --create-frame &"
 
 # Start chat applications on workspace $ws4
 assign [class="Signal"] $ws4
-exec signal-desktop --start-in-tray &
+exec signal-desktop --use-tray-icon --start-in-tray --no-sandbox &
 
 assign [class="Telegram"] $ws4
 exec ~/.bin/close-startup-window TelegramDesktop &
