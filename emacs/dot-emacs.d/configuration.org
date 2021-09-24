@@ -289,18 +289,14 @@ and isn't distracting or hard to read.
     (interactive "nTransparency Value 0 - 100 opaque:")
     (set-frame-parameter (selected-frame) 'alpha value))
 
-  (defun hrs/apply-theme ()
-    "Apply my chosen theme and make frames just slightly transparent."
-    (interactive)
-    (load-theme 'solarized-light t)
-    (transparency 90))
-
   (when (daemonp)
-    (hrs/apply-theme)
+    (load-theme 'solarized-light t)
     (add-hook 'after-make-frame-functions
               (lambda (frame)
                 (with-selected-frame frame
-                  (transparency 90)))))
+                  (if (display-graphic-p)
+                      (transparency 90)
+                    (set-face-background 'default "unspecified-bg" (selected-frame)))))))
 #+end_src
 
 ** Use =minions= to hide all minor modes
