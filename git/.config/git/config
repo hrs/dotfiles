@@ -11,7 +11,7 @@
   loc = !git diff --stat `git hash-object -t tree /dev/null` | tail -1 | cut -d' ' -f5
   pr = pull-request
   st = status -sb
-  sum = log --oneline --no-merges
+  sum = log --no-merges --date=short --pretty=format:\"%C(green)%ad %C(yellow)%h %Creset%s\"
   unstage = reset HEAD
 [branch]
   autosetuprebase = always
