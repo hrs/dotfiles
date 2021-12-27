@@ -202,6 +202,8 @@ assign [class="Quodlibet"] $ws5
 # Visit Emacs
 exec "i3-msg workspace number $ws2"
 
+bindsym $mod+r exec ~/bin/random-wallpaper
+
 # Configure the i3 bar
 bar {
   i3bar_command i3bar --transparency
