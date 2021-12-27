@@ -37,6 +37,7 @@ sudo apt install \
      opam \
      openssl \
      pandoc \
+     parallel \
      pass \
      pass-extension-otp \
      pasystray \
