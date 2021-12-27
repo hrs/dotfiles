@@ -988,6 +988,12 @@ Configure Jedi along with the associated =company= mode:
   (setq jedi:complete-on-dot t)
 #+end_src
 
+Use the =python3= interpreter for eldoc:
+
+#+begin_src emacs-lisp
+  (setq elpy-rpc-python-command "python3")
+#+end_src
+
 ** Ruby and RSpec
 
 I use =chruby= to switch between versions of Ruby. This sets a default version
