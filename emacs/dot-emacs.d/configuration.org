@@ -1123,6 +1123,14 @@ I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
 Use =rustic= to edit Rust code.
 
 #+begin_src emacs-lisp
+  (use-package lsp-ui
+    :commands lsp-ui-mode
+    :defer t
+    :custom
+    (lsp-ui-peek-always-show t)
+    (lsp-ui-sideline-show-hover t)
+    (lsp-ui-doc-enable nil))
+
   (use-package lsp-mode
     :commands lsp
     :custom
@@ -1132,13 +1140,6 @@ Use =rustic= to edit Rust code.
     (lsp-rust-analyzer-server-display-inlay-hints t)
     :config
     (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-
-  (use-package lsp-ui
-    :commands lsp-ui-mode
-    :custom
-    (lsp-ui-peek-always-show t)
-    (lsp-ui-sideline-show-hover t)
-    (lsp-ui-doc-enable nil))
 
   (use-package rustic
     :bind (:map rustic-mode-map
