@@ -1487,9 +1487,11 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
                                (org-file-path "calendars")
                                (org-file-path "deliveries.org")
                                (org-file-path "events.org")
+                               (org-file-path "goals.org")
                                (org-file-path "habits.org")
                                (org-file-path "news.org")
                                (org-file-path "recurring-events.org")
+                               (org-file-path "recurring-tasks.org")
                                (org-file-path "work.org")
                                (org-file-path "writing.org")))
 #+end_src
