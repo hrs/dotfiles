@@ -1569,8 +1569,8 @@ Hide the separator between blocks in the agenda.
   (setq org-agenda-block-separator nil)
 #+end_src
 
-Hide the category prefix from tasks. In practice, I've usually only got one or
-two files of tasks, so prefixing tasks with the file they're stored in is mostly
+Hide the category prefix from tasks. I categorize my tasks with tags, including
+using =filetags=, so prefixing tasks with the file they're stored in is noisy and
 redundant.
 
 #+begin_src emacs-lisp
@@ -1578,6 +1578,16 @@ redundant.
                                    (todo . " %i ")
                                    (tags . " %i ")
                                    (search . " %i ")))
+#+end_src
+
+By default Org will dim any tasks that contain blocking subtasks. That's good,
+but I've got enough of those that I'd rather not see them at all.
+
+By making blocked tasks invisible I ensure that everything in my agenda is
+currently actionable. Or, in GTD lingo, I'm only seeing "next steps."
+
+#+begin_src emacs-lisp
+  (setq org-agenda-dim-blocked-tasks 'invisible)
 #+end_src
 
 I use =org-habit= to schedule recurring events and reminders for myself.
