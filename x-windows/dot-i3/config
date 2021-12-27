@@ -120,8 +120,8 @@ bindsym $mod+n exec pcmanfm
 bindsym $mod+Left exec quodlibet --previous
 bindsym $mod+Right exec quodlibet --next
 bindsym $mod+space exec quodlibet --play-pause
-bindsym $mod+Up exec ~/.bin/change-volume +10%
-bindsym $mod+Down exec ~/.bin/change-volume -10%
+bindsym $mod+Up exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym $mod+Down exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 
 ########################################
 # Startup applications
