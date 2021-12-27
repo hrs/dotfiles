@@ -218,6 +218,11 @@ Define a big ol' bunch of handy utility functions.
     "Display a desktop notification by shelling out to `notify-send'."
     (call-process-shell-command
      (format "notify-send -t 2000 \"%s\" \"%s\"" title message)))
+
+  (defun hrs/image-path-p (path)
+    "Return true if the path corresponds to an image file."
+    (member (downcase (or (file-name-extension path) ""))
+            '("bmp" "gif" "jpeg" "jpg" "png" "tiff")))
 #+end_src
 
 * UI preferences
