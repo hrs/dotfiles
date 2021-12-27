@@ -1590,23 +1590,6 @@ currently actionable. Or, in GTD lingo, I'm only seeing "next steps."
   (setq org-agenda-dim-blocked-tasks 'invisible)
 #+end_src
 
-I use =org-habit= to schedule recurring events and reminders for myself.
-
-#+begin_src emacs-lisp
-  (require 'org-habit)
-#+end_src
-
-Don't show the =org-habit= consistency graph. I don't actually find it
-motivating, personally, and it kinda visually fills up my agenda. There's no
-provided way to disable the graph, as far as I can tell, so I've just redefined
-the function to do nothing.
-
-#+begin_src emacs-lisp
-  (defun org-habit-build-graph (habit starting current ending)
-    "                             ")
-  (setq org-habit-graph-column 60)
-#+end_src
-
 The "Personal agenda" view is simple! I just include my agenda for the next two
 weeks, including any recurring habits or scheduled events.
 
