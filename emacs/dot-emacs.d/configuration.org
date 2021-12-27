@@ -361,6 +361,9 @@ Note that this overrides the default font-related keybindings from
 =sensible-defaults=.
 
 #+begin_src emacs-lisp
+  (custom-set-faces
+   '(italic ((t (:slant italic)))))
+
   (setq hrs/default-fixed-font "Inconsolata")
   (setq hrs/default-fixed-font-size 70)
   (setq hrs/current-fixed-font-size hrs/default-fixed-font-size)
