@@ -1560,6 +1560,12 @@ listed under today's tasks, prefixed with =In 2 d:=.
   (setq org-deadline-warning-days 0)
 #+end_src
 
+Hide the separator between blocks in the agenda.
+
+#+begin_src emacs-lisp
+  (setq org-agenda-block-separator nil)
+#+end_src
+
 Hide the category prefix from tasks. In practice, I've usually only got one or
 two files of tasks, so prefixing tasks with the file they're stored in is mostly
 redundant.
