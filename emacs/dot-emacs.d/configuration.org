@@ -1555,12 +1555,6 @@ Begin weeks /today/, not on the last Monday.
   (setq org-agenda-start-on-weekday nil)
 #+end_src
 
-Show the next two weeks in the agenda (instead of only one).
-
-#+begin_src emacs-lisp
-  (setq org-agenda-span 14)
-#+end_src
-
 Don't show deadline warnings under today's entry. If something's due in two
 days, I'll see it in my agenda as a deadline on that day; I don't /also/ need it
 listed under today's tasks, prefixed with =In 2 d:=.
