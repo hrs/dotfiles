@@ -1622,7 +1622,7 @@ displaying the index so that they'll appear in the agenda view, too.
 Shorten the default (lengthy) =org-agenda= modeline.
 
 #+begin_src emacs-lisp
-  (defun org-agenda-set-mode-name ()
+  (defadvice org-agenda-set-mode-name (after truncate-org-agenda-mode-name activate)
     (setq mode-name '("Org-agenda")))
 #+end_src
 
