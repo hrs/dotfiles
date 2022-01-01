@@ -1212,6 +1212,16 @@ Bind a few keys to common operations:
   (evil-define-key 'normal ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
 #+end_src
 
+** SQL
+
+Support syntax-based indentation when editing SQL files.
+
+#+begin_src emacs-lisp
+  (use-package sql-indent
+    :config
+    (add-hook 'sql-mode-hook 'sqlind-minor-mode))
+#+end_src
+
 ** Terraform
 
 Install =terraform-mode=.
