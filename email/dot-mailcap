@@ -5,11 +5,12 @@ application/pdf; zathura %s;
 application/x-cbr; zathura %s;
 application/x-cbz; zathura %s;
 
-application/epub+zip; mupdf '%s';
+application/epub+zip; fbreader '%s';
+application/x-mobipocket-ebook; fbreader '%s';
 
 inode/directory; pcmanfm '%s';
 
-text/html; /usr/bin/firefox '%s'\; sleep 1; needsterminal;
+text/html; /usr/bin/firefox '%s'\;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
 # Open text files, Markdown, LaTeX, and Org with Emacs.
