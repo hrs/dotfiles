@@ -1,7 +1,7 @@
-#+TITLE: Emacs Configuration
-#+AUTHOR: Harry R. Schwartz
-#+EMAIL: hello@harryrschwartz.com
-#+OPTIONS: toc:nil num:nil
+#+title: Emacs Configuration
+#+author: Harry R. Schwartz
+#+email: hello@harryrschwartz.com
+#+options: toc:nil num:nil
 
 * Configure =use-package=
 
