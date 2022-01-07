@@ -20,6 +20,7 @@ sudo apt install \
      graphviz \
      htop \
      i3 \
+     i3lock \
      imagemagick \
      isync \
      jq \
