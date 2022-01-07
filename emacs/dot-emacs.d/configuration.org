@@ -1479,6 +1479,7 @@ the location of an index file (my main todo list), and archive finished tasks in
   (setq org-refile-targets `((,org-index-file :level . 1)
                              (,(org-file-path "deliveries.org") :level . 1)
                              (,(org-file-path "environment.org") :level . 1)
+                             (,(org-file-path "goals.org") :level . 1)
                              (,(org-file-path "links.org") :level . 1)
                              (,(org-file-path "media.org") :level . 1)
                              (,(org-file-path "someday-maybe.org") :level . 1)
@@ -1630,6 +1631,8 @@ The "Personal agenda" view is simple! I just include my agenda for the next two
 weeks, including any recurring habits or scheduled events.
 
 #+begin_src emacs-lisp
+  (setq org-agenda-custom-commands '())
+
   (add-to-list 'org-agenda-custom-commands
                '("p" "Personal agenda"
                  ((agenda ""))
