@@ -58,7 +58,6 @@ sudo apt install \
      rlwrap \
      rofi \
      rsync \
-     rxvt-unicode \
      scrot \
      sdcv \
      shellcheck \

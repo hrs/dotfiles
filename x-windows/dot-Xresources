@@ -9,50 +9,6 @@ Xft.hintstyle: hintslight
 Xft.rgba: rgb
 
 !---------------------------------------
-! URxvt
-!---------------------------------------
-
-! Use fake transparency (better with tiling)
-URxvt.transparent: true
-URxvt.shading: 30
-
-URxvt.urgentOnBell: true
-URxvt.loginShell: true
-URxvt.internalBorder: 3
-URxvt.lineSpace: 0
-
-! Fonts
-URxvt.allow_bold: true
-URxvt*font: xft:Inconsolata:pixelsize=24
-
-! Scrollbar
-URxvt.scrollStyle: rxvt
-URxvt.scrollBar: false
-
-! do not scroll with output
-URxvt*scrollTtyOutput: false
-
-! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
-URxvt*scrollWithBuffer: true
-
-! scroll back to the bottom on keypress
-URxvt*scrollTtyKeypress: true
-
-! Perl extensions
-URxvt.perl-ext-common: default,url-select,selection-to-clipboard,font-size
-URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.underline: true
-
-! Cursor
-URxvt.cursorBlink: true
-URxvt.cursorUnderline: false
-URxvt.cursorColor: #657b83
-
-! Pointer
-! Hide the mouse pointer after a period of inactivity.
-URxvt.pointerBlank: true
-
-!---------------------------------------
 ! Rofi
 !---------------------------------------
 

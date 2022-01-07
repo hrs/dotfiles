@@ -133,7 +133,7 @@ exec dunst &
 # Mount the s3 bucket
 exec mount ~/s3
 
-# Load up config in .Xresources (for DPI, urxvt, and rofi)
+# Load up config in .Xresources (for DPI)
 exec xrdb -load ~/.Xresources &
 
 # Start the Picom compositor (for i3bar transparency)
