@@ -123,6 +123,7 @@ bindsym $mod+n exec pcmanfm
 bindsym $mod+Left exec quodlibet --previous
 bindsym $mod+Right exec quodlibet --next
 bindsym $mod+space exec quodlibet --play-pause
+bindsym $mod+Shift+space workspace number $ws5; exec quodlibet --show-window
 bindsym $mod+Up exec pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym $mod+Down exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 
@@ -199,8 +200,9 @@ assign [class="Slack"] $ws4
 assign [class="discord"] $ws4
 assign [class="Zoom"] $ws4
 
-# Keep music player on workspace $ws5
+# Keep music player on workspace $ws5, but start it in the system tray
 assign [class="Quodlibet"] $ws5
+exec quodlibet --run --hide-window &
 
 # Visit Emacs
 exec "i3-msg workspace number $ws2"
