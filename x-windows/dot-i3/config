@@ -3,6 +3,9 @@ font pango:San Francisco Display 8
 
 exec xrandr --output HDMI-A-0 --primary
 
+gaps inner 6
+gaps outer 2
+
 # Use the win key as $mod
 set $mod Mod4
 set $alt Mod1
