@@ -12,7 +12,7 @@ set $exec exec --no-startup-id
 set $exec_always exec_always --no-startup-id
 
 # Minimal window border.
-for_window [class="^.*"] border pixel 1
+default_border pixel 1
 
 # No giant floating windows
 floating_maximum_size 1800 x 1200
@@ -53,12 +53,12 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-set $ws1 1 www
-set $ws2 2 emacs
-set $ws3 3 terms
-set $ws4 4 chat
-set $ws5 5 music
-set $ws6 6
+set $ws1 1:web
+set $ws2 2:edit
+set $ws3 3:terms
+set $ws4 4:chat
+set $ws5 5:music
+set $ws6 6:read
 set $ws7 7
 set $ws8 8
 set $ws9 9
@@ -79,15 +79,15 @@ bindsym $mod+Tab workspace next_on_output
 bindsym $mod+Shift+Tab workspace prev_on_output
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number 1 www
-bindsym $mod+Shift+2 move container to workspace number 2 emacs
-bindsym $mod+Shift+3 move container to workspace number 3 terms
-bindsym $mod+Shift+4 move container to workspace number 4 chat
-bindsym $mod+Shift+5 move container to workspace number 5 music
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -102,9 +102,9 @@ bindsym --release $mod+c exec ~/.bin/screenshot
 bindsym $mod+o exec "emacsclient --create-frame --alternate-editor=''"
 
 # Launch assorted chat applications
-bindsym $mod+t workspace number 4 chat; exec telegram-desktop
-bindsym $mod+Shift+t workspace number 4 chat; exec signal-desktop
-bindsym $mod+Shift+s workspace number 4 chat; exec slack
+bindsym $mod+t workspace number $ws4; exec telegram-desktop
+bindsym $mod+Shift+t workspace number $ws4; exec signal-desktop
+bindsym $mod+Shift+s workspace number $ws4; exec slack
 
 # Open a password manager
 bindsym $mod+p exec ~/.bin/rofi-pass
@@ -181,7 +181,7 @@ assign [class="Firefox"] $ws1
 exec firefox &
 
 # Start Emacs on workspace 2
-exec ~/.bin/move-startup-window Emacs "2 emacs" &
+exec ~/.bin/move-startup-window Emacs $ws2 &
 exec "emacsclient --create-frame &"
 
 # Start chat applications on workspace $ws4
