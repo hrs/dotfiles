@@ -1366,7 +1366,6 @@ tells Org to open those links with the mailcap-defined applications.
 
 #+begin_src emacs-lisp
   (use-package org
-    :ensure org-plus-contrib
     :config
     (require 'org-tempo)
 
