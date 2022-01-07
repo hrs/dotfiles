@@ -548,7 +548,11 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
     ("C-x g" . magit-status)
 
     :config
+    (use-package git-commit)
+    (use-package magit-section)
     (use-package with-editor)
+
+    (require 'git-rebase)
 
     (setq magit-push-always-verify nil
           git-commit-summary-max-length 50)
