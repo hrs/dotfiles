@@ -560,14 +560,6 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
     (add-hook 'with-editor-mode-hook 'evil-insert-state))
 #+end_src
 
-I've been playing around with the newly-released =forge= for managing GitHub PRs
-and issues. Seems slick so far.
-
-#+begin_src emacs-lisp
-  (use-package ghub)
-  (use-package forge)
-#+end_src
-
 I'm also partial to =git-timemachine=, which lets you quickly page through the
 history of a file.
 
