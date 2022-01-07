@@ -1627,17 +1627,62 @@ Hide blocks in the agenda that don't contain any tasks. From [[https://lists.gnu
   (add-hook 'org-agenda-finalize-hook #'org-agenda-delete-empty-blocks)
 #+end_src
 
-The "Personal agenda" view is simple! I just include my agenda for the next two
-weeks, including any recurring habits or scheduled events.
+The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
+the =inbox=, =habit=, =daily=, =weekly=, and =yearly= tags. Here are the sections:
+
+- Inbox :: Newly captured notes or ideas that haven't yet been turned into
+  "real" tasks or projects.
+- Daily :: Things I want to do today.
+- Habit :: Automatically generated tasks appended to a file with a custom
+  script. This includes stuff like, y'know, exercising, feeding the sourdough
+  starter, or resetting my watch for daylight savings time. I could probably
+  replace this script with [[https://orgmode.org/manual/Tracking-your-habits.html][org-habit]], but I don't for mostly historical reasons.
+- Weekly :: Things I want to do this week.
+- Calendar :: I have a =cron= job that pulls down my calendars into an Org file,
+  so my day's meetings, pending deliveries, and so on are displayed in my
+  agenda. This also shows tasks with deadlines and so on that I might not have
+  tagged.
+- Annual Goals :: The big projects I want to get done this year.
+- Unscheduled Tasks :: Miscellaneous tasks that don't fit into any of the above
+  categories.
 
 #+begin_src emacs-lisp
   (setq org-agenda-custom-commands '())
 
   (add-to-list 'org-agenda-custom-commands
                '("p" "Personal agenda"
-                 ((agenda ""))
-                 ((org-agenda-overriding-header "Personal agenda")
-                  (org-agenda-skip-deadline-if-done t)
+                 ((tags-todo "inbox"
+                             ((org-agenda-overriding-header "Inbox")
+                              (org-agenda-hide-tags-regexp "daily\\|weekly\\|yearly")))
+
+                  (tags-todo "daily"
+                             ((org-agenda-overriding-header "Today")
+                              (org-agenda-hide-tags-regexp "daily\\|weekly\\|yearly")))
+
+                  (tags-todo "habit"
+                             ((org-agenda-overriding-header "Habits")
+                              (org-agenda-hide-tags-regexp "habit")))
+
+                  (tags-todo "weekly-daily"
+                             ((org-agenda-overriding-header "This Week")
+                              (org-agenda-hide-tags-regexp "weekly\\|yearly")))
+
+                  (agenda ""
+                          ((org-agenda-overriding-header "Calendar")
+                           (org-agenda-tag-filter-preset '("-daily"
+                                                           "-habit"
+                                                           "-weekly"
+                                                           "-yearly"))
+                           (org-agenda-hide-tags-regexp "daily\\|weekly\\|yearly")))
+
+                  (tags-todo "yearly-daily-weekly"
+                             ((org-agenda-overriding-header "Annual Goals")
+                              (org-agenda-hide-tags-regexp "yearly")))
+
+                  (tags-todo "-daily-habit-weekly-yearly"
+                             ((org-agenda-overriding-header "Unscheduled Tasks"))))
+
+                 ((org-agenda-skip-deadline-if-done t)
                   (org-agenda-skip-scheduled-if-done t)
                   (org-agenda-skip-timestamp-if-done t)
                   (org-agenda-tag-filter-preset '("-news" "-writing")))))
