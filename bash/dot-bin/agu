@@ -19,13 +19,10 @@ apt --assume-yes autoremove
 aptitude autoclean
 
 # Upgrade all installed Python libraries.
-# sudo -u hrs pip3 list | tail +3 |  cut -d' ' -f1 | xargs sudo -u hrs pip3 install --upgrade --quiet
+sudo -u hrs pip3 list | tail +3 |  cut -d' ' -f1 | xargs sudo -u hrs pip3 install --upgrade --quiet
 
 # Upgrade all installed Racket libraries.
 sudo -u hrs raco pkg update --all
 
 # Upgrade Rust.
 sudo -u hrs /home/hrs/.cargo/bin/rustup update
-
-# Upgrade Emacs libraries.
-sudo -u hrs emacs --no-window-system --funcall=auto-package-update-now --kill
