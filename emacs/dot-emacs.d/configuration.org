@@ -2686,12 +2686,21 @@ Use the [[https://elpa.gnu.org/packages/orgalist.html][=orgalist=]] package for 
 
 ** Linting prose
 
-I use [[http://proselint.com/][proselint]] to check my prose for common errors, so I need to use flycheck
-in the appropriate buffers:
+I've been using [[https://github.com/errata-ai/vale][vale]] as a prose linter, and it's not been bad so far. There's a
+package that integrates it with =flycheck=, but it doesn't seem to work, so I've
+got some code here to do it manually.
 
 #+begin_src emacs-lisp
-  (dolist (hook prose-mode-hooks)
-    (add-hook hook 'flycheck-mode))
+  (flycheck-define-checker vale
+    "A checker for prose"
+    :command ("vale" "--output" "line"
+              source)
+    :standard-input nil
+    :error-patterns
+    ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
+    :modes prose-modes)
+
+  (add-to-list 'flycheck-checkers 'vale 'append)
 #+end_src
 
 ** Look up definitions in Webster 1913
