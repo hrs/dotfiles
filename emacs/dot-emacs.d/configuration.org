@@ -1539,18 +1539,16 @@ checklist items. This is handy for organizing "blocking" tasks hierarchically.
 Schedule a task for today.
 
 #+begin_src emacs-lisp
-  (defun hrs/refile-to (file headline)
-    "Move current headline to specified location"
-    (let ((pos (save-excursion
-                 (find-file file)
-                 (org-find-exact-headline-in-buffer headline))))
-      (org-refile nil nil (list headline file nil pos))))
+  (defun hrs/org-add-tag (new-tag)
+    (org-set-tags (cons new-tag
+                        (seq-remove (lambda (tag)
+                                      (get-text-property 0 'inherited tag))
+                                    (org-get-tags)))))
 
   (defun hrs/schedule-today ()
-    "Schedule this item for today and file under `Today'."
+    "Tag this item with `daily'."
     (interactive)
-    (org--deadline-or-schedule nil 'scheduled (current-time))
-    (hrs/refile-to org-index-file "Today")
+    (hrs/org-add-tag "daily")
     (save-buffer))
 #+end_src
 
