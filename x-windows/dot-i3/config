@@ -204,6 +204,9 @@ assign [class="Zoom"] $ws4
 assign [class="Quodlibet"] $ws5
 exec quodlibet --run --hide-window &
 
+# Open Calibre on workspace $ws6
+assign [class="calibre"] $ws6
+
 # Visit Emacs
 exec "i3-msg workspace number $ws2"
 
