@@ -3109,7 +3109,8 @@ This configuration:
 ** Switch and rebalance windows when splitting
 
 When splitting a window, I invariably want to switch to the new window. This
-makes that automatic.
+makes that automatic. Similarly, when closing a window I'd like to rebalance the
+remaining windows.
 
 #+begin_src emacs-lisp
   (defun hrs/split-window-below-and-switch ()
@@ -3126,8 +3127,15 @@ makes that automatic.
     (balance-windows)
     (other-window 1))
 
+  (defun hrs/delete-window-and-rebalance ()
+    "Delete the current window, then rebalance the remaining windows."
+    (interactive)
+    (delete-window)
+    (balance-windows))
+
   (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
   (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+  (global-set-key (kbd "C-x 0") 'hrs/delete-window-and-rebalance)
 #+end_src
 
 ** Mass editing of =grep= results
