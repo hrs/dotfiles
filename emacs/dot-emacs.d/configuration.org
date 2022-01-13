@@ -759,7 +759,7 @@ Define my =$GOPATH= and tell Emacs where to find the Go binaries.
   (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
 #+end_src
 
-Start the =lsp= server once the buffer is visible. Note that this requires =gopls=
+Start the =lsp= server once the buffer is visible. Note that this requires [[https://pkg.go.dev/golang.org/x/tools/gopls][=gopls=]]
 to be installed locally.
 
 #+begin_src emacs-lisp
