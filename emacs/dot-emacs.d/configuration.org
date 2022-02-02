@@ -28,13 +28,6 @@ Always compile packages, and use the newest version available.
   (setq load-prefer-newer t)
 #+end_src
 
-Disable TLS 1.3; ELPA has higher standards. That'll be the default in Emacs
-26.3, I think, but I'm not there yet.
-
-#+begin_src emacs-lisp
-  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-#+end_src
-
 Disable deprecation warnings about =cl=. The =cl= library has been deprecated, but
 lots of packages still use it. I can't control that, but I can disable the
 warnings.
