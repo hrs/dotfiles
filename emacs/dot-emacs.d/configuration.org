@@ -1523,12 +1523,11 @@ Record the time that a todo was archived.
   (setq org-log-done 'time)
 #+end_src
 
-Ensure that a task can't be marked as done if it contains unfinished subtasks or
-checklist items. This is handy for organizing "blocking" tasks hierarchically.
+Ensure that a task can't be marked as done if it contains unfinished subtasks.
+This is handy for organizing "blocking" tasks hierarchically.
 
 #+begin_src emacs-lisp
   (setq org-enforce-todo-dependencies t)
-  (setq org-enforce-todo-checkbox-dependencies t)
 #+end_src
 
 Schedule a task for today.
