@@ -324,8 +324,7 @@ modes in the modeline. Nice!
 ** Disable visual bell
 
 =sensible-defaults= replaces the audible bell with a visual one, but I really
-don't even want that (and my Emacs/Mac pair renders it poorly). This disables
-the bell altogether.
+don't even want that. This disables the bell altogether.
 
 #+begin_src emacs-lisp
   (setq ring-bell-function 'ignore)
@@ -737,12 +736,14 @@ Install Less.
 
 ** Golang
 
-Install =go-mode= and related packages:
+Install =go-mode=, plus =protobuf-mode=.
 
 #+begin_src emacs-lisp
   (use-package go-mode
     :bind
     (:map go-mode-map ("C-c C-c" . compile)))
+
+  (use-package protobuf-mode)
 #+end_src
 
 Define my =$GOPATH= and tell Emacs where to find the Go binaries.
@@ -778,7 +779,7 @@ C-c= in the =use-package= configuration above.
   (defun hrs/set-go-compilation-configuration ()
     (set (make-local-variable 'compilation-read-command) nil)
     (set (make-local-variable 'compile-command)
-         "go build -v ./... && go test -v ./... && go vet ./...")
+         "go build -v ./... && go test -race ./... && go vet ./...")
     (set (make-local-variable 'default-directory) (projectile-project-root)))
 
   (add-hook 'go-mode-hook #'hrs/set-go-compilation-configuration)
