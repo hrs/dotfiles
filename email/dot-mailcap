@@ -4,6 +4,8 @@ image/*; ~/.bin/s %s;
 application/pdf; zathura %s;
 application/x-cbr; zathura %s;
 application/x-cbz; zathura %s;
+application/vnd.comicbook-rar; zathura %s;
+application/vnd.comicbook+zip; zathura %s;
 
 application/epub+zip; fbreader '%s';
 application/x-mobipocket-ebook; fbreader '%s';
