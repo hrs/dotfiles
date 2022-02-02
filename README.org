@@ -4,8 +4,8 @@
 
 I hope you like fiddling with your =.emacs.d= ad nauseam, 'cause I obviously do.
 
-I'm currently running [[https://www.debian.org/][Debian]] on a 3rd-gen Lenovo X1 Carbon. I use the [[https://i3wm.org/][i3 window
-manager]], [[https://www.mozilla.org/en-US/firefox/][Firefox]], and [[https://www.gnu.org/software/emacs/][Emacs]].
+I'm currently running [[https://www.debian.org/][Debian]] on a desktop with a single monitor. I use the [[https://i3wm.org/][i3
+window manager]], [[https://www.mozilla.org/en-US/firefox/][Firefox]], and [[https://www.gnu.org/software/emacs/][Emacs]].
 
 You're probably here for my literate [[./emacs/.emacs.d/configuration.org][Emacs config]]! Most of my time is spent in
 either Emacs or Firefox. I think a text editor is just a terrific environment
@@ -22,7 +22,6 @@ use specialized tools for, including:
   - [[https://www.fastmail.com][Fastmail]] for hosting,
 - RSS feed reading and management with [[https://github.com/skeeto/elfeed][elfeed]] and [[https://github.com/remyhonig/elfeed-org][elfeed-org]], with keybindings
   to send articles to [[https://www.instapaper.com/][Instapaper]] to read on my phone later,
-- Music playing with [[https://www.gnu.org/software/emms/][EMMS]], backed by [[https://www.musicpd.org/][mpd]],
 - Git with [[https://magit.vc/][magit]], and
 - File management with [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html][dired]] and [[https://github.com/jwiegley/emacs-async][async]].
 
