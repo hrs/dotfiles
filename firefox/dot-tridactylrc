@@ -4,6 +4,8 @@ set newtab about:blank
 " Use Emacs as my editor. Of course.
 set editorcmd emacsclient --create-frame
 
+set modeindicator false
+
 " Use `l` and `h` to navigate between tabs.
 bind l tabnext
 bind h tabprev
