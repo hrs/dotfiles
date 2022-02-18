@@ -212,6 +212,8 @@ exec calibre --start-in-tray &
 exec "i3-msg workspace number $ws2"
 
 bindsym $mod+r exec ~/bin/random-wallpaper
+bindsym $mod+Pause exec ~/bin/toggle-vpn
+bindsym $mod+Scroll_Lock exec ~/bin/cycle-audio
 
 # Configure the i3 bar
 bar {
