@@ -55,13 +55,13 @@ sudo apt install \
      python3-pip \
      redshift \
      restic \
+     ripgrep \
      rlwrap \
      rofi \
      rsync \
      scrot \
      sdcv \
      shellcheck \
-     silversearcher-ag \
      sqlite3 \
      sqlite3-pcre \
      stow \

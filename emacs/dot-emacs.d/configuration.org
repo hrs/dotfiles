@@ -124,7 +124,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
     :after evil
     :config
     (setq evil-collection-mode-list
-          '(ag dired magit mu4e which-key))
+          '(deadgrep dired magit mu4e which-key))
     (evil-collection-init))
 #+end_src
 
@@ -448,13 +448,12 @@ I use a few packages in virtually every programming or writing environment to
 manage the project, handle auto-completion, search for terms, and deal with
 version control. That's all in here.
 
-** =ag=
+** =ripgrep=
 
-Install =ag= to provide search within projects (usually through
-=projectile-ag=).
+Install =ripgrep= to provide search within projects.
 
 #+begin_src emacs-lisp
-  (use-package ag)
+  (use-package deadgrep)
 #+end_src
 
 ** =avy=
@@ -561,9 +560,9 @@ history of a file.
 
 ** =projectile=
 
-Projectile's default binding of =projectile-ag= to =C-c p s s= is clunky enough
-that I rarely use it (and forget it when I need it). This binds it to the
-easier-to-type =C-c v= to useful searches.
+Projectile's default search bindings are clunky enough that I rarely use them
+(and forget them when I need them). This binds searching to the easier-to-type
+=C-c v=.
 
 Bind =C-p= to fuzzy-finding files in the current project. We also need to
 explicitly set that in a few other modes.
@@ -581,13 +580,13 @@ project root (if I'm not in a "real" project).
 #+begin_src emacs-lisp
   (use-package projectile
     :bind
-    ("C-c v" . projectile-ag)
+    ("C-c v" . deadgrep)
 
     :config
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
     (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-    (evil-define-key 'motion ag-mode-map (kbd "C-p") 'projectile-find-file)
+    (evil-define-key 'motion deadgrep-mode-map (kbd "C-p") 'projectile-find-file)
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
     (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'projectile-find-file)
 
@@ -1011,8 +1010,8 @@ modes.
 
 #+begin_src emacs-lisp
   (use-package rspec-mode
-    :hook (ag-mode
-           css-mode
+    :hook (css-mode
+           deadgrep-mode
            eldoc-mode
            haml-mode
            js-mode
