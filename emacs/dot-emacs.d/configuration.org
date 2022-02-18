@@ -1389,6 +1389,7 @@ I like to see an outline of pretty bullets instead of a list of asterisks.
   (use-package org-superstar
     :config
     (setq org-superstar-special-todo-items t)
+    (setq org-hide-leading-stars t)
     (add-hook 'org-mode-hook (lambda ()
                                (org-superstar-mode 1))))
 #+end_src
