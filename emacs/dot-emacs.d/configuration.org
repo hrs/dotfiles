@@ -124,7 +124,13 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
     :after evil
     :config
     (setq evil-collection-mode-list
-          '(deadgrep dired magit mu4e which-key))
+          '(deadgrep
+            dired
+            ibuffer
+            magit
+            mu4e
+            which-key))
+
     (evil-collection-init))
 #+end_src
 
@@ -3230,6 +3236,7 @@ Just a few handy functions.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-w") 'backward-kill-word)
   (global-set-key (kbd "M-o") 'other-window)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+end_src
 
 Remap when working in terminal Emacs.
