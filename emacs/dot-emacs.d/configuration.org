@@ -1484,7 +1484,6 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
   (setq org-agenda-files (list org-index-file
                                (org-file-path "calendars")
                                (org-file-path "deliveries.org")
-                               (org-file-path "events.org")
                                (org-file-path "goals.org")
                                (org-file-path "habits.org")
                                (org-file-path "news.org")
@@ -1636,15 +1635,15 @@ the =inbox=, =habit=, =daily=, =weekly=, and =yearly= tags. Here are the section
 
   (add-to-list 'org-agenda-custom-commands
                '("p" "Personal agenda"
-                 ((tags-todo "inbox"
+                 ((tags-todo "plan"
                              ((org-agenda-overriding-header "Inbox")
-                              (org-agenda-hide-tags-regexp "daily\\|weekly\\|yearly")))
+                              (org-agenda-hide-tags-regexp "plan\\|daily\\|weekly\\|yearly")))
 
                   (tags-todo "daily"
                              ((org-agenda-overriding-header "Today")
-                              (org-agenda-hide-tags-regexp "daily\\|weekly\\|yearly")))
+                              (org-agenda-hide-tags-regexp "habit\\|daily\\|weekly\\|yearly")))
 
-                  (tags-todo "habit"
+                  (tags-todo "habit-daily-weekly"
                              ((org-agenda-overriding-header "Habits")
                               (org-agenda-hide-tags-regexp "habit")))
 
@@ -1662,15 +1661,12 @@ the =inbox=, =habit=, =daily=, =weekly=, and =yearly= tags. Here are the section
 
                   (tags-todo "yearly-daily-weekly"
                              ((org-agenda-overriding-header "Annual Goals")
-                              (org-agenda-hide-tags-regexp "yearly")))
-
-                  (tags-todo "-daily-habit-weekly-yearly"
-                             ((org-agenda-overriding-header "Unscheduled Tasks"))))
+                              (org-agenda-hide-tags-regexp "yearly"))))
 
                  ((org-agenda-skip-deadline-if-done t)
                   (org-agenda-skip-scheduled-if-done t)
                   (org-agenda-skip-timestamp-if-done t)
-                  (org-agenda-tag-filter-preset '("-news" "-writing")))))
+                  (org-agenda-tag-filter-preset '("-duplicate" "-news" "-writing")))))
 #+end_src
 
 Don't show empty agenda blocks (from the [[https://lists.gnu.org/archive/html/emacs-orgmode/2015-06/msg00266.html][emacs-orgmode mailing list]]):
