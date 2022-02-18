@@ -1,5 +1,5 @@
 [global]
-    font = San Francisco Display 10
+    font = Adobe Garamond Pro 8
     markup = full
     format = "<b>%s</b>\n%b"
     sort = yes
@@ -30,8 +30,8 @@
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
 [frame]
-    width = 3
-    color = "#aaaaaa"
+    width = 1
+    color = "#8700ff"
 
 [shortcuts]
     close = ctrl+space
@@ -40,16 +40,16 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    background = "#222222"
-    foreground = "#888888"
+    background = "#fdfef8"
+    foreground = "#8700ff"
     timeout = 10
 
 [urgency_normal]
-    background = "#285577"
-    foreground = "#ffffff"
+    background = "#fdfef8"
+    foreground = "#8700ff"
     timeout = 10
 
 [urgency_critical]
-    background = "#900000"
-    foreground = "#ffffff"
+    background = "#fdfef8"
+    foreground = "#8700ff"
     timeout = 0

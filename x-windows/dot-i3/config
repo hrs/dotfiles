@@ -1,5 +1,5 @@
-# Use San Francisco Display in container titles
-font pango:San Francisco Display 8
+# Set font for container titles
+font pango:Adobe Garamond Pro 8
 
 exec xrandr --output HDMI-A-0 --primary
 
@@ -14,8 +14,17 @@ set $alt Mod1
 set $exec exec --no-startup-id
 set $exec_always exec_always --no-startup-id
 
+set $phlox #8700af
+set $purple #b4256c
+set $teal #1b9396
+set $white #ffffff
+set $powder #fdfef8
+
 # Minimal window border.
 default_border pixel 1
+client.focused $phlox $phlox $powder $phlox $phlox
+client.focused_inactive $teal $teal $powder $teal $teal
+client.unfocused $powder $powder $phlox $phlox $powder
 
 # No giant floating windows
 floating_maximum_size 1800 x 1200
@@ -220,7 +229,7 @@ bar {
   i3bar_command i3bar --transparency
   status_command i3status
 
-  font pango:San Francisco Display 6
+  font pango:Adobe Garamond Pro 8
   position top
   tray_output primary
   tray_padding 0
@@ -230,6 +239,13 @@ bar {
   bindsym button5 nop
 
   colors {
-    background #11111133
+    background $powder
+
+    separator $phlox
+    statusline $phlox
+
+    focused_workspace $phlox $phlox $powder
+    urgent_workspace $phlox $purple $powder
+    inactive_workspace $phlox $powder $phlox
   }
 }

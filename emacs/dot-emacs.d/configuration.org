@@ -256,23 +256,15 @@ Why not?
 This sets up the current theme.
 
 #+begin_src emacs-lisp
-  (use-package solarized-theme
+  (use-package spacemacs-theme
+    :defer t
+    :init
+    (setq spacemacs-theme-org-bold nil
+          spacemacs-theme-org-height nil)
     :config
-    (load-theme 'solarized-light t)
+    (load-theme 'spacemacs-light t))
 
-    (setq solarized-use-variable-pitch nil
-          solarized-height-plus-1 1.0
-          solarized-height-plus-2 1.0
-          solarized-height-plus-3 1.0
-          solarized-height-plus-4 1.0)
-
-    (let ((line (face-attribute 'mode-line :underline)))
-      (set-face-attribute 'mode-line          nil :overline   line)
-      (set-face-attribute 'mode-line-inactive nil :overline   line)
-      (set-face-attribute 'mode-line-inactive nil :underline  line)
-      (set-face-attribute 'mode-line          nil :box        nil)
-      (set-face-attribute 'mode-line-inactive nil :box        nil)
-      (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
+  (load-theme 'spacemacs-light t)
 #+end_src
 
 If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
@@ -288,12 +280,12 @@ and isn't distracting or hard to read.
     (set-frame-parameter (selected-frame) 'alpha value))
 
   (when (daemonp)
-    (load-theme 'solarized-light t)
+    (load-theme 'spacemacs-light t)
     (add-hook 'after-make-frame-functions
               (lambda (frame)
                 (with-selected-frame frame
                   (if (display-graphic-p)
-                      (transparency 90)
+                      (transparency 80)
                     (set-face-background 'default "unspecified-bg" (selected-frame)))))))
 #+end_src
 
