@@ -342,7 +342,7 @@ as point goes.
 
 ** Set default font and configure font resizing
 
-I'm partial to Inconsolata for code and Libre Baskerville for prose.
+I'm partial to Inconsolata for code and Adobe Garamond Pro for prose.
 
 The standard =text-scale-= functions just resize the text in the current buffer;
 I'd generally like to resize the text in /every/ buffer, and I usually want to
@@ -366,8 +366,8 @@ Note that this overrides the default font-related keybindings from
                       :family hrs/default-fixed-font
                       :height hrs/current-fixed-font-size)
 
-  (setq hrs/default-variable-font "Libre Baskerville")
-  (setq hrs/default-variable-font-size 60)
+  (setq hrs/default-variable-font "Adobe Garamond Pro")
+  (setq hrs/default-variable-font-size 80)
   (setq hrs/current-variable-font-size hrs/default-variable-font-size)
   (set-face-attribute 'variable-pitch nil
                       :family hrs/default-variable-font
