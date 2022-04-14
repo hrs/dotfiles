@@ -3135,6 +3135,18 @@ This configuration:
             (t . ivy--regex-fuzzy))))
 #+end_src
 
+Add pretty icons and descriptions to the =ivy= buffer.
+
+#+begin_src emacs-lisp
+  (use-package ivy-rich
+    :init
+    (ivy-rich-mode 1))
+
+  (use-package all-the-icons-ivy-rich
+    :init
+    (all-the-icons-ivy-rich-mode 1))
+#+end_src
+
 ** Switch and rebalance windows when splitting
 
 When splitting a window, I invariably want to switch to the new window. This
