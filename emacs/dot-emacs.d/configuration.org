@@ -2755,6 +2755,7 @@ composing an email, or authoring a Git commit.
 #+begin_src emacs-lisp
   (use-package flyspell
     :config
+    (setq ispell-personal-dictionary "~/.ispell_words")
     (dolist (hook prose-mode-hooks)
       (add-hook hook 'flyspell-mode)))
 #+end_src
