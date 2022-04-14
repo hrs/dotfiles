@@ -2735,7 +2735,9 @@ kinda goofy otherwise, I think.
   (add-hook 'org-mode-hook
             (lambda ()
               (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-              (set-face-attribute 'org-table nil :inherit 'fixed-pitch)))
+              (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
+              (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+              (set-face-attribute 'org-verbatim nil :inherit 'fixed-pitch)))
 #+end_src
 
 The same is true for =crontab= files (which derive from =text-mode=, apparently!):
@@ -2859,8 +2861,9 @@ Because I can't always use =org=.
     (custom-set-faces
      '(markdown-pre-face ((t nil))))
 
-  (setq markdown-command "pandoc --standalone --mathjax --from=markdown"
-        markdown-fontify-code-blocks-natively t))
+    (setq markdown-command "pandoc --standalone --mathjax --from=markdown"
+          markdown-disable-tooltip-prompt t
+          markdown-fontify-code-blocks-natively t))
 #+end_src
 
 ** Cycle between spacing alternatives
