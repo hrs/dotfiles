@@ -193,7 +193,7 @@ See also `rct-interactive'."
   (dolist (buf buffer-list)
     (with-current-buffer buf
       (if (and buffer-file-name (string-match "test.*\.rb$" buffer-file-name))
-          (return buf)))))
+          (cl-return buf)))))
 
 ;; (defun rct-find-test-method (buffer)
 ;;   "Find test method on point on BUFFER."
@@ -262,8 +262,8 @@ To kill rct-fork process, use \\[rct-fork-kill].
    (lambda (lib) (format "-r %s" lib))
    (save-excursion
      (goto-char (point-min))
-     (loop while (re-search-forward "\\<require\\> ['\"]\\([^'\"]+\\)['\"]" nil t)
-           collect (match-string-no-properties 1)))
+     (cl-loop while (re-search-forward "\\<require\\> ['\"]\\([^'\"]+\\)['\"]" nil t)
+              collect (match-string-no-properties 1)))
    " "))
 
 (defun rct-fork-kill ()
