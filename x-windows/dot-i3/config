@@ -185,6 +185,9 @@ exec ~/.bin/paint-wallpaper &
 # Start my clipboard manager
 exec xfce4-clipman &
 
+# Start caffeine
+exec caffeine-indicator &
+
 # Ensure my VPN client is running
 exec ~/.bin/close-startup-window privateinternetaccess &
 exec ~/bin/start-pia-client &
