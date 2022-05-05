@@ -658,6 +658,7 @@ I use =eglot= as my LSP client.
 I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
 
 #+begin_src emacs-lisp
+  (use-package proof-general)
   (use-package company-coq)
 #+end_src
 

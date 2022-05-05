@@ -48,7 +48,6 @@ sudo apt install \
      picom \
      postgresql \
      procmail \
-     proofgeneral \
      pwgen \
      python3 \
      python3-gpg \
