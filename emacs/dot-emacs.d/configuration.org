@@ -129,6 +129,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
             ibuffer
             magit
             mu4e
+            pdf-view
             which-key))
 
     (evil-collection-init))
