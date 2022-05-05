@@ -2295,7 +2295,7 @@ got the one, let's just default to that every time and avoid the prompt.
 
 ** Fetching new mail
 
-I fetch my email with a [[file:~/.dotfiles/bash/.bin/get-new-mail][custom script]] (though, in practice, I rarely fetch mail
+I fetch my email with a [[file:~/.dotfiles/bash/dot-bin/get-new-mail][custom script]] (though, in practice, I rarely fetch mail
 manually; I have a cron job regularly calling the script to fetch my mail
 asynchronously).
 
