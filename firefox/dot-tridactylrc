@@ -27,11 +27,11 @@ bind gl followpage next
 " Open the current page (presumably a video) with mpv, my preferred media player.
 bind v js tri.native.run(`mpv '${document.location.href}'`)
 
-" Download the current page (presumably a video), with a youtube-dl wrapper.
-bind nn js tri.native.run(`~/bin/smartdownload '${document.location.href}'`)
 
 " Save the current page to Pinboard.
 bind np js document.location.href = 'https://pinboard.in/add?next=same&url=' + encodeURIComponent(document.location.href) + '&title=' + encodeURIComponent(document.title)
+" Download the current page (presumably a video), with a yt-dlp wrapper.
+bind nn js tri.native.run(`~/bin/smartdownload '${document.location.href}'`)
 
 " Transform the current page's URL into a TODO item.
 bind nt js tri.native.run(`~/.bin/create-url-task '${document.location.href}' '${document.title}'`)
