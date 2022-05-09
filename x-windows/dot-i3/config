@@ -1,7 +1,11 @@
 # Set font for container titles
 font pango:Adobe Garamond Pro 8
 
-exec xrandr --output HDMI-A-0 --primary
+# Always use --no-startup-id
+set $exec exec --no-startup-id
+set $exec_always exec_always --no-startup-id
+
+$exec xrandr --output HDMI-A-0 --primary
 
 gaps inner 6
 gaps outer 2
@@ -9,10 +13,6 @@ gaps outer 2
 # Use the win key as $mod
 set $mod Mod4
 set $alt Mod1
-
-# Always use --no-startup-id
-set $exec exec --no-startup-id
-set $exec_always exec_always --no-startup-id
 
 set $phlox #8700af
 set $purple #b4256c
@@ -34,17 +34,17 @@ floating_maximum_size 1800 x 1200
 ########################################
 
 # Launch a terminal
-bindsym $mod+Return exec kitty
-bindsym $mod+Shift+Return exec "emacsclient --create-frame --alternate-editor='' --eval '(eshell (quote N))'"
+bindsym $mod+Return $exec kitty
+bindsym $mod+Shift+Return $exec "emacsclient --create-frame --alternate-editor='' --eval '(eshell (quote N))'"
 
 # Kill focused window
 bindsym $mod+Shift+q kill
 
 # Lock the screen
-bindsym $mod+Shift+l exec ~/.bin/lock-screen
+bindsym $mod+Shift+l $exec ~/.bin/lock-screen
 
 # Start a program launcher
-bindsym $mod+d exec PATH=~/bin:~/.bin:$PATH rofi -matching fuzzy -show run
+bindsym $mod+d $exec PATH=~/bin:~/.bin:$PATH rofi -matching fuzzy -show run
 
 # Change focus
 bindsym $mod+j focus left
@@ -105,127 +105,130 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+c reload
 
 # Exit i3 and log out of X session
-bindsym $mod+Shift+e exec "i3-msg exit"
+bindsym $mod+Shift+e $exec "i3-msg exit"
 
 # Take a screenshot
-bindsym --release $mod+c exec ~/.bin/screenshot
+bindsym --release $mod+c $exec ~/.bin/screenshot
 
 # Open a new Emacs frame
-bindsym $mod+o exec "emacsclient --create-frame --alternate-editor=''"
+bindsym $mod+o $exec "emacsclient --create-frame --alternate-editor=''"
 
-# Launch assorted chat applications
-bindsym $mod+t workspace number $ws4; exec telegram-desktop
-bindsym $mod+Shift+t workspace number $ws4; exec signal-desktop
-bindsym $mod+Shift+s workspace number $ws4; exec slack
+# Launch chat applications
+bindsym $mod+t $exec ~/bin/launch-chat-app; workspace number $ws4
 
 # Open a password manager
-bindsym $mod+p exec ~/.bin/rofi-pass
-bindsym $mod+Shift+p exec ~/.bin/rofi-pass --last-used
+bindsym $mod+p $exec ~/.bin/rofi-pass
+bindsym $mod+Shift+p $exec ~/.bin/rofi-pass --last-used
 
 # Insert a snippet
-bindsym $mod+s exec ~/bin/snippet.rb
+bindsym $mod+s $exec ~/bin/snippet.rb
 
 # Open up the file manager
-bindsym $mod+n exec pcmanfm
+bindsym $mod+n $exec pcmanfm
 
 # Control music and volume
-bindsym $mod+Left exec quodlibet --previous
-bindsym $mod+Right exec quodlibet --next
-bindsym $mod+space exec quodlibet --play-pause
-bindsym $mod+Shift+space workspace number $ws5; exec quodlibet --show-window
-bindsym $mod+Up exec pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym $mod+Down exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym $mod+Left $exec quodlibet --previous
+bindsym $mod+Right $exec quodlibet --next
+bindsym $mod+space $exec quodlibet --play-pause
+bindsym $mod+Shift+space workspace number $ws5; $exec quodlibet --show-window
+bindsym $mod+Up $exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym $mod+Down $exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 
 ########################################
 # Startup applications
 ########################################
 
 # Start the dunst notification service
-exec dunst &
+$exec dunst &
 
 # Mount the s3 bucket
-exec mount ~/s3
+$exec mount ~/s3
 
 # Load up config in .Xresources (for DPI)
-exec xrdb -load ~/.Xresources &
+$exec xrdb -load ~/.Xresources &
 
 # Start the Picom compositor (for i3bar transparency)
-exec_always picom &
+$exec_always picom &
 
 # Use Caps Lock as an additional Control key
-exec setxkbmap -option ctrl:nocaps &
+$exec setxkbmap -option ctrl:nocaps &
 
 # Treat hitting and releasing Control without chording as Escape
-exec xcape &
+$exec xcape &
 
 # Bind media/volume keys
-exec xbindkeys &
+$exec xbindkeys &
 
 # Start up the Dropbox client
-exec dropbox start
+$exec dropbox start
 
 # Hide the mouse cursor after a second
-exec unclutter -idle 1 -noevents &
+$exec unclutter -idle 1 -noevents &
 
 # Launch the networking widget
-exec nm-applet &
+$exec nm-applet &
 
 # Use Redshift to adjust screen color over the course of the day
-exec redshift -l 49:-123 &
+$exec redshift -l 49:-123 &
 
 # Start the PulseAudio system tray
-exec pasystray &
+$exec pasystray &
 
 # Start up a GPG agent
-exec eval $(gpg-agent --daemon) &
+$exec eval $(gpg-agent --daemon) &
 
 # Set the wallpaper
-exec ~/.bin/paint-wallpaper &
+$exec ~/.bin/paint-wallpaper &
 
 # Start my clipboard manager
-exec xfce4-clipman &
+$exec xfce4-clipman &
 
 # Start caffeine
-exec caffeine-indicator &
+$exec caffeine-indicator &
 
 # Ensure my VPN client is running
-exec ~/.bin/close-startup-window privateinternetaccess &
-exec ~/bin/start-pia-client &
+$exec ~/.bin/close-startup-window privateinternetaccess &
+$exec ~/bin/start-pia-client &
 
 # Start Firefox on workspace 1
 assign [class="Firefox"] $ws1
-exec firefox &
+$exec firefox &
 
 # Start Emacs on workspace 2
-exec ~/.bin/move-startup-window Emacs $ws2 &
-exec "emacsclient --create-frame &"
+$exec ~/.bin/move-startup-window Emacs $ws2 &
+$exec "emacsclient --create-frame &"
 
 # Start chat applications on workspace $ws4
 assign [class="Signal"] $ws4
-exec signal-desktop --use-tray-icon --start-in-tray --no-sandbox &
+$exec signal-desktop --use-tray-icon --start-in-tray --no-sandbox &
 
 assign [class="Telegram"] $ws4
-exec ~/.bin/close-startup-window TelegramDesktop &
-exec telegram-desktop &
+$exec ~/.bin/close-startup-window TelegramDesktop &
+$exec telegram-desktop &
 
 assign [class="Slack"] $ws4
+# $exec ~/.bin/close-startup-window TelegramDesktop &
+# $exec telegram-desktop &
+
 assign [class="discord"] $ws4
+# $exec ~/.bin/close-startup-window discord &
+$exec discord &
+
 assign [class="Zoom"] $ws4
 
 # Start music player on workspace $ws5
 assign [class="Quodlibet"] $ws5
-exec quodlibet --run --hide-window &
+$exec quodlibet --run --hide-window &
 
 # Start Calibre on workspace $ws6
 assign [class="calibre"] $ws6
-exec calibre --start-in-tray &
+$exec calibre --start-in-tray &
 
 # Visit Emacs
-exec "i3-msg workspace number $ws2"
+$exec "i3-msg workspace number $ws2"
 
-bindsym $mod+r exec ~/bin/random-wallpaper
-bindsym $mod+Pause exec ~/bin/toggle-vpn
-bindsym $mod+Scroll_Lock exec ~/bin/cycle-audio
+bindsym $mod+Pause $exec ~/bin/toggle-vpn
+bindsym $mod+Scroll_Lock $exec ~/bin/cycle-audio
 
 # Configure the i3 bar
 bar {
