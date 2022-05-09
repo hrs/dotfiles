@@ -1748,7 +1748,7 @@ items from the last week.
                '("n" "News from this week"
                  ((agenda ""))
                  ((org-agenda-overriding-header "News from this week")
-                  (org-agenda-start-day "-6d")
+                  (org-agenda-start-day "-7d")
                   (org-agenda-span 14)
                   (org-agenda-files '("~/documents/org/news.org"
                                       "~/documents/org/recurring-events.org"
