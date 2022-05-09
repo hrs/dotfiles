@@ -17,28 +17,28 @@ IMAPStore personal-remote
 Account personal
 
 MaildirStore personal-local
-Path ~/.mail/personal/
-Inbox ~/.mail/personal/inbox
+Path ~/media/mail/personal/
+Inbox ~/media/mail/personal/inbox
 
 Channel personal-inbox
-Master :personal-remote:INBOX
-Slave :personal-local:inbox
+Far :personal-remote:INBOX
+Near :personal-local:inbox
 
 Channel personal-archive
-Master :personal-remote:INBOX/Archive
-Slave :personal-local:archive
+Far :personal-remote:INBOX/Archive
+Near :personal-local:archive
 
 Channel personal-drafts
-Master :personal-remote:INBOX/Drafts
-Slave :personal-local:drafts
+Far :personal-remote:INBOX/Drafts
+Near :personal-local:drafts
 
 Channel personal-sent
-Master ":personal-remote:INBOX/Sent Items"
-Slave :personal-local:sent
+Far ":personal-remote:INBOX/Sent Items"
+Near :personal-local:sent
 
 Channel personal-types-announce
-Master :personal-remote:INBOX/mailing-lists/types-announce
-Slave :personal-local:types-announce
+Far :personal-remote:INBOX/mailing-lists/types-announce
+Near :personal-local:types-announce
 
 Group personal
 Channel personal-inbox
