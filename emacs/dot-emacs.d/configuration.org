@@ -1363,16 +1363,16 @@ tells Org to open those links with the mailcap-defined applications.
     (require 'org-tempo)
 
     (add-hook 'org-mode-hook
-              '(lambda ()
-                 (setq mailcap-mime-data '())
-                 (mailcap-parse-mailcap "~/.mailcap")
-                 (setq org-file-apps
-                       '((auto-mode . emacs)
-                         ("mobi" . "fbreader %s")
-                         ("\\.x?html?\\'" . mailcap)
-                         ("pdf" . mailcap)
-                         (system . mailcap)
-                         (t . mailcap))))))
+              (lambda ()
+                (setq mailcap-mime-data '())
+                (mailcap-parse-mailcap "~/.mailcap")
+                (setq org-file-apps
+                      '((auto-mode . emacs)
+                        ("mobi" . "fbreader %s")
+                        ("\\.x?html?\\'" . mailcap)
+                        ("pdf" . mailcap)
+                        (system . mailcap)
+                        (t . mailcap))))))
 #+end_src
 
 I'd like the initial scratch buffer to be in Org:
