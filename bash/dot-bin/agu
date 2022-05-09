@@ -5,24 +5,7 @@ set -e
 # Remove non-canonical repos. I only use a single /etc/apt/sources.list.
 rm -rf /etc/apt/sources.list.d
 
-# Refresh package lists from all repositories.
-/usr/bin/apt update
-
-# Upgrade the whole system, possibly removing packages if needed.
-apt --assume-yes full-upgrade
-
-# Remove any dependencies that are no longer necessary.
-apt --assume-yes autoremove
-
-# Tidy up the package cache, deleting any package files that no longer exist in
-# our repository sources.
-aptitude autoclean
-
-# Upgrade all installed Python libraries.
-sudo -u hrs pip3 list | tail +3 |  cut -d' ' -f1 | xargs sudo -u hrs pip3 install --upgrade --quiet
-
-# Upgrade all installed Racket libraries.
-sudo -u hrs raco pkg update --all
-
-# Upgrade Rust.
-sudo -u hrs /home/hrs/.cargo/bin/rustup update
+apt update
+apt upgrade
+apt autoremove
+apt autoclean
