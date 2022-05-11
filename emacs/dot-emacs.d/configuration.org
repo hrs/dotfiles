@@ -1631,7 +1631,7 @@ Hide blocks in the agenda that don't contain any tasks. From [[https://lists.gnu
 #+end_src
 
 The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
-the =inbox=, =habit=, =daily=, =weekly=, and =yearly= tags. Here are the sections:
+the =inbox=, =habit=, =daily=, and =yearly= tags. Here are the sections:
 
 - Inbox :: Newly captured notes or ideas that haven't yet been turned into
   "real" tasks or projects.
@@ -1640,7 +1640,6 @@ the =inbox=, =habit=, =daily=, =weekly=, and =yearly= tags. Here are the section
   script. This includes stuff like, y'know, exercising, feeding the sourdough
   starter, or resetting my watch for daylight savings time. I could probably
   replace this script with [[https://orgmode.org/manual/Tracking-your-habits.html][org-habit]], but I don't for mostly historical reasons.
-- Weekly :: Things I want to do this week.
 - Calendar :: I have a =cron= job that pulls down my calendars into an Org file,
   so my day's meetings, pending deliveries, and so on are displayed in my
   agenda. This also shows tasks with deadlines and so on that I might not have
@@ -1656,29 +1655,24 @@ the =inbox=, =habit=, =daily=, =weekly=, and =yearly= tags. Here are the section
                '("p" "Personal agenda"
                  ((tags-todo "plan"
                              ((org-agenda-overriding-header "Inbox")
-                              (org-agenda-hide-tags-regexp "plan\\|daily\\|weekly\\|yearly")))
+                              (org-agenda-hide-tags-regexp "plan\\|daily\\|yearly")))
 
                   (tags-todo "daily"
                              ((org-agenda-overriding-header "Today")
-                              (org-agenda-hide-tags-regexp "habit\\|daily\\|weekly\\|yearly")))
+                              (org-agenda-hide-tags-regexp "habit\\|daily\\|yearly")))
 
-                  (tags-todo "habit-daily-weekly"
+                  (tags-todo "habit-daily"
                              ((org-agenda-overriding-header "Habits")
                               (org-agenda-hide-tags-regexp "habit")))
-
-                  (tags-todo "weekly-daily"
-                             ((org-agenda-overriding-header "This Week")
-                              (org-agenda-hide-tags-regexp "weekly\\|yearly")))
 
                   (agenda ""
                           ((org-agenda-overriding-header "Calendar")
                            (org-agenda-tag-filter-preset '("-daily"
                                                            "-habit"
-                                                           "-weekly"
                                                            "-yearly"))
-                           (org-agenda-hide-tags-regexp "daily\\|weekly\\|yearly")))
+                           (org-agenda-hide-tags-regexp "daily\\|yearly")))
 
-                  (tags-todo "yearly-daily-weekly"
+                  (tags-todo "yearly-daily"
                              ((org-agenda-overriding-header "Annual Goals")
                               (org-agenda-hide-tags-regexp "yearly"))))
 
