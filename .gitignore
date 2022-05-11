@@ -1,7 +1,7 @@
-emacs/dot-emacs.d/*
-!emacs/dot-emacs.d/configuration.org
-!emacs/dot-emacs.d/init.el
-!emacs/dot-emacs.d/resources
-!emacs/dot-emacs.d/snippets
+emacs/.config/emacs/*
+!emacs/.config/emacs/configuration.org
+!emacs/.config/emacs/init.el
+!emacs/.config/emacs/resources
+!emacs/.config/emacs/snippets
 
 ruby/dot-bundle/cache
