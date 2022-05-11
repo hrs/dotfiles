@@ -1098,7 +1098,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
             (lambda ()
               (setq ruby-insert-encoding-magic-comment nil)
               (yas-minor-mode)
-              (eglot-ensure)
+              (lsp-deferred)
               (chruby-use-corresponding)
               (local-set-key "\r" 'newline-and-indent)
               (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
