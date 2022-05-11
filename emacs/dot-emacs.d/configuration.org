@@ -114,7 +114,8 @@ Don't automatically load Evil bindings in different modes.
           evil-want-keybinding nil)
 
     :config
-    (evil-mode 1))
+    (evil-mode 1)
+    (fset 'evil-visual-update-x-selection 'ignore))
 #+end_src
 
 Install =evil-collection=, which provides evil-friendly bindings for many modes.
