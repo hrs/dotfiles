@@ -2,7 +2,6 @@
 
 # Install all the necessary Debian packages, especially `stow`.
 ./install_debian_packages.sh
-./configure_services.sh
 
 stow --dotfiles bash
 stow --dotfiles emacs
@@ -10,7 +9,6 @@ stow --dotfiles email
 stow --dotfiles firefox
 stow --dotfiles git
 stow --dotfiles lisp
-stow --dotfiles music
 stow --dotfiles ruby
 stow --dotfiles x-windows
 
