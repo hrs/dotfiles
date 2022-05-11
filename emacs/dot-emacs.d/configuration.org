@@ -485,9 +485,19 @@ Use =company-mode= everywhere.
 [[https://github.com/sebastiencs/company-box][company-box]] adds some semantic icons to the =company= completion menu.
 
 #+begin_src emacs-lisp
-(use-package company-box
-  :after company
-  :hook (company-mode . company-box-mode))
+  (use-package company-box
+    :after company
+    :hook (company-mode . company-box-mode))
+#+end_src
+
+** =docker=
+
+I use [[https://www.docker.com/][Docker]] less often than you might expect for a person who mostly does Web
+development, but when I do [[https://github.com/Silex/docker.el][=docker.el=]] provides a convenient, =magit=-like
+interface for managing containers.
+
+#+begin_src emacs-lisp
+  (use-package docker)
 #+end_src
 
 ** =dumb-jump=
