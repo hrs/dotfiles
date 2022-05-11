@@ -653,12 +653,6 @@ output.
   (setq compilation-scroll-output t)
 #+end_src
 
-I use =eglot= as my LSP client.
-
-#+begin_src emacs-lisp
-  (use-package eglot)
-#+end_src
-
 ** Boogie
 
 #+begin_src emacs-lisp
