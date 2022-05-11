@@ -1,0 +1,10 @@
+#+begin_src dot :file ../diagrams/`(format-time-string "%Y-%m-%d")`.png
+  digraph {
+    graph [layout=dot, truecolor=true, bgcolor="#ffffff00"]
+
+    first [label="First"];
+    second [label="Second"];
+
+    first -> second [label="Transition"];
+  }
+#+end_src
