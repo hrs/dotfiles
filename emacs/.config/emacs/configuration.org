@@ -570,12 +570,6 @@ output.
   (setq compilation-scroll-output t)
 #+end_src
 
-** Boogie
-
-#+begin_src emacs-lisp
-  (use-package boogie-friends)
-#+end_src
-
 ** Coq
 
 I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
