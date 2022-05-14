@@ -94,7 +94,7 @@ to store not-too-terribly-sensitive secrets.
 * Add =resources= to =load-path=
 
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.config/emacs/resources/")
+  (add-to-list 'load-path (concat user-emacs-directory "resources"))
 #+end_src
 
 * =evil-mode=
@@ -3018,7 +3018,7 @@ Emacs configuration file.
 #+begin_src emacs-lisp
   (defun hrs/visit-emacs-config ()
     (interactive)
-    (find-file "~/.config/emacs/configuration.org"))
+    (find-file (concat user-emacs-directory "configuration.org")))
 
   (global-set-key (kbd "C-c e") 'hrs/visit-emacs-config)
 #+end_src
@@ -3094,7 +3094,7 @@ I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippe
 enabled.
 
 #+begin_src emacs-lisp
-  (setq yas-snippet-dirs '("~/.config/emacs/snippets/text-mode"))
+  (setq yas-snippet-dirs (list (concat user-emacs-directory "snippets/text-mode")))
   (yas-global-mode 1)
 #+end_src
 
