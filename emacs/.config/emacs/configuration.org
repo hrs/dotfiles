@@ -625,7 +625,7 @@ consecutive comments as a single comment.
   (setq proof-script-fly-past-comments t)
 #+end_src
 
-** CSS, Sass, and Less
+** CSS & Sass
 
 Indent by 2 spaces.
 
@@ -641,12 +641,6 @@ Don't compile the current SCSS file every time I save.
   (use-package scss-mode
     :config
     (setq scss-compile-at-save nil))
-#+end_src
-
-Install Less.
-
-#+begin_src emacs-lisp
-  (use-package less-css-mode)
 #+end_src
 
 ** Golang
@@ -700,15 +694,6 @@ C-c= in the =use-package= configuration above.
   (add-hook 'go-mode-hook #'hrs/set-go-compilation-configuration)
 #+end_src
 
-** Haml and Slim
-
-Install the Haml and Slim packages.
-
-#+begin_src emacs-lisp
-  (use-package haml-mode)
-  (use-package slim-mode)
-#+end_src
-
 ** Haskell
 
 #+begin_src emacs-lisp
@@ -729,23 +714,12 @@ use smart indentation.
   (hrs/append-to-path "~/.cabal/bin")
 #+end_src
 
-** JavaScript and CoffeeScript
-
-Install =coffee-mode= from editing CoffeeScript code.
-
-#+begin_src emacs-lisp
-  (use-package coffee-mode)
-#+end_src
+** JavaScript
 
 Indent everything by 2 spaces.
 
 #+begin_src emacs-lisp
   (setq js-indent-level 2)
-
-  (add-hook 'coffee-mode-hook
-            (lambda ()
-              (yas-minor-mode 1)
-              (setq coffee-tab-width 2)))
 #+end_src
 
 ** Lisps
