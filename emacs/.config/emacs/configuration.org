@@ -3207,6 +3207,12 @@ results and =C-c C-c= to stop, just like in =dired=.
   (projectile-global-mode)
 #+end_src
 
+** Reload changed buffers automatically
+
+#+begin_src emacs-lisp
+  (global-auto-revert-mode t)
+#+end_src
+
 ** Add a bunch of engines for =engine-mode=
 
 Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few useful engines.
