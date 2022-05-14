@@ -3086,24 +3086,17 @@ really helpful for some modes (like =projectile=, for example).
 
 ** Configure =yasnippet=
 
-#+begin_src emacs-lisp
-  (use-package yasnippet)
-#+end_src
+I always want =yasnippet= enabled.
 
-I keep my snippets in =~/.emacs/snippets/text-mode=, and I always want =yasnippet=
-enabled.
-
-#+begin_src emacs-lisp
-  (setq yas-snippet-dirs (list (concat user-emacs-directory "snippets/text-mode")))
-  (yas-global-mode 1)
-#+end_src
-
-I /don’t/ want =yas= to automatically indent the snippets it inserts. Sometimes
-this looks pretty bad (when indenting org-mode, for example, or trying to guess
-at the correct indentation for Python).
+I /don’t/ want =yas= to always indent the snippets it inserts. Sometimes this looks
+pretty bad (when indenting =org-mode=, for example, or trying to guess at the
+correct indentation for Python).
 
 #+begin_src emacs-lisp
-  (setq yas-indent-line 'auto)
+  (use-package yasnippet
+    :config
+    (setq yas-indent-line 'auto)
+    (yas-global-mode 1))
 #+end_src
 
 ** Configure =ivy= and =counsel=
