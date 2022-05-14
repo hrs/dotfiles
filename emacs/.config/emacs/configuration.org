@@ -623,6 +623,7 @@ This also registers =undo-tree= for use in =evil-mode=.
 #+begin_src emacs-lisp
   (use-package undo-tree
     :config
+    (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo-tree"))))
     (global-undo-tree-mode)
     (evil-set-undo-system 'undo-tree))
 #+end_src
