@@ -259,15 +259,6 @@ modes in the modeline. Nice!
     (moody-replace-vc-mode))
 #+end_src
 
-** Disable visual bell
-
-=sensible-defaults= replaces the audible bell with a visual one, but I really
-don't even want that. This disables the bell altogether.
-
-#+begin_src emacs-lisp
-  (setq ring-bell-function 'ignore)
-#+end_src
-
 ** Scroll conservatively
 
 When point goes outside the window, Emacs usually recenters the buffer point.
