@@ -450,10 +450,15 @@ version control. That's all in here.
 
 ** =ripgrep=
 
-Install =ripgrep= to provide search within projects.
+Install =ripgrep= to provide search within projects. Search even "hidden" dotfiles.
 
 #+begin_src emacs-lisp
-  (use-package deadgrep)
+  (use-package deadgrep
+    :config
+    (defun deadgrep--include-args (rg-args)
+      (push "--hidden" rg-args))
+    (advice-add 'deadgrep--arguments
+                :filter-return #'deadgrep--include-args))
 #+end_src
 
 ** =avy=
