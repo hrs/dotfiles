@@ -162,25 +162,6 @@ Use =evil= with Org agendas.
 Define a big ol' bunch of handy utility functions.
 
 #+begin_src emacs-lisp
-  (defun hrs/rename-file (new-name)
-    (interactive "FNew name: ")
-    (let ((filename (buffer-file-name)))
-      (if filename
-          (progn
-            (when (buffer-modified-p)
-              (save-buffer))
-            (rename-file filename new-name t)
-            (kill-buffer (current-buffer))
-            (find-file new-name)
-            (message "Renamed '%s' -> '%s'" filename new-name))
-        (message "Buffer '%s' isn't backed by a file!" (buffer-name)))))
-
-  (defun hrs/generate-scratch-buffer ()
-    "Create and switch to a temporary scratch buffer with a random
-         name."
-    (interactive)
-    (switch-to-buffer (make-temp-name "scratch-")))
-
   (defun hrs/visit-last-migration ()
     "Open the most recent Rails migration. Relies on projectile."
     (interactive)
@@ -200,12 +181,6 @@ Define a big ol' bunch of handy utility functions.
       (when file-name
         (find-alternate-file (concat "/sudo::" file-name)))))
 
-  (defun hrs/region-or-word ()
-    (if mark-active
-        (buffer-substring-no-properties (region-beginning)
-                                        (region-end))
-      (thing-at-point 'word)))
-
   (defun hrs/append-to-path (path)
     "Add a path both to the $PATH variable and to Emacs' exec-path."
     (setenv "PATH" (concat (getenv "PATH") ":" path))
@@ -214,11 +189,6 @@ Define a big ol' bunch of handy utility functions.
   (defun hrs/insert-password ()
     (interactive)
     (shell-command "pwgen 30 -1" t))
-
-  (defun hrs/notify-send (title message)
-    "Display a desktop notification by shelling out to `notify-send'."
-    (call-process-shell-command
-     (format "notify-send -t 2000 \"%s\" \"%s\"" title message)))
 
   (defun hrs/image-path-p (path)
     "Return true if the path corresponds to an image file."
@@ -2824,6 +2794,12 @@ loaded that with the (beautifully lyrical) 1913 edition of Webster's dictionary,
 so these definitions are a lot of fun.
 
 #+begin_src emacs-lisp
+  (defun hrs/region-or-word ()
+    (if mark-active
+        (buffer-substring-no-properties (region-beginning)
+                                        (region-end))
+      (thing-at-point 'word)))
+
   (defun hrs/dictionary-prompt ()
     (read-string
      (format "Word (%s): " (or (hrs/region-or-word) ""))
