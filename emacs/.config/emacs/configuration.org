@@ -3079,45 +3079,6 @@ results and =C-c C-c= to stop, just like in =dired=.
   (global-auto-revert-mode t)
 #+end_src
 
-** Add a bunch of engines for =engine-mode=
-
-Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few useful engines.
-
-#+begin_src emacs-lisp
-  (use-package engine-mode)
-  (require 'engine-mode)
-
-  (defengine duckduckgo
-    "https://duckduckgo.com/?q=%s"
-    :keybinding "d")
-
-  (defengine github
-    "https://github.com/search?ref=simplesearch&q=%s"
-    :keybinding "g")
-
-  (defengine google
-    "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
-
-  (defengine rfcs
-    "http://pretty-rfc.herokuapp.com/search?q=%s")
-
-  (defengine stack-overflow
-    "https://stackoverflow.com/search?q=%s"
-    :keybinding "s")
-
-  (defengine wikipedia
-    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
-    :keybinding "w")
-
-  (defengine wiktionary
-    "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
-
-  (defengine youtube
-    "https://www.youtube.com/results?search_query=%s")
-
-  (engine-mode t)
-#+end_src
-
 * Set custom keybindings
 
 Just a few handy functions.
