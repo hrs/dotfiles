@@ -59,12 +59,6 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
         calendar-location-name "Vancouver, BC")
 #+end_src
 
-* Add =resources= to =load-path=
-
-#+begin_src emacs-lisp
-  (add-to-list 'load-path (concat user-emacs-directory "resources"))
-#+end_src
-
 * =evil-mode=
 
 Load and configure =evil-mode=.
@@ -928,6 +922,8 @@ my buffer.
 #+begin_src emacs-lisp
   (setq xmpfilter-command-name
         "ruby -S xmpfilter --no-warnings --dev --fork --detect-rbtest")
+
+  (add-to-list 'load-path (concat user-emacs-directory "resources"))
   (require 'rcodetools)
 #+end_src
 
