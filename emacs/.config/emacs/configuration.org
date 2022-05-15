@@ -2827,13 +2827,6 @@ This uses =emacs-async= to make =dired= perform actions asynchronously.
     (dired-async-mode 1))
 #+end_src
 
-Use "j" and "k" to move around in =dired=.
-
-#+begin_src emacs-lisp
-  (evil-define-key 'normal dired-mode-map (kbd "j") 'dired-next-line)
-  (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
-#+end_src
-
 I'm often browsing directories of photos and images, so this binds "=v=" to view a
 slideshow of the current directory with =s= (a custom =feh= wrapper defined
 elsewhere in this repo).
