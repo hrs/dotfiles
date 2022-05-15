@@ -2730,13 +2730,15 @@ Binding this to =M-SPC= is strictly better than the original binding of
 
 * File management with =dired=
 
-Hide dotfiles by default, but toggle their visibility with =.=.
+Hide dotfiles by default, but toggle their visibility with "=.=". This conflicts
+with =evil-repeat=, but in practice I never use that with =dired=, so the mnemonic
+is worth it for me.
 
 #+begin_src emacs-lisp
   (use-package dired-hide-dotfiles
     :config
     (dired-hide-dotfiles-mode)
-    (define-key dired-mode-map "." 'dired-hide-dotfiles-mode))
+    (evil-define-key 'normal dired-mode-map "." 'dired-hide-dotfiles-mode))
 #+end_src
 
 Kill the current buffer when selecting a new directory, so I don't end up with
@@ -2779,8 +2781,8 @@ files. We're using:
 - =v=: Sort numbers naturally.
 - =A=: Almost all. Doesn't include "=.=" or "=..=".
 
-That said, I'd usually like to hide those extra details.
-=dired-hide-details-mode= can be toggled with =(=.
+That said, I'd usually like to hide those extra details. =dired-hide-details-mode=
+can be toggled with =(=.
 
 #+begin_src emacs-lisp
   (setq-default dired-listing-switches "-lhvA")
@@ -2832,7 +2834,7 @@ Use "j" and "k" to move around in =dired=.
   (evil-define-key 'normal dired-mode-map (kbd "k") 'dired-previous-line)
 #+end_src
 
-I'm often browsing directories of photos and images, so this binds "v" to view a
+I'm often browsing directories of photos and images, so this binds "=v=" to view a
 slideshow of the current directory with =s= (a custom =feh= wrapper defined
 elsewhere in this repo).
 
