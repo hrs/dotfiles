@@ -359,9 +359,7 @@ programming.
 #+begin_src emacs-lisp
   (use-package diff-hl
     :config
-    (add-hook 'text-mode-hook 'turn-on-diff-hl-mode)
-    (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
-    (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
+    :hook ((text-mode prog-mode vc-dir-mode) . turn-on-diff-hl-mode))
 #+end_src
 
 * Project management
@@ -389,14 +387,15 @@ Use =company-mode= everywhere.
 
 #+begin_src emacs-lisp
   (use-package company
+    :hook (prog-mode . company-mode)
+
     :custom
     (company-idle-delay 0)
     (company-minimum-prefix-length 1)
     (company-tooltip-align-annotations t)
 
     :config
-    (setq lsp-completion-provider :capf)
-    (add-hook 'prog-mode-hook 'company-mode))
+    (setq lsp-completion-provider :capf))
 #+end_src
 
 [[https://github.com/sebastiencs/company-box][company-box]] adds some semantic icons to the =company= completion menu.
@@ -462,8 +461,8 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
 
 #+begin_src emacs-lisp
   (use-package magit
-    :bind
-    ("C-x g" . magit-status)
+    :hook (with-editor-mode . evil-insert-state)
+    :bind ("C-x g" . magit-status)
 
     :config
     (use-package git-commit)
@@ -473,9 +472,7 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
     (require 'git-rebase)
 
     (setq magit-push-always-verify nil
-          git-commit-summary-max-length 50)
-
-    (add-hook 'with-editor-mode-hook 'evil-insert-state))
+          git-commit-summary-max-length 50))
 #+end_src
 
 I'm also partial to =git-timemachine=, which lets you quickly page through the
@@ -770,8 +767,7 @@ documentation.
 
 #+begin_src emacs-lisp
   (use-package eldoc
-    :config
-    (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
+    :hook (emacs-lisp-mode . eldoc-mode))
 #+end_src
 
 I also like using =flycheck-package= to ensure that my Elisp packages are
@@ -799,9 +795,9 @@ with =opam install merlin=.
 
 #+begin_src emacs-lisp
   (use-package merlin
-    :config
-    (add-hook 'tuareg-mode-hook 'merlin-mode t)
+    :hook (tuareg-mode . merlin-mode)
 
+    :config
     (with-eval-after-load 'company
       (add-to-list 'company-backends 'merlin-company-backend))
     (add-hook 'merlin-mode-hook 'company-mode))
@@ -903,6 +899,7 @@ modes.
            slim-mode
            web-mode
            yard-mode)
+
     :config
     (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter)
     (setq compilation-scroll-output nil
@@ -1005,6 +1002,7 @@ Use =rustic= to edit Rust code.
   (use-package lsp-ui
     :commands lsp-ui-mode
     :defer t
+    :hook (lsp-mode . lsp-ui-mode)
     :custom
     (lsp-ui-peek-always-show t)
     (lsp-ui-sideline-show-hover t)
@@ -1012,13 +1010,12 @@ Use =rustic= to edit Rust code.
 
   (use-package lsp-mode
     :commands lsp
+
     :custom
     (lsp-rust-analyzer-cargo-watch-command "clippy")
     (lsp-eldoc-render-all t)
     (lsp-idle-delay 0.6)
-    (lsp-rust-analyzer-server-display-inlay-hints t)
-    :config
-    (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+    (lsp-rust-analyzer-server-display-inlay-hints t))
 
   (use-package rustic
     :bind (:map rustic-mode-map
@@ -1091,8 +1088,7 @@ Support syntax-based indentation when editing SQL files.
 
 #+begin_src emacs-lisp
   (use-package sql-indent
-    :config
-    (add-hook 'sql-mode-hook 'sqlind-minor-mode))
+    :hook (sql-mode . sqlind-minor-mode))
 #+end_src
 
 ** Terraform
@@ -2615,10 +2611,7 @@ Use the [[https://elpa.gnu.org/packages/orgalist.html][=orgalist=]] package for 
 
 #+begin_src emacs-lisp
   (use-package orgalist
-    :config
-    (add-hook 'git-commit-mode-hook 'orgalist-mode)
-    (add-hook 'markdown-mode-hook 'orgalist-mode)
-    (add-hook 'message-mode-hook 'orgalist-mode))
+    :hook ((git-commit-mode markdown-mode message-mode) . orgalist-mode))
 #+end_src
 
 ** Linting prose
