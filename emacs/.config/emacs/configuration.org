@@ -130,11 +130,6 @@ Define a big ol' bunch of handy utility functions.
             (expand-file-name "db/migrate" (projectile-project-root)) t)))
       (find-file (car (last migrations)))))
 
-  (defun hrs/add-auto-mode (mode &rest patterns)
-    "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
-    (dolist (pattern patterns)
-      (add-to-list 'auto-mode-alist (cons pattern mode))))
-
   (defun hrs/find-file-as-sudo ()
     (interactive)
     (let ((file-name (buffer-file-name)))
@@ -863,13 +858,41 @@ Use the =python3= interpreter for eldoc:
 
 ** Ruby and RSpec
 
-I use =chruby= to switch between versions of Ruby. This sets a default version
-to use within Emacs (for things like =xmp= or =rspec=).
+I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
+
+There are a bunch of things I'd like to do when I open a Ruby buffer:
+
+- I don't want to insert an encoding comment.
+- I want to enable =yas=.
+- =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
+
+#+begin_src emacs-lisp
+  (use-package ruby-mode
+    :mode ("\\.rake$"
+           "\\.gemspec$"
+           "\\Guardfile$"
+           "\\Rakefile$"
+           "\\Vagrantfile$"
+           "\\Vagrantfile.local$")
+    :bind ("C-c C-c" . xmp)
+
+    :custom
+    (add-hook 'ruby-mode-hook
+              (lambda ()
+                (setq ruby-insert-encoding-magic-comment nil)
+                (yas-minor-mode)
+                (lsp-deferred)
+                (local-set-key "\r" 'newline-and-indent))))
+#+end_src
+
+I use =chruby= to switch between versions of Ruby. This sets a default version to
+use within Emacs (for things like =xmp= or =rspec=).
 
 #+begin_src emacs-lisp
   (setq hrs/ruby-version "3.0.1")
 
   (use-package chruby
+    :hook (ruby . chruby-use-corresponding)
     :config
     (chruby hrs/ruby-version))
 #+end_src
@@ -885,6 +908,9 @@ included because it contains the =xmpfilter= executable, which is used below.
 Running tests from within Emacs is awfully convenient. I enable =rspec-mode=
 basically everywhere, since working with a Rails project involves a ton of
 modes.
+
+I'd like my RSpec tests to be run in a random order, and I'd like the output to
+be colored.
 
 #+begin_src emacs-lisp
   (use-package rspec-mode
@@ -907,12 +933,12 @@ modes.
           rspec-use-chruby t))
 #+end_src
 
-=rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display
-the results in "magic" (=# =>=) comments.
+=rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display the
+results in "magic" (=# ==>=) comments.
 
 I disable warnings when running code through =xmp= because I disagree with a few
-of them (complaining about private =attr_reader=, especially) and they gunk up
-my buffer.
+of them (complaining about private =attr_reader=, especially) and they gunk up my
+buffer.
 
 #+begin_src emacs-lisp
   (setq xmpfilter-command-name
@@ -958,40 +984,6 @@ Install and enable =projectile-rails= mode in all Rail-related buffers.
   (use-package projectile-rails
     :config
     (projectile-rails-global-mode))
-#+end_src
-
-There are a bunch of things I'd like to do when I open a Ruby buffer:
-
-- I don't want to insert an encoding comment.
-- I want to enable =yas=.
-- =chruby= should automatically determine the correct Ruby version.
-- I'd like my RSpec tests to be run in a random order, and I'd like the output
-  to be colored.
-- =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
-
-#+begin_src emacs-lisp
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              (setq ruby-insert-encoding-magic-comment nil)
-              (yas-minor-mode)
-              (lsp-deferred)
-              (chruby-use-corresponding)
-              (local-set-key "\r" 'newline-and-indent)
-              (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)))
-#+end_src
-
-I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
-
-#+begin_src emacs-lisp
-  (hrs/add-auto-mode
-   'ruby-mode
-   "\\Gemfile$"
-   "\\.rake$"
-   "\\.gemspec$"
-   "\\Guardfile$"
-   "\\Rakefile$"
-   "\\Vagrantfile$"
-   "\\Vagrantfile.local$")
 #+end_src
 
 ** Rust
@@ -1102,8 +1094,15 @@ Install =terraform-mode=.
 
 ** =web-mode=
 
+Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
+
 #+begin_src emacs-lisp
   (use-package web-mode
+    :mode ("\\.erb$"
+           "\\.html$"
+           "\\.php$"
+           "\\.rhtml$")
+
     :config
     (setq web-mode-markup-indent-offset 2
           web-mode-css-indent-offset 2
@@ -1116,17 +1115,6 @@ I'd like to see colors with =rainbow-mode=, so we'll need to install that, too:
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :hook web-mode)
-#+end_src
-
-Use =web-mode= with embedded Ruby files, regular HTML, and PHP.
-
-#+begin_src emacs-lisp
-  (hrs/add-auto-mode
-   'web-mode
-   "\\.erb$"
-   "\\.html$"
-   "\\.php$"
-   "\\.rhtml$")
 #+end_src
 
 ** YAML
