@@ -35,7 +35,7 @@ floating_maximum_size 1800 x 1200
 
 # Launch a terminal
 bindsym $mod+Return $exec kitty
-bindsym $mod+Shift+Return $exec "emacsclient --create-frame --alternate-editor='' --eval '(eshell (quote N))'"
+bindsym $mod+Shift+Return $exec emacsclient --create-frame --alternate-editor='' --eval '(eshell (quote N))'
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -105,13 +105,13 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+c reload
 
 # Exit i3 and log out of X session
-bindsym $mod+Shift+e $exec "i3-msg exit"
+bindsym $mod+Shift+e $exec i3-msg exit
 
 # Take a screenshot
 bindsym --release $mod+c $exec ~/.bin/screenshot
 
 # Open a new Emacs frame
-bindsym $mod+o $exec "emacsclient --create-frame --alternate-editor=''"
+bindsym $mod+o $exec emacsclient --create-frame --alternate-editor=''
 
 # Launch chat applications
 bindsym $mod+t $exec ~/bin/launch-chat-app; workspace number $ws4
@@ -124,7 +124,8 @@ bindsym $mod+Shift+p $exec ~/.bin/rofi-pass --last-used
 bindsym $mod+s $exec ~/bin/snippet.rb
 
 # Open up the file manager
-bindsym $mod+n $exec pcmanfm
+bindsym $mod+n $exec emacsclient --create-frame --alternate-editor='' --eval '(dired "~")'
+bindsym $mod+Shift+n $exec pcmanfm
 
 # Control music and volume
 bindsym $mod+Left $exec quodlibet --previous
@@ -196,7 +197,7 @@ $exec firefox &
 
 # Start Emacs on workspace 2
 $exec ~/.bin/move-startup-window Emacs $ws2 &
-$exec "emacsclient --create-frame &"
+$exec emacsclient --create-frame &
 
 # Start chat applications on workspace $ws4
 assign [class="Signal"] $ws4

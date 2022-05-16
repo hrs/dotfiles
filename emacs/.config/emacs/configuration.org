@@ -152,6 +152,7 @@ Define a big ol' bunch of handy utility functions.
 #+end_src
 
 * UI preferences
+
 ** Tweak window chrome
 
 I don't usually use the menu or scroll bar, and they take up useful space.
@@ -2703,6 +2704,52 @@ Binding this to =M-SPC= is strictly better than the original binding of
 
 * File management with =dired=
 
+I've started using =dired= as my primary file manager. About time, huh?
+
+- Set some specific =ls= switches:
+  - Use the long listing format.
+  - Sort numbers naturally.
+  - Don't include the group name, though.
+  - Use human-readable sizes.
+  - Format timestamps as =YYYY-MM-DD=.
+  - Include hidden files, but /don't/ include "=.=" or "=..=".
+- Kill buffers of files/directories that are deleted in =dired=.
+- When I've got two =dired= windows side-by-side, and I move or copy files in one
+  window, set the default location to the other window.
+- Kill the current buffer when selecting a new directory, so I don't end up with
+  dozens of =dired= buffers open when navigating around.
+- Always copy directories recursively instead of asking every time.
+- Do please ask before recursively /deleting/ a directory, though.
+
+I'm often browsing directories of photos and images, so this also binds "=v=" to
+view a slideshow of the current directory with =s= (a custom =feh= wrapper [[file:~/.dotfiles/bash/dot-bin/s][defined
+elsewhere in this repo]]).
+
+#+begin_src emacs-lisp
+  (use-package dired
+    :ensure nil
+
+    :config
+    (defun hrs/dired-slideshow ()
+      (interactive)
+      (start-process "dired-slideshow" nil "s" (dired-current-directory)))
+
+    (evil-define-key 'normal dired-mode-map (kbd "v") 'hrs/dired-slideshow)
+
+    (setq-default dired-listing-switches
+                  (combine-and-quote-strings '("-l"
+                                               "-v"
+                                               "--no-group"
+                                               "--human-readable"
+                                               "--time-style=+%Y-%m-%d"
+                                               "--almost-all")))
+    (setq dired-clean-up-buffers-too t
+          dired-dwim-target t
+          dired-kill-when-opening-new-dired-buffer t
+          dired-recursive-copies 'always
+          dired-recursive-deletes 'top))
+#+end_src
+
 Hide dotfiles by default, but toggle their visibility with "=.=". This conflicts
 with =evil-repeat=, but in practice I never use that with =dired=, so the mnemonic
 is worth it for me.
@@ -2710,15 +2757,8 @@ is worth it for me.
 #+begin_src emacs-lisp
   (use-package dired-hide-dotfiles
     :config
-    (dired-hide-dotfiles-mode)
+    (dired-hide-dotfiles-mode 1)
     (evil-define-key 'normal dired-mode-map "." 'dired-hide-dotfiles-mode))
-#+end_src
-
-Kill the current buffer when selecting a new directory, so I don't end up with
-dozens of =dired= buffers open when navigating around.
-
-#+begin_src emacs-lisp
-  (setq dired-kill-when-opening-new-dired-buffer t)
 #+end_src
 
 Open media with the appropriate programs.
@@ -2728,7 +2768,7 @@ Open media with the appropriate programs.
     :config
     (setq dired-open-extensions
           '(("avi" . "mpv")
-            ("cbr" . "comix")
+            ("cbr" . "zathura")
             ("doc" . "abiword")
             ("docx" . "abiword")
             ("gif" . "ffplay")
@@ -2746,48 +2786,6 @@ Open media with the appropriate programs.
             ("xlsx" . "gnumeric"))))
 #+end_src
 
-These are the switches that get passed to =ls= when =dired= gets a list of
-files. We're using:
-
-- =l=: Use the long listing format.
-- =h=: Use human-readable sizes.
-- =v=: Sort numbers naturally.
-- =A=: Almost all. Doesn't include "=.=" or "=..=".
-
-That said, I'd usually like to hide those extra details. =dired-hide-details-mode=
-can be toggled with =(=.
-
-#+begin_src emacs-lisp
-  (setq-default dired-listing-switches "-lhvA")
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode 1)))
-#+end_src
-
-Set up DWIM ("do what I mean") for =dired=. When I've got two =dired= windows
-side-by-side, and I move or copy files in one window, this sets the default
-location to the other window.
-
-#+begin_src emacs-lisp
-  (setq dired-dwim-target t)
-#+end_src
-
-Kill buffers of files/directories that are deleted in =dired=.
-
-#+begin_src emacs-lisp
-  (setq dired-clean-up-buffers-too t)
-#+end_src
-
-Always copy directories recursively instead of asking every time.
-
-#+begin_src emacs-lisp
-  (setq dired-recursive-copies 'always)
-#+end_src
-
-Ask before recursively /deleting/ a directory, though.
-
-#+begin_src emacs-lisp
-  (setq dired-recursive-deletes 'top)
-#+end_src
-
 Files are normally moved and copied synchronously. This is fine for small or
 local files, but copying a large file or moving a file across a mounted network
 drive blocks Emacs until the process is completed. Unacceptable!
@@ -2798,18 +2796,6 @@ This uses =emacs-async= to make =dired= perform actions asynchronously.
   (use-package async
     :config
     (dired-async-mode 1))
-#+end_src
-
-I'm often browsing directories of photos and images, so this binds "=v=" to view a
-slideshow of the current directory with =s= (a custom =feh= wrapper defined
-elsewhere in this repo).
-
-#+begin_src emacs-lisp
-  (defun hrs/dired-slideshow ()
-    (interactive)
-    (start-process "dired-slideshow" nil "s" (dired-current-directory)))
-
-  (evil-define-key 'normal dired-mode-map (kbd "v") 'hrs/dired-slideshow)
 #+end_src
 
 * Editing settings
