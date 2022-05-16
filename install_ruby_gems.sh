@@ -10,6 +10,7 @@
 gem install \
     awesome_print \
     bundle \
+    fastri \
     fuzz \
     netrc \
     os \
