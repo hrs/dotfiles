@@ -5,7 +5,8 @@
 .#*
 TAGS
 custom_plan.rb
-emacs.d/projects.el
+.bundle
+.cache
 .classpath
 .project
 .projectile
