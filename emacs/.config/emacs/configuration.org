@@ -560,7 +560,7 @@ that it displays all available documentation on hover.
 #+begin_src emacs-lisp
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
-    :hook (go-mode . lsp-deferred)
+    :hook ((go-mode ruby-mode) . lsp-deferred)
 
     :custom
     (lsp-eldoc-render-all t))
@@ -877,15 +877,32 @@ Use the =python3= interpreter for eldoc:
   (setq elpy-rpc-python-command "python3")
 #+end_src
 
-** Ruby and RSpec
+** Ruby
+
+This defines a default Ruby version to use within Emacs (for things like =xmp= or
+=rspec=).
+
+#+begin_src emacs-lisp
+  (setq hrs/ruby-version "3.0.1")
+#+end_src
+
+Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that
+that's included in the path. In particular, we want that directory to be
+included because it contains the =xmpfilter= executable.
+
+#+begin_src emacs-lisp
+  (hrs/append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
+#+end_src
 
 I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
 
 There are a bunch of things I'd like to do when I open a Ruby buffer:
 
-- I don't want to insert an encoding comment.
-- I want to enable =yas=.
 - =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
+- Hitting "enter" should indent to the current level.
+- When assigning the result of a conditional, I like to align the expression to
+  match the beginning of the statement instead of indenting it all the way to
+  the =if=.
 
 #+begin_src emacs-lisp
   (use-package ruby-mode
@@ -895,35 +912,22 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
            "\\Rakefile$"
            "\\Vagrantfile$"
            "\\Vagrantfile.local$")
-    :bind ("C-c C-c" . xmp)
 
-    :custom
-    (add-hook 'ruby-mode-hook
-              (lambda ()
-                (setq ruby-insert-encoding-magic-comment nil)
-                (yas-minor-mode)
-                (lsp-deferred)
-                (local-set-key "\r" 'newline-and-indent))))
+    :bind (("C-c C-c" . xmp)
+           ("\r" . newline-and-indent))
+
+    :config
+    (setq ruby-align-to-stmt-keywords '(def if)))
+
 #+end_src
 
-I use =chruby= to switch between versions of Ruby. This sets a default version to
-use within Emacs (for things like =xmp= or =rspec=).
+I use =chruby= to switch between versions of Ruby.
 
 #+begin_src emacs-lisp
-  (setq hrs/ruby-version "3.0.1")
-
   (use-package chruby
     :hook (ruby . chruby-use-corresponding)
     :config
     (chruby hrs/ruby-version))
-#+end_src
-
-Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that
-that's included in the path. In particular, we want that directory to be
-included because it contains the =xmpfilter= executable, which is used below.
-
-#+begin_src emacs-lisp
-  (hrs/append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
 #+end_src
 
 Running tests from within Emacs is awfully convenient. I enable =rspec-mode=
@@ -967,22 +971,6 @@ buffer.
 
   (add-to-list 'load-path (concat user-emacs-directory "resources"))
   (require 'rcodetools)
-#+end_src
-
-I like running Rubocop through Flycheck, but it also invokes Reek, which I've
-found to be more of a nuisance than a help. This disables the =ruby-reek=
-checker:
-
-#+begin_src emacs-lisp
-  (setq-default flycheck-disabled-checkers '(ruby-reek))
-#+end_src
-
-When assigning the result of a conditional, I like to align the expression to
-match the beginning of the statement instead of indenting it all the way to the
-=if=.
-
-#+begin_src emacs-lisp
-  (setq ruby-align-to-stmt-keywords '(def if))
 #+end_src
 
 Ruby method comments are often formatted with Yard.
