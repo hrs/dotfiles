@@ -554,6 +554,34 @@ output.
   (setq compilation-scroll-output t)
 #+end_src
 
+I use LSP for some languages. This hooks LSP to run in those modes and ensures
+that it displays all available documentation on hover.
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :hook (go-mode . lsp-deferred)
+
+    :custom
+    (lsp-eldoc-render-all t))
+#+end_src
+
+This integrates LSP into my UI in various useful ways. Specifically, it writes
+documentation an d type annotations and suchlike all over my damn screen, which
+/I/ enjoy, personally.
+
+#+begin_src emacs-lisp
+  (use-package lsp-ui
+    :commands lsp-ui-mode
+    :defer t
+    :hook (lsp-mode . lsp-ui-mode)
+
+    :custom
+    (lsp-ui-peek-always-show t)
+    (lsp-ui-sideline-show-hover t)
+    (lsp-ui-doc-enable nil))
+#+end_src
+
 ** Coq
 
 I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
@@ -644,13 +672,6 @@ Define my =$GOPATH= and tell Emacs where to find the Go binaries.
 #+begin_src emacs-lisp
   (setenv "GOPATH" "/home/hrs/code/go")
   (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
-#+end_src
-
-Start the =lsp= server once the buffer is visible. Note that this requires [[https://pkg.go.dev/golang.org/x/tools/gopls][=gopls=]]
-to be installed locally.
-
-#+begin_src emacs-lisp
-  (add-hook 'go-mode-hook #'lsp-deferred)
 #+end_src
 
 When I save a Go file, reformat the buffer (per =gofmt=) and organize the imports
@@ -991,24 +1012,6 @@ Install and enable =projectile-rails= mode in all Rail-related buffers.
 Use =rustic= to edit Rust code.
 
 #+begin_src emacs-lisp
-  (use-package lsp-ui
-    :commands lsp-ui-mode
-    :defer t
-    :hook (lsp-mode . lsp-ui-mode)
-    :custom
-    (lsp-ui-peek-always-show t)
-    (lsp-ui-sideline-show-hover t)
-    (lsp-ui-doc-enable nil))
-
-  (use-package lsp-mode
-    :commands lsp
-
-    :custom
-    (lsp-rust-analyzer-cargo-watch-command "clippy")
-    (lsp-eldoc-render-all t)
-    (lsp-idle-delay 0.6)
-    (lsp-rust-analyzer-server-display-inlay-hints t))
-
   (use-package rustic
     :bind (:map rustic-mode-map
                 ("M-j" . lsp-ui-imenu)
@@ -1021,6 +1024,9 @@ Use =rustic= to edit Rust code.
                 ("C-c C-c s" . lsp-rust-analyzer-status))
 
     :config
+    (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+    (setq lsp-rust-analyzer-server-display-inlay-hints t)
+
     (hrs/append-to-path "~/.cargo/bin")
     (setq rustic-format-on-save t)
     (add-hook 'rustic-mode-hook 'hrs/rustic-mode-hook))
