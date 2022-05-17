@@ -2709,7 +2709,7 @@ I've started using =dired= as my primary file manager. About time, huh?
 - Set some specific =ls= switches:
   - Use the long listing format.
   - Sort numbers naturally.
-  - Don't include the group name, though.
+  - Don't include the owner or group names.
   - Use human-readable sizes.
   - Format timestamps as =YYYY-MM-DD=.
   - Include hidden files, but /don't/ include "=.=" or "=..=".
@@ -2739,6 +2739,7 @@ elsewhere in this repo]]).
     (setq-default dired-listing-switches
                   (combine-and-quote-strings '("-l"
                                                "-v"
+                                               "-g"
                                                "--no-group"
                                                "--human-readable"
                                                "--time-style=+%Y-%m-%d"
