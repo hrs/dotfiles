@@ -2716,8 +2716,6 @@ I've started using =dired= as my primary file manager. About time, huh?
 - Kill buffers of files/directories that are deleted in =dired=.
 - When I've got two =dired= windows side-by-side, and I move or copy files in one
   window, set the default location to the other window.
-- Kill the current buffer when selecting a new directory, so I don't end up with
-  dozens of =dired= buffers open when navigating around.
 - Always copy directories recursively instead of asking every time.
 - Do please ask before recursively /deleting/ a directory, though.
 
@@ -2746,7 +2744,6 @@ elsewhere in this repo]]).
                                                "--almost-all")))
     (setq dired-clean-up-buffers-too t
           dired-dwim-target t
-          dired-kill-when-opening-new-dired-buffer t
           dired-recursive-copies 'always
           dired-recursive-deletes 'top))
 #+end_src
