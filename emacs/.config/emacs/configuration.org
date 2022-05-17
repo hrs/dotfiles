@@ -2991,7 +2991,15 @@ results and =C-c C-c= to stop, just like in =dired=.
 
 ** Reload changed buffers automatically
 
+This ensures that when either a file or directory's contents are modified
+outside of Emacs the corresponding buffer is automatically updated.
+
+This is especially useful with =dired=, for me; if I download a file with my Web
+browser and visit the =~/downloads= buffer in =dired=, I expect to see the new file
+there!
+
 #+begin_src emacs-lisp
+  (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode t)
 #+end_src
 
