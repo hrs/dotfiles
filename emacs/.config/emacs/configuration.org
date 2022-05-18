@@ -2823,7 +2823,8 @@ close the file or close the editor, then later re-open it, point will be at the
 last place I visited.
 
 #+begin_src emacs-lisp
-  (save-place-mode t)
+  (setq save-place-forget-unreadable-files nil)
+  (save-place-mode 1)
 #+end_src
 
 ** Always indent with spaces
