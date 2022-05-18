@@ -401,9 +401,13 @@ Use =company-mode= everywhere.
 [[https://github.com/sebastiencs/company-box][company-box]] adds some semantic icons to the =company= completion menu.
 
 #+begin_src emacs-lisp
+  (use-package all-the-icons)
   (use-package company-box
     :after company
-    :hook (company-mode . company-box-mode))
+    :hook (company-mode . company-box-mode)
+
+    :config
+    (setq company-box-icons-alist 'company-box-icons-all-the-icons))
 #+end_src
 
 ** =docker=
