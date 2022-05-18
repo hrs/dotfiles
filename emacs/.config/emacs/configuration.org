@@ -384,11 +384,15 @@ Use =company-mode= everywhere.
 #+begin_src emacs-lisp
   (use-package company
     :hook (prog-mode . company-mode)
+    :bind (:map company-active-map
+                ("<tab>" . company-complete-selection))
 
     :custom
+    (company-backends '((company-capf company-dabbrev-code)))
     (company-idle-delay 0)
     (company-minimum-prefix-length 1)
     (company-tooltip-align-annotations t)
+    (company-tooltip-limit 20)
 
     :config
     (setq lsp-completion-provider :capf))
@@ -812,12 +816,7 @@ with =opam install merlin=.
 
 #+begin_src emacs-lisp
   (use-package merlin
-    :hook (tuareg-mode . merlin-mode)
-
-    :config
-    (with-eval-after-load 'company
-      (add-to-list 'company-backends 'merlin-company-backend))
-    (add-hook 'merlin-mode-hook 'company-mode))
+    :hook (tuareg-mode . merlin-mode))
 #+end_src
 
 Add =~/.opam/default/bin= to load path. That's where =dune=, our build tool, is
@@ -860,16 +859,6 @@ Format code according to PEP8 on save:
   (use-package py-autopep8)
   (require 'py-autopep8)
   (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-#+end_src
-
-Configure Jedi along with the associated =company= mode:
-
-#+begin_src emacs-lisp
-  (use-package company-jedi)
-  (add-to-list 'company-backends 'company-jedi)
-
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
 #+end_src
 
 Use the =python3= interpreter for eldoc:
