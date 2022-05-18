@@ -1389,6 +1389,12 @@ listed under today's tasks, prefixed with =In 2 d:=.
   (setq org-deadline-warning-days 0)
 #+end_src
 
+Separate org blocks with nearly complete lines, not rows of ===.
+
+#+begin_src emacs-lisp
+  (setq org-agenda-block-separator ?─)
+#+end_src
+
 Hide the category prefix from tasks. I categorize my tasks with tags, including
 using =filetags=, so prefixing tasks with the file they're stored in is noisy and
 redundant.
