@@ -738,11 +738,40 @@ Indent everything by 2 spaces.
 
 ** Lisps
 
+=rainbow-delimiters= is convenient for coloring matching parentheses.
+
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :hook ((emacs-lisp-mode lisp-mode racket-mode) . rainbow-delimiters-mode))
+#+end_src
+
+*** Common Lisp
+
+Set up [[https://slime.common-lisp.dev/][SLIME]] to interactively hack on Common Lisp.
+
+#+begin_src emacs-lisp
+  (use-package slime
+    :config
+    (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+    (setq inferior-lisp-program "sbcl"))
+#+end_src
+
+*** Emacs Lisp
+
+If I'm writing in Emacs Lisp I'd like to use =eldoc-mode= to display
+documentation.
+
+#+begin_src emacs-lisp
+  (use-package eldoc
+    :hook (emacs-lisp-mode . eldoc-mode))
+#+end_src
+
 *** Racket
 
 #+begin_src emacs-lisp
   (use-package geiser
-    :config (setq geiser-active-implementations '(racket)))
+    :config
+    (setq geiser-active-implementations '(racket)))
 
   (use-package racket-mode
     :hook (racket-mode . racket-xp-mode)
@@ -751,58 +780,8 @@ Indent everything by 2 spaces.
 
 Quit documentation buffers.
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
   (evil-define-key 'normal racket-describe-mode (kbd "q") 'quit-window)
-#+end_src
-
-*** All Lisps
-
-I like to use =paredit= in Lisp modes to balance parentheses (and more!).
-
-#+begin_src emacs-lisp
-  (use-package paredit)
-#+end_src
-
-=rainbow-delimiters= is convenient for coloring matching parentheses.
-
-#+begin_src emacs-lisp
-  (use-package rainbow-delimiters)
-#+end_src
-
-All the lisps have some shared features, so we want to do the same things for
-all of them. That includes using =paredit=, =rainbow-delimiters=, and
-highlighting the whole expression when point is on a parenthesis.
-
-#+begin_src emacs-lisp
-  (setq lispy-mode-hooks
-        '(clojure-mode-hook
-          emacs-lisp-mode-hook
-          lisp-mode-hook
-          racket-mode-hook
-          scheme-mode-hook))
-
-  (dolist (hook lispy-mode-hooks)
-    (add-hook hook (lambda ()
-                     (setq show-paren-style 'expression)
-                     (rainbow-delimiters-mode))))
-#+end_src
-
-If I'm writing in Emacs lisp I'd like to use =eldoc-mode= to display
-documentation.
-
-#+begin_src emacs-lisp
-  (use-package eldoc
-    :hook (emacs-lisp-mode . eldoc-mode))
-#+end_src
-
-I also like using =flycheck-package= to ensure that my Elisp packages are
-correctly formatted.
-
-#+begin_src emacs-lisp
-  (use-package flycheck-package)
-
-  (eval-after-load 'flycheck
-    '(flycheck-package-setup))
 #+end_src
 
 ** OCaml
