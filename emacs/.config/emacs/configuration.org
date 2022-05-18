@@ -753,6 +753,7 @@ Set up [[https://slime.common-lisp.dev/][SLIME]] to interactively hack on Common
   (use-package slime
     :config
     (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+    (add-to-list 'slime-contribs 'slime-autodoc)
     (setq inferior-lisp-program "sbcl"))
 #+end_src
 
