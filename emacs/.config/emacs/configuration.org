@@ -831,12 +831,6 @@ checking, etc.
   (elpy-enable)
 #+end_src
 
-Use =flycheck= for syntax checking:
-
-#+begin_src emacs-lisp
-  (add-hook 'elpy-mode-hook 'flycheck-mode)
-#+end_src
-
 Format code according to PEP8 on save:
 
 #+begin_src emacs-lisp
