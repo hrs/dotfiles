@@ -41,7 +41,9 @@ warnings.
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
 
 #+begin_src emacs-lisp
-  (load-file "~/code/personal/sensible-defaults.el/sensible-defaults.el")
+  (add-to-list 'load-path "~/code/personal/sensible-defaults.el")
+  (require 'sensible-defaults)
+
   (sensible-defaults/use-all-settings)
   (sensible-defaults/use-all-keybindings)
   (sensible-defaults/backup-to-temp-directory)
