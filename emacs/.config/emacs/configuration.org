@@ -2454,6 +2454,20 @@ choose the right browser. I'd like to always use Firefox for that, so:
   (setenv "BROWSER" "firefox")
 #+end_src
 
+** =engine-mode=
+
+I sometimes use [[https://github.com/hrs/engine-mode][=engine-mode=]] to (mostly) look up error messages.
+
+#+begin_src emacs-lisp
+  (use-package engine-mode
+    :config
+    (engine-mode t)
+
+    (defengine duckduckgo
+      "https://duckduckgo.com/?q=%s"
+      :keybinding "/"))
+#+end_src
+
 * Writing prose
 
 I write prose in several modes: I might be editing an Org document, or a commit
