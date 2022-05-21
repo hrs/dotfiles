@@ -2707,6 +2707,8 @@ I've started using =dired= as my primary file manager. About time, huh?
   window, set the default location to the other window.
 - Always copy directories recursively instead of asking every time.
 - Do please ask before recursively /deleting/ a directory, though.
+- Enable =auto-revert-mode= in =dired= buffers (so when a directory's contents are
+  modified the results are reflected in the buffer automatically).
 
 I'm often browsing directories of photos and images, so this also binds "=v=" to
 view a slideshow of the current directory with =s= (a custom =feh= wrapper [[file:~/.dotfiles/bash/dot-bin/s][defined
@@ -2734,7 +2736,8 @@ elsewhere in this repo]]).
     (setq dired-clean-up-buffers-too t
           dired-dwim-target t
           dired-recursive-copies 'always
-          dired-recursive-deletes 'top))
+          dired-recursive-deletes 'top
+          global-auto-revert-non-file-buffers t))
 #+end_src
 
 Hide dotfiles by default, but toggle their visibility with "=.=". This conflicts
@@ -2977,20 +2980,6 @@ results and =C-c C-c= to stop, just like in =dired=.
 
 #+begin_src emacs-lisp
   (projectile-global-mode)
-#+end_src
-
-** Reload changed buffers automatically
-
-This ensures that when either a file or directory's contents are modified
-outside of Emacs the corresponding buffer is automatically updated.
-
-This is especially useful with =dired=, for me; if I download a file with my Web
-browser and visit the =~/downloads= buffer in =dired=, I expect to see the new file
-there!
-
-#+begin_src emacs-lisp
-  (setq global-auto-revert-non-file-buffers t)
-  (global-auto-revert-mode t)
 #+end_src
 
 * Set custom keybindings
