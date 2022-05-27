@@ -1372,10 +1372,25 @@ Schedule a task for today.
                                       (get-text-property 0 'inherited tag))
                                     (org-get-tags)))))
 
+  (defun hrs/refile-to (file headline)
+    "Move current headline to specified location"
+    (let ((pos (save-excursion
+                 (find-file file)
+                 (org-find-exact-headline-in-buffer headline))))
+      (org-refile nil nil (list headline file nil pos))))
+
+  (defun hrs/refile-to-tasks ()
+    "Move current headline to bookmarks"
+    (interactive)
+    (org-mark-ring-push)
+    (hrs/refile-to org-index-file "Tasks")
+    (org-mark-ring-goto))
+
   (defun hrs/schedule-today ()
     "Tag this item with `daily'."
     (interactive)
     (hrs/org-add-tag "daily")
+    (hrs/refile-to-tasks)
     (save-buffer))
 #+end_src
 
