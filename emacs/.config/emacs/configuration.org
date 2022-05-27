@@ -2740,6 +2740,7 @@ elsewhere in this repo]]).
       (interactive)
       (start-process "dired-slideshow" nil "s" (dired-current-directory)))
 
+    (evil-define-key 'normal dired-mode-map (kbd "o") 'dired-find-file-other-window)
     (evil-define-key 'normal dired-mode-map (kbd "v") 'hrs/dired-slideshow)
 
     (setq-default dired-listing-switches
