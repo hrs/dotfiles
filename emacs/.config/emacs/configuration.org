@@ -392,7 +392,7 @@ Use =company-mode= everywhere.
     :custom
     (company-backends '((company-capf company-dabbrev-code)))
     (company-idle-delay 0)
-    (company-minimum-prefix-length 1)
+    (company-minimum-prefix-length 3)
     (company-tooltip-align-annotations t)
     (company-tooltip-limit 20)
 
