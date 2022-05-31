@@ -37,6 +37,10 @@ floating_maximum_size 1800 x 1200
 bindsym $mod+Return $exec kitty
 bindsym $mod+Shift+Return $exec emacsclient --create-frame --alternate-editor='' --eval '(eshell (quote N))'
 
+# Swap windows around
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+
 # Kill focused window
 bindsym $mod+Shift+q kill
 
