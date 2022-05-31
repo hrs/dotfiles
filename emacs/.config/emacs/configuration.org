@@ -92,6 +92,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
     (setq evil-collection-mode-list
           '(deadgrep
             dired
+            elfeed
             ibuffer
             magit
             mu4e
@@ -2382,11 +2383,12 @@ Use an =org-contacts= file to manage my address book.
 
 * RSS with =elfeed=
 
-Install elfeed and load up my feeds.
+Install =elfeed= and load up my feeds.
 
 #+begin_src emacs-lisp
   (use-package elfeed
     :config
+    (evil-define-key 'normal elfeed-show-mode-map (kbd "U") 'elfeed-show-tag--unread)
     (elfeed-set-max-connections 32))
 
   (use-package elfeed-org
@@ -2418,31 +2420,6 @@ Open =elfeed= with =C-c r=:
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c r") 'elfeed)
-#+end_src
-
-Use =o= to browse the entry in a Web browser and open links with =C-c C-o=.
-
-#+begin_src emacs-lisp
-  (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
-  (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
-
-  (evil-add-hjkl-bindings elfeed-search-mode-map)
-  (evil-add-hjkl-bindings elfeed-show-mode-map)
-
-  (define-key elfeed-show-mode-map "o" 'elfeed-show-visit)
-  (define-key elfeed-search-mode-map "o" 'elfeed-search-browse-url)
-
-  (define-key elfeed-show-mode-map (kbd "C-c C-o") 'org-open-at-point)
-#+end_src
-
-Some external integrations need access to the current entry at point:
-
-#+begin_src emacs-lisp
-  (defun hrs/elfeed-current-entry ()
-    (cond ((eq major-mode 'elfeed-show-mode)
-           elfeed-show-entry)
-          ((eq major-mode 'elfeed-search-mode)
-           (elfeed-search-selected t))))
 #+end_src
 
 * Browsing the Web
