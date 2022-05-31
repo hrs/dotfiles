@@ -144,10 +144,6 @@ Define a big ol' bunch of handy utility functions.
     (setenv "PATH" (concat (getenv "PATH") ":" path))
     (add-to-list 'exec-path path))
 
-  (defun hrs/insert-password ()
-    (interactive)
-    (shell-command "pwgen 30 -1" t))
-
   (defun hrs/image-path-p (path)
     "Return true if the path corresponds to an image file."
     (member (downcase (or (file-name-extension path) ""))
@@ -1181,6 +1177,22 @@ If this isn't the only visible frame, kill the frame, too."
     (add-hook 'term-mode-hook
               (lambda ()
                 (evil-define-key 'insert term-raw-map (kbd "C-d") 'hrs/kill-process)))
+#+end_src
+
+* Password management
+
+I manage my passwords with [[https://www.passwordstore.org/][=pass=]], a nifty command-line utility that's
+accessible through Emacs.
+
+I'll also occasionally use =pwgen= to generate and insert a secure password.
+
+#+begin_src emacs-lisp
+  (use-package password-store)
+  (use-package password-store-otp)
+
+  (defun hrs/insert-password ()
+    (interactive)
+    (shell-command "pwgen 30 -1" t))
 #+end_src
 
 * Publishing and task management with Org-mode
