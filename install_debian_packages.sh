@@ -5,7 +5,6 @@ sudo apt install \
      arandr \
      bash-completion \
      build-essential \
-     caffeine \
      calibre \
      curl \
      dvipng \
