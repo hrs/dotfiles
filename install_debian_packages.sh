@@ -60,7 +60,6 @@ sudo apt install \
      rofi \
      rsync \
      scrot \
-     sdcv \
      shellcheck \
      sqlite3 \
      sqlite3-pcre \

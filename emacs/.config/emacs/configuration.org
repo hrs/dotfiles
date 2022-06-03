@@ -2611,46 +2611,15 @@ got some code here to do it manually.
   (add-to-list 'flycheck-checkers 'vale 'append)
 #+end_src
 
-** Look up definitions in Webster 1913
+** Activate =prose-assistant-mode=
 
-I look up definitions by hitting =C-x w=, which shells out to =sdcv=. I've
-loaded that with the (beautifully lyrical) 1913 edition of Webster's dictionary,
-so these definitions are a lot of fun.
-
-#+begin_src emacs-lisp
-  (defun hrs/region-or-word ()
-    (if mark-active
-        (buffer-substring-no-properties (region-beginning)
-                                        (region-end))
-      (thing-at-point 'word)))
-
-  (defun hrs/dictionary-prompt ()
-    (read-string
-     (format "Word (%s): " (or (hrs/region-or-word) ""))
-     nil
-     nil
-     (hrs/region-or-word)))
-
-  (defun hrs/dictionary-define-word ()
-    (interactive)
-    (let* ((word (hrs/dictionary-prompt))
-           (buffer-name (concat "Definition: " word)))
-      (with-output-to-temp-buffer buffer-name
-        (shell-command (format "sdcv -n %s" word) buffer-name))
-      (with-current-buffer buffer-name
-        (variable-pitch-mode 1))))
-
-  (define-key global-map (kbd "C-x w") 'hrs/dictionary-define-word)
-#+end_src
-
-** Look up words in a thesaurus
-
-Hitting =C-x s= searches for synonyms for the word at point.
+I wrote [[file:resources/prose-assistant-mode.el][this global minor mode]] to let me quickly trigger a handful of common
+tools I reach for while writing prose (dictionaries, word counting, etymologies,
+spellchecking, translation, that sort of thing).
 
 #+begin_src emacs-lisp
-  (use-package powerthesaurus
-    :bind
-    ("C-x s" . powerthesaurus-lookup-word-dwim))
+  (require 'prose-assistant-mode)
+  (prose-assistant-mode t)
 #+end_src
 
 ** Editing with Markdown
