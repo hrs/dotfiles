@@ -218,7 +218,7 @@ and isn't distracting or hard to read.
               (lambda (frame)
                 (with-selected-frame frame
                   (if (display-graphic-p)
-                      (transparency 80)
+                      (transparency 95)
                     (set-face-background 'default "unspecified-bg" (selected-frame)))))))
 #+end_src
 
