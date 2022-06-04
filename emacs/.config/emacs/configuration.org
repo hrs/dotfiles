@@ -1251,6 +1251,13 @@ is on said text.
     :hook (org-mode . org-appear-mode))
 #+end_src
 
+Put tags directly after the associated header rather than trying to align them.
+
+#+begin_src emacs-lisp
+  (setq org-auto-align-tags nil
+        org-tags-column 0)
+#+end_src
+
 Visibly render mathematical symbols.
 
 #+begin_src emacs-lisp
