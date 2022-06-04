@@ -1432,7 +1432,13 @@ listed under today's tasks, prefixed with =In 2 d:=.
 Separate org blocks with nearly complete lines, not rows of ===.
 
 #+begin_src emacs-lisp
-  (setq org-agenda-block-separator ?─)
+  (setq org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "⭠ now ─────────────────────────────────────────────────")
 #+end_src
 
 Hide the category prefix from tasks. I categorize my tasks with tags, including
