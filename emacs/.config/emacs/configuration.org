@@ -2691,7 +2691,8 @@ elsewhere in this repo]]).
           dired-dwim-target t
           dired-recursive-copies 'always
           dired-recursive-deletes 'top
-          global-auto-revert-non-file-buffers t))
+          global-auto-revert-non-file-buffers t
+          auto-revert-verbose nil))
 #+end_src
 
 Hide dotfiles by default, but toggle their visibility with "=.=". This conflicts
