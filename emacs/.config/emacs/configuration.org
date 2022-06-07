@@ -1696,6 +1696,13 @@ opening it up in order to start typing something, so this skips a step.
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
 #+end_src
 
+Creating a new capture item also adds a bookmark, which includes a marker in the
+fringe. I don't need to see that, so:
+
+#+begin_src emacs-lisp
+  (setq bookmark-set-fringe-mark nil)
+#+end_src
+
 Refiling according to the document's hierarchy.
 
 #+begin_src emacs-lisp
