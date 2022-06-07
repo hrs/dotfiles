@@ -36,6 +36,14 @@ warnings.
   (setq byte-compile-warnings '(cl-functions))
 #+end_src
 
+If an Emacs package relies on the installation of a system package, install that
+package (for example, =deadgrep= doesn't work if =ripgrep= isn't installed). This
+uses the system package manager (Debian's =apt=, in my case).
+
+#+begin_src emacs-lisp
+  (use-package use-package-ensure-system-package)
+#+end_src
+
 * Use =sensible-defaults.el=
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
@@ -369,6 +377,7 @@ Install =ripgrep= to provide search within projects. Search even "hidden" dotfil
 
 #+begin_src emacs-lisp
   (use-package deadgrep
+    :ensure-system-package (rg . ripgrep)
     :config
     (defun deadgrep--include-args (rg-args)
       (push "--hidden" rg-args))
@@ -416,7 +425,8 @@ development, but when I do [[https://github.com/Silex/docker.el][=docker.el=]] p
 interface for managing containers.
 
 #+begin_src emacs-lisp
-  (use-package docker)
+  (use-package docker
+    :ensure-system-package docker)
 #+end_src
 
 ** =dumb-jump=
@@ -464,6 +474,7 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
 
 #+begin_src emacs-lisp
   (use-package magit
+    :ensure-system-package git
     :hook (with-editor-mode . evil-insert-state)
     :bind ("C-x g" . magit-status)
 
@@ -597,7 +608,8 @@ documentation an d type annotations and suchlike all over my damn screen, which
 I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
 
 #+begin_src emacs-lisp
-  (use-package proof-general)
+  (use-package proof-general
+    :ensure-system-package (coqc . coq))
   (use-package company-coq)
 #+end_src
 
@@ -665,12 +677,13 @@ Don't compile the current SCSS file every time I save.
     (setq scss-compile-at-save nil))
 #+end_src
 
-** Golang
+** Go
 
 Install =go-mode=, plus =protobuf-mode=.
 
 #+begin_src emacs-lisp
   (use-package go-mode
+    :ensure-system-package (go . golang)
     :bind
     (:map go-mode-map ("C-c C-c" . compile)))
 
@@ -752,6 +765,7 @@ Set up [[https://slime.common-lisp.dev/][SLIME]] to interactively hack on Common
 
 #+begin_src emacs-lisp
   (use-package slime
+    :ensure-system-package sbcl
     :config
     (load (expand-file-name "~/.quicklisp/slime-helper.el"))
     (add-to-list 'slime-contribs 'slime-autodoc)
@@ -772,6 +786,7 @@ documentation.
 
 #+begin_src emacs-lisp
   (use-package geiser
+    :ensure-system-package racket
     :config
     (setq geiser-active-implementations '(racket)))
 
@@ -792,6 +807,7 @@ Use =tuareg-mode= for editing OCaml.
 
 #+begin_src emacs-lisp
   (use-package tuareg
+    :ensure-system-package opam
     :config
     (electric-indent-mode 0))
 #+end_src
@@ -875,6 +891,8 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 
 #+begin_src emacs-lisp
   (use-package ruby-mode
+    :ensure-system-package (xmpfilter . "gem install rcodetools")
+
     :mode ("\\.rake$"
            "\\.gemspec$"
            "\\Guardfile$"
@@ -887,7 +905,6 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 
     :config
     (setq ruby-align-to-stmt-keywords '(def if)))
-
 #+end_src
 
 I use =chruby= to switch between versions of Ruby.
@@ -908,15 +925,15 @@ be colored.
 
 #+begin_src emacs-lisp
   (use-package rspec-mode
+    :ensure-system-package (rspec . "gem install rspec")
+
     :hook (css-mode
            deadgrep-mode
            eldoc-mode
-           haml-mode
            js-mode
            magit-status-mode
            ruby-mode
            scss-mode
-           slim-mode
            web-mode
            yard-mode)
 
@@ -1187,7 +1204,9 @@ accessible through Emacs.
 I'll also occasionally use =pwgen= to generate and insert a secure password.
 
 #+begin_src emacs-lisp
-  (use-package password-store)
+  (use-package password-store
+    :ensure-system-package pass)
+
   (use-package password-store-otp)
 
   (defun hrs/insert-password ()
@@ -1818,7 +1837,8 @@ Allow export to markdown and beamer (for presentations).
 Allow =babel= to evaluate code blocks in a handful of languages.
 
 #+begin_src emacs-lisp
-  (use-package gnuplot)
+  (use-package gnuplot
+    :ensure-system-package gnuplot)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -1845,7 +1865,8 @@ Use =htmlize= to ensure that exported code blocks use syntax highlighting.
 Associate the "dot" language with the =graphviz-dot= major mode.
 
 #+begin_src emacs-lisp
-  (use-package graphviz-dot-mode)
+  (use-package graphviz-dot-mode
+    :ensure-system-package (dot . graphviz))
   (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
 #+end_src
 
@@ -2546,6 +2567,7 @@ composing an email, or authoring a Git commit.
 
 #+begin_src emacs-lisp
   (use-package flyspell
+    :ensure-system-package ispell
     :config
     (setq ispell-personal-dictionary "~/.ispell_words")
     (dolist (hook prose-mode-hooks)
@@ -2620,6 +2642,7 @@ Because I can't always use =org=.
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
+    :ensure-system-package pandoc
     :commands gfm-mode
     :mode (("\\.md$" . gfm-mode))
     :config
@@ -2719,6 +2742,12 @@ Open media with the appropriate programs.
 
 #+begin_src emacs-lisp
   (use-package dired-open
+    :ensure-system-package (abiword
+                            feh
+                            (ffplay . ffmpeg)
+                            gnumeric
+                            mpv
+                            zathura)
     :config
     (setq dired-open-extensions
           '(("avi" . "mpv")
