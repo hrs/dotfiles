@@ -2373,54 +2373,53 @@ Use an =org-contacts= file to manage my address book.
    (use-package org-contacts
      :ensure nil
      :after org
-     :custom (org-contacts-files '("~/documents/contacts.org")))
+     :custom
+     (org-contacts-files '("~/documents/contacts.org"))
 
-  (setq mu4e-org-contacts-file (car org-contacts-files))
-  (add-to-list 'mu4e-headers-actions
-    '("org-contact-add" . mu4e-action-add-org-contact) t)
-  (add-to-list 'mu4e-view-actions
-    '("org-contact-add" . mu4e-action-add-org-contact) t)
+     :config
+     (setq mu4e-org-contacts-file (car org-contacts-files))
+     (add-to-list 'mu4e-headers-actions
+                  '("org-contact-add" . mu4e-action-add-org-contact) t)
+     (add-to-list 'mu4e-view-actions
+                  '("org-contact-add" . mu4e-action-add-org-contact) t))
  #+end_src
 
 * RSS with =elfeed=
 
-Install =elfeed= and load up my feeds.
+I use =elfeed= and =elfeed-org= to read my (300-odd!) feeds.
+
+- Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then by
+  name of the feed, and finally by publication date.
+- Increase the max number of simultaneous connections to 32.
+- Open =elfeed= with =C-c r=.
+- Load up my feeds from an Org file.
 
 #+begin_src emacs-lisp
   (use-package elfeed
     :config
     (evil-define-key 'normal elfeed-show-mode-map (kbd "U") 'elfeed-show-tag--unread)
-    (elfeed-set-max-connections 32))
+
+    (defun hrs/custom-elfeed-sort (a b)
+      (let* ((a-tags (format "%s" (elfeed-entry-tags a)))
+             (b-tags (format "%s" (elfeed-entry-tags b)))
+             (a-title (elfeed-feed-title (elfeed-entry-feed a)))
+             (b-title (elfeed-feed-title (elfeed-entry-feed b))))
+        (if (string= a-tags b-tags)
+            (if (string= a-title b-title)
+                (< (elfeed-entry-date b) (elfeed-entry-date a))
+              (string< b-title a-title))
+          (string< a-tags b-tags))))
+    (setf elfeed-search-sort-function #'hrs/custom-elfeed-sort)
+
+    (elfeed-set-max-connections 32)
+
+    (global-set-key (kbd "C-c r") 'elfeed))
 
   (use-package elfeed-org
     :config
     (progn
       (elfeed-org)
       (setq rmh-elfeed-org-files (list "~/documents/rss-feeds.org"))))
-#+end_src
-
-Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then
-by name of the feed, and finally by publication date.
-
-#+begin_src emacs-lisp
-  (defun hrs/custom-elfeed-sort (a b)
-    (let* ((a-tags (format "%s" (elfeed-entry-tags a)))
-           (b-tags (format "%s" (elfeed-entry-tags b)))
-           (a-title (elfeed-feed-title (elfeed-entry-feed a)))
-           (b-title (elfeed-feed-title (elfeed-entry-feed b))))
-      (if (string= a-tags b-tags)
-          (if (string= a-title b-title)
-              (< (elfeed-entry-date b) (elfeed-entry-date a))
-            (string< b-title a-title))
-        (string< a-tags b-tags))))
-
-  (setf elfeed-search-sort-function #'hrs/custom-elfeed-sort)
-#+end_src
-
-Open =elfeed= with =C-c r=:
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c r") 'elfeed)
 #+end_src
 
 * Browsing the Web
