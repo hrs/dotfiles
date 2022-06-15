@@ -49,17 +49,17 @@ uses the system package manager (Debian's =apt=, in my case).
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
 
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/code/personal/sensible-defaults.el")
-  (require 'sensible-defaults)
-
-  (sensible-defaults/use-all-settings)
-  (sensible-defaults/use-all-keybindings)
-  (sensible-defaults/backup-to-temp-directory)
+  (use-package sensible-defaults
+    :load-path "~/code/personal/sensible-defaults.el"
+    :config
+    (sensible-defaults/use-all-settings)
+    (sensible-defaults/use-all-keybindings)
+    (sensible-defaults/backup-to-temp-directory))
 #+end_src
 
 * Set personal information
 
-** Who am I? Where am I?
+Who am I? Where am I?
 
 #+begin_src emacs-lisp
   (setq user-full-name "Harry R. Schwartz"
@@ -952,11 +952,11 @@ of them (complaining about private =attr_reader=, especially) and they gunk up m
 buffer.
 
 #+begin_src emacs-lisp
-  (setq xmpfilter-command-name
-        "ruby -S xmpfilter --no-warnings --dev --fork --detect-rbtest")
-
-  (add-to-list 'load-path (concat user-emacs-directory "resources"))
-  (require 'rcodetools)
+  (use-package rcodetools
+    :load-path "resources"
+    :config
+    (setq xmpfilter-command-name
+          "ruby -S xmpfilter --no-warnings --dev --fork --detect-rbtest"))
 #+end_src
 
 Ruby method comments are often formatted with Yard.
@@ -2101,8 +2101,8 @@ manager instead of as a package on MELPA. This loads up =mu4e= from the usual
 location:
 
 #+begin_src emacs-lisp
-	(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
-  (require 'mu4e)
+  (use-package mu4e
+    :load-path "/usr/share/emacs/site-lisp/mu4e")
 #+end_src
 
 ** Who am I?
@@ -2595,8 +2595,10 @@ tools I reach for while writing prose (dictionaries, word counting, etymologies,
 spellchecking, translation, that sort of thing).
 
 #+begin_src emacs-lisp
-  (require 'prose-assistant-mode)
-  (prose-assistant-mode t)
+  (use-package prose-assistant-mode
+    :load-path "resources"
+    :config
+    (prose-assistant-mode t))
 #+end_src
 
 ** Editing with Markdown
