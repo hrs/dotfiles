@@ -2359,7 +2359,7 @@ Use an =org-contacts= file to manage my address book.
 
  #+begin_src emacs-lisp
    (use-package org-contacts
-     :ensure nil
+     :load-path "resources"
      :after org
      :custom
      (org-contacts-files '("~/documents/contacts.org"))
