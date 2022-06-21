@@ -2785,12 +2785,12 @@ The =helpful= package provides, among other things, more context in Help
 buffers.
 
 #+begin_src emacs-lisp
-  (use-package helpful)
-
-  (global-set-key (kbd "C-h f") #'helpful-callable)
-  (global-set-key (kbd "C-h v") #'helpful-variable)
-  (global-set-key (kbd "C-h k") #'helpful-key)
-  (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window)
+  (use-package helpful
+    :config
+    (global-set-key (kbd "C-h f") #'helpful-callable)
+    (global-set-key (kbd "C-h v") #'helpful-variable)
+    (global-set-key (kbd "C-h k") #'helpful-key)
+    (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window))
 #+end_src
 
 ** Look for executables in =/usr/local/bin=
