@@ -1737,15 +1737,16 @@ Hit =C-c i= to quickly open up my todo list.
 Hit =M-n= to quickly open up a capture template for a new todo.
 
 #+begin_src emacs-lisp
-  (defun org-capture-todo ()
+  (defun hrs-org-capture-todo ()
     (interactive)
     (org-capture :keys "t"))
 
-  (global-set-key (kbd "M-n") 'org-capture-todo)
-  (add-hook 'gfm-mode-hook
-            (lambda () (local-set-key (kbd "M-n") 'org-capture-todo)))
-  (add-hook 'haskell-mode-hook
-            (lambda () (local-set-key (kbd "M-n") 'org-capture-todo)))
+  (global-set-key (kbd "M-n") 'hrs-org-capture-todo)
+
+  (setq hrs-org-capture-todo-hooks '(gfm-mode-hook haskell-mode-hook magit-mode-hook))
+
+  (dolist (hook hrs-org-capture-todo-hooks)
+    (add-hook hook (lambda () (local-set-key (kbd "M-n") 'hrs-org-capture-todo))))
 #+end_src
 
 Hit =C-c w= to quickly open up my work todo list.
