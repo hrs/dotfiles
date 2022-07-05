@@ -1794,11 +1794,12 @@ Rebind =C-c C-l= to [[https://xenodium.com/emacs-dwim-do-what-i-mean/][DWIM]]:
 
 ** Exporting
 
-Allow export to markdown and beamer (for presentations).
+Allow export to markdown, beamer (for presentations), and epub.
 
 #+begin_src emacs-lisp
   (require 'ox-md)
   (require 'ox-beamer)
+  (use-package ox-epub)
 #+end_src
 
 Allow =babel= to evaluate code blocks in a handful of languages.
