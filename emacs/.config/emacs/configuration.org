@@ -2377,13 +2377,12 @@ Use an =org-contacts= file to manage my address book.
 
 * RSS with =elfeed=
 
-I use =elfeed= and =elfeed-org= to read my (300-odd!) feeds.
+I use =elfeed= to read my (300-odd!) feeds.
 
 - Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then by
   name of the feed, and finally by publication date.
 - Increase the max number of simultaneous connections to 32.
 - Open =elfeed= with =C-c r=.
-- Load up my feeds from an Org file.
 
 #+begin_src emacs-lisp
   (use-package elfeed
@@ -2405,12 +2404,27 @@ I use =elfeed= and =elfeed-org= to read my (300-odd!) feeds.
     (elfeed-set-max-connections 32)
 
     (global-set-key (kbd "C-c r") 'elfeed))
+#+end_src
 
+I store my feeds in an Org file, of course. This parses them into something
+=elfeed= understands.
+
+#+begin_src emacs-lisp
   (use-package elfeed-org
     :config
-    (progn
-      (elfeed-org)
-      (setq rmh-elfeed-org-files (list "~/documents/rss-feeds.org"))))
+    (elfeed-org)
+    (setq rmh-elfeed-org-files (list "~/documents/rss-feeds.org")))
+#+end_src
+
+I don't subscribe to many YouTube channels, but I use =elfeed-tube= to load items
+with some associated metadata (descriptions, transcripts, etc).
+
+#+begin_src emacs-lisp
+  (use-package elfeed-tube
+    :after elfeed
+    :demand t
+    :config
+    (elfeed-tube-setup))
 #+end_src
 
 * Browsing the Web
