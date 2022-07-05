@@ -1555,7 +1555,7 @@ displaying the index so that they'll appear in the agenda view, too.
     (interactive)
     (call-process-shell-command "daily-checklist")
     (delete-other-windows)
-    (find-file org-index-file)
+    (hrs/open-index-file)
     (org-agenda nil "p"))
 
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
@@ -1728,6 +1728,7 @@ Hit =C-c i= to quickly open up my todo list.
     (interactive)
     (find-file org-index-file)
     (flycheck-mode -1)
+    (auto-revert-mode t)
     (end-of-buffer))
 
   (global-set-key (kbd "C-c i") 'hrs/open-index-file)
