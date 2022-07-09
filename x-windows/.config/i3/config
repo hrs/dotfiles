@@ -34,8 +34,8 @@ floating_maximum_size 1800 x 1200
 ########################################
 
 # Launch a terminal
-bindsym $mod+Return $exec kitty
-bindsym $mod+Shift+Return $exec emacsclient --create-frame --alternate-editor='' --eval '(eshell (quote N))'
+bindsym $mod+Return $exec emacsclient --create-frame --alternate-editor='' --eval '(multi-vterm)'
+bindsym $mod+Shift+Return $exec kitty
 
 # Swap windows around
 bindsym $mod+Shift+Left move left

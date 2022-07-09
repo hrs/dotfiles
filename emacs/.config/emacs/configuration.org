@@ -105,6 +105,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
             magit
             mu4e
             pdf-view
+            vterm
             which-key))
 
     (evil-collection-init))
@@ -1109,91 +1110,17 @@ Ensure that we always use =fixed-pitch= fonts for YAML.
 
 * Terminal
 
-I'm trying =eshell=. Seems promising so far.
+I'm trying =vterm=. This disables =global-hl-line-mode= locally and lets me open up
+a new terminal instance with =C-c t=.
 
 #+begin_src emacs-lisp
-  (add-to-list 'eshell-modules-list 'eshell-rebind)
+  (use-package multi-vterm
+    :ensure-system-package libvterm-dev
+    :config
+    (add-hook 'vterm-mode-hook
+              (lambda () (setq-local global-hl-line-mode nil)))
 
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (evil-define-key 'insert eshell-mode-map (kbd "C-r") 'counsel-esh-history)
-              (evil-define-key 'insert eshell-mode-map (kbd "C-d") 'hrs/kill-process)))
-#+end_src
-
-Don't show the =eshell= welcome message.
-
-#+begin_src emacs-lisp
- (setq eshell-banner-message "")
-#+end_src
-
-I open up a new shell instance with =C-c t=.
-
-#+begin_src emacs-lisp
-  (defun hrs/new-eshell ()
-    "Open a fresh eshell buffer."
-    (interactive)
-    (eshell 'N))
-
-  (global-set-key (kbd "C-c t") 'hrs/new-eshell)
-#+end_src
-
-Suppose I've got an Emacs frame open and displaying an =eshell= process. If I hit
-=C-d=, I'd like the following behavior:
-
-- If this is the only visible Emacs frame, just kill the process and kill the
-  associated buffer.
-- If there's another visible Emacs frame, kill the process and buffer, and then
-  also delete the frame.
-
-The idea here is to /mostly/ replicate the behavior of terminal emulators like
-=xterm=, in that I'd like to be able to pop open an =eshell= on an i3 desktop, run a
-command, and quickly close it with =C-d=. But if I'm running a terminal in the
-only remaining Emacs frame, I usually want to leave that open so I can do other
-Emacsitting after I'm done with that shell.
-
-#+begin_src emacs-lisp
-  (defun daemon-frame-p (frame)
-    "Return t if FRAME is the virtual frame associated with the daemon.
-
-When starting Emacs with `--daemon', a virtual frame is created
-that `contains' the daemon. This frame isn't actually visible to
-the user."
-    (and (framep frame)
-         (string-equal "initial_terminal"
-                       (terminal-name frame))))
-
-  (defun visible-frames ()
-    "Return a list of all frames that are currently visible to the user.
-
-This excludes both invisible frames and the daemon's virtual frame."
-    (-filter (lambda (frame)
-               (and (frame-visible-p frame)
-                    (not (daemon-frame-p frame))))
-             (frame-list)))
-
-  (defun last-visible-frame-p ()
-    "Return t if only one frame is currently visible to the user."
-    (= 1 (length (visible-frames))))
-
-  (defun hrs/kill-process ()
-    "Kill the current `eshell' buffer.
-
-If this isn't the only visible frame, kill the frame, too."
-    (interactive)
-    (when (eobp)
-      (cond
-       ((/= (point) eshell-last-output-end)
-        (beep))
-       ((eshell-interactive-process)
-        (process-send-eof))
-       (t
-        (eshell-life-is-too-much)
-        (when (not (last-visible-frame-p))
-          (delete-frame))))))
-
-    (add-hook 'term-mode-hook
-              (lambda ()
-                (evil-define-key 'insert term-raw-map (kbd "C-d") 'hrs/kill-process)))
+    (global-set-key (kbd "C-c t") 'multi-vterm))
 #+end_src
 
 * Password management
