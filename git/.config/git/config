@@ -28,7 +28,14 @@
   template = ~/.config/git/message
 [core]
   excludesfile = ~/.gitignore
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
+[delta]
+  file-style = yellow
+  hunk-header-style = line-number syntax
+  relative-paths = true
+  side-by-side = true
+[diff]
+  colorMoved = default
 [fetch]
   prune = true
 [github]
@@ -37,6 +44,10 @@
   linenumber = true
 [init]
   defaultBranch = main
+[interactive]
+  diffFilter = delta --color-only
+[add.interactive]
+  useBuiltin = false
 [merge]
   ff = only
 [push]
