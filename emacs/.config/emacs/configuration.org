@@ -2635,7 +2635,7 @@ Because I can't always use =org=.
     (custom-set-faces
      '(markdown-pre-face ((t nil))))
 
-    (setq markdown-command "pandoc --standalone --mathjax --from=markdown"
+    (setq markdown-command "pandoc --standalone --mathjax --from=gfm"
           markdown-disable-tooltip-prompt t
           markdown-fontify-code-blocks-natively t))
 #+end_src
