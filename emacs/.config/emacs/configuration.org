@@ -129,6 +129,25 @@ Use =evil= with Org agendas.
     (evil-org-agenda-set-keys))
 #+end_src
 
+* Extend the =exec-path= and =PATH= as needed
+
+#+begin_src emacs-lisp
+  (defun hrs-append-to-path (path)
+    "Add a path both to the $PATH variable and to Emacs' exec-path."
+    (setenv "PATH" (concat (getenv "PATH") ":" path))
+    (add-to-list 'exec-path path))
+
+  (setq hrs-local-bin-paths
+        '("/usr/local/bin"
+          "~/.cargo/bin"
+          "~/.cabal/bin"
+          "~/.opam/default/bin"
+          "~/.local/bin"))
+
+  (dolist (path hrs-local-bin-paths)
+    (hrs-append-to-path path))
+#+end_src
+
 * Utility functions
 
 Define a big ol' bunch of handy utility functions.
@@ -147,11 +166,6 @@ Define a big ol' bunch of handy utility functions.
     (let ((file-name (buffer-file-name)))
       (when file-name
         (find-alternate-file (concat "/sudo::" file-name)))))
-
-  (defun hrs/append-to-path (path)
-    "Add a path both to the $PATH variable and to Emacs' exec-path."
-    (setenv "PATH" (concat (getenv "PATH") ":" path))
-    (add-to-list 'exec-path path))
 
   (defun hrs/image-path-p (path)
     "Return true if the path corresponds to an image file."
@@ -493,7 +507,6 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
 I use =delta= for my diffs.
 
 #+begin_src emacs-lisp
-  (hrs/append-to-path "~/.cargo/bin")
   (use-package magit-delta
     :ensure-system-package (delta . "cargo install git-delta")
     :hook (magit-mode . magit-delta-mode))
@@ -704,7 +717,7 @@ Define my =$GOPATH= and tell Emacs where to find the Go binaries.
 
 #+begin_src emacs-lisp
   (setenv "GOPATH" "/home/hrs/code/go")
-  (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
+  (hrs-append-to-path (concat (getenv "GOPATH") "/bin"))
 #+end_src
 
 When I save a Go file, reformat the buffer (per =gofmt=) and organize the imports
@@ -746,10 +759,6 @@ use smart indentation.
             (lambda ()
               (haskell-doc-mode)
               (turn-on-haskell-indent)))
-#+end_src
-
-#+begin_src emacs-lisp
-  (hrs/append-to-path "~/.cabal/bin")
 #+end_src
 
 ** JavaScript
@@ -830,24 +839,10 @@ with =opam install merlin=.
     :hook (tuareg-mode . merlin-mode))
 #+end_src
 
-Add =~/.opam/default/bin= to load path. That's where =dune=, our build tool, is
-installed.
-
-#+begin_src emacs-lisp
-  (hrs/append-to-path "~/.opam/default/bin")
-#+end_src
-
 ** Python
 
 #+begin_src emacs-lisp
   (use-package python-mode)
-#+end_src
-
-Add =~/.local/bin= to load path. That's where =virtualenv= is installed, and
-we'll need that for =jedi=.
-
-#+begin_src emacs-lisp
-  (hrs/append-to-path "~/.local/bin")
 #+end_src
 
 Enable =elpy=. This provides automatic indentation, auto-completion, syntax
@@ -886,7 +881,7 @@ that's included in the path. In particular, we want that directory to be
 included because it contains the =xmpfilter= executable.
 
 #+begin_src emacs-lisp
-  (hrs/append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
+  (hrs-append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
 #+end_src
 
 I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
@@ -1011,7 +1006,6 @@ Use =rustic= to edit Rust code.
     (setq lsp-rust-analyzer-cargo-watch-command "clippy")
     (setq lsp-rust-analyzer-server-display-inlay-hints t)
 
-    (hrs/append-to-path "~/.cargo/bin")
     (setq rustic-format-on-save t)
     (add-hook 'rustic-mode-hook 'hrs/rustic-mode-hook))
 
@@ -2744,12 +2738,6 @@ buffers.
     (global-set-key (kbd "C-h v") #'helpful-variable)
     (global-set-key (kbd "C-h k") #'helpful-key)
     (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window))
-#+end_src
-
-** Look for executables in =/usr/local/bin=
-
-#+begin_src emacs-lisp
-  (hrs/append-to-path "/usr/local/bin")
 #+end_src
 
 ** Save my location within a file
