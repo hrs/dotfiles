@@ -2882,6 +2882,55 @@ results and =C-c C-c= to stop, just like in =dired=.
   (setq wgrep-auto-save-buffer t)
 #+end_src
 
+** Reformat typographic symbols and HTML entities to plain text
+
+I sometimes need to convert some copied text containing typographic symbols like
+curly quotes and em-dashes into ASCII text. Similarly, I'll sometimes need to do
+that with HTML entities, too. This provides functions to do that within a
+specified region.
+
+#+begin_src emacs-lisp
+  (defvar hrs-typographic-replacements
+    '(("…" . "...")
+      ("‘" . "'")
+      ("’" . "'")
+      ("“" . "\"")
+      ("”" . "\"")
+      ("–" . "--")
+      ("—" . "---")))
+
+  (defvar hrs-html-entity-replacements
+    '(("&amp;" . "&")
+      ("&nbsp;" . " ")
+      ("&lsquo;" . "'")
+      ("&rsquo;" . "'")
+      ("&apos;" . "'")
+      ("&ldquo;" . "\"")
+      ("&rdquo;" . "\"")
+      ("&quot;" . "\"")
+      ("&lt;" . "<")
+      ("&gt;" . ">")))
+
+  (defun hrs-replace-symbols (replacements)
+    (save-restriction
+      (when (region-active-p)
+        (narrow-to-region (region-beginning) (region-end)))
+      (dolist (pair replacements)
+        (goto-char (point-min))
+        (while (search-forward (car pair) nil t)
+          (replace-match (cdr pair))))))
+
+  (defun hrs-replace-typographic-symbols ()
+    "Replace common typographic symbols in the region or buffer with their ASCII equivalents."
+    (interactive)
+    (hrs-replace-symbols hrs-typographic-replacements))
+
+  (defun hrs-replace-html-entities ()
+    "Replace common HTML entities in the region or buffer with their ASCII equivalents."
+    (interactive)
+    (hrs-replace-symbols hrs-html-entity-replacements))
+#+end_src
+
 * Set custom keybindings
 
 Just a few handy functions.
