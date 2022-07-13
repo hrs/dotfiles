@@ -890,6 +890,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 
 - =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
 - Hitting "enter" should indent to the current level.
+- Disable =reek=, which I don't find helpful.
 - When assigning the result of a conditional, I like to align the expression to
   match the beginning of the statement instead of indenting it all the way to
   the =if=.
@@ -909,6 +910,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
            ("\r" . newline-and-indent))
 
     :config
+    (setq-default flycheck-disabled-checkers '(ruby-reek))
     (setq ruby-align-to-stmt-keywords '(def if)))
 #+end_src
 
