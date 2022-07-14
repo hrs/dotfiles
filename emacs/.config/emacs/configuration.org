@@ -1272,9 +1272,9 @@ content.
 
 ** Task management and agenda views
 
-Store my org files in =~/documents/org=, maintain an inbox in Dropbox, define
-the location of an index file (my main todo list), and archive finished tasks in
-=~/documents/org/archive.org=.
+Store my org files in =~/documents/org=, define the location of an index file (my
+main todo list), and archive finished tasks in
+=~/documents/org/archive/archive-YYYY.org=.
 
 #+begin_src emacs-lisp
   (setq org-directory "~/documents/org")
@@ -1283,7 +1283,6 @@ the location of an index file (my main todo list), and archive finished tasks in
     "Return the absolute address of an org file, given its relative name."
     (concat (file-name-as-directory org-directory) filename))
 
-  (setq org-inbox-file "~/sync/Dropbox/inbox.org")
   (setq org-index-file (org-file-path "index.org"))
   (setq org-archive-location
         (concat
