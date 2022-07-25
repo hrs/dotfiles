@@ -216,33 +216,9 @@ This sets up the current theme.
     :defer t
     :init
     (setq spacemacs-theme-org-bold nil
-          spacemacs-theme-org-height nil)
-    :config
-    (load-theme 'spacemacs-light t))
+          spacemacs-theme-org-height nil))
 
   (load-theme 'spacemacs-light t)
-#+end_src
-
-If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
-frame is themed appropriately.
-
-I've usually got a scenic wallpaper, so just a hint of transparency looks lovely
-and isn't distracting or hard to read.
-
-#+begin_src emacs-lisp
-  (defun transparency (value)
-    "Sets the transparency of the frame window. 0=transparent/100=opaque."
-    (interactive "nTransparency Value 0 - 100 opaque:")
-    (set-frame-parameter (selected-frame) 'alpha-background value))
-
-  (when (daemonp)
-    (load-theme 'spacemacs-light t)
-    (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (with-selected-frame frame
-                  (if (display-graphic-p)
-                      (transparency 95)
-                    (set-face-background 'default "unspecified-bg" (selected-frame)))))))
 #+end_src
 
 ** Use =minions= to hide all minor modes

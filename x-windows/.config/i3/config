@@ -234,7 +234,7 @@ bindsym $mod+Scroll_Lock $exec ~/bin/cycle-audio
 
 # Configure the i3 bar
 bar {
-  i3bar_command i3bar --transparency
+  i3bar_command i3bar
   status_command i3status
 
   font pango:Adobe Garamond Pro 8
