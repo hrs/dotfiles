@@ -259,8 +259,8 @@ as point goes.
 
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
-                      :family "Inconsolata"
-                      :height 70)
+                      :family "Fantasque Sans Mono"
+                      :height 80)
 
   (use-package default-text-scale
     :bind
