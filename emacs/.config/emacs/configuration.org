@@ -255,84 +255,18 @@ as point goes.
   (setq scroll-conservatively 100)
 #+end_src
 
-** Set default font and configure font resizing
-
-I'm partial to Inconsolata for code and Adobe Garamond Pro for prose.
-
-The standard =text-scale-= functions just resize the text in the current buffer;
-I'd generally like to resize the text in /every/ buffer, and I usually want to
-change the size of the modeline, too (this is especially helpful when
-presenting). These functions and bindings let me resize everything all together!
-
-Note that this overrides the default font-related keybindings from
-=sensible-defaults=.
+** Set font and configure font resizing
 
 #+begin_src emacs-lisp
-  (custom-set-faces
-   '(italic ((t (:slant italic)))))
-
-  (setq hrs/default-fixed-font "Inconsolata")
-  (setq hrs/default-fixed-font-size 70)
-  (setq hrs/current-fixed-font-size hrs/default-fixed-font-size)
   (set-face-attribute 'default nil
-                      :family hrs/default-fixed-font
-                      :height hrs/current-fixed-font-size)
-  (set-face-attribute 'fixed-pitch nil
-                      :family hrs/default-fixed-font
-                      :height hrs/current-fixed-font-size)
+                      :family "Inconsolata"
+                      :height 70)
 
-  (setq hrs/default-variable-font "Adobe Garamond Pro")
-  (setq hrs/default-variable-font-size 80)
-  (setq hrs/current-variable-font-size hrs/default-variable-font-size)
-  (set-face-attribute 'variable-pitch nil
-                      :family hrs/default-variable-font
-                      :height hrs/current-variable-font-size)
-
-  (setq hrs/font-change-increment 1.1)
-
-  (defun hrs/set-font-size ()
-    "Change default, fixed-pitch, and variable-pitch font sizes to match respective variables."
-    (set-face-attribute 'default nil
-                        :height hrs/current-fixed-font-size)
-    (set-face-attribute 'fixed-pitch nil
-                        :height hrs/current-fixed-font-size)
-    (set-face-attribute 'variable-pitch nil
-                        :height hrs/current-variable-font-size))
-
-  (defun hrs/reset-font-size ()
-    "Revert font sizes back to defaults."
-    (interactive)
-    (setq hrs/current-fixed-font-size hrs/default-fixed-font-size)
-    (setq hrs/current-variable-font-size hrs/default-variable-font-size)
-    (hrs/set-font-size))
-
-  (defun hrs/increase-font-size ()
-    "Increase current font sizes by a factor of `hrs/font-change-increment'."
-    (interactive)
-    (setq hrs/current-fixed-font-size
-          (ceiling (* hrs/current-fixed-font-size hrs/font-change-increment)))
-    (setq hrs/current-variable-font-size
-          (ceiling (* hrs/current-variable-font-size hrs/font-change-increment)))
-    (hrs/set-font-size))
-
-  (defun hrs/decrease-font-size ()
-    "Decrease current font sizes by a factor of `hrs/font-change-increment', down to a minimum size of 1."
-    (interactive)
-    (setq hrs/current-fixed-font-size
-          (max 1
-               (floor (/ hrs/current-fixed-font-size hrs/font-change-increment))))
-    (setq hrs/current-variable-font-size
-          (max 1
-               (floor (/ hrs/current-variable-font-size hrs/font-change-increment))))
-    (hrs/set-font-size))
-
-  (define-key global-map (kbd "C-)") 'hrs/reset-font-size)
-  (define-key global-map (kbd "C-+") 'hrs/increase-font-size)
-  (define-key global-map (kbd "C-=") 'hrs/increase-font-size)
-  (define-key global-map (kbd "C-_") 'hrs/decrease-font-size)
-  (define-key global-map (kbd "C--") 'hrs/decrease-font-size)
-
-  (hrs/reset-font-size)
+  (use-package default-text-scale
+    :bind
+    (("C-)" . default-text-scale-reset)
+     ("C-=" . default-text-scale-increase)
+     ("C--" . default-text-scale-decrease)))
 #+end_src
 
 ** Highlight the current line
@@ -1077,16 +1011,6 @@ I'd like to see colors with =rainbow-mode=, so we'll need to install that, too:
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :hook web-mode)
-#+end_src
-
-** YAML
-
-Ensure that we always use =fixed-pitch= fonts for YAML.
-
-#+begin_src emacs-lisp
-  (use-package yaml-mode
-    :config
-    (add-hook 'yaml-mode-hook (lambda () (variable-pitch-mode 0))))
 #+end_src
 
 * Terminal
@@ -2402,48 +2326,6 @@ prose-related mode, so I store those in a list:
   (defvar prose-mode-hooks
     (mapcar (lambda (mode) (intern (format "%s-hook" mode)))
             prose-modes))
-#+end_src
-
-** Use =variable-pitch= fonts when writing prose
-
-I've been writing prose in a monospace font for at least fifteen years now. And,
-y'know what? It's just not sparking joy.
-
-I've recently started using a variable-pitch font for prose, and it's quite
-nice! This ensures that that happens everywhere it's appropriate.
-
-Yes, that even includes git commit messages! They're as much prose as a README
-is, right?
-
-#+begin_src emacs-lisp
-  (defun hrs/enable-variable-pitch-mode ()
-    (variable-pitch-mode 1))
-
-  (dolist (hook prose-mode-hooks)
-    (add-hook hook 'hrs/enable-variable-pitch-mode))
-
-  (add-hook 'elfeed-show-mode-hook 'hrs/enable-variable-pitch-mode)
-  (add-hook 'elpher-mode-hook 'hrs/enable-variable-pitch-mode)
-  (add-hook 'mu4e-view-mode-hook 'hrs/enable-variable-pitch-mode)
-#+end_src
-
-That said, code, links, and tables in Org should still be monospaced. They look
-kinda goofy otherwise, I think.
-
-#+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-              (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
-              (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-              (set-face-attribute 'org-verbatim nil :inherit 'fixed-pitch)))
-#+end_src
-
-The same is true for =crontab= files (which derive from =text-mode=, apparently!):
-
-#+begin_src emacs-lisp
-  (add-hook 'crontab-mode-hook
-            (lambda () (variable-pitch-mode 0)))
 #+end_src
 
 ** Enable spell-checking in the usual places
