@@ -139,6 +139,7 @@ Use =evil= with Org agendas.
 
   (setq hrs-local-bin-paths
         '("/usr/local/bin"
+          "~/bin"
           "~/.cargo/bin"
           "~/.cabal/bin"
           "~/.opam/default/bin"
