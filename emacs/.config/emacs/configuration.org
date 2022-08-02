@@ -1213,19 +1213,10 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
                                (org-file-path "writing.org")))
 #+end_src
 
-Hitting =C-c C-x C-s= will mark a task as done, move it to an appropriate place in
-the archive, and save all the Org buffers.
+I'd like archiving tasks to also save all the Org buffers.
 
 #+begin_src emacs-lisp
-  (defun hrs/mark-done-and-archive ()
-    "Mark the state of an org-mode item as DONE, archive it, and
-save the Org buffers."
-    (interactive)
-    (org-todo 'done)
-    (org-archive-subtree)
-    (org-save-all-org-buffers))
-
-  (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
+  (advice-add 'org-archive-subtree :after 'org-save-all-org-buffers)
 #+end_src
 
 Record the time that a todo was archived.
