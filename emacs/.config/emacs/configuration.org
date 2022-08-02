@@ -1228,11 +1228,10 @@ save the Org buffers."
   (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
 #+end_src
 
-Record the time that a todo was refiled or archived.
+Record the time that a todo was archived.
 
 #+begin_src emacs-lisp
-  (setq org-log-done 'time
-        org-log-refile 'time)
+  (setq org-log-done 'time)
 #+end_src
 
 Ensure that a task can't be marked as done if it contains unfinished subtasks.
