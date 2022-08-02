@@ -2530,6 +2530,7 @@ Open media with the appropriate programs.
             ("gnumeric" . "gnumeric")
             ("jpeg" . "s")
             ("jpg" . "s")
+            ("m4a" . "mpv")
             ("mkv" . "mpv")
             ("mov" . "mpv")
             ("mp3" . "mpv")
