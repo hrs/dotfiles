@@ -547,7 +547,7 @@ I use =company-coq-mode=, which really helps make Proof General a more useful ID
   (use-package company-coq)
 #+end_src
 
-I bind the right and left arrow keys to evaluating and retracting the next and
+I bind the up and down arrow keys to evaluating and retracting the next and
 previous statements. This is more convenient than the default bindings of =C-c
 C-n= and =C-c C-u=.
 
