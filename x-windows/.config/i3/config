@@ -1,5 +1,5 @@
 # Set font for container titles
-font pango:Adobe Garamond Pro 8
+font pango:Fantasque Sans Mono 6
 
 # Always use --no-startup-id
 set $exec exec --no-startup-id
@@ -8,7 +8,6 @@ set $exec_always exec_always --no-startup-id
 $exec xrandr --output HDMI-A-0 --primary
 
 gaps inner 6
-gaps outer 2
 
 # Use the win key as $mod
 set $mod Mod4
@@ -169,7 +168,7 @@ bar {
   i3bar_command i3bar
   status_command i3status
 
-  font pango:Adobe Garamond Pro 8
+  font pango:Fantasque Sans Mono 6
   position top
   tray_output primary
   tray_padding 0
