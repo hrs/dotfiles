@@ -162,12 +162,6 @@ Define a big ol' bunch of handy utility functions.
             (expand-file-name "db/migrate" (projectile-project-root)) t)))
       (find-file (car (last migrations)))))
 
-  (defun hrs/find-file-as-sudo ()
-    (interactive)
-    (let ((file-name (buffer-file-name)))
-      (when file-name
-        (find-alternate-file (concat "/sudo::" file-name)))))
-
   (defun hrs/image-path-p (path)
     "Return true if the path corresponds to an image file."
     (member (downcase (or (file-name-extension path) ""))
@@ -2773,6 +2767,15 @@ specified region.
     "Replace common HTML entities in the region or buffer with their ASCII equivalents."
     (interactive)
     (hrs-replace-symbols hrs-html-entity-replacements))
+#+end_src
+
+** Edit files as =sudo=
+
+I always forget the TRAMP syntax, and this provides the easier-to-remember
+=sudo-edit= function.
+
+#+begin_src emacs-lisp
+  (use-package sudo-edit)
 #+end_src
 
 * Set custom keybindings
