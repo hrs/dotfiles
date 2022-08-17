@@ -1,0 +1,67 @@
+#!/bin/sh
+
+ws2="2:edit"
+
+# Start the dunst notification service
+dunst &
+
+# Load up config in .Xresources (for DPI)
+xrdb -load ~/.Xresources &
+
+# Use Caps Lock as an additional Control key
+setxkbmap -option ctrl:nocaps &
+
+# Treat hitting and releasing Control without chording as Escape
+xcape &
+
+# Bind media/volume keys
+xbindkeys &
+
+# Start up the Dropbox client
+dropbox start
+
+# Hide the mouse cursor after a second
+unclutter -idle 1 -noevents &
+
+# Launch the networking widget
+nm-applet &
+
+# Use Redshift to adjust screen color over the course of the day
+redshift -l 49:-123 &
+
+# Start the PulseAudio system tray
+pasystray &
+
+# Start up a GPG agent
+eval "$(gpg-agent --daemon)" &
+
+# Set the wallpaper
+~/.bin/paint-wallpaper &
+
+# Start my clipboard manager
+xfce4-clipman &
+
+# Ensure my VPN client is running
+~/.bin/close-startup-window privateinternetaccess &
+~/bin/start-pia-client &
+
+# Start initial apps
+firefox &
+
+~/.bin/move-startup-window Emacs $ws2 &
+restart-emacs &
+
+signal-desktop --use-tray-icon --start-in-tray --no-sandbox &
+
+~/.bin/close-startup-window TelegramDesktop &
+telegram-desktop &
+
+~/.bin/close-startup-window discord &
+~/.bin/close-startup-window discord &
+discord &
+
+quodlibet --run --hide-window &
+calibre --start-in-tray &
+
+# Visit Emacs
+i3-msg workspace number $ws2

@@ -143,91 +143,23 @@ bindsym $mod+Down $exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 # Startup applications
 ########################################
 
-# Start the dunst notification service
-$exec dunst &
-
-# Mount the s3 bucket
-$exec mount ~/s3
-
-# Load up config in .Xresources (for DPI)
-$exec xrdb -load ~/.Xresources &
-
 # Start the Picom compositor (for i3bar transparency)
 $exec_always picom &
 
-# Use Caps Lock as an additional Control key
-$exec setxkbmap -option ctrl:nocaps &
+# Launch everything! Daemons, chat apps, Firefox, Emacs, you name it.
+$exec ~/.bin/start-i3-apps &
 
-# Treat hitting and releasing Control without chording as Escape
-$exec xcape &
-
-# Bind media/volume keys
-$exec xbindkeys &
-
-# Start up the Dropbox client
-$exec dropbox start
-
-# Hide the mouse cursor after a second
-$exec unclutter -idle 1 -noevents &
-
-# Launch the networking widget
-$exec nm-applet &
-
-# Use Redshift to adjust screen color over the course of the day
-$exec redshift -l 49:-123 &
-
-# Start the PulseAudio system tray
-$exec pasystray &
-
-# Start up a GPG agent
-$exec eval $(gpg-agent --daemon) &
-
-# Set the wallpaper
-$exec ~/.bin/paint-wallpaper &
-
-# Start my clipboard manager
-$exec xfce4-clipman &
-
-# Ensure my VPN client is running
-$exec ~/.bin/close-startup-window privateinternetaccess &
-$exec ~/bin/start-pia-client &
-
-# Start Firefox on workspace 1
+# Start Firefox on workspace 1, chat apps on 4, music on 5, and books on 6.
 assign [class="Firefox"] $ws1
-$exec firefox &
-
-# Start Emacs on workspace 2
-$exec ~/.bin/move-startup-window Emacs $ws2 &
-$exec restart-emacs &
-
-# Start chat applications on workspace $ws4
 assign [class="Signal"] $ws4
-$exec signal-desktop --use-tray-icon --start-in-tray --no-sandbox &
-
 assign [class="Telegram"] $ws4
-$exec ~/.bin/close-startup-window TelegramDesktop &
-$exec telegram-desktop &
-
 assign [class="Slack"] $ws4
-# $exec ~/.bin/close-startup-window TelegramDesktop &
-# $exec telegram-desktop &
-
 assign [class="discord"] $ws4
-# $exec ~/.bin/close-startup-window discord &
-$exec discord &
-
 assign [class="Zoom"] $ws4
-
-# Start music player on workspace $ws5
 assign [class="Quodlibet"] $ws5
-$exec quodlibet --run --hide-window &
-
-# Start Calibre on workspace $ws6
 assign [class="calibre"] $ws6
-$exec calibre --start-in-tray &
 
-# Visit Emacs
-$exec "i3-msg workspace number $ws2"
+bindsym $mod+r $exec ~/bin/random-wallpaper
 
 bindsym $mod+Pause $exec ~/bin/toggle-vpn
 bindsym $mod+Scroll_Lock $exec ~/bin/cycle-audio
