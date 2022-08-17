@@ -317,8 +317,8 @@ Use =company-mode= everywhere.
 
     :custom
     (company-backends '((company-capf company-dabbrev-code)))
-    (company-idle-delay 0)
-    (company-minimum-prefix-length 3)
+    (company-idle-delay 0.2)
+    (company-minimum-prefix-length 5)
     (company-tooltip-align-annotations t)
     (company-tooltip-limit 20)
 
@@ -533,58 +533,56 @@ documentation an d type annotations and suchlike all over my damn screen, which
 
 ** Coq
 
-I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
+I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
+
+- I like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
+  they've always been unpleasant surprises for me.
+- Similarly, =flycheck-mode= seems to do more harm than good.
+- The Proof General splash screen's pretty cute, but I don't need to see it
+  every time.
+- The default Proof General layout stacks the code, goal, and response buffers
+  on top of each other. I like to keep my code on one side and my goal and
+  response buffers on the other.
+- Have point follow the end of the locked region when asserting and undoing
+  proof commands, but don't lock it to the end.
+- Proof General usually evaluates each comment individually. In literate
+  programs, this can result in evaluating a /ton/ of comments. This evaluates a
+  series of consecutive comments as a single comment.
 
 #+begin_src emacs-lisp
   (use-package proof-general
-    :ensure-system-package (coqc . coq))
-  (use-package company-coq)
+    :ensure-system-package (coqc . coq)
+    :hook (coq-mode . (lambda ()
+                        (undo-tree-mode 1)
+                        (abbrev-mode 0)
+                        (flycheck-mode 0)))
+
+    :init
+    (setq proof-splash-enable nil)
+
+    :config
+    (setq proof-three-window-mode-policy 'hybrid
+          proof-follow-mode 'follow
+          proof-script-fly-past-comments t))
 #+end_src
+
+=company-coq-mode= adds some features (completion, documentation, ligatures...)
+which make Proof General a bit friendlier.
 
 I bind the up and down arrow keys to evaluating and retracting the next and
-previous statements. This is more convenient than the default bindings of =C-c
-C-n= and =C-c C-u=.
-
-I also like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
-they've always been unpleasant surprises for me.
+previous statements. This is more convenient for me than the default bindings of
+=C-c C-n= and =C-c C-u=.
 
 #+begin_src emacs-lisp
-  (add-hook 'coq-mode-hook
-            (lambda ()
-              (company-coq-mode)
-              (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
-              (evil-define-key 'normal coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command)
-              (evil-define-key 'normal coq-mode-map (kbd "<return>") 'company-coq-proof-goto-point)
-              (abbrev-mode 0)))
-#+end_src
+  (use-package company-coq
+    :hook (coq-mode . company-coq-mode)
 
-The default Proof General layout stacks the code, goal, and response buffers on
-top of each other. I like to keep my code on one side and my goal and response
-buffers on the other.
+    :config
+    (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
+    (evil-define-key 'insert coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
 
-#+begin_src emacs-lisp
-  (setq proof-three-window-mode-policy 'hybrid)
-#+end_src
-
-Don't move point when asserting and undoing proof commands.
-
-#+begin_src emacs-lisp
-  (setq proof-follow-mode 'ignore)
-#+end_src
-
-The Proof General splash screen's pretty cute, but I don't need to see it every
-time.
-
-#+begin_src emacs-lisp
-  (setq proof-splash-enable nil)
-#+end_src
-
-Proof General usually evaluates each comment individually. In literate programs,
-this can result in evaluating a /ton/ of comments. This evaluates a series of
-consecutive comments as a single comment.
-
-#+begin_src emacs-lisp
-  (setq proof-script-fly-past-comments t)
+    (evil-define-key 'normal coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command)
+    (evil-define-key 'insert coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command))
 #+end_src
 
 ** CSS & Sass
