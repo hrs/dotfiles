@@ -34,7 +34,6 @@ sudo apt install \
      mlocate \
      mpv \
      msmtp \
-     mu4e \
      npm \
      opam \
      openssl \

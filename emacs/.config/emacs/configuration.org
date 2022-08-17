@@ -1910,13 +1910,16 @@ This selects and inserts a tag:
 
 * Email with =mu4e=
 
-Inconveniently, =mu4e= is distributed along with =mu= in my system's package
-manager instead of as a package on MELPA. This loads up =mu4e= from the usual
-location:
+Inconveniently, =mu4e= is ordinarily distributed along with =mu= in my system's
+package manager instead of as a package on MELPA. That package also seems to
+have some trouble inter-operating with my (more recent and locally built)
+version of Emacs.
+
+As a last resort, this loads up =mu4e= from a local repo:
 
 #+begin_src emacs-lisp
   (use-package mu4e
-    :load-path "/usr/share/emacs/site-lisp/mu4e")
+    :load-path "~/media/code/mu/build/mu4e")
 #+end_src
 
 ** Who am I?
