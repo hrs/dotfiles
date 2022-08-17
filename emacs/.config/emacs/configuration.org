@@ -1437,7 +1437,7 @@ Define a few common tasks as capture templates.
                '("d" "Delivery"
                  entry
                  (file+headline "~/documents/org/deliveries.org" "Deliveries")
-                 "** %?\n   SCHEDULED: %t\n"))
+                 "** %?\nSCHEDULED: %t\n"))
 
   (add-to-list 'org-capture-templates
                '("e" "Email"
@@ -1479,7 +1479,7 @@ Define a few common tasks as capture templates.
                '("r" "Writing prompt"
                  entry
                  (file "~/documents/org/writing.org")
-                 "* %?\n   %t\n"))
+                 "* %?\n%t\n"))
 
   (add-to-list 'org-capture-templates
                '("s" "Subscribe to an RSS feed"
