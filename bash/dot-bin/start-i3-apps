@@ -48,9 +48,6 @@ xfce4-clipman &
 # Start initial apps
 firefox &
 
-~/.bin/move-startup-window Emacs $ws2 &
-restart-emacs &
-
 signal-desktop --use-tray-icon --start-in-tray --no-sandbox &
 
 ~/.bin/close-startup-window TelegramDesktop &
@@ -63,5 +60,7 @@ discord &
 quodlibet --run --hide-window &
 calibre --start-in-tray &
 
-# Visit Emacs
+# Start and visit Emacs
 i3-msg workspace number $ws2
+pkill ^emacs$
+emacs --daemon && emacsclient -c &
