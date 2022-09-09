@@ -2524,6 +2524,7 @@ Open media with the appropriate programs.
             ("pdf" . "zathura")
             ("png" . "s")
             ("webm" . "mpv")
+            ("wmv" . "mpv")
             ("xls" . "gnumeric")
             ("xlsx" . "gnumeric"))))
 #+end_src
