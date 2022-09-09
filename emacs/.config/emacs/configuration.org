@@ -257,6 +257,9 @@ as point goes.
   (set-face-attribute 'default nil
                       :family "Fantasque Sans Mono"
                       :height 80)
+  (set-face-attribute 'fixed-pitch nil
+                      :family "Fantasque Sans Mono"
+                      :height 80)
 
   (use-package default-text-scale
     :bind
@@ -517,8 +520,8 @@ that it displays all available documentation on hover.
 #+end_src
 
 This integrates LSP into my UI in various useful ways. Specifically, it writes
-documentation an d type annotations and suchlike all over my damn screen, which
-/I/ enjoy, personally.
+documentation and type annotations and suchlike all over my damn screen, which /I/
+enjoy, personally.
 
 #+begin_src emacs-lisp
   (use-package lsp-ui
