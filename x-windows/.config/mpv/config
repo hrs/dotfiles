@@ -1,1 +1,2 @@
 script-opts='osc-title=${filename}'
+force-window=yes
