@@ -560,6 +560,7 @@ I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
                         (undo-tree-mode 1)
                         (abbrev-mode 0)
                         (flycheck-mode 0)))
+    :bind ("C-c v" . deadgrep)
 
     :init
     (setq proof-splash-enable nil)
