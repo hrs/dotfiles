@@ -127,7 +127,7 @@ bindsym $mod+Shift+p $exec ~/.bin/rofi-pass --last-used
 bindsym $mod+s $exec ~/bin/snippet.rb
 
 # Open up the file manager
-bindsym $mod+n $exec emacsclient --create-frame --alternate-editor='' --eval '(dired "~")'
+bindsym $mod+n $exec ~/.bin/dired
 bindsym $mod+Shift+n $exec pcmanfm
 
 # Control music and volume

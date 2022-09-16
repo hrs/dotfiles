@@ -1,6 +1,7 @@
 # -*- mode: sh -*-
 
 alias agu="sudo /home/hrs/.bin/agu"
+alias d="dired"
 alias dc="docker-compose"
 alias gg="git grep -n"
 alias git="hub"

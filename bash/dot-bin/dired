@@ -1,0 +1,17 @@
+#!/bin/bash
+
+open_dired_frame () {
+  emacsclient \
+    --create-frame \
+    --alternate-editor="" \
+    --eval "(dired \"$1\")" &
+}
+
+if [[ $# -eq 0 ]]; then
+  open_dired_frame ""
+  exit 1
+fi
+
+for dir in "$@"; do
+  open_dired_frame "$dir"
+done
