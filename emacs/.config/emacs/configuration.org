@@ -2531,6 +2531,7 @@ Open media with the appropriate programs.
             ("png" . "~/.bin/s")
             ("webm" . "mpv")
             ("wmv" . "mpv")
+            ("xcf" . "gimp")
             ("xls" . "gnumeric")
             ("xlsx" . "gnumeric"))))
 #+end_src
