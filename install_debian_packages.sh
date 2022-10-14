@@ -11,6 +11,7 @@ sudo apt install \
      emacs \
      etckeeper \
      fbreader \
+     fd-find \
      feh \
      fuse \
      gawk \

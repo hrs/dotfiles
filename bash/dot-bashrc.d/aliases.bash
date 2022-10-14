@@ -3,6 +3,7 @@
 alias agu="sudo /home/hrs/.bin/agu"
 alias d="dired"
 alias dc="docker-compose"
+alias fd="fdfind"
 alias gg="git grep -n"
 alias git="hub"
 alias gpg="gpg2"
