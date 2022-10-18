@@ -1389,15 +1389,15 @@ Shorten the default (lengthy) =org-agenda= modeline.
 I have a number of standing weekly video calls with friends and family, and I
 like keeping track of what happened in the last week to share on those calls.
 Because my memories only exist in text files, I have a custom view to list news
-items from the last week.
+items from the last couple weeks.
 
 #+begin_src emacs-lisp
   (add-to-list 'org-agenda-custom-commands
                '("n" "News from this week"
                  ((agenda ""))
                  ((org-agenda-overriding-header "News from this week")
-                  (org-agenda-start-day "-7d")
-                  (org-agenda-span 14)
+                  (org-agenda-start-day "-14d")
+                  (org-agenda-span 21)
                   (org-agenda-files '("~/documents/org/news.org"
                                       "~/documents/org/recurring-events.org"
                                       "~/documents/notes/books-read.org"
