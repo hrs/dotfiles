@@ -41,7 +41,9 @@ package (for example, =deadgrep= doesn't work if =ripgrep= isn't installed). Thi
 uses the system package manager (Debian's =apt=, in my case).
 
 #+begin_src emacs-lisp
-  (use-package use-package-ensure-system-package)
+  (use-package use-package-ensure-system-package
+    :custom
+    (system-packages-package-manager 'apt))
 #+end_src
 
 * Use =sensible-defaults.el=
