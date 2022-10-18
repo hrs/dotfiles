@@ -1,0 +1,17 @@
+#!/bin/bash
+
+sudo_edit () {
+  emacsclient \
+    --create-frame \
+    --alternate-editor="" \
+    --eval "(progn (find-file \"$1\") (sudo-edit))" &
+}
+
+if [[ $# -eq 0 ]]; then
+  echo "usage: suem [files]"
+  exit 1
+fi
+
+for file in "$@"; do
+  sudo_edit "$file"
+done
