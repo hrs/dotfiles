@@ -104,6 +104,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
             dired
             elfeed
             ibuffer
+            info
             magit
             mu4e
             pdf-view
