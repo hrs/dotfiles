@@ -1045,7 +1045,7 @@ I'll also occasionally use =pwgen= to generate and insert a secure password.
 
   (defun hrs/insert-password ()
     (interactive)
-    (shell-command "pwgen 30 -1" t))
+    (shell-command "pwgen 30 --num-passwords=1 --secure | tr --delete '\n'" t))
 #+end_src
 
 * Publishing and task management with Org-mode
