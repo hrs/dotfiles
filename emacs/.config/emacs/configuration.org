@@ -2088,7 +2088,7 @@ Save attachments in my =~/downloads= directory, not my home directory.
 Hit =C-c C-o= to open a URL in the browser.
 
 #+begin_src emacs-lisp
-  (define-key mu4e-view-mode-map (kbd "C-c C-o") 'mu4e~view-browse-url-from-binding)
+  (define-key mu4e-view-mode-map (kbd "C-c C-o") 'shr-browse-url)
 #+end_src
 
 While HTML emails are just fundamentally awful, we usually still need to read
