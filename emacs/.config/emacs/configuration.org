@@ -1400,6 +1400,7 @@ items from the last couple weeks.
                   (org-agenda-span 21)
                   (org-agenda-files '("~/documents/org/news.org"
                                       "~/documents/org/recurring-events.org"
+                                      "~/documents/notes/bird-log.org"
                                       "~/documents/notes/books-read.org"
                                       "~/documents/notes/papers-read.org")))))
 #+end_src
