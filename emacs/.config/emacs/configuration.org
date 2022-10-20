@@ -2520,6 +2520,7 @@ Open media with the appropriate programs.
     (setq dired-open-extensions
           '(("avi" . "mpv")
             ("cbr" . "zathura")
+            ("cbz" . "zathura")
             ("doc" . "abiword")
             ("docx" . "abiword")
             ("gif" . "ffplay")
