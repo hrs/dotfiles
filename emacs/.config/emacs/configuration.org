@@ -219,6 +219,17 @@ Why not?
   (global-prettify-symbols-mode t)
 #+end_src
 
+** Configure a pretty modeline
+
+#+begin_src emacs-lisp
+  (use-package moody
+    :custom
+    (x-underline-at-descent-line t)
+    :config
+    (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode))
+#+end_src
+
 ** Load up a theme
 
 This sets up the current theme.
@@ -245,16 +256,6 @@ modes in the modeline. Nice!
     (setq minions-mode-line-lighter "⚙"
           minions-mode-line-delimiters (cons "" ""))
     (minions-mode 1))
-#+end_src
-
-** Configure a pretty modeline
-
-#+begin_src emacs-lisp
-  (use-package moody
-    :config
-    (setq x-underline-at-descent-line t)
-    (moody-replace-mode-line-buffer-identification)
-    (moody-replace-vc-mode))
 #+end_src
 
 ** Scroll conservatively
