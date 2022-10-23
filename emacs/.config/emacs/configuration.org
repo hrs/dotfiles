@@ -2418,6 +2418,27 @@ spellchecking, translation, that sort of thing).
     (prose-assistant-mode t))
 #+end_src
 
+** Activate =writing-mode=
+
+This minor mode enables a distraction-free writing environment. It enables
+=olivetti-mode=, =mixed-pitch-mode=, =visual-line-mode=, and =flycheck-mode=, plus it
+displays the word count in the mode-line. Toggle it with =<f9>=.
+
+#+begin_src emacs-lisp
+  (use-package olivetti)
+  (use-package mixed-pitch)
+
+  (use-package wc-mode
+    :custom
+    (wc-modeline-format "[%tw words]")
+    :config
+    (add-to-list 'minions-prominent-modes 'wc-mode))
+
+  (use-package writing-mode
+    :load-path "resources"
+    :bind ("<f9>" . writing-mode))
+#+end_src
+
 ** Editing with Markdown
 
 Because I can't always use =org=.
