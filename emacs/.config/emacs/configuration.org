@@ -274,8 +274,13 @@ as point goes.
   (set-face-attribute 'default nil
                       :family "Fantasque Sans Mono"
                       :height 80)
+
   (set-face-attribute 'fixed-pitch nil
                       :family "Fantasque Sans Mono"
+                      :height 80)
+
+  (set-face-attribute 'variable-pitch nil
+                      :family "ETBembo"
                       :height 80)
 
   (use-package default-text-scale
