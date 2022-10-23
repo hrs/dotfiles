@@ -235,13 +235,16 @@ Why not?
 This sets up the current theme.
 
 #+begin_src emacs-lisp
-  (use-package spacemacs-theme
-    :defer t
-    :init
-    (setq spacemacs-theme-org-bold nil
-          spacemacs-theme-org-height nil))
+  (use-package modus-themes
+    :custom
+    (modus-themes-bold-constructs t)
+    (modus-themes-italic-constructs t)
+    (modus-themes-mode-line '(moody accented))
+    (modus-themes-org-blocks 'gray-background)
+    (modus-themes-paren-match '(intense))
+    (modus-themes-region '(bg-only)))
 
-  (load-theme 'spacemacs-light t)
+  (modus-themes-load-operandi)
 #+end_src
 
 ** Use =minions= to hide all minor modes
