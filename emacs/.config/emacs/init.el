@@ -5,6 +5,8 @@
 (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (package-initialize)
 
+(defun package--save-selected-packages (&rest opt) nil)
+
 ;; Ensure that use-package is installed.
 ;;
 ;; If use-package isn't already installed, it's extremely likely that this is a
