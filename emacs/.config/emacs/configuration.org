@@ -2490,6 +2490,19 @@ Binding this to =M-SPC= is strictly better than the original binding of
   (put 'upcase-region 'disabled nil)
 #+end_src
 
+** =denote=
+
+I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
+
+#+begin_src emacs-lisp
+  (use-package denote
+    :hook (dired-mode . denote-dired-mode)
+    :bind ("C-c n n" . denote)
+
+    :custom
+    (denote-directory "~/documents/notes"))
+#+end_src
+
 * File management with =dired=
 
 I've started using =dired= as my primary file manager. About time, huh?
