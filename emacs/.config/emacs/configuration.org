@@ -2861,5 +2861,6 @@ Remap when working in terminal Emacs.
 * Extra
 
 #+begin_src emacs-lisp
-  (load-file "~/.emacs-private.el")
+  (when (file-exists-p (concat user-emacs-directory "private.el"))
+    (load-file (concat user-emacs-directory "private.el")))
 #+end_src
