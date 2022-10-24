@@ -120,6 +120,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
             magit
             mu4e
             pdf-view
+            proced
             replace
             vterm
             which-key))
