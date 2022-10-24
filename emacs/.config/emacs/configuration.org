@@ -2190,18 +2190,17 @@ I send my email through =msmtp=. These settings describe how to send a message:
 
 ** Agenda integration
 
-=org-mu4e= lets me store links to emails. I use this to reference emails in my
+=mu4e-org= lets me store Org links to emails. I use this to reference emails in my
 TODO list while keeping my inbox empty.
-
-#+begin_src emacs-lisp
-  (require 'org-mu4e)
-#+end_src
 
 When storing a link to a message in the headers view, link to the message
 instead of the search that resulted in that view.
 
 #+begin_src emacs-lisp
-  (setq org-mu4e-link-query-in-headers-mode nil)
+  (use-package mu4e-org
+    :load-path "~/media/code/mu/build/mu4e"
+    :custom
+    (mu4e-org-link-query-in-headers-mode nil))
 #+end_src
 
 ** Configure =org-contacts= with =mu4e=
