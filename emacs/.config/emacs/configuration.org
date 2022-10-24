@@ -1390,19 +1390,17 @@ the =inbox=, =habit=, =daily=, and =yearly= tags. Here are the sections:
                   (org-agenda-tag-filter-preset '("-duplicate" "-news" "-writing")))))
 #+end_src
 
-I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster. This
-also copies any files I've sent through Drafts into my index file before
-displaying the index so that they'll appear in the agenda view, too.
+I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
 
 #+begin_src emacs-lisp
-  (defun hrs/dashboard ()
+  (defun hrs-dashboard ()
     (interactive)
     (call-process-shell-command "daily-checklist")
+    (org-agenda nil "p")
     (delete-other-windows)
-    (hrs/open-index-file)
-    (org-agenda nil "p"))
+    (org-agenda-redo))
 
-  (global-set-key (kbd "C-c d") 'hrs/dashboard)
+  (global-set-key (kbd "C-c d") 'hrs-dashboard)
 #+end_src
 
 Shorten the default (lengthy) =org-agenda= modeline.
