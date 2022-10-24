@@ -23,8 +23,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Code:
-(eval-when-compile (require 'prose-assistant-mode)
-                   (require 'mixed-pitch)
+(eval-when-compile (require 'mixed-pitch)
                    (require 'olivetti)
                    (require 'wc-mode))
 
@@ -48,14 +47,6 @@
  (defvar writing-initial-state-wc-mode nil
    "Was wc-mode initially enabled?"))
 
-(make-variable-buffer-local
- (defvar writing-initial-state-modus-themes-headings nil
-   "Original settings for modus-themes-headings."))
-
-(defun using-modus-operandi-theme-p ()
-  (eq (car custom-enabled-themes)
-      'modus-operandi))
-
 (defun writing-enable ()
   "Enable minor writing-mode."
   (setq writing-initial-state-flycheck-mode flycheck-mode)
@@ -71,18 +62,7 @@
   (visual-line-mode 1)
 
   (setq writing-initial-state-wc-mode wc-mode)
-  (wc-mode 1)
-
-  (when (using-modus-operandi-theme-p)
-    (setq writing-initial-state-modus-themes-headings
-          modus-themes-headings)
-
-    (setq modus-themes-headings
-          '((0 . (1.3))
-            (1 . (1.3))
-            (2 . (1.2))
-            (t . (1.1))))
-    (modus-themes-load-operandi)))
+  (wc-mode 1))
 
 (defun writing-disable ()
   "Disable minor writing-mode."
@@ -99,12 +79,7 @@
     (visual-line-mode -1))
 
   (when (not writing-initial-state-wc-mode)
-    (wc-mode -1))
-
-  (when (using-modus-operandi-theme-p)
-    (setq modus-themes-headings
-          writing-initial-state-modus-themes-headings)
-    (modus-themes-load-operandi)))
+    (wc-mode -1)))
 
 ;;;###autoload
 (define-minor-mode writing-mode
