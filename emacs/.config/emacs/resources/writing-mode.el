@@ -6,6 +6,14 @@
 ;;; Commentary:
 
 ;; Toggle some graphical elements to make prose writing more pleasant.
+;;
+;; Specifically, when activated, `writing-mode' enables `mixed-pitch-mode',
+;; `olivetti-mode', and `wc-mode', creating a "distraction-free" writing
+;; environment with variable-pitch fonts and a word count in the mode line. It
+;; also enables `visual-line-mode' and disables `auto-fill-mode', so lines wrap
+;; visually instead of using hard newlines.
+;;
+;; When deactivated it restores all those modes to their previous states.
 
 ;;; License:
 
@@ -26,6 +34,10 @@
 (eval-when-compile (require 'mixed-pitch)
                    (require 'olivetti)
                    (require 'wc-mode))
+
+(make-variable-buffer-local
+ (defvar writing-initial-state-auto-fill-mode nil
+   "Was auto-fill-mode initially enabled?"))
 
 (make-variable-buffer-local
  (defvar writing-initial-state-flycheck-mode nil
@@ -49,6 +61,9 @@
 
 (defun writing-enable ()
   "Enable minor writing-mode."
+  (setq writing-initial-state-auto-fill-mode auto-fill-function)
+  (auto-fill-mode -1)
+
   (setq writing-initial-state-flycheck-mode flycheck-mode)
   (flycheck-mode 1)
 
@@ -66,6 +81,9 @@
 
 (defun writing-disable ()
   "Disable minor writing-mode."
+  (when writing-initial-state-auto-fill-mode
+    (auto-fill-mode 1))
+
   (when (not writing-initial-state-flycheck-mode)
     (flycheck-mode -1))
 
