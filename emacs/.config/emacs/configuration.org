@@ -2419,6 +2419,7 @@ spellchecking, translation, that sort of thing).
 #+begin_src emacs-lisp
   (use-package prose-assistant-mode
     :load-path "resources"
+    :bind ("<f10>" . prose-assistant-menu)
     :config
     (prose-assistant-mode t))
 #+end_src
