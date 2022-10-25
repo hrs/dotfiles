@@ -33,6 +33,7 @@
 ;;; Code:
 (eval-when-compile (require 'mixed-pitch)
                    (require 'olivetti)
+                   (require 'org-modern)
                    (require 'wc-mode))
 
 (make-variable-buffer-local
@@ -50,6 +51,10 @@
 (make-variable-buffer-local
  (defvar writing-initial-state-olivetti-mode nil
    "Was olivetti-mode initially enabled?"))
+
+(make-variable-buffer-local
+ (defvar writing-initial-state-org-modern-mode nil
+   "Was org-modern-mode initially enabled?"))
 
 (make-variable-buffer-local
  (defvar writing-initial-state-visual-line-mode nil
@@ -73,6 +78,9 @@
   (setq writing-initial-state-olivetti-mode olivetti-mode)
   (olivetti-mode 1)
 
+  (setq writing-initial-state-org-modern-mode org-modern-mode)
+  (org-modern-mode 1)
+
   (setq writing-initial-state-visual-line-mode visual-line-mode)
   (visual-line-mode 1)
 
@@ -92,6 +100,9 @@
 
   (when (not writing-initial-state-olivetti-mode)
     (olivetti-mode -1))
+
+  (when (not writing-initial-state-org-modern-mode)
+    (org-modern-mode -1))
 
   (when (not writing-initial-state-visual-line-mode)
     (visual-line-mode -1))

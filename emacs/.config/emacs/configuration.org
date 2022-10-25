@@ -2429,8 +2429,9 @@ This minor mode enables a distraction-free writing environment. It enables
 displays the word count in the mode-line. Toggle it with =<f9>=.
 
 #+begin_src emacs-lisp
-  (use-package olivetti)
   (use-package mixed-pitch)
+  (use-package olivetti)
+  (use-package org-modern)
 
   (use-package wc-mode
     :custom
