@@ -188,6 +188,18 @@ Define a big ol' bunch of handy utility functions.
 
 * UI preferences
 
+** Don't resize the frame
+
+By default, Emacs attempts to resize each frame to maintain a certain number of
+characters in each line, so this width varies depending on the font used. This
+operation is a bit expensive, and since I use =i3=, a tiling window manager, it's
+also completely unnecessary, since the frame will be resized differently
+regardless. Just skip the whole thing instead.
+
+#+begin_src emacs-lisp
+  (setq frame-inhibit-implied-resize t)
+#+end_src
+
 ** Tweak window chrome
 
 I don't usually use the menu or scroll bar, and they take up useful space.
