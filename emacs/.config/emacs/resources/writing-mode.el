@@ -136,9 +136,6 @@ names to those initial settings."))
   (setq writing-initial-state-auto-fill-mode auto-fill-function)
   (auto-fill-mode -1)
 
-  (dolist (mode-name writing-enabled-modes)
-    (funcall mode-name 1))
-
   (when (eq major-mode 'org-mode)
     (setq org-ellipsis writing-org-ellipsis
           org-hide-emphasis-markers t
@@ -148,7 +145,10 @@ names to those initial settings."))
           org-startup-with-inline-images t
           org-superstar-special-todo-items t)
 
-    (org-redisplay-inline-images)))
+    (org-redisplay-inline-images))
+
+  (dolist (mode-name writing-enabled-modes)
+    (funcall mode-name 1)))
 
 (defun writing-disable ()
   "Disable minor writing-mode."
