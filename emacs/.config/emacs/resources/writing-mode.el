@@ -13,7 +13,12 @@
 ;; also enables `visual-line-mode' and disables `auto-fill-mode', so lines wrap
 ;; visually instead of using hard newlines.
 ;;
-;; When deactivated it restores all those modes to their previous states.
+;; It also enables lots of Org features, including hiding emphasis markers
+;; unless they're under point, using a pretty ellipsis, displaying mathematical
+;; entities, and displaying images inline.
+;;
+;; When deactivated it restores all those modes and variables to their previous
+;; states.
 
 ;;; License:
 
@@ -33,8 +38,22 @@
 ;;; Code:
 (eval-when-compile (require 'mixed-pitch)
                    (require 'olivetti)
+                   (require 'org-appear)
                    (require 'org-modern)
                    (require 'wc-mode))
+
+(defvar writing-preserved-variables
+  '(org-ellipsis
+    org-hide-emphasis-markers
+    org-image-actual-width
+    org-pretty-entities
+    org-startup-with-inline-images)
+  "Variables to be preserved and restored upon exiting `writing-mode'.")
+
+(make-variable-buffer-local
+ (defvar writing-buffer-saved-settings nil
+   "State of buffer variables before enabling `writing-mode'. Plist
+mapping cariables to those initial settings."))
 
 (make-variable-buffer-local
  (defvar writing-initial-state-auto-fill-mode nil
@@ -53,6 +72,10 @@
    "Was olivetti-mode initially enabled?"))
 
 (make-variable-buffer-local
+ (defvar writing-initial-state-org-appear-mode nil
+   "Was org-appear-mode initially enabled?"))
+
+(make-variable-buffer-local
  (defvar writing-initial-state-org-modern-mode nil
    "Was org-modern-mode initially enabled?"))
 
@@ -64,8 +87,37 @@
  (defvar writing-initial-state-wc-mode nil
    "Was wc-mode initially enabled?"))
 
+(defun writing--save-variable (variable-name)
+  "Store a variable's value as a pair in
+`writing-buffer-saved-settings'."
+  (setq writing-buffer-saved-settings
+        (plist-put writing-buffer-saved-settings
+                   variable-name
+                   (symbol-value variable-name))))
+
+(defun writing--restore-variable (variable-name)
+  "Restore a variable's value from the value stored in
+`writing-buffer-saved-settings'."
+  (set variable-name
+       (plist-get writing-buffer-saved-settings variable-name)))
+
+(defun writing--save-settings ()
+  "Save all `writing-preserved-variables' in
+`writing-buffer-saved-settings'."
+  (dolist (var writing-preserved-variables)
+    (writing--save-variable var)))
+
+(defun writing--restore-settings ()
+  "Restore all `writing-preserved-variables' values from
+`writing-buffer-saved-settings'."
+  (dolist (var writing-preserved-variables)
+    (writing--restore-variable var)))
+
 (defun writing-enable ()
   "Enable minor writing-mode."
+
+  (writing--save-settings)
+
   (setq writing-initial-state-auto-fill-mode auto-fill-function)
   (auto-fill-mode -1)
 
@@ -78,8 +130,20 @@
   (setq writing-initial-state-olivetti-mode olivetti-mode)
   (olivetti-mode 1)
 
-  (setq writing-initial-state-org-modern-mode org-modern-mode)
-  (org-modern-mode 1)
+  (when (eq major-mode 'org-mode)
+    (setq org-ellipsis "…"
+          org-image-actual-width '(600)
+          org-pretty-entities t
+          org-startup-with-inline-images t
+          org-hide-emphasis-markers t)
+
+    (org-redisplay-inline-images)
+
+    (setq writing-initial-state-org-modern-mode org-appear-mode)
+    (org-appear-mode 1)
+
+    (setq writing-initial-state-org-modern-mode org-modern-mode)
+    (org-modern-mode 1))
 
   (setq writing-initial-state-visual-line-mode visual-line-mode)
   (visual-line-mode 1)
@@ -89,6 +153,9 @@
 
 (defun writing-disable ()
   "Disable minor writing-mode."
+
+  (writing--restore-settings)
+
   (when writing-initial-state-auto-fill-mode
     (auto-fill-mode 1))
 
@@ -101,8 +168,17 @@
   (when (not writing-initial-state-olivetti-mode)
     (olivetti-mode -1))
 
-  (when (not writing-initial-state-org-modern-mode)
-    (org-modern-mode -1))
+  (when (eq major-mode 'org-mode)
+    (org-redisplay-inline-images)
+
+    (when (not writing-initial-state-org-appear-mode)
+      (org-appear-mode -1))
+
+    (when (not org-startup-with-inline-images)
+      (org-toggle-inline-images))
+
+    (when (not writing-initial-state-org-modern-mode)
+      (org-modern-mode -1)))
 
   (when (not writing-initial-state-visual-line-mode)
     (visual-line-mode -1))

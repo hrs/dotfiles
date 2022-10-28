@@ -1132,42 +1132,11 @@ I like to see an outline of pretty bullets instead of a list of asterisks.
                                (org-superstar-mode 1))))
 #+end_src
 
-This hides the slashes and stars that denote /emphasis/ and *bold* text unless point
-is on said text.
-
-#+begin_src emacs-lisp
-  (setq org-hide-emphasis-markers t)
-
-  (use-package org-appear
-    :hook (org-mode . org-appear-mode))
-#+end_src
-
-When a collapsed heading contains content, show an [[https://typographyforlawyers.com/ellipses.html][actual ellipsis character]]
-rather than a triple-dot bastardization.
-
-#+begin_src emacs-lisp
-  (setq org-ellipsis "…")
-#+end_src
-
 Put tags directly after the associated header rather than trying to align them.
 
 #+begin_src emacs-lisp
   (setq org-auto-align-tags nil
         org-tags-column 0)
-#+end_src
-
-Visibly render mathematical symbols.
-
-#+begin_src emacs-lisp
-  (setq org-pretty-entities t)
-#+end_src
-
-Show linked images directly in my Org document. Don't fully expand enormous
-images; instead, use =imagemagick= to display them at a manageable size.
-
-#+begin_src emacs-lisp
-  (setq org-startup-with-inline-images t
-        org-image-actual-width '(600))
 #+end_src
 
 Use syntax highlighting in source blocks while editing.
@@ -2443,6 +2412,7 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
 #+begin_src emacs-lisp
   (use-package mixed-pitch)
   (use-package olivetti)
+  (use-package org-appear)
   (use-package org-modern)
 
   (use-package wc-mode
