@@ -42,6 +42,9 @@
                    (require 'org-modern)
                    (require 'wc-mode))
 
+(defvar writing-org-ellipsis "…")
+(defvar writing-org-image-actual-width '(600))
+
 (defvar writing-enabled-modes
   '(flycheck-mode
     mixed-pitch-mode
@@ -133,8 +136,8 @@ names to those initial settings."))
     (funcall mode-name 1))
 
   (when (eq major-mode 'org-mode)
-    (setq org-ellipsis "…"
-          org-image-actual-width '(600)
+    (setq org-ellipsis writing-org-ellipsis
+          org-image-actual-width writing-org-image-actual-width
           org-pretty-entities t
           org-startup-with-inline-images t
           org-hide-emphasis-markers t)
