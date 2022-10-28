@@ -1366,6 +1366,9 @@ I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
   (defun hrs-dashboard ()
     (interactive)
     (call-process-shell-command "daily-checklist")
+    (find-file org-index-file)
+    (with-current-buffer (get-file-buffer org-index-file)
+      (revert-buffer nil t))
     (org-agenda nil "p")
     (delete-other-windows)
     (org-agenda-redo))
@@ -1541,7 +1544,6 @@ Hit =C-c i= to quickly open up my todo list.
     (interactive)
     (find-file org-index-file)
     (flycheck-mode -1)
-    (auto-revert-mode t)
     (end-of-buffer))
 
   (global-set-key (kbd "C-c i") 'hrs/open-index-file)
