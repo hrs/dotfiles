@@ -42,6 +42,16 @@
                    (require 'org-modern)
                    (require 'wc-mode))
 
+(defvar writing-enabled-modes
+  '(flycheck-mode
+    mixed-pitch-mode
+    olivetti-mode
+    org-appear-mode
+    org-modern-mode
+    visual-line-mode
+    wc-mode)
+  "Modes to be enabled when entering `writing-mode'.")
+
 (defvar writing-preserved-variables
   '(org-ellipsis
     org-hide-emphasis-markers
@@ -51,67 +61,65 @@
   "Variables to be preserved and restored upon exiting `writing-mode'.")
 
 (make-variable-buffer-local
- (defvar writing-buffer-saved-settings nil
+ (defvar writing-buffer-variable-states nil
    "State of buffer variables before enabling `writing-mode'. Plist
-mapping cariables to those initial settings."))
+mapping variables to those initial settings."))
+
+(make-variable-buffer-local
+ (defvar writing-buffer-mode-states nil
+   "State of modes before enabling `writing-mode'. Plist mapping mode
+names to those initial settings."))
 
 (make-variable-buffer-local
  (defvar writing-initial-state-auto-fill-mode nil
    "Was auto-fill-mode initially enabled?"))
 
-(make-variable-buffer-local
- (defvar writing-initial-state-flycheck-mode nil
-   "Was flycheck-mode initially enabled?"))
-
-(make-variable-buffer-local
- (defvar writing-initial-state-mixed-pitch-mode nil
-   "Was mixed-pitch-mode initially enabled?"))
-
-(make-variable-buffer-local
- (defvar writing-initial-state-olivetti-mode nil
-   "Was olivetti-mode initially enabled?"))
-
-(make-variable-buffer-local
- (defvar writing-initial-state-org-appear-mode nil
-   "Was org-appear-mode initially enabled?"))
-
-(make-variable-buffer-local
- (defvar writing-initial-state-org-modern-mode nil
-   "Was org-modern-mode initially enabled?"))
-
-(make-variable-buffer-local
- (defvar writing-initial-state-visual-line-mode nil
-   "Was visual-line-mode initially enabled?"))
-
-(make-variable-buffer-local
- (defvar writing-initial-state-wc-mode nil
-   "Was wc-mode initially enabled?"))
-
 (defun writing--save-variable (variable-name)
   "Store a variable's value as a pair in
-`writing-buffer-saved-settings'."
-  (setq writing-buffer-saved-settings
-        (plist-put writing-buffer-saved-settings
+`writing-buffer-variable-states'."
+  (setq writing-buffer-variable-states
+        (plist-put writing-buffer-variable-states
                    variable-name
                    (symbol-value variable-name))))
 
 (defun writing--restore-variable (variable-name)
   "Restore a variable's value from the value stored in
-`writing-buffer-saved-settings'."
+`writing-buffer-variable-states'."
   (set variable-name
-       (plist-get writing-buffer-saved-settings variable-name)))
+       (plist-get writing-buffer-variable-states variable-name)))
+
+(defun writing--save-mode (mode-name)
+  "Store a mode's value as a pair in
+`writing-buffer-mode-states'."
+  (setq writing-buffer-mode-states
+        (plist-put writing-buffer-mode-states
+                   mode-name
+                   (symbol-value mode-name))))
+
+(defun writing--restore-mode (mode-name)
+  "Restore a mode's state from the value stored in
+`writing-buffer-mode-states'."
+  (if (plist-get writing-buffer-mode-states mode-name)
+      (funcall mode-name 1)
+      (funcall mode-name -1)))
 
 (defun writing--save-settings ()
   "Save all `writing-preserved-variables' in
-`writing-buffer-saved-settings'."
-  (dolist (var writing-preserved-variables)
-    (writing--save-variable var)))
+`writing-buffer-variable-states'."
+  (dolist (variable-name writing-preserved-variables)
+    (writing--save-variable variable-name))
+
+  (dolist (mode-name writing-enabled-modes)
+    (writing--save-mode mode-name)))
 
 (defun writing--restore-settings ()
   "Restore all `writing-preserved-variables' values from
-`writing-buffer-saved-settings'."
-  (dolist (var writing-preserved-variables)
-    (writing--restore-variable var)))
+`writing-buffer-variable-states'."
+  (dolist (variable-name writing-preserved-variables)
+    (writing--restore-variable variable-name))
+
+  (dolist (mode-name writing-enabled-modes)
+    (writing--restore-mode mode-name)))
 
 (defun writing-enable ()
   "Enable minor writing-mode."
@@ -121,14 +129,8 @@ mapping cariables to those initial settings."))
   (setq writing-initial-state-auto-fill-mode auto-fill-function)
   (auto-fill-mode -1)
 
-  (setq writing-initial-state-flycheck-mode flycheck-mode)
-  (flycheck-mode 1)
-
-  (setq writing-initial-state-mixed-pitch-mode mixed-pitch-mode)
-  (mixed-pitch-mode 1)
-
-  (setq writing-initial-state-olivetti-mode olivetti-mode)
-  (olivetti-mode 1)
+  (dolist (mode-name writing-enabled-modes)
+    (funcall mode-name 1))
 
   (when (eq major-mode 'org-mode)
     (setq org-ellipsis "…"
@@ -137,19 +139,7 @@ mapping cariables to those initial settings."))
           org-startup-with-inline-images t
           org-hide-emphasis-markers t)
 
-    (org-redisplay-inline-images)
-
-    (setq writing-initial-state-org-modern-mode org-appear-mode)
-    (org-appear-mode 1)
-
-    (setq writing-initial-state-org-modern-mode org-modern-mode)
-    (org-modern-mode 1))
-
-  (setq writing-initial-state-visual-line-mode visual-line-mode)
-  (visual-line-mode 1)
-
-  (setq writing-initial-state-wc-mode wc-mode)
-  (wc-mode 1))
+    (org-redisplay-inline-images)))
 
 (defun writing-disable ()
   "Disable minor writing-mode."
@@ -159,32 +149,9 @@ mapping cariables to those initial settings."))
   (when writing-initial-state-auto-fill-mode
     (auto-fill-mode 1))
 
-  (when (not writing-initial-state-flycheck-mode)
-    (flycheck-mode -1))
-
-  (when (not writing-initial-state-mixed-pitch-mode)
-    (mixed-pitch-mode -1))
-
-  (when (not writing-initial-state-olivetti-mode)
-    (olivetti-mode -1))
-
-  (when (eq major-mode 'org-mode)
-    (org-redisplay-inline-images)
-
-    (when (not writing-initial-state-org-appear-mode)
-      (org-appear-mode -1))
-
-    (when (not org-startup-with-inline-images)
-      (org-toggle-inline-images))
-
-    (when (not writing-initial-state-org-modern-mode)
-      (org-modern-mode -1)))
-
-  (when (not writing-initial-state-visual-line-mode)
-    (visual-line-mode -1))
-
-  (when (not writing-initial-state-wc-mode)
-    (wc-mode -1)))
+  (when (and (eq major-mode 'org-mode)
+             (not org-startup-with-inline-images))
+    (org-toggle-inline-images)))
 
 ;;;###autoload
 (define-minor-mode writing-mode
