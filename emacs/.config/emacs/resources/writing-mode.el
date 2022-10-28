@@ -40,6 +40,7 @@
                    (require 'olivetti)
                    (require 'org-appear)
                    (require 'org-modern)
+                   (require 'org-superstar)
                    (require 'wc-mode))
 
 (defvar writing-org-ellipsis "…")
@@ -51,6 +52,7 @@
     olivetti-mode
     org-appear-mode
     org-modern-mode
+    org-superstar-mode
     visual-line-mode
     wc-mode)
   "Modes to be enabled when entering `writing-mode'.")
@@ -58,9 +60,11 @@
 (defvar writing-preserved-variables
   '(org-ellipsis
     org-hide-emphasis-markers
+    org-hide-leading-stars
     org-image-actual-width
     org-pretty-entities
-    org-startup-with-inline-images)
+    org-startup-with-inline-images
+    org-superstar-special-todo-items)
   "Variables to be preserved and restored upon exiting `writing-mode'.")
 
 (make-variable-buffer-local
@@ -137,10 +141,12 @@ names to those initial settings."))
 
   (when (eq major-mode 'org-mode)
     (setq org-ellipsis writing-org-ellipsis
+          org-hide-emphasis-markers t
+          org-hide-leading-stars t
           org-image-actual-width writing-org-image-actual-width
           org-pretty-entities t
           org-startup-with-inline-images t
-          org-hide-emphasis-markers t)
+          org-superstar-special-todo-items t)
 
     (org-redisplay-inline-images)))
 

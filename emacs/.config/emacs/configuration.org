@@ -1121,17 +1121,6 @@ I'd like the initial scratch buffer to be in Org:
 
 ** Display preferences
 
-I like to see an outline of pretty bullets instead of a list of asterisks.
-
-#+begin_src emacs-lisp
-  (use-package org-superstar
-    :config
-    (setq org-superstar-special-todo-items t)
-    (setq org-hide-leading-stars t)
-    (add-hook 'org-mode-hook (lambda ()
-                               (org-superstar-mode 1))))
-#+end_src
-
 Put tags directly after the associated header rather than trying to align them.
 
 #+begin_src emacs-lisp
@@ -2405,8 +2394,8 @@ spellchecking, translation, that sort of thing).
 
 ** Activate =writing-mode=
 
-This minor mode enables a distraction-free writing environment. It enables
-=olivetti-mode=, =mixed-pitch-mode=, =visual-line-mode=, and =flycheck-mode=, plus it
+This minor mode enables a distraction-free writing environment. It enables a
+whole bunch of pretty modes, switches fonts, enables inline images, and even
 displays the word count in the mode-line. Toggle it with =<f9>=.
 
 #+begin_src emacs-lisp
@@ -2414,6 +2403,7 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
   (use-package olivetti)
   (use-package org-appear)
   (use-package org-modern)
+  (use-package org-superstar)
 
   (use-package wc-mode
     :custom
