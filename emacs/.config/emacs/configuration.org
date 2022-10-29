@@ -2416,6 +2416,10 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
   (use-package writing-mode
     :load-path "resources"
     :bind ("<f9>" . writing-mode))
+
+  (use-package publish-mode
+    :load-path "resources"
+    :bind ("<f8>" . publish-build-and-view-pdf))
 #+end_src
 
 ** Editing with Markdown
