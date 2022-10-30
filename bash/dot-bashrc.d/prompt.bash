@@ -4,4 +4,4 @@
 # changes.
 GIT_PS1_SHOWDIRTYSTATE=true
 
-PS1='\[\033[38;5;91m\][\w$(__git_ps1)] \$ \[\033[00m\]'
+PS1='\[\033[38;5;91m\][\h:\w$(__git_ps1)] \$ \[\033[00m\]'
