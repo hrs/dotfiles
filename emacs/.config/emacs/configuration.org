@@ -2851,6 +2851,19 @@ Remap when working in terminal Emacs.
 
 * Extra
 
+Show battery status in the modeline if I'm on a laptop and not using a GUI.
+
+#+begin_src emacs-lisp
+  (require 'battery)
+  (when (and (not (display-graphic-p))
+             battery-status-function
+             (not (string-match-p "unknown"
+                                  (battery-format "%B" (funcall battery-status-function)))))
+    (display-battery-mode 1))
+#+end_src
+
+Load any extra bits and bobs.
+
 #+begin_src emacs-lisp
   (when (file-exists-p (concat user-emacs-directory "private.el"))
     (load-file (concat user-emacs-directory "private.el")))
