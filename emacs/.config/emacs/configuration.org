@@ -274,7 +274,7 @@ modes in the modeline. Nice!
 #+begin_src emacs-lisp
   (use-package minions
     :config
-    (setq minions-mode-line-lighter "⚙"
+    (setq minions-mode-line-lighter (if (display-graphic-p) "⚙" "#")
           minions-mode-line-delimiters (cons "" ""))
     (minions-mode 1))
 #+end_src
@@ -318,7 +318,8 @@ containing point. It makes it a bit easier to find point, and it's useful when
 pairing or presenting code.
 
 #+begin_src emacs-lisp
-  (global-hl-line-mode)
+  (when (display-graphic-p)
+    (global-hl-line-mode))
 #+end_src
 
 ** Highlight uncommitted changes
