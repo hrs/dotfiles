@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-alias agu="sudo /home/hrs/.bin/agu"
+alias agu="sudo $HOME/.bin/agu"
 alias d="dired"
 alias dc="docker-compose"
 alias fd="fdfind"

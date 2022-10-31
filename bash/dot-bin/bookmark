@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bookmarks="/home/hrs/documents/org/links.org"
+bookmarks="$HOME/documents/org/links.org"
 
 if [ $# -eq 0 ]; then
    echo "Usage: bookmark URL [title]"

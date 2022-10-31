@@ -12,8 +12,8 @@ export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export NAME="Harry R. Schwartz"
 export PROMPT_DIRTRIM=3
-export TEXINPUTS=/home/hrs/.texmf:$TEXINPUTS
-export TEXMFHOME=/home/hrs/.texmf
+export TEXMFHOME="$HOME/.texmf"
+export TEXINPUTS=$TEXMFHOME:$TEXINPUTS
 export Z3_EXE="/usr/bin/z3"
 
 # Don't spy on me, folks.
@@ -36,7 +36,7 @@ source "$HOME/.cargo/env"
 
 ### local config settings, if any
 
-test -r /home/hrs/.opam/opam-init/init.sh && . /home/hrs/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+test -r $HOME/.opam/opam-init/init.sh && . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 if [ -e $HOME/.bashrc.local ]; then
   source $HOME/.bashrc.local

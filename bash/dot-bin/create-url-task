@@ -1,6 +1,6 @@
 #!/bin/bash
 
-index="/home/hrs/documents/org/index.org"
+index="$HOME/documents/org/index.org"
 
 if [ $# -eq 0 ]; then
    echo "Usage: create-url-task URL [title]"
