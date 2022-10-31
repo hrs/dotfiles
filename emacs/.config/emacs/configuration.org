@@ -2475,10 +2475,21 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
 #+begin_src emacs-lisp
   (use-package denote
     :hook (dired-mode . denote-dired-mode)
-    :bind ("C-c n n" . denote)
+    :bind (("C-c n n" . denote)
+           ("C-c n f" . hrs-denote-find-file)
+           ("C-c n s" . hrs-denote-search))
 
     :custom
-    (denote-directory "~/documents/notes"))
+    (denote-directory "~/documents/notes")
+
+    :config
+    (defun hrs-denote-find-file ()
+      (interactive)
+      (projectile-find-file-in-directory denote-directory))
+
+    (defun hrs-denote-search (term)
+      (interactive (list (deadgrep--read-search-term)))
+      (deadgrep term denote-directory)))
 #+end_src
 
 * File management with =dired=
