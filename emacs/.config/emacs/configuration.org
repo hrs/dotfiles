@@ -273,9 +273,15 @@ modes in the modeline. Nice!
 
 #+begin_src emacs-lisp
   (use-package minions
+    :custom
+    (minions-mode-line-delimiters (cons "" ""))
+
     :config
-    (setq minions-mode-line-lighter (if (display-graphic-p) "⚙" "#")
-          minions-mode-line-delimiters (cons "" ""))
+    (defun hrs-set-minions-mode-line-lighter (_)
+      (setq minions-mode-line-lighter
+            (if (display-graphic-p) "⚙" "#")))
+
+    (add-to-list 'after-make-frame-functions #'hrs-set-minions-mode-line-lighter)
     (minions-mode 1))
 #+end_src
 
