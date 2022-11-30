@@ -2282,7 +2282,11 @@ I sometimes use [[https://github.com/hrs/engine-mode][=engine-mode=]] to (mostly
 
     (defengine duckduckgo
       "https://duckduckgo.com/?q=%s"
-      :keybinding "/"))
+      :keybinding "/")
+
+    (defengine wikipedia
+      "http://www.wikipedia.org/search-redirect.php?search=%s&language=en&go=Go"
+      :keybinding "w"))
 #+end_src
 
 * Writing prose
