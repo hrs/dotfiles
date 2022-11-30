@@ -2475,8 +2475,10 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
 #+begin_src emacs-lisp
   (use-package denote
     :hook (dired-mode . denote-dired-mode)
-    :bind (("C-c n n" . denote)
+    :bind (("C-c n b" . denote-link-backlinks)
            ("C-c n f" . hrs-denote-find-file)
+           ("C-c n l" . denote-link)
+           ("C-c n n" . denote)
            ("C-c n s" . hrs-denote-search))
 
     :custom
