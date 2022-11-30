@@ -1179,7 +1179,7 @@ content.
 
 Store my org files in =~/documents/org=, define the location of an index file (my
 main todo list), and archive finished tasks in
-=~/documents/org/archive/archive-YYYY.org=.
+=~/documents/org/archive/archive-YYYY-MM.org=.
 
 #+begin_src emacs-lisp
   (setq org-directory "~/documents/org")
@@ -1191,7 +1191,7 @@ main todo list), and archive finished tasks in
   (setq org-index-file (org-file-path "index.org"))
   (setq org-archive-location
         (concat
-         (org-file-path (format "archive/archive-%s.org" (format-time-string "%Y")))
+         (org-file-path (format-time-string "archive/archive-%Y-%m.org"))
          "::* From %s"))
 
   (setq org-refile-targets `((,org-index-file :level . 1)
@@ -1215,12 +1215,6 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
                                (org-file-path "recurring-tasks.org")
                                (org-file-path "work.org")
                                (org-file-path "writing.org")))
-#+end_src
-
-I'd like archiving tasks to also save all the Org buffers.
-
-#+begin_src emacs-lisp
-  (advice-add 'org-archive-subtree :after 'org-save-all-org-buffers)
 #+end_src
 
 Record the time that a todo was archived.
