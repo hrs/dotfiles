@@ -2026,6 +2026,24 @@ I'd rather word-wrap long lines when viewing mail.
   (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 #+end_src
 
+*** Bookmarks
+
+#+begin_src emacs-lisp
+  (setq mu4e-bookmarks
+        '((:name "personal - inbox" :query "maildir:/personal/inbox" :key ?i)
+          (:name "personal - drafts" :query "maildir:/personal/drafts" :key ?d)
+          (:name "personal - sent" :query "maildir:/personal/sent" :key ?s)
+          (:name "personal - archive" :query "maildir:/personal/archive" :key ?a)
+          (:name "today's messages" :query "date:today..now" :key ?t)
+          (:name "last 7 days" :query "date:7d..now" :key ?w)))
+
+  (setq mu4e-maildir-shortcuts
+        '(("/personal/inbox" . ?i)
+          ("/personal/drafts" . ?d)
+          ("/personal/sent" . ?s)
+          ("/personal/archive" . ?a)))
+#+end_src
+
 ** Composing a new message
 
 When I'm composing a new email, default to using the first context.
@@ -2121,10 +2139,7 @@ I want to archive my messages, not delete them, so I've rebound =d= to move
 email to my "Archive" folder without applying that flag.
 
 #+begin_src emacs-lisp
-  (setq mu4e-maildir-shortcuts
-      '(("/personal/archive" . ?A)))
-
-  (fset 'hrs/mu4e-move-to-archive "mA")
+  (fset 'hrs/mu4e-move-to-archive "ma")
   (evil-define-key 'normal mu4e-headers-mode-map (kbd "d") 'hrs/mu4e-move-to-archive)
   (evil-define-key 'normal mu4e-view-mode-map (kbd "d") 'hrs/mu4e-move-to-archive)
 #+end_src
