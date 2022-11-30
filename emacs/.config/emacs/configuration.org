@@ -1968,7 +1968,7 @@ manually; I have a cron job regularly calling the script to fetch my mail
 asynchronously).
 
 #+begin_src emacs-lisp
-  (setq mu4e-get-mail-command "~/.bin/get-new-mail")
+  (setq mu4e-get-mail-command (executable-find "get-new-mail"))
 #+end_src
 
 Rename files when moving them between directories. =mbsync= supposedly prefers
@@ -2573,7 +2573,7 @@ Open media with the appropriate programs.
                             zathura)
     :config
     (setq dired-open-extensions
-          '(("avi" . "mpv")
+          `(("avi" . "mpv")
             ("cbr" . "zathura")
             ("cbz" . "zathura")
             ("doc" . "abiword")
@@ -2581,8 +2581,8 @@ Open media with the appropriate programs.
             ("epub" . "fbreader")
             ("gif" . "ffplay")
             ("gnumeric" . "gnumeric")
-            ("jpeg" . "~/.bin/s")
-            ("jpg" . "~/.bin/s")
+            ("jpeg" . ,(executable-find "s"))
+            ("jpg" . ,(executable-find "s"))
             ("m4a" . "mpv")
             ("mkv" . "mpv")
             ("mobi" . "fbreader")
@@ -2590,7 +2590,7 @@ Open media with the appropriate programs.
             ("mp3" . "mpv")
             ("mp4" . "mpv")
             ("pdf" . "zathura")
-            ("png" . "~/.bin/s")
+            ("png" . ,(executable-find "s"))
             ("webm" . "mpv")
             ("wmv" . "mpv")
             ("xcf" . "gimp")
