@@ -71,18 +71,6 @@ is over 16 MB.
     (gcmh-mode))
 #+end_src
 
-* Set personal information
-
-Who am I? Where am I?
-
-#+begin_src emacs-lisp
-  (setq user-full-name "Harry R. Schwartz"
-        user-mail-address "hello@harryrschwartz.com"
-        calendar-latitude 49.26
-        calendar-longitude -123.11
-        calendar-location-name "Vancouver, BC")
-#+end_src
-
 * =evil-mode=
 
 Load and configure =evil-mode=.
@@ -1935,24 +1923,29 @@ I'd define it in here with an additional =make-mu4e-context= block.
 My full name is defined earlier in this configuration file.
 
 #+begin_src emacs-lisp
+  (setq mu4e-trash-folder "/personal/archive")
+  (setq mu4e-refile-folder "/personal/archive")
+  (setq mu4e-sent-folder "/personal/sent")
+  (setq mu4e-drafts-folder "/personal/drafts")
+
+  (defun +context-matches-p (msg context-name context-email)
+    (if msg
+        (mu4e-message-contact-field-matches msg '(:bcc :cc :to) context-email)
+      (when (mu4e-context-current)
+        (string= context-name (mu4e-context-name (mu4e-context-current))))))
+
   (setq mu4e-contexts
         `(,(make-mu4e-context
-            :name "personal"
-            :match-func (lambda (msg)
-                          (when msg
-                            (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
+            :name "consulting"
+            :match-func (lambda (msg) (+context-matches-p msg "consulting" "consulting@harryrschwartz.com"))
+            :vars '((user-mail-address .)
+                    (user-full-name . "Harry R. Schwartz")))
+
+          ,(make-mu4e-context
+            :name "hrs"
+            :match-func (lambda (msg) t)
             :vars '((user-mail-address . "hello@harryrschwartz.com")
-                    (mu4e-trash-folder . "/personal/archive")
-                    (mu4e-refile-folder . "/personal/archive")
-                    (mu4e-sent-folder . "/personal/sent")
-                    (mu4e-drafts-folder . "/personal/drafts")))))
-#+end_src
-
-Ordinarily =mu4e= would ask me which context I'd like to use, but since I've only
-got the one, let's just default to that every time and avoid the prompt.
-
-#+begin_src emacs-lisp
-  (setq mu4e-context-policy 'pick-first)
+                    (user-full-name . "Harry R. Schwartz")))))
 #+end_src
 
 ** Fetching new mail
@@ -1987,23 +1980,13 @@ updates it every minute.
 
 ** Viewing mail
 
-I check my email pretty often! Probably more than I should. This binds =C-c m=
-to close any other windows and open my personal inbox.
-
 #+begin_src emacs-lisp
-  (defun hrs/visit-inbox ()
+  (defun +visit-inbox ()
     (interactive)
-    (mu4e)
+    (delete-other-windows)
     (mu4e~headers-jump-to-maildir "/personal/inbox"))
 
-  (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
-#+end_src
-
-I don't really need to see the =*mu4e-main*= buffer (or, really, more than one
-mu4e buffer of any kind at a time).
-
-#+begin_src emacs-lisp
-  (setq mu4e-split-view 'single-window)
+  (global-set-key (kbd "C-c m") '+visit-inbox)
 #+end_src
 
 I don't need to see the context of a thread (with all the deleted messages) in
@@ -2044,12 +2027,18 @@ I'd rather word-wrap long lines when viewing mail.
           ("/personal/archive" . ?a)))
 #+end_src
 
-** Composing a new message
-
-When I'm composing a new email, default to using the first context.
+Don't show my (many) email addresses on the main pane, since they're just noise.
 
 #+begin_src emacs-lisp
-  (setq mu4e-compose-context-policy 'pick-first)
+  (setq mu4e-main-hide-personal-addresses t)
+#+end_src
+
+** Composing a new message
+
+When I'm composing a new email, default to using the current context.
+
+#+begin_src emacs-lisp
+  (setq mu4e-compose-context-policy nil)
 #+end_src
 
 Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
