@@ -137,12 +137,12 @@ Use =evil= with Org agendas.
 * Extend the =exec-path= and =PATH= as needed
 
 #+begin_src emacs-lisp
-  (defun hrs-append-to-path (path)
+  (defun +append-to-path (path)
     "Add a path both to the $PATH variable and to Emacs' exec-path."
     (setenv "PATH" (concat (getenv "PATH") ":" path))
     (add-to-list 'exec-path path))
 
-  (setq hrs-local-bin-paths
+  (setq +local-bin-paths
         '("/usr/local/bin"
           "~/.bin"
           "~/bin"
@@ -151,8 +151,8 @@ Use =evil= with Org agendas.
           "~/.opam/default/bin"
           "~/.local/bin"))
 
-  (dolist (path hrs-local-bin-paths)
-    (hrs-append-to-path path))
+  (dolist (path +local-bin-paths)
+    (+append-to-path path))
 #+end_src
 
 * Utility functions
@@ -160,7 +160,7 @@ Use =evil= with Org agendas.
 Define a big ol' bunch of handy utility functions.
 
 #+begin_src emacs-lisp
-  (defun hrs/visit-last-migration ()
+  (defun +visit-last-migration ()
     "Open the most recent Rails migration. Relies on projectile."
     (interactive)
     (let ((migrations
@@ -168,7 +168,7 @@ Define a big ol' bunch of handy utility functions.
             (expand-file-name "db/migrate" (projectile-project-root)) t)))
       (find-file (car (last migrations)))))
 
-  (defun hrs/image-path-p (path)
+  (defun +image-path-p (path)
     "Return true if the path corresponds to an image file."
     (member (downcase (or (file-name-extension path) ""))
             '("bmp" "gif" "jpeg" "jpg" "png" "tiff")))
@@ -265,11 +265,11 @@ modes in the modeline. Nice!
     (minions-mode-line-delimiters (cons "" ""))
 
     :config
-    (defun hrs-set-minions-mode-line-lighter (_)
+    (defun +set-minions-mode-line-lighter (_)
       (setq minions-mode-line-lighter
             (if (display-graphic-p) "⚙" "#")))
 
-    (add-to-list 'after-make-frame-functions #'hrs-set-minions-mode-line-lighter)
+    (add-to-list 'after-make-frame-functions #'+set-minions-mode-line-lighter)
     (minions-mode 1))
 #+end_src
 
@@ -661,19 +661,19 @@ Install =go-mode=, plus =protobuf-mode=.
 Define my =$GOPATH= and tell Emacs where to find the Go binaries.
 
 #+begin_src emacs-lisp
-  (setenv "GOPATH" "/home/hrs/code/go")
-  (hrs-append-to-path (concat (getenv "GOPATH") "/bin"))
+  (setenv "GOPATH" (expand-file-name "~/code/go"))
+  (+append-to-path (concat (getenv "GOPATH") "/bin"))
 #+end_src
 
 When I save a Go file, reformat the buffer (per =gofmt=) and organize the imports
 (per =goimports=).
 
 #+begin_src emacs-lisp
-  (defun hrs/install-go-save-hooks ()
+  (defun +install-go-save-hooks ()
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
-  (add-hook 'go-mode-hook #'hrs/install-go-save-hooks)
+  (add-hook 'go-mode-hook #'+install-go-save-hooks)
 #+end_src
 
 Redefine the default =compile= command to build the whole project, run tests, and
@@ -681,13 +681,13 @@ run =go vet= without requiring any additional confirmation. That's bound to =C-c
 C-c= in the =use-package= configuration above.
 
 #+begin_src emacs-lisp
-  (defun hrs/set-go-compilation-configuration ()
+  (defun +set-go-compilation-configuration ()
     (set (make-local-variable 'compilation-read-command) nil)
     (set (make-local-variable 'compile-command)
          "go build -v ./... && go test -race ./... && go vet ./...")
     (set (make-local-variable 'default-directory) (projectile-project-root)))
 
-  (add-hook 'go-mode-hook #'hrs/set-go-compilation-configuration)
+  (add-hook 'go-mode-hook #'+set-go-compilation-configuration)
 #+end_src
 
 ** Haskell
@@ -818,7 +818,7 @@ This defines a default Ruby version to use within Emacs (for things like =xmp= o
 =rspec=).
 
 #+begin_src emacs-lisp
-  (setq hrs/ruby-version "3.1.2")
+  (setq +ruby-version "3.1.2")
 #+end_src
 
 Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that
@@ -826,7 +826,7 @@ that's included in the path. In particular, we want that directory to be
 included because it contains the =xmpfilter= executable.
 
 #+begin_src emacs-lisp
-  (hrs-append-to-path (format "~/.gem/ruby/%s/bin" hrs/ruby-version))
+  (+append-to-path (format "~/.gem/ruby/%s/bin" +ruby-version))
 #+end_src
 
 I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
@@ -865,7 +865,7 @@ I use =chruby= to switch between versions of Ruby.
   (use-package chruby
     :hook (ruby . chruby-use-corresponding)
     :config
-    (chruby hrs/ruby-version))
+    (chruby +ruby-version))
 #+end_src
 
 Running tests from within Emacs is awfully convenient. I enable =rspec-mode=
@@ -954,9 +954,9 @@ Use =rustic= to edit Rust code.
     (setq lsp-rust-analyzer-server-display-inlay-hints t)
 
     (setq rustic-format-on-save t)
-    (add-hook 'rustic-mode-hook 'hrs/rustic-mode-hook))
+    (add-hook 'rustic-mode-hook '+rustic-mode-hook))
 
-  (defun hrs/rustic-mode-hook ()
+  (defun +rustic-mode-hook ()
     "Don't prompt for confirmation before running `rustfmt'."
     (setq-local buffer-save-without-query t))
 #+end_src
@@ -1076,7 +1076,7 @@ I'll also occasionally use =pwgen= to generate and insert a secure password.
 
   (use-package password-store-otp)
 
-  (defun hrs/insert-password ()
+  (defun +insert-password ()
     (interactive)
     (shell-command "pwgen 30 --num-passwords=1 --secure | tr --delete '\n'" t))
 #+end_src
@@ -1352,7 +1352,7 @@ the =inbox=, =habit=, =daily=, and =yearly= tags. Here are the sections:
 I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
 
 #+begin_src emacs-lisp
-  (defun hrs-dashboard ()
+  (defun +dashboard ()
     (interactive)
     (call-process-shell-command "daily-checklist")
     (find-file org-index-file)
@@ -1362,7 +1362,7 @@ I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
     (delete-other-windows)
     (org-agenda-redo))
 
-  (global-set-key (kbd "C-c d") 'hrs-dashboard)
+  (global-set-key (kbd "C-c d") '+dashboard)
 #+end_src
 
 Shorten the default (lengthy) =org-agenda= modeline.
@@ -1528,48 +1528,48 @@ Bind a few handy keys.
 Hit =C-c i= to quickly open up my todo list.
 
 #+begin_src emacs-lisp
-  (defun hrs/open-index-file ()
+  (defun +open-index-file ()
     "Open the master org TODO list."
     (interactive)
     (find-file org-index-file)
     (flycheck-mode -1)
     (end-of-buffer))
 
-  (global-set-key (kbd "C-c i") 'hrs/open-index-file)
+  (global-set-key (kbd "C-c i") '+open-index-file)
 #+end_src
 
 Hit =M-n= to quickly open up a capture template for a new todo.
 
 #+begin_src emacs-lisp
-  (defun hrs-org-capture-todo ()
+  (defun +org-capture-todo ()
     (interactive)
     (org-capture :keys "t"))
 
-  (global-set-key (kbd "M-n") 'hrs-org-capture-todo)
+  (global-set-key (kbd "M-n") '+org-capture-todo)
 
-  (setq hrs-org-capture-todo-hooks '(gfm-mode-hook haskell-mode-hook magit-mode-hook))
+  (setq +org-capture-todo-hooks '(gfm-mode-hook haskell-mode-hook magit-mode-hook))
 
-  (dolist (hook hrs-org-capture-todo-hooks)
-    (add-hook hook (lambda () (local-set-key (kbd "M-n") 'hrs-org-capture-todo))))
+  (dolist (hook +org-capture-todo-hooks)
+    (add-hook hook (lambda () (local-set-key (kbd "M-n") '+org-capture-todo))))
 #+end_src
 
 Hit =C-c w= to quickly open up my work todo list.
 
 #+begin_src emacs-lisp
-  (defun hrs/open-work-file ()
+  (defun +open-work-file ()
     "Open the work TODO list."
     (interactive)
     (find-file (org-file-path "work.org"))
     (flycheck-mode -1)
     (end-of-buffer))
 
-  (global-set-key (kbd "C-c w") 'hrs/open-work-file)
+  (global-set-key (kbd "C-c w") '+open-work-file)
 #+end_src
 
 Rebind =C-c C-l= to [[https://xenodium.com/emacs-dwim-do-what-i-mean/][DWIM]]:
 
 #+begin_src emacs-lisp
-  (defun hrs/org-insert-link-dwim ()
+  (defun +org-insert-link-dwim ()
     "Like `org-insert-link' but with personal dwim preferences."
     (interactive)
     (let* ((point-in-link (org-in-regexp org-link-any-re 1))
@@ -1595,7 +1595,7 @@ Rebind =C-c C-l= to [[https://xenodium.com/emacs-dwim-do-what-i-mean/][DWIM]]:
             (t
              (call-interactively 'org-insert-link)))))
 
-  (define-key org-mode-map (kbd "C-c C-l") 'hrs/org-insert-link-dwim)
+  (define-key org-mode-map (kbd "C-c C-l") '+org-insert-link-dwim)
 #+end_src
 
 ** Exporting
@@ -1747,48 +1747,48 @@ I maintain a blog written in Jekyll. There are plenty of command-line tools to
 automate creating a new post, but staying in my editor minimizes friction and
 encourages me to write.
 
-This defines a =hrs/new-blog-post= function, which prompts the user for a title
-and creates a new draft (with a slugged file name) in the blog's =_drafts/=
-directory. The new post includes appropriate YAML header information.
+This defines a =+new-blog-post= function, which prompts the user for a title and
+creates a new draft (with a slugged file name) in the blog's =_drafts/= directory.
+The new post includes appropriate YAML header information.
 
-This also defines =hrs/publish-post= and =hrs/unpublish-post=, which adjust the
-date in the YAML front matter and rename the file appropriately.
+This also defines =+publish-post= and =+unpublish-post=, which adjust the date in
+the YAML front matter and rename the file appropriately.
 
 #+begin_src emacs-lisp
-  (defvar hrs/jekyll-drafts-directory "/home/hrs/documents/blog/_drafts/")
-  (defvar hrs/jekyll-posts-directory "/home/hrs/documents/blog/_posts/")
-  (defvar hrs/jekyll-post-extension ".md")
+  (defvar +jekyll-drafts-directory (expand-file-name "~/documents/blog/_drafts/"))
+  (defvar +jekyll-posts-directory (expand-file-name "~/documents/blog/_drafts/"))
+  (defvar +jekyll-post-extension ".md")
 
-  (defun hrs/timestamp ()
+  (defun +timestamp ()
     (format-time-string "%Y-%m-%d"))
 
-  (defun hrs/replace-whitespace-with-hyphens (s)
+  (defun +replace-whitespace-with-hyphens (s)
     (replace-regexp-in-string " " "-" s))
 
-  (defun hrs/replace-nonalphanumeric-with-whitespace (s)
+  (defun +replace-nonalphanumeric-with-whitespace (s)
     (replace-regexp-in-string "[^A-Za-z0-9 ]" " " s))
 
-  (defun hrs/remove-quotes (s)
+  (defun +remove-quotes (s)
     (replace-regexp-in-string "[\'\"]" "" s))
 
-  (defun hrs/replace-unusual-characters (title)
+  (defun +replace-unusual-characters (title)
     "Remove quotes, downcase everything, and replace characters
   that aren't alphanumeric with hyphens."
-    (hrs/replace-whitespace-with-hyphens
+    (+replace-whitespace-with-hyphens
      (s-trim
       (downcase
-       (hrs/replace-nonalphanumeric-with-whitespace
-        (hrs/remove-quotes title))))))
+       (+replace-nonalphanumeric-with-whitespace
+        (+remove-quotes title))))))
 
-  (defun hrs/slug-for (title)
+  (defun +slug-for (title)
     "Given a blog post title, return a convenient URL slug.
      Downcase letters and remove special characters."
-    (let ((slug (hrs/replace-unusual-characters title)))
+    (let ((slug (+replace-unusual-characters title)))
       (while (string-match "--" slug)
         (setq slug (replace-regexp-in-string "--" "-" slug)))
       slug))
 
-  (defun hrs/jekyll-yaml-template (title)
+  (defun +jekyll-yaml-template (title)
     "Return the YAML header information appropriate for a blog
      post. Include the title, the current date, the post layout,
      and an empty list of tags."
@@ -1798,46 +1798,46 @@ date in the YAML front matter and rename the file appropriately.
      "date:\n"
      "layout: post\n"
      "# mathjax: true\n"
-     "# pdf_file: " (hrs/slug-for title) ".pdf\n"
+     "# pdf_file: " (+slug-for title) ".pdf\n"
      "tags: []\n"
      "---\n\n"))
 
-  (defun hrs/new-blog-post (title)
+  (defun +new-blog-post (title)
     "Create a new blog draft in Jekyll."
     (interactive "sPost title: ")
-    (let ((post (concat hrs/jekyll-drafts-directory
-                        (hrs/slug-for title)
-                        hrs/jekyll-post-extension)))
+    (let ((post (concat +jekyll-drafts-directory
+                        (+slug-for title)
+                        +jekyll-post-extension)))
       (if (file-exists-p post)
           (find-file post)
         (find-file post)
-        (insert (hrs/jekyll-yaml-template title)))))
+        (insert (+jekyll-yaml-template title)))))
 
-  (defun hrs/jekyll-draft-p ()
+  (defun +jekyll-draft-p ()
     "Return true if the current buffer is a draft."
     (equal
      (file-name-directory (buffer-file-name (current-buffer)))
-     hrs/jekyll-drafts-directory))
+     +jekyll-drafts-directory))
 
-  (defun hrs/jekyll-published-p ()
+  (defun +jekyll-published-p ()
     "Return true if the current buffer is a published post."
     (equal
      (file-name-directory (buffer-file-name (current-buffer)))
-     hrs/jekyll-posts-directory))
+     +jekyll-posts-directory))
 
-  (defun hrs/publish-post ()
+  (defun +publish-post ()
     "Move a draft post to the posts directory, rename it to include
   the date, reopen the new file, and insert the date in the YAML
   front matter."
     (interactive)
-    (cond ((not (hrs/jekyll-draft-p))
+    (cond ((not (+jekyll-draft-p))
            (message "This is not a draft post."))
           ((buffer-modified-p)
            (message "Can't publish post; buffer has modifications."))
           (t
            (let ((filename
-                  (concat hrs/jekyll-posts-directory
-                          (hrs/timestamp) "-"
+                  (concat +jekyll-posts-directory
+                          (+timestamp) "-"
                           (file-name-nondirectory
                            (buffer-file-name (current-buffer)))))
                  (old-point (point)))
@@ -1848,22 +1848,22 @@ date in the YAML front matter and rename the file appropriately.
              (set-window-point (selected-window) old-point)
              (save-excursion
                (beginning-of-buffer)
-               (replace-regexp "^date:$" (concat "date: " (hrs/timestamp))))
+               (replace-regexp "^date:$" (concat "date: " (+timestamp))))
              (save-buffer)
              (message "Published post!")))))
 
-  (defun hrs/unpublish-post ()
+  (defun +unpublish-post ()
     "Move a published post to the drafts directory, rename it to
   exclude the date, reopen the new file, and remove the date in the
   YAML front matter."
     (interactive)
-    (cond ((not (hrs/jekyll-published-p))
+    (cond ((not (+jekyll-published-p))
            (message "This is not a published post."))
           ((buffer-modified-p)
            (message "Can't publish post; buffer has modifications."))
           (t
            (let ((filename
-                  (concat hrs/jekyll-drafts-directory
+                  (concat +jekyll-drafts-directory
                           (substring
                            (file-name-nondirectory
                             (buffer-file-name (current-buffer)))
@@ -1884,11 +1884,11 @@ date in the YAML front matter and rename the file appropriately.
 This selects and inserts a tag:
 
 #+begin_src emacs-lisp
-  (defun hrs/existing-blog-tags ()
+  (defun +existing-blog-tags ()
     "Return a list of all the tags currently used in my blog."
     (split-string (shell-command-to-string "cd ~/documents/blog && rake tags")))
 
-  (defun hrs/insert-blog-tag ()
+  (defun +insert-blog-tag ()
     "Prompt for one of the existing tags used in the blog and
   insert it in the YAML front matter appropriately."
     (interactive)
@@ -1896,7 +1896,7 @@ This selects and inserts a tag:
       (beginning-of-buffer)
       (search-forward-regexp "^tags: \\[")
       (insert
-       (ivy-completing-read "Insert tag: " (hrs/existing-blog-tags))
+       (ivy-completing-read "Insert tag: " (+existing-blog-tags))
        (if (looking-at "\\]") "" ", ")))
     (message "Tagged!"))
 #+end_src
@@ -2128,9 +2128,9 @@ I want to archive my messages, not delete them, so I've rebound =d= to move
 email to my "Archive" folder without applying that flag.
 
 #+begin_src emacs-lisp
-  (fset 'hrs/mu4e-move-to-archive "ma")
-  (evil-define-key 'normal mu4e-headers-mode-map (kbd "d") 'hrs/mu4e-move-to-archive)
-  (evil-define-key 'normal mu4e-view-mode-map (kbd "d") 'hrs/mu4e-move-to-archive)
+  (fset '+mu4e-move-to-archive "ma")
+  (evil-define-key 'normal mu4e-headers-mode-map (kbd "d") '+mu4e-move-to-archive)
+  (evil-define-key 'normal mu4e-view-mode-map (kbd "d") '+mu4e-move-to-archive)
 #+end_src
 
 ** Encryption
@@ -2138,13 +2138,13 @@ email to my "Archive" folder without applying that flag.
 If a message is encrypted, my reply should always be encrypted, too.
 
 #+begin_src emacs-lisp
-  (defun hrs/encrypt-responses ()
+  (defun +encrypt-responses ()
     "Encrypt the current message if it's a reply to another encrypted message."
     (let ((msg mu4e-compose-parent-message))
       (when (and msg (member 'encrypted (mu4e-message-field msg :flags)))
           (mml-secure-message-encrypt-pgpmime))))
 
-  (add-hook 'mu4e-compose-mode-hook 'hrs/encrypt-responses)
+  (add-hook 'mu4e-compose-mode-hook '+encrypt-responses)
 #+end_src
 
 ** Sending mail over SMTP
@@ -2211,7 +2211,7 @@ I use =elfeed= to read my (300-odd!) feeds.
     :config
     (evil-define-key 'normal elfeed-show-mode-map (kbd "U") 'elfeed-show-tag--unread)
 
-    (defun hrs/custom-elfeed-sort (a b)
+    (defun +custom-elfeed-sort (a b)
       (let* ((a-tags (format "%s" (elfeed-entry-tags a)))
              (b-tags (format "%s" (elfeed-entry-tags b)))
              (a-title (elfeed-feed-title (elfeed-entry-feed a)))
@@ -2221,7 +2221,7 @@ I use =elfeed= to read my (300-odd!) feeds.
                 (< (elfeed-entry-date b) (elfeed-entry-date a))
               (string< b-title a-title))
           (string< a-tags b-tags))))
-    (setf elfeed-search-sort-function #'hrs/custom-elfeed-sort)
+    (setf elfeed-search-sort-function #'+custom-elfeed-sort)
 
     (elfeed-set-max-connections 32)
 
@@ -2257,14 +2257,14 @@ This checks the prefix of each URL and uses the appropriate program to open it.
 #+begin_src emacs-lisp
   (use-package elpher)
 
-  (setq hrs/gemini-browser 'elpher-go)
+  (setq +gemini-browser 'elpher-go)
 
-  (defun hrs/browse-url (url &rest args)
+  (defun +browse-url (url &rest args)
     (if (s-prefix? "gemini:" url)
-        (funcall hrs/gemini-browser url)
+        (funcall +gemini-browser url)
       (browse-url-default-browser url args)))
 
-  (setq browse-url-browser-function 'hrs/browse-url)
+  (setq browse-url-browser-function '+browse-url)
 #+end_src
 
 Exporting Org files to HTML and opening the result triggers
@@ -2484,20 +2484,20 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
   (use-package denote
     :hook (dired-mode . denote-dired-mode)
     :bind (("C-c n b" . denote-link-backlinks)
-           ("C-c n f" . hrs-denote-find-file)
+           ("C-c n f" . +denote-find-file)
            ("C-c n l" . denote-link)
            ("C-c n n" . denote)
-           ("C-c n s" . hrs-denote-search))
+           ("C-c n s" . +denote-search))
 
     :custom
     (denote-directory "~/documents/notes")
 
     :config
-    (defun hrs-denote-find-file ()
+    (defun +denote-find-file ()
       (interactive)
       (projectile-find-file-in-directory denote-directory))
 
-    (defun hrs-denote-search (term)
+    (defun +denote-search (term)
       (interactive (list (deadgrep--read-search-term)))
       (deadgrep term denote-directory)))
 #+end_src
@@ -2531,12 +2531,12 @@ elsewhere in this repo]]).
     :hook (dired-mode . (lambda () (undo-tree-mode 1)))
 
     :config
-    (defun hrs/dired-slideshow ()
+    (defun +dired-slideshow ()
       (interactive)
       (start-process "dired-slideshow" nil "s" (dired-current-directory)))
 
     (evil-define-key 'normal dired-mode-map (kbd "o") 'dired-find-file-other-window)
-    (evil-define-key 'normal dired-mode-map (kbd "v") 'hrs/dired-slideshow)
+    (evil-define-key 'normal dired-mode-map (kbd "v") '+dired-slideshow)
 
     (setq-default dired-listing-switches
                   (combine-and-quote-strings '("-l"
@@ -2622,11 +2622,11 @@ I futz around with my dotfiles a lot. This binds =C-c e= to quickly open my
 Emacs configuration file.
 
 #+begin_src emacs-lisp
-  (defun hrs/visit-emacs-config ()
+  (defun +visit-emacs-config ()
     (interactive)
     (find-file (concat user-emacs-directory "configuration.org")))
 
-  (global-set-key (kbd "C-c e") 'hrs/visit-emacs-config)
+  (global-set-key (kbd "C-c e") '+visit-emacs-config)
 #+end_src
 
 ** Always kill current buffer
@@ -2634,12 +2634,12 @@ Emacs configuration file.
 Assume that I always want to kill the current buffer when hitting =C-x k=.
 
 #+begin_src emacs-lisp
-  (defun hrs/kill-current-buffer ()
+  (defun +kill-current-buffer ()
     "Kill the current buffer without prompting."
     (interactive)
     (kill-buffer (current-buffer)))
 
-  (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
+  (global-set-key (kbd "C-x k") '+kill-current-buffer)
 #+end_src
 
 ** Set up =helpful=
@@ -2751,29 +2751,29 @@ makes that automatic. Similarly, when closing a window I'd like to rebalance the
 remaining windows.
 
 #+begin_src emacs-lisp
-  (defun hrs/split-window-below-and-switch ()
+  (defun +split-window-below-and-switch ()
     "Split the window horizontally, then switch to the new pane."
     (interactive)
     (split-window-below)
     (balance-windows)
     (other-window 1))
 
-  (defun hrs/split-window-right-and-switch ()
+  (defun +split-window-right-and-switch ()
     "Split the window vertically, then switch to the new pane."
     (interactive)
     (split-window-right)
     (balance-windows)
     (other-window 1))
 
-  (defun hrs/delete-window-and-rebalance ()
+  (defun +delete-window-and-rebalance ()
     "Delete the current window, then rebalance the remaining windows."
     (interactive)
     (delete-window)
     (balance-windows))
 
-  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
-  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
-  (global-set-key (kbd "C-x 0") 'hrs/delete-window-and-rebalance)
+  (global-set-key (kbd "C-x 2") '+split-window-below-and-switch)
+  (global-set-key (kbd "C-x 3") '+split-window-right-and-switch)
+  (global-set-key (kbd "C-x 0") '+delete-window-and-rebalance)
 #+end_src
 
 ** Mass editing of =grep= results
@@ -2804,7 +2804,7 @@ that with HTML entities, too. This provides functions to do that within a
 specified region.
 
 #+begin_src emacs-lisp
-  (defvar hrs-typographic-replacements
+  (defvar +typographic-replacements
     '(("…" . "...")
       ("‘" . "'")
       ("’" . "'")
@@ -2813,7 +2813,7 @@ specified region.
       ("–" . "--")
       ("—" . "---")))
 
-  (defvar hrs-html-entity-replacements
+  (defvar +html-entity-replacements
     '(("&amp;" . "&")
       ("&nbsp;" . " ")
       ("&lsquo;" . "'")
@@ -2825,7 +2825,7 @@ specified region.
       ("&lt;" . "<")
       ("&gt;" . ">")))
 
-  (defun hrs-replace-symbols (replacements)
+  (defun +replace-symbols (replacements)
     (save-restriction
       (when (region-active-p)
         (narrow-to-region (region-beginning) (region-end)))
@@ -2834,15 +2834,15 @@ specified region.
         (while (search-forward (car pair) nil t)
           (replace-match (cdr pair))))))
 
-  (defun hrs-replace-typographic-symbols ()
+  (defun +replace-typographic-symbols ()
     "Replace common typographic symbols in the region or buffer with their ASCII equivalents."
     (interactive)
-    (hrs-replace-symbols hrs-typographic-replacements))
+    (+replace-symbols +typographic-replacements))
 
-  (defun hrs-replace-html-entities ()
+  (defun +replace-html-entities ()
     "Replace common HTML entities in the region or buffer with their ASCII equivalents."
     (interactive)
-    (hrs-replace-symbols hrs-html-entity-replacements))
+    (+replace-symbols +html-entity-replacements))
 #+end_src
 
 ** Edit files as =sudo=

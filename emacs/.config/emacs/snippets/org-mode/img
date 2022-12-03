@@ -1,2 +1,2 @@
 #+caption: $0
-[[../`(completing-read "Image file: " (-filter 'hrs/image-path-p (projectile-dir-files (projectile-project-root))))`]]
+[[../`(completing-read "Image file: " (-filter '+image-path-p (projectile-dir-files (projectile-project-root))))`]]
