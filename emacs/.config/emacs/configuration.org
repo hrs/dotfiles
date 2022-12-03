@@ -714,6 +714,12 @@ Indent everything by 2 spaces.
   (setq js-indent-level 2)
 #+end_src
 
+Browse JSON documents hierarchically with =json-navigator-navigate-after-point=.
+
+#+begin_src emacs-lisp
+(use-package json-navigator)
+#+end_src
+
 ** Lisps
 
 =rainbow-delimiters= is convenient for coloring matching parentheses.
