@@ -1460,7 +1460,7 @@ Define a few common tasks as capture templates.
   (add-to-list 'org-capture-templates
                '("m" "Media queue"
                  item
-                 (file+headline "~/documents/org/media.org" "Inbox")
+                 (file+headline "~/documents/notes/media.org" "Inbox")
                  "- [ ] %?\n"))
 
   (add-to-list 'org-capture-templates
