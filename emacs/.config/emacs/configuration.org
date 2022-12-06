@@ -1923,10 +1923,7 @@ As a last resort, this loads up =mu4e= from a local repo:
 
 ** Who am I?
 
-I only have one context at the moment. If I had another email account, though,
-I'd define it in here with an additional =make-mu4e-context= block.
-
-My full name is defined earlier in this configuration file.
+I use multiple contexts for personal and work email.
 
 #+begin_src emacs-lisp
   (setq mu4e-trash-folder "/personal/archive")
