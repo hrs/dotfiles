@@ -266,11 +266,12 @@ modes in the modeline. Nice!
     (minions-mode-line-delimiters (cons "" ""))
 
     :config
-    (defun +set-minions-mode-line-lighter (_)
+    (defun +set-minions-mode-line-lighter ()
       (setq minions-mode-line-lighter
             (if (display-graphic-p) "⚙" "#")))
 
-    (add-to-list 'after-make-frame-functions #'+set-minions-mode-line-lighter)
+    (add-hook 'server-after-make-frame-hook #'+set-minions-mode-line-lighter)
+
     (minions-mode 1))
 #+end_src
 
