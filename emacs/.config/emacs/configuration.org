@@ -1764,7 +1764,7 @@ the YAML front matter and rename the file appropriately.
 
 #+begin_src emacs-lisp
   (defvar +jekyll-drafts-directory (expand-file-name "~/documents/blog/_drafts/"))
-  (defvar +jekyll-posts-directory (expand-file-name "~/documents/blog/_drafts/"))
+  (defvar +jekyll-posts-directory (expand-file-name "~/documents/blog/_posts/"))
   (defvar +jekyll-post-extension ".md")
 
   (defun +timestamp ()
