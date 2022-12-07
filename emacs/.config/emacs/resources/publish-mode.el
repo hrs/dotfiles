@@ -55,9 +55,9 @@ resulting filename."
 filename."
   (interactive)
   (cl-case major-mode
-    (org-mode (publish-make-org-pdf))
-    (gfm-mode (publish-make-markdown-pdf))
-    (markdown-mode (publish-make-markdown-pdf))
+    (org-mode (publish-build-pdf-org))
+    (gfm-mode (publish-build-pdf-markdown))
+    (markdown-mode (publish-build-pdf-markdown))
     (otherwise (error "Don't know how to compile this buffer to PDF!"))))
 
 (defun publish-viewer-open-for-file-p (viewer filename)
@@ -74,100 +74,12 @@ filename."
   "Build the document into a PDF and ensure the viewer is displaying it."
   (interactive)
   (publish-ensure-viewer-for-pdf publish-viewer-pdf
-                                 (publish-make-pdf)))
+                                 (publish-build-pdf)))
 
+;;;###autoload
+(define-minor-mode publish-mode
+  "Toggle writing mode on or off."
+  :lighter " publish")
 
-;; (defun publish--i3-tree ()
-;;   (with-temp-buffer
-;;     (call-process-shell-command "i3-msg -t get_tree" nil (current-buffer))
-;;     (goto-char (point-min))
-;;     (json-parse-buffer)))
-
-;; (gethash "nodes" (publish--i3-tree))
-
-;; TODO: Include common metadata in Org exports?
-
-;; (make-variable-buffer-local
-;;  (defvar writing-initial-state-auto-fill-mode nil
-;;    "Was auto-fill-mode initially enabled?"))
-
-;; (make-variable-buffer-local
-;;  (defvar writing-initial-state-flycheck-mode nil
-;;    "Was flycheck-mode initially enabled?"))
-
-;; (make-variable-buffer-local
-;;  (defvar writing-initial-state-mixed-pitch-mode nil
-;;    "Was mixed-pitch-mode initially enabled?"))
-
-;; (make-variable-buffer-local
-;;  (defvar writing-initial-state-olivetti-mode nil
-;;    "Was olivetti-mode initially enabled?"))
-
-;; (make-variable-buffer-local
-;;  (defvar writing-initial-state-org-modern-mode nil
-;;    "Was org-modern-mode initially enabled?"))
-
-;; (make-variable-buffer-local
-;;  (defvar writing-initial-state-visual-line-mode nil
-;;    "Was visual-line-mode initially enabled?"))
-
-;; (make-variable-buffer-local
-;;  (defvar writing-initial-state-wc-mode nil
-;;    "Was wc-mode initially enabled?"))
-
-;; (defun writing-enable ()
-;;   "Enable minor writing-mode."
-;;   (setq writing-initial-state-auto-fill-mode auto-fill-function)
-;;   (auto-fill-mode -1)
-
-;;   (setq writing-initial-state-flycheck-mode flycheck-mode)
-;;   (flycheck-mode 1)
-
-;;   (setq writing-initial-state-mixed-pitch-mode mixed-pitch-mode)
-;;   (mixed-pitch-mode 1)
-
-;;   (setq writing-initial-state-olivetti-mode olivetti-mode)
-;;   (olivetti-mode 1)
-
-;;   (setq writing-initial-state-org-modern-mode org-modern-mode)
-;;   (org-modern-mode 1)
-
-;;   (setq writing-initial-state-visual-line-mode visual-line-mode)
-;;   (visual-line-mode 1)
-
-;;   (setq writing-initial-state-wc-mode wc-mode)
-;;   (wc-mode 1))
-
-;; (defun writing-disable ()
-;;   "Disable minor writing-mode."
-;;   (when writing-initial-state-auto-fill-mode
-;;     (auto-fill-mode 1))
-
-;;   (when (not writing-initial-state-flycheck-mode)
-;;     (flycheck-mode -1))
-
-;;   (when (not writing-initial-state-mixed-pitch-mode)
-;;     (mixed-pitch-mode -1))
-
-;;   (when (not writing-initial-state-olivetti-mode)
-;;     (olivetti-mode -1))
-
-;;   (when (not writing-initial-state-org-modern-mode)
-;;     (org-modern-mode -1))
-
-;;   (when (not writing-initial-state-visual-line-mode)
-;;     (visual-line-mode -1))
-
-;;   (when (not writing-initial-state-wc-mode)
-;;     (wc-mode -1)))
-
-;; ;;;###autoload
-;; (define-minor-mode writing-mode
-;;   "Toggle writing mode on or off."
-;;   :lighter " writing"
-;;   (if writing-mode
-;;       (writing-enable)
-;;       (writing-disable)))
-
-;; (provide 'publish-mode)
-;; ;;; publish-mode.el ends here
+(provide 'publish-mode)
+;;; publish-mode.el ends here
