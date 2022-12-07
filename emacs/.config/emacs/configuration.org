@@ -107,6 +107,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
             info
             magit
             mu4e
+            package-menu
             pdf-view
             proced
             replace
