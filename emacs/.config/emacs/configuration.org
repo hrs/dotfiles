@@ -103,6 +103,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
           '(deadgrep
             dired
             elfeed
+            eww
             ibuffer
             info
             magit
