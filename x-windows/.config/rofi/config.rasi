@@ -1,0 +1,10 @@
+configuration {
+  font: "Adobe Garamond Pro Italic 16";
+  matching: "fuzzy";
+}
+
+@theme "/usr/share/rofi/themes/Arc.rasi"
+
+* {
+  selected-normal-background:  rgba ( 135, 0, 175, 100 % );
+}
