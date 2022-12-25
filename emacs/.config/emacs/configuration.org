@@ -90,6 +90,8 @@ Don't automatically load Evil bindings in different modes.
     :config
     (evil-mode 1)
     (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
+    (evil-define-key 'insert org-mode-map (kbd "S-<right>") 'org-shiftright)
+    (evil-define-key 'insert org-mode-map (kbd "S-<left>") 'org-shiftleft)
     (fset 'evil-visual-update-x-selection 'ignore))
 #+end_src
 
