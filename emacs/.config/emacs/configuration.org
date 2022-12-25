@@ -1248,6 +1248,12 @@ This is handy for organizing "blocking" tasks hierarchically.
   (setq org-enforce-todo-dependencies t)
 #+end_src
 
+Open my agenda in the current window instead of creating a new one.
+
+#+begin_src emacs-lisp
+  (setq org-agenda-window-setup 'current-window)
+#+end_src
+
 Begin weeks /today/, not on the last Monday.
 
 #+begin_src emacs-lisp
@@ -1396,9 +1402,8 @@ I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
     (find-file org-index-file)
     (with-current-buffer (get-file-buffer org-index-file)
       (revert-buffer nil t))
-    (org-agenda nil "p")
     (delete-other-windows)
-    (org-agenda-redo))
+    (org-agenda nil "p"))
 
   (global-set-key (kbd "C-c d") '+dashboard)
 #+end_src
