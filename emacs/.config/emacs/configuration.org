@@ -1379,6 +1379,14 @@ the =inbox=, =habit=, =daily=, and =yearly= tags. Here are the sections:
                   (org-agenda-tag-filter-preset '("-duplicate" "-news" "-writing")))))
 #+end_src
 
+Org treats unprioritized entries as if they had a priority of =[#B]=. I'd prefer
+to treat them as the lowest priority, which I'm leaving as =[#C]=. That ensures
+that prioritized entries always come before unprioritized ones in my agenda.
+
+#+begin_src emacs-lisp
+(setq org-default-priority ?C)
+#+end_src
+
 I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
 
 #+begin_src emacs-lisp
