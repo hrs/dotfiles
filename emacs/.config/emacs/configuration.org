@@ -347,14 +347,16 @@ version control. That's all in here.
 
 ** =ripgrep=
 
-Install =ripgrep= to provide search within projects. Search even "hidden" dotfiles.
+Install =ripgrep= to provide search within projects. Search even "hidden"
+dotfiles, but not =.git= repos.
 
 #+begin_src emacs-lisp
   (use-package deadgrep
     :ensure-system-package (rg . ripgrep)
     :config
     (defun deadgrep--include-args (rg-args)
-      (push "--hidden" rg-args))
+      (push "--hidden" rg-args)
+      (push "--glob=!.git/" rg-args))
     (advice-add 'deadgrep--arguments
                 :filter-return #'deadgrep--include-args))
 #+end_src
