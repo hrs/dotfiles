@@ -425,8 +425,8 @@ them.
 
 #+begin_src emacs-lisp
   (use-package ivy-xref
-    :init
-    (setq xref-show-definitions-function #'ivy-xref-show-defs))
+    :custom
+    (xref-show-definitions-function #'ivy-xref-show-defs))
 #+end_src
 
 ** =flycheck=
@@ -435,7 +435,8 @@ I'd like to enable flycheck all kinds of places.
 
 #+begin_src emacs-lisp
   (use-package flycheck
-    :init (global-flycheck-mode))
+    :config
+    (global-flycheck-mode))
 #+end_src
 
 ** =magit=
@@ -579,7 +580,6 @@ enjoy, personally.
 #+begin_src emacs-lisp
   (use-package lsp-ui
     :commands lsp-ui-mode
-    :defer t
     :hook (lsp-mode . lsp-ui-mode)
 
     :custom
@@ -615,13 +615,11 @@ I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
                         (flycheck-mode 0)))
     :bind ("C-c v" . deadgrep)
 
-    :init
-    (setq proof-splash-enable nil)
-
-    :config
-    (setq proof-three-window-mode-policy 'hybrid
-          proof-follow-mode 'follow
-          proof-script-fly-past-comments t))
+    :custom
+    (proof-splash-enable nil)
+    (proof-three-window-mode-policy 'hybrid)
+    (proof-follow-mode 'follow)
+    (proof-script-fly-past-comments t))
 #+end_src
 
 =company-coq-mode= adds some features (completion, documentation, ligatures...)
@@ -1978,7 +1976,7 @@ asynchronously).
 #+end_src
 
 Rename files when moving them between directories. =mbsync= supposedly prefers
-this; I'm cargo-culting.
+this.
 
 #+begin_src emacs-lisp
   (setq mu4e-change-filenames-when-moving t)
@@ -1991,7 +1989,8 @@ updates it every minute.
 #+begin_src emacs-lisp
   (use-package mu4e-alert
     :after mu4e
-    :init
+
+    :config
     (setq mu4e-alert-interesting-mail-query "flag:unread maildir:/personal/inbox")
     (mu4e-alert-enable-mode-line-display)
     (run-with-timer 0 60 'mu4e-alert-enable-mode-line-display))
@@ -2263,7 +2262,6 @@ with some associated metadata (descriptions, transcripts, etc).
 #+begin_src emacs-lisp
   (use-package elfeed-tube
     :after elfeed
-    :demand t
     :config
     (elfeed-tube-setup))
 #+end_src
@@ -2668,10 +2666,12 @@ buffers.
 
 #+begin_src emacs-lisp
   (use-package helpful
+    :bind
+    ("C-h f" . 'helpful-callable)
+    ("C-h v" . 'helpful-variable)
+    ("C-h k" . 'helpful-key)
+
     :config
-    (global-set-key (kbd "C-h f") #'helpful-callable)
-    (global-set-key (kbd "C-h v") #'helpful-variable)
-    (global-set-key (kbd "C-h k") #'helpful-key)
     (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window))
 #+end_src
 
