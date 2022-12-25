@@ -2226,6 +2226,9 @@ I use =elfeed= to read my (300-odd!) feeds.
 
 #+begin_src emacs-lisp
   (use-package elfeed
+    :custom
+    (elfeed-search-title-max-width 120)
+
     :config
     (evil-define-key 'normal elfeed-show-mode-map (kbd "U") 'elfeed-show-tag--unread)
 
