@@ -1185,9 +1185,8 @@ content.
 
 ** Task management and agenda views
 
-Store my org files in =~/documents/org=, define the location of an index file (my
-main todo list), and archive finished tasks in
-=~/documents/org/archive/archive-YYYY-MM.org=.
+Store my org files in =~/documents/org= and define the location of an index file
+(my main todo list).
 
 #+begin_src emacs-lisp
   (setq org-directory "~/documents/org")
@@ -1197,13 +1196,24 @@ main todo list), and archive finished tasks in
     (concat (file-name-as-directory org-directory) filename))
 
   (setq org-index-file (org-file-path "index.org"))
-  (setq org-archive-location
-        (concat
-         (org-file-path (format-time-string "archive/archive-%Y-%m.org"))
-         "::* From %s"))
 
   (setq org-refile-targets `((,org-index-file :level . 1)
                              (,(org-file-path "deliveries.org") :level . 1)))
+#+end_src
+
+Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=.
+
+#+begin_src emacs-lisp
+  (defun +set-org-archive-location ()
+    "Set the `org-archive-location' variable according to the current date."
+    (setq org-archive-location
+          (concat
+           (org-file-path (format-time-string "archive/archive-%Y-%m-%d.org"))
+           "::* From %s")))
+
+  (+set-org-archive-location)
+
+  (add-hook 'midnight-hook '+set-org-archive-location)
 #+end_src
 
 I store most of my personal tasks in my index and maintain a separate file for
