@@ -11,8 +11,9 @@ xrdb -load ~/.Xresources &
 # Use Caps Lock as an additional Control key
 setxkbmap -option ctrl:nocaps &
 
-# Treat hitting and releasing Control without chording as Escape
-xcape &
+# Treat hitting and releasing Control without chording as Escape, and use left
+# and right Shift as matching parens.
+xcape -e "Control_L=Escape;Shift_L=parenleft;Shift_R=parenright" &
 
 # Bind media/volume keys
 xbindkeys &
