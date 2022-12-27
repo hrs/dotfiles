@@ -1224,7 +1224,8 @@ Store my org files in =~/documents/org= and define the location of an index file
                              (,(org-file-path "deliveries.org") :level . 1)))
 #+end_src
 
-Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=.
+Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=. Since
+I often leave Emacs running overnight, I reset the update location at midnight.
 
 #+begin_src emacs-lisp
   (defun +set-org-archive-location ()
@@ -1236,7 +1237,12 @@ Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=.
 
   (+set-org-archive-location)
 
-  (add-hook 'midnight-hook '+set-org-archive-location)
+  (use-package midnight
+    :custom
+    (midnight-delay 0)
+    :config
+    (midnight-mode 1)
+    (add-hook 'midnight-hook #'+set-org-archive-location))
 #+end_src
 
 I store most of my personal tasks in my index and maintain a separate file for
