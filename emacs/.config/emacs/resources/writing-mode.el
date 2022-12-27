@@ -10,8 +10,8 @@
 ;; Specifically, when activated, `writing-mode' enables `mixed-pitch-mode',
 ;; `olivetti-mode', and `wc-mode', creating a "distraction-free" writing
 ;; environment with variable-pitch fonts and a word count in the mode line. It
-;; also enables `visual-line-mode' and disables `auto-fill-mode', so lines wrap
-;; visually instead of using hard newlines.
+;; also enables `visual-line-mode', so lines wrap visually instead of using hard
+;; newlines.
 ;;
 ;; It also enables lots of Org features, including hiding emphasis markers
 ;; unless they're under point, using a pretty ellipsis, displaying mathematical
@@ -77,10 +77,6 @@ mapping variables to those initial settings."))
    "State of modes before enabling `writing-mode'. Plist mapping mode
 names to those initial settings."))
 
-(make-variable-buffer-local
- (defvar writing-initial-state-auto-fill-mode nil
-   "Was auto-fill-mode initially enabled?"))
-
 (defun writing--save-variable (variable-name)
   "Store a variable's value as a pair in
 `writing-buffer-variable-states'."
@@ -133,9 +129,6 @@ names to those initial settings."))
 
   (writing--save-settings)
 
-  (setq writing-initial-state-auto-fill-mode auto-fill-function)
-  (auto-fill-mode -1)
-
   (when (eq major-mode 'org-mode)
     (setq org-ellipsis writing-org-ellipsis
           org-hide-emphasis-markers t
@@ -154,9 +147,6 @@ names to those initial settings."))
   "Disable minor writing-mode."
 
   (writing--restore-settings)
-
-  (when writing-initial-state-auto-fill-mode
-    (auto-fill-mode 1))
 
   (when (and (eq major-mode 'org-mode)
              (not org-startup-with-inline-images))
