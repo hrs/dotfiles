@@ -2268,6 +2268,8 @@ I use =elfeed= to read my (300-odd!) feeds.
 - Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then by
   name of the feed, and finally by publication date.
 - Increase the max number of simultaneous connections to 32.
+- Run =elfeed-update= every five minutes, assuming Emacs has been idle for at
+  least 30 seconds.
 - Open =elfeed= with =C-c r=.
 
 #+begin_src emacs-lisp
@@ -2291,6 +2293,8 @@ I use =elfeed= to read my (300-odd!) feeds.
     (setf elfeed-search-sort-function #'+custom-elfeed-sort)
 
     (elfeed-set-max-connections 32)
+
+    (run-with-idle-timer 30 300 'elfeed-update)
 
     (global-set-key (kbd "C-c r") 'elfeed))
 #+end_src
