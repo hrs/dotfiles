@@ -525,14 +525,37 @@ project root (if I'm not in a "real" project).
 
 I like tree-based undo management. I only rarely need it, but when I do, oh boy.
 
-This also registers =undo-tree= for use in =evil-mode=.
+This configuration:
+
+- Stores all undo files under the =undo-tree= directory in my Emacs config
+  directory.
+- Registers =undo-tree= for use in =evil-mode=.
+- Suppresses warnings about being unable to load undo history when an underlying
+  file is changed outside Emacs (as often happens when I, say, append a task to
+  my todo lists through a script).
 
 #+begin_src emacs-lisp
   (use-package undo-tree
     :config
     (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo-tree"))))
     (global-undo-tree-mode)
-    (evil-set-undo-system 'undo-tree))
+    (evil-set-undo-system 'undo-tree)
+
+    (defun +undo-tree-suppress-undo-history-saved-message (undo-tree-save-history &rest args)
+      "Suppress the message saying that the undo history file was saved (because this happens every single time you save a file)."
+      (let ((inhibit-message t))
+        (apply undo-tree-save-history args)))
+
+    (defun +undo-tree-suppress-buffer-modified-message (undo-tree-load-history &rest args)
+      "Suppress the message saying that the undo history could not be loaded because the file changed outside of Emacs."
+      (let ((inhibit-message t))
+        (apply undo-tree-load-history args)))
+
+    (advice-add #'undo-tree-load-history :around
+                #'+undo-tree-suppress-undo-history-saved-message)
+
+    (advice-add #'undo-tree-load-history :around
+                #'+undo-tree-suppress-buffer-modified-message))
 #+end_src
 
 * Programming environments
