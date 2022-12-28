@@ -41,21 +41,30 @@
                    (require 'org-appear)
                    (require 'org-modern)
                    (require 'org-superstar)
+                   (require 'seq)
                    (require 'wc-mode))
 
 (defvar writing-org-ellipsis "…")
 (defvar writing-org-image-actual-width '(600))
 
 (defvar writing-enabled-modes
-  '(flycheck-mode
-    mixed-pitch-mode
-    olivetti-mode
-    org-appear-mode
-    org-modern-mode
-    org-superstar-mode
-    visual-line-mode
-    wc-mode)
-  "Modes to be enabled when entering `writing-mode'.")
+  '((org-mode . (org-appear-mode
+                 org-modern-mode
+                 org-superstar-mode))
+    (text-mode . (flycheck-mode
+                  mixed-pitch-mode
+                  olivetti-mode
+                  visual-line-mode
+                  wc-mode)))
+  "Alist mapping a major mode to a list of minor modes. When
+`writing-mode' is enabled, the minor modes associated with every
+major mode that derives from the current major mode with also be
+enabled.
+
+For example, enabling `writing-mode' while in `org-mode' would
+enable the minor modes associated with `org-mode' and `text-mode'
+in this alist, but not e.g. `markdown-mode' or `prog-mode', since
+`org-mode' doesn't derive from those.")
 
 (defvar writing-preserved-variables
   '(org-ellipsis
@@ -106,13 +115,23 @@ names to those initial settings."))
       (funcall mode-name 1)
       (funcall mode-name -1)))
 
+(defun writing--applicable-minor-modes ()
+  "Return a list of minor modes (a subset of those defined in
+`writing-enabled-modes') that ought to be enabled in the
+current major mode."
+  (seq-reduce (lambda (acc pair)
+                (if (derived-mode-p (car pair))
+                    (seq-union acc (cdr pair))
+                  acc))
+              writing-enabled-modes '()))
+
 (defun writing--save-settings ()
   "Save all `writing-preserved-variables' in
 `writing-buffer-variable-states'."
   (dolist (variable-name writing-preserved-variables)
     (writing--save-variable variable-name))
 
-  (dolist (mode-name writing-enabled-modes)
+  (dolist (mode-name (writing--applicable-minor-modes))
     (writing--save-mode mode-name)))
 
 (defun writing--restore-settings ()
@@ -121,7 +140,7 @@ names to those initial settings."))
   (dolist (variable-name writing-preserved-variables)
     (writing--restore-variable variable-name))
 
-  (dolist (mode-name writing-enabled-modes)
+  (dolist (mode-name (writing--applicable-minor-modes))
     (writing--restore-mode mode-name)))
 
 (defun writing-enable ()
@@ -140,7 +159,7 @@ names to those initial settings."))
 
     (org-redisplay-inline-images))
 
-  (dolist (mode-name writing-enabled-modes)
+  (dolist (mode-name (writing--applicable-minor-modes))
     (funcall mode-name 1)))
 
 (defun writing-disable ()
