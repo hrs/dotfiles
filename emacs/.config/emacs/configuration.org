@@ -2020,12 +2020,11 @@ I use multiple contexts for personal and work email.
 
 ** Fetching new mail
 
-I fetch my email with a [[file:~/.dotfiles/bash/dot-bin/get-new-mail][custom script]] (though, in practice, I rarely fetch mail
-manually; I have a cron job regularly calling the script to fetch my mail
-asynchronously).
+I fetch my email with =mbsync= every two minutes.
 
 #+begin_src emacs-lisp
-  (setq mu4e-get-mail-command (executable-find "get-new-mail"))
+  (setq mu4e-get-mail-command "mbsync --all")
+  (setq mu4e-update-interval 120)
 #+end_src
 
 Rename files when moving them between directories. =mbsync= supposedly prefers
