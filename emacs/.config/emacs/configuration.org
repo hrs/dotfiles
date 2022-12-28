@@ -1253,15 +1253,16 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
 =org-habit= items so they can recur according to a schedule.
 
 #+begin_src emacs-lisp
-  (setq org-agenda-files (list org-index-file
-                               (org-file-path "calendars")
-                               (org-file-path "deliveries.org")
-                               (org-file-path "habits.org")
-                               (org-file-path "news.org")
-                               (org-file-path "recurring-events.org")
-                               (org-file-path "recurring-tasks.org")
-                               (org-file-path "work.org")
-                               (org-file-path "writing.org")))
+  (setq org-agenda-files
+        (mapcar 'org-file-path '("calendars"
+                                 "deliveries.org"
+                                 "habits.org"
+                                 "index.org"
+                                 "news.org"
+                                 "recurring-events.org"
+                                 "recurring-tasks.org"
+                                 "work.org"
+                                 "writing.org")))
 #+end_src
 
 Record the time that a todo was archived.
