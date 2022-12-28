@@ -2067,11 +2067,10 @@ my inbox.
   (setq mu4e-headers-include-related nil)
 #+end_src
 
-=mu4e= starts approximately instantaneously, so I don't know why I'd want to
-reconsider quitting it.
+Rather than quitting =mu4e=, just bury the buffer.
 
 #+begin_src emacs-lisp
-  (setq mu4e-confirm-quit nil)
+  (evil-define-key 'normal mu4e-main-mode-map (kbd "q") 'bury-buffer)
 #+end_src
 
 I'd rather word-wrap long lines when viewing mail.
