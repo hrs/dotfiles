@@ -75,11 +75,12 @@ is over 16 MB.
 
 Load and configure =evil-mode=.
 
-I'd prefer not to expand abbrevs when I hit escape. That's always jarring and
-usually not what I want. In particular, it makes working with Coq really
-frustrating.
-
-Don't automatically load Evil bindings in different modes.
+- I'd prefer not to expand abbrevs when I hit escape. That's always jarring and
+  usually not what I want. In particular, it makes working with Coq really
+  frustrating.
+- Don't automatically load Evil bindings in different modes.
+- Bind =C-p= to fuzzy-finding files in the current project. We also need to
+  explicitly set that in a few other modes.
 
 #+begin_src emacs-lisp
   (use-package evil
@@ -89,9 +90,13 @@ Don't automatically load Evil bindings in different modes.
 
     :config
     (evil-mode 1)
+
+    (evil-define-key '(normal insert) 'global (kbd "C-p") 'projectile-find-file)
+
     (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
     (evil-define-key 'insert org-mode-map (kbd "S-<right>") 'org-shiftright)
     (evil-define-key 'insert org-mode-map (kbd "S-<left>") 'org-shiftleft)
+
     (fset 'evil-visual-update-x-selection 'ignore))
 #+end_src
 
@@ -359,6 +364,8 @@ dotfiles, but not =.git= repos.
     :commands (deadgrep)
 
     :config
+    (evil-define-key 'motion deadgrep-mode-map (kbd "C-p") 'projectile-find-file)
+
     (defun deadgrep--include-args (rg-args)
       (push "--hidden" rg-args)
       (push "--glob=!.git/" rg-args))
@@ -492,9 +499,6 @@ Projectile's default search bindings are clunky enough that I rarely use them
 (and forget them when I need them). This binds searching to the easier-to-type
 =C-c v=.
 
-Bind =C-p= to fuzzy-finding files in the current project. We also need to
-explicitly set that in a few other modes.
-
 I use =ivy= as my completion system.
 
 When I visit a project with =projectile-switch-project=, the default action is
@@ -509,19 +513,15 @@ project root (if I'm not in a "real" project).
   (use-package projectile
     :bind ("C-c v" . deadgrep)
 
+    :custom
+    (projectile-completion-system 'ivy)
+    (projectile-switch-project-action 'projectile-dired)
+    (projectile-require-project-root nil)
+
     :config
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-    (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
-    (evil-define-key 'motion deadgrep-mode-map (kbd "C-p") 'projectile-find-file)
-    (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
-    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'projectile-find-file)
-
-    (setq projectile-completion-system 'ivy
-          projectile-switch-project-action 'projectile-dired
-          projectile-require-project-root nil)
-
-    (projectile-global-mode))
+    (projectile-mode))
 #+end_src
 
 ** =undo-tree=
@@ -952,6 +952,9 @@ be colored.
     (rspec-use-chruby t)
 
     :config
+    (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
+    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'projectile-find-file)
+
     (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter))
 #+end_src
 
