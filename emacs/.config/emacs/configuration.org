@@ -2006,59 +2006,70 @@ This selects and inserts a tag:
 Inconveniently, =mu4e= is ordinarily distributed along with =mu= in my system's
 package manager instead of as a package on MELPA. That package also seems to
 have some trouble inter-operating with my (more recent and locally built)
-version of Emacs.
+version of Emacs. As a last resort, this loads up =mu4e= from a local repo.
 
-As a last resort, this loads up =mu4e= from a local repo:
+Also, rather than quitting =mu4e=, just bury the buffer when I hit =q=.
 
 #+begin_src emacs-lisp
   (use-package mu4e
-    :load-path "~/media/code/mu/build/mu4e")
-#+end_src
+    :commands mu4e
+    :defer 2
+    :load-path "~/media/code/mu/build/mu4e"
 
-** Who am I?
+    :custom
+    (mu4e-trash-folder "/personal/archive")
+    (mu4e-refile-folder "/personal/archive")
+    (mu4e-sent-folder "/personal/sent")
+    (mu4e-drafts-folder "/personal/drafts")
+
+    :config
+    (evil-define-key 'normal mu4e-main-mode-map (kbd "q") 'bury-buffer)
+    (mu4e t))
+#+end_src
 
 I use multiple contexts for personal and work email.
 
 #+begin_src emacs-lisp
-  (setq mu4e-trash-folder "/personal/archive")
-  (setq mu4e-refile-folder "/personal/archive")
-  (setq mu4e-sent-folder "/personal/sent")
-  (setq mu4e-drafts-folder "/personal/drafts")
+  (use-package mu4e-context
+		:after mu4e
+		:load-path "~/media/code/mu/build/mu4e"
 
-  (defun +context-matches-p (msg context-name context-email)
-    (if msg
-        (mu4e-message-contact-field-matches msg '(:bcc :cc :to) context-email)
-      (when (mu4e-context-current)
-        (string= context-name (mu4e-context-name (mu4e-context-current))))))
+		:config
+		(defun +context-matches-p (msg context-name context-email)
+			(if msg
+					(mu4e-message-contact-field-matches msg '(:bcc :cc :to) context-email)
+				(when (mu4e-context-current)
+					(string= context-name (mu4e-context-name (mu4e-context-current))))))
 
-  (setq mu4e-contexts
-        `(,(make-mu4e-context
-            :name "consulting"
-            :match-func (lambda (msg) (+context-matches-p msg "consulting" "consulting@harryrschwartz.com"))
-            :vars '((user-mail-address .)
-                    (user-full-name . "Harry R. Schwartz")))
+		(setq mu4e-contexts
+					`(,(make-mu4e-context
+							:name "consulting"
+							:match-func (lambda (msg) (+context-matches-p msg "consulting" "consulting@harryrschwartz.com"))
+							:vars '((user-mail-address .)
+											(user-full-name . "Harry R. Schwartz")))
 
-          ,(make-mu4e-context
-            :name "hrs"
-            :match-func (lambda (msg) t)
-            :vars '((user-mail-address . "hello@harryrschwartz.com")
-                    (user-full-name . "Harry R. Schwartz")))))
+						,(make-mu4e-context
+							:name "hrs"
+							:match-func (lambda (msg) t)
+							:vars '((user-mail-address . "hello@harryrschwartz.com")
+											(user-full-name . "Harry R. Schwartz"))))))
 #+end_src
 
 ** Fetching new mail
 
-I fetch my email with =mbsync= every two minutes.
+- I fetch my email with =mbsync= every two minutes.
+- Rename files when moving them between directories. =mbsync= supposedly prefers
+  this.
 
 #+begin_src emacs-lisp
-  (setq mu4e-get-mail-command "mbsync --all")
-  (setq mu4e-update-interval 120)
-#+end_src
+  (use-package mu4e-bookmarks
+    :after mu4e
+    :load-path "~/media/code/mu/build/mu4e"
 
-Rename files when moving them between directories. =mbsync= supposedly prefers
-this.
-
-#+begin_src emacs-lisp
-  (setq mu4e-change-filenames-when-moving t)
+    :custom
+    (mu4e-get-mail-command "mbsync --all")
+    (mu4e-update-interval 120)
+    (mu4e-change-filenames-when-moving t))
 #+end_src
 
 I don't want to be interrupted with a new mail alert, but I'd also like to know
@@ -2075,78 +2086,69 @@ updates it every minute.
     (run-with-timer 0 60 'mu4e-alert-enable-mode-line-display))
 #+end_src
 
-** Viewing mail
+** Listing mail
+
+Hit =C-c m= to quickly visit my inbox.
 
 #+begin_src emacs-lisp
   (defun +visit-inbox ()
     (interactive)
+    (mu4e t)
     (delete-other-windows)
     (mu4e~headers-jump-to-maildir "/personal/inbox"))
 
   (global-set-key (kbd "C-c m") '+visit-inbox)
 #+end_src
 
-I don't need to see the context of a thread (with all the deleted messages) in
-my inbox.
+Configure the main pane with some reasonable bookmarks. Don't show my (many)
+email addresses, though, since they're just noise.
 
 #+begin_src emacs-lisp
-  (setq mu4e-headers-include-related nil)
+  (use-package mu4e-bookmarks
+    :after mu4e
+    :load-path "~/media/code/mu/build/mu4e"
+
+    :custom
+    (mu4e-main-hide-personal-addresses t)
+    (mu4e-bookmarks
+          '((:name "personal - inbox" :query "maildir:/personal/inbox" :key ?i)
+            (:name "personal - drafts" :query "maildir:/personal/drafts" :key ?d)
+            (:name "personal - sent" :query "maildir:/personal/sent" :key ?s)
+            (:name "personal - archive" :query "maildir:/personal/archive" :key ?a)
+            (:name "today's messages" :query "date:today..now" :key ?t)
+            (:name "last 7 days" :query "date:7d..now" :key ?w)))
+    (mu4e-maildir-shortcuts
+          '(("/personal/inbox" . ?i)
+            ("/personal/drafts" . ?d)
+            ("/personal/sent" . ?s)
+            ("/personal/archive" . ?a))))
 #+end_src
 
-Rather than quitting =mu4e=, just bury the buffer.
+** Composing mail
+
+- When I'm composing a new email, default to using the current context.
+- Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
+- Once I've sent an email, kill the associated buffer instead of just burying
+  it.
+- If a message is encrypted, my reply should always be encrypted, too.
 
 #+begin_src emacs-lisp
-  (evil-define-key 'normal mu4e-main-mode-map (kbd "q") 'bury-buffer)
-#+end_src
+  (use-package mu4e-compose
+    :after mu4e
+    :load-path "~/media/code/mu/build/mu4e"
+    :hook (mu4e-compose-mode . +encrypt-responses)
 
-I'd rather word-wrap long lines when viewing mail.
+    :custom
+    (mu4e-compose-context-policy nil)
+    (mail-user-agent 'mu4e-user-agent)
+    (message-kill-buffer-on-exit t)
 
-#+begin_src emacs-lisp
-  (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
-#+end_src
-
-*** Bookmarks
-
-#+begin_src emacs-lisp
-  (setq mu4e-bookmarks
-        '((:name "personal - inbox" :query "maildir:/personal/inbox" :key ?i)
-          (:name "personal - drafts" :query "maildir:/personal/drafts" :key ?d)
-          (:name "personal - sent" :query "maildir:/personal/sent" :key ?s)
-          (:name "personal - archive" :query "maildir:/personal/archive" :key ?a)
-          (:name "today's messages" :query "date:today..now" :key ?t)
-          (:name "last 7 days" :query "date:7d..now" :key ?w)))
-
-  (setq mu4e-maildir-shortcuts
-        '(("/personal/inbox" . ?i)
-          ("/personal/drafts" . ?d)
-          ("/personal/sent" . ?s)
-          ("/personal/archive" . ?a)))
-#+end_src
-
-Don't show my (many) email addresses on the main pane, since they're just noise.
-
-#+begin_src emacs-lisp
-  (setq mu4e-main-hide-personal-addresses t)
-#+end_src
-
-** Composing a new message
-
-When I'm composing a new email, default to using the current context.
-
-#+begin_src emacs-lisp
-  (setq mu4e-compose-context-policy nil)
-#+end_src
-
-Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
-
-#+begin_src emacs-lisp
-  (setq mail-user-agent 'mu4e-user-agent)
-#+end_src
-
-Once I've sent an email, kill the associated buffer instead of just burying it.
-
-#+begin_src emacs-lisp
-  (setq message-kill-buffer-on-exit t)
+    :config
+    (defun +encrypt-responses ()
+      "Encrypt the current message if it's a reply to another encrypted message."
+      (let ((msg mu4e-compose-parent-message))
+        (when (and msg (member 'encrypted (mu4e-message-field msg :flags)))
+          (mml-secure-message-encrypt-pgpmime)))))
 #+end_src
 
 Write HTML emails in Org by toggling =org-msg-mode=.
@@ -2157,6 +2159,7 @@ highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
 
 #+begin_src emacs-lisp
   (use-package org-msg
+    :after (mu4e org)
     :config
     (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil tex:dvipng \\n:t"
           org-msg-startup "inlineimages"
@@ -2171,47 +2174,44 @@ highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
   #+end_signature"))
 #+end_src
 
-** Reading an email
+** Viewing mail
 
-Display the sender's email address along with their name.
-
-#+begin_src emacs-lisp
-  (setq mu4e-view-show-addresses t)
-#+end_src
-
-Save attachments in my =~/downloads= directory, not my home directory.
-
-#+begin_src emacs-lisp
-  (setq mu4e-attachment-dir "~/downloads")
-#+end_src
-
-Hit =C-c C-o= to open a URL in the browser.
+- I'd rather word-wrap long lines when viewing mail.
+- Hit =C-c C-o= to open a URL in the browser.
+- I don't need to see the context of a thread (with all the deleted messages) in
+  my inbox.
+- Display the sender's email address along with their name.
+- Save attachments in my =~/downloads= directory, not my home directory.
+- While HTML emails are just fundamentally awful, we usually still need to read
+  them. Tweaking =shr= settings ensures that their formatting in Emacs isn't too
+  hideous.
+- Some HTML emails are just too messy to display in Emacs. This binds =a h= to
+  open the current email in my default Web browser.
 
 #+begin_src emacs-lisp
-  (define-key mu4e-view-mode-map (kbd "C-c C-o") 'shr-browse-url)
-#+end_src
+  (use-package mu4e-view
+    :after mu4e
+    :load-path "~/media/code/mu/build/mu4e"
+    :hook (mu4e-view-mode . visual-line-mode)
+    :bind (:map mu4e-view-mode-map ("C-c C-o" . shr-browse-url))
 
-While HTML emails are just fundamentally awful, we usually still need to read
-them. This ensures that their formatting in Emacs isn't too hideous:
+    :custom
+    (mu4e-headers-include-related nil)
+    (mu4e-view-show-addresses t)
+    (mu4e-attachment-dir "~/downloads")
 
-#+begin_src emacs-lisp
-  (require 'mu4e-contrib)
-  (setq mu4e-html2text-command 'mu4e-shr2text
-        shr-color-visible-luminance-min 60
-        shr-color-visible-distance-min 5
-        shr-use-fonts nil
-        shr-use-colors nil)
-  (advice-add #'shr-colorize-region
-              :around (defun shr-no-colourise-region (&rest ignore)))
-#+end_src
+    (mu4e-html2text-command 'mu4e-shr2text)
+    (shr-color-visible-luminance-min 60)
+    (shr-color-visible-distance-min 5)
+    (shr-use-fonts nil)
+    (shr-use-colors nil)
 
-But some HTML emails are just too messy to display in Emacs. This binds =a h= to
-open the current email in my default Web browser.
-
-#+begin_src emacs-lisp
-  (add-to-list 'mu4e-view-actions
-               '("html in browser" . mu4e-action-view-in-browser)
-               t)
+    :config
+    (advice-add #'shr-colorize-region
+                :around (defun shr-no-colorize-region (&rest ignore)))
+    (add-to-list 'mu4e-view-actions
+                 '("html in browser" . mu4e-action-view-in-browser)
+                 t))
 #+end_src
 
 ** Archiving mail
@@ -2229,20 +2229,6 @@ email to my "Archive" folder without applying that flag.
   (evil-define-key 'normal mu4e-view-mode-map (kbd "d") '+mu4e-move-to-archive)
 #+end_src
 
-** Encryption
-
-If a message is encrypted, my reply should always be encrypted, too.
-
-#+begin_src emacs-lisp
-  (defun +encrypt-responses ()
-    "Encrypt the current message if it's a reply to another encrypted message."
-    (let ((msg mu4e-compose-parent-message))
-      (when (and msg (member 'encrypted (mu4e-message-field msg :flags)))
-          (mml-secure-message-encrypt-pgpmime))))
-
-  (add-hook 'mu4e-compose-mode-hook '+encrypt-responses)
-#+end_src
-
 ** Sending mail over SMTP
 
 I send my email through =msmtp=. These settings describe how to send a message:
@@ -2253,10 +2239,13 @@ I send my email through =msmtp=. These settings describe how to send a message:
 - Use =/usr/bin/msmtp=!
 
 #+begin_src emacs-lisp
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
-  (setq message-sendmail-f-is-evil 't)
-  (setq sendmail-program "msmtp")
+  (use-package sendmail
+    :after mu4e
+    :custom
+    (message-send-mail-function 'message-send-mail-with-sendmail)
+    (message-sendmail-extra-arguments '("--read-envelope-from"))
+    (message-sendmail-f-is-evil 't)
+    (sendmail-program "msmtp"))
 #+end_src
 
 ** Agenda integration
@@ -2269,6 +2258,7 @@ instead of the search that resulted in that view.
 
 #+begin_src emacs-lisp
   (use-package mu4e-org
+    :after (mu4e org)
     :load-path "~/media/code/mu/build/mu4e"
     :custom
     (mu4e-org-link-query-in-headers-mode nil))
@@ -2281,7 +2271,7 @@ Use an =org-contacts= file to manage my address book.
  #+begin_src emacs-lisp
    (use-package org-contacts
      :load-path "resources"
-     :after org
+     :after (mu4e org)
      :custom
      (org-contacts-files '("~/documents/contacts.org"))
 
