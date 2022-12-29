@@ -354,7 +354,10 @@ dotfiles, but not =.git= repos.
 
 #+begin_src emacs-lisp
   (use-package deadgrep
+    :defer t
     :ensure-system-package (rg . ripgrep)
+    :commands (deadgrep)
+
     :config
     (defun deadgrep--include-args (rg-args)
       (push "--hidden" rg-args)
@@ -404,6 +407,7 @@ interface for managing containers.
 
 #+begin_src emacs-lisp
   (use-package docker
+    :defer t
     :ensure-system-package docker)
 #+end_src
 
@@ -503,8 +507,7 @@ project root (if I'm not in a "real" project).
 
 #+begin_src emacs-lisp
   (use-package projectile
-    :bind
-    ("C-c v" . deadgrep)
+    :bind ("C-c v" . deadgrep)
 
     :config
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -670,6 +673,7 @@ Indent by 2 spaces.
 
 #+begin_src emacs-lisp
   (use-package css-mode
+    :defer t
     :config
     (setq css-indent-offset 2))
 #+end_src
@@ -678,6 +682,7 @@ Don't compile the current SCSS file every time I save.
 
 #+begin_src emacs-lisp
   (use-package scss-mode
+    :defer t
     :config
     (setq scss-compile-at-save nil))
 #+end_src
@@ -688,11 +693,12 @@ Install =go-mode=, plus =protobuf-mode=.
 
 #+begin_src emacs-lisp
   (use-package go-mode
+    :defer t
     :ensure-system-package (go . golang)
-    :bind
-    (:map go-mode-map ("C-c C-c" . compile)))
+    :bind (:map go-mode-map ("C-c C-c" . compile)))
 
-  (use-package protobuf-mode)
+  (use-package protobuf-mode
+    :defer t)
 #+end_src
 
 Define my =$GOPATH= and tell Emacs where to find the Go binaries.
@@ -729,18 +735,15 @@ C-c= in the =use-package= configuration above.
 
 ** Haskell
 
-#+begin_src emacs-lisp
-  (use-package haskell-mode)
-#+end_src
-
 Enable =haskell-doc-mode=, which displays the type signature of a function, and
 use smart indentation.
 
 #+begin_src emacs-lisp
-  (add-hook 'haskell-mode-hook
-            (lambda ()
-              (haskell-doc-mode)
-              (turn-on-haskell-indent)))
+  (use-package haskell-mode
+    :defer t
+    :hook (haskell-mode . (lambda ()
+                            (haskell-doc-mode)
+                            (turn-on-haskell-indent))))
 #+end_src
 
 ** JavaScript
@@ -754,7 +757,8 @@ Indent everything by 2 spaces.
 Browse JSON documents hierarchically with =json-navigator-navigate-after-point=.
 
 #+begin_src emacs-lisp
-(use-package json-navigator)
+  (use-package json-navigator
+    :commands (json-navigator-navigate-after-point))
 #+end_src
 
 ** Lisps
@@ -773,10 +777,13 @@ Set up [[https://slime.common-lisp.dev/][SLIME]] to interactively hack on Common
 #+begin_src emacs-lisp
   (use-package slime
     :ensure-system-package sbcl
+    :defer t
+    :commands (slime)
+
     :config
+    (setq inferior-lisp-program "sbcl")
     (load (expand-file-name "~/.quicklisp/slime-helper.el"))
-    (add-to-list 'slime-contribs 'slime-autodoc)
-    (setq inferior-lisp-program "sbcl"))
+    (add-to-list 'slime-contribs 'slime-autodoc))
 #+end_src
 
 *** Emacs Lisp
@@ -792,14 +799,16 @@ documentation.
 *** Racket
 
 #+begin_src emacs-lisp
-  (use-package geiser
-    :ensure-system-package racket
-    :config
-    (setq geiser-active-implementations '(racket)))
-
   (use-package racket-mode
+    :defer t
+    :ensure-system-package racket
     :hook (racket-mode . racket-xp-mode)
     :mode "\\.rkt\\'")
+
+  (use-package geiser
+    :after racket-mode
+    :config
+    (setq geiser-active-implementations '(racket)))
 #+end_src
 
 Quit documentation buffers.
@@ -815,6 +824,7 @@ Use =tuareg-mode= for editing OCaml.
 #+begin_src emacs-lisp
   (use-package tuareg
     :ensure-system-package opam
+    :defer t
     :config
     (electric-indent-mode 0))
 #+end_src
@@ -824,35 +834,37 @@ with =opam install merlin=.
 
 #+begin_src emacs-lisp
   (use-package merlin
+    :after tuareg-mode
     :hook (tuareg-mode . merlin-mode))
 #+end_src
 
 ** Python
 
 #+begin_src emacs-lisp
-  (use-package python-mode)
+  (use-package python-mode
+    :defer t)
 #+end_src
 
 Enable =elpy=. This provides automatic indentation, auto-completion, syntax
-checking, etc.
+checking, etc. Use the =python3= interpreter for eldoc.
 
 #+begin_src emacs-lisp
-  (use-package elpy)
-  (elpy-enable)
+  (use-package elpy
+    :after python-mode
+
+    :custom
+    (elpy-rpc-python-command "python3")
+
+    :config
+    (elpy-enable))
 #+end_src
 
 Format code according to PEP8 on save:
 
 #+begin_src emacs-lisp
-  (use-package py-autopep8)
-  (require 'py-autopep8)
-  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-#+end_src
-
-Use the =python3= interpreter for eldoc:
-
-#+begin_src emacs-lisp
-  (setq elpy-rpc-python-command "python3")
+  (use-package py-autopep8
+    :after python-mode
+    :hook (elpy-mode-hook . py-autopep8-enable-on-save))
 #+end_src
 
 ** Ruby
@@ -906,6 +918,7 @@ I use =chruby= to switch between versions of Ruby.
 
 #+begin_src emacs-lisp
   (use-package chruby
+    :after ruby-mode
     :hook (ruby . chruby-use-corresponding)
     :config
     (chruby +ruby-version))
@@ -920,6 +933,7 @@ be colored.
 
 #+begin_src emacs-lisp
   (use-package rspec-mode
+    :after ruby-mode
     :ensure-system-package (rspec . "gem install rspec")
 
     :hook (css-mode
@@ -932,11 +946,13 @@ be colored.
            web-mode
            yard-mode)
 
+    :custom
+    (compilation-scroll-output nil)
+    (rspec-command-options "--color --order random")
+    (rspec-use-chruby t)
+
     :config
-    (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter)
-    (setq compilation-scroll-output nil
-          rspec-command-options "--color --order random"
-          rspec-use-chruby t))
+    (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter))
 #+end_src
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display the
@@ -948,6 +964,7 @@ buffer.
 
 #+begin_src emacs-lisp
   (use-package rcodetools
+    :after ruby-mode
     :load-path "resources"
     :config
     (setq xmpfilter-command-name
@@ -958,6 +975,7 @@ Ruby method comments are often formatted with Yard.
 
 #+begin_src emacs-lisp
   (use-package yard-mode
+    :after ruby-mode
     :hook ruby-mode)
 #+end_src
 
@@ -965,13 +983,15 @@ Insert =end= keywords automatically when I start to define a method, class,
 module, or block.
 
 #+begin_src emacs-lisp
-  (use-package ruby-end)
+  (use-package ruby-end
+    :after ruby-mode)
 #+end_src
 
 Install and enable =projectile-rails= mode in all Rail-related buffers.
 
 #+begin_src emacs-lisp
   (use-package projectile-rails
+    :after ruby-mode
     :config
     (projectile-rails-global-mode))
 #+end_src
@@ -1021,16 +1041,16 @@ Ensure that =scala-mode= and =sbt-mode= are installed.
 
 #+begin_src emacs-lisp
   (use-package scala-mode
-    :interpreter
-    ("scala" . scala-mode))
+    :interpreter ("scala" . scala-mode))
 
   (use-package sbt-mode
+    :after scala-mode
     :commands sbt-start sbt-command
+
     :config
-    (substitute-key-definition
-     'minibuffer-complete-word
-     'self-insert-command
-     minibuffer-local-completion-map))
+    (substitute-key-definition 'minibuffer-complete-word
+                               'self-insert-command
+                               minibuffer-local-completion-map))
 
   (use-package hydra)
 #+end_src
@@ -1062,8 +1082,11 @@ Support syntax-based indentation when editing SQL files.
 Install =terraform-mode=.
 
 #+begin_src emacs-lisp
-  (use-package terraform-mode)
-  (use-package company-terraform)
+  (use-package terraform-mode
+    :defer t)
+
+  (use-package company-terraform
+    :after terraform-mode)
 #+end_src
 
 ** =web-mode=
@@ -1100,11 +1123,10 @@ a new terminal instance with =C-c t=.
   (use-package multi-vterm
     :ensure-system-package (cmake
                             ("/usr/share/doc/libvterm-dev" . libvterm-dev))
-    :config
-    (add-hook 'vterm-mode-hook
-              (lambda () (setq-local global-hl-line-mode nil)))
+    :commands (multi-vterm)
+    :hook (vterm-mode-hook . (lambda () (setq-local global-hl-line-mode nil))))
 
-    (global-set-key (kbd "C-c t") 'multi-vterm))
+  (global-set-key (kbd "C-c t") 'multi-vterm)
 #+end_src
 
 * Password management
@@ -1136,6 +1158,7 @@ to open those links with the mailcap-defined applications.
 
 #+begin_src emacs-lisp
   (use-package org
+    :defer t
     :config
     (require 'org-tempo)
 
@@ -1674,12 +1697,19 @@ Rebind =C-c C-l= to [[https://xenodium.com/emacs-dwim-do-what-i-mean/][DWIM]]:
 
 ** Exporting
 
-Allow export to markdown, beamer (for presentations), and epub.
+Allow export to markdown and epub.
 
 #+begin_src emacs-lisp
-  (require 'ox-md)
-  (require 'ox-beamer)
-  (use-package ox-epub)
+  (use-package ox-md
+    :ensure nil
+    :defer t
+    :after org
+    :commands (org-export-dispatch))
+
+  (use-package ox-epub
+    :defer t
+    :after org
+    :commands (org-export-dispatch))
 #+end_src
 
 Allow =babel= to evaluate code blocks in a handful of languages.
@@ -1696,7 +1726,7 @@ Allow =babel= to evaluate code blocks in a handful of languages.
      (gnuplot . t)
      (ruby . t)
      (shell . t)))
-     #+end_src
+#+end_src
 
 Don't ask before evaluating code blocks.
 
@@ -1714,8 +1744,10 @@ Associate the "dot" language with the =graphviz-dot= major mode.
 
 #+begin_src emacs-lisp
   (use-package graphviz-dot-mode
-    :ensure-system-package (dot . graphviz))
-  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+    :ensure-system-package (dot . graphviz)
+
+    :config
+    (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot)))
 #+end_src
 
 Translate regular ol' straight quotes to typographically correct curly quotes
@@ -1736,43 +1768,37 @@ of every exported HTML document.
 
 **** Exporting to PDF
 
-I want to produce PDFs with syntax highlighting in the code. The best way to do
-that seems to be with the =minted= package, but that package shells out to
-=pygments= to do the actual work. =xelatex= usually disallows shell commands; this
-enables that.
+- I want to produce PDFs with syntax highlighting in the code. The best way to
+  do that seems to be with the =minted= package, but that package shells out to
+  =pygments= to do the actual work. =xelatex= usually disallows shell commands;
+  this enables that.
+- Include the =minted= package in all of my LaTeX exports.
+- Remove the intermediate TeX file when exporting to PDF.
 
 #+begin_src emacs-lisp
-  (setq org-latex-pdf-process
-        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (use-package ox-latex
+    :ensure nil
+    :after org
+    :commands (org-export-dispatch)
+
+    :custom
+    (org-latex-pdf-process
+     '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+    (org-latex-listings 'minted)
+
+    :config
+    (add-to-list 'org-latex-packages-alist '("" "minted"))
+    (add-to-list 'org-latex-logfiles-extensions "tex"))
 #+end_src
 
-Include the =minted= package in all of my LaTeX exports.
+Allow exporting presentations to beamer.
 
 #+begin_src emacs-lisp
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (setq org-latex-listings 'minted)
-#+end_src
-
-Remove the intermediate TeX file when exporting to PDF.
-
-#+begin_src emacs-lisp
-  (add-to-list 'org-latex-logfiles-extensions "tex")
-#+end_src
-
-I often want to export a book without "Part I":
-
-#+begin_src emacs-lisp
-  (add-to-list 'org-latex-classes
-             '("book-noparts"
-                "\\documentclass{book}"
-                ("\\chapter{%s}" . "\\chapter*{%s}")
-                ("\\section{%s}" . "\\section*{%s}")
-                ("\\subsection{%s}" . "\\subsection*{%s}")
-                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (use-package ox-beamer
+    :ensure nil
+    :after ox-latex)
 #+end_src
 
 ** TeX configuration
@@ -2280,6 +2306,8 @@ I use =elfeed= to read my (300-odd!) feeds.
 
 #+begin_src emacs-lisp
   (use-package elfeed
+    :defer t
+    :commands (elfeed elfeed-update)
     :custom
     (elfeed-search-title-max-width 120)
 
@@ -2298,11 +2326,11 @@ I use =elfeed= to read my (300-odd!) feeds.
           (string< a-tags b-tags))))
     (setf elfeed-search-sort-function #'+custom-elfeed-sort)
 
-    (elfeed-set-max-connections 32)
+    (elfeed-set-max-connections 32))
 
-    (run-with-idle-timer 30 300 'elfeed-update)
+  (run-with-idle-timer 30 300 'elfeed-update)
 
-    (global-set-key (kbd "C-c r") 'elfeed))
+  (global-set-key (kbd "C-c r") 'elfeed)
 #+end_src
 
 I store my feeds in an Org file, of course. This parses them into something
@@ -2310,6 +2338,7 @@ I store my feeds in an Org file, of course. This parses them into something
 
 #+begin_src emacs-lisp
   (use-package elfeed-org
+    :after (elfeed org)
     :config
     (elfeed-org)
     (setq rmh-elfeed-org-files (list "~/documents/rss-feeds.org")))
@@ -2331,7 +2360,9 @@ I use Firefox to browse the Web, but I'd like to open [[https://gemini.circumlun
 This checks the prefix of each URL and uses the appropriate program to open it.
 
 #+begin_src emacs-lisp
-  (use-package elpher)
+  (use-package elpher
+    :defer t
+    :commands (elpher-go))
 
   (setq +gemini-browser 'elpher-go)
 
@@ -2486,11 +2517,11 @@ whole bunch of pretty modes, switches fonts, enables inline images, and even
 displays the word count in the mode-line. Toggle it with =<f9>=.
 
 #+begin_src emacs-lisp
-  (use-package mixed-pitch)
-  (use-package olivetti)
-  (use-package org-appear)
-  (use-package org-modern)
-  (use-package org-superstar)
+  (use-package mixed-pitch :defer t)
+  (use-package olivetti :defer t)
+  (use-package org-appear :defer t :after org)
+  (use-package org-modern :defer t :after org)
+  (use-package org-superstar :defer t :after org)
 
   (use-package wc-mode
     :custom
@@ -2725,6 +2756,8 @@ buffers.
 
 #+begin_src emacs-lisp
   (use-package helpful
+    :defer t
+    :commands (helpful-callable helpful-variable helpful-key)
     :bind
     ("C-h f" . 'helpful-callable)
     ("C-h v" . 'helpful-variable)
@@ -2931,7 +2964,9 @@ I always forget the TRAMP syntax, and this provides the easier-to-remember
 =sudo-edit= function.
 
 #+begin_src emacs-lisp
-  (use-package sudo-edit)
+  (use-package sudo-edit
+    :defer t
+    :commands (sudo-edit))
 #+end_src
 
 * Set custom keybindings
