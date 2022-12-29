@@ -1098,7 +1098,8 @@ a new terminal instance with =C-c t=.
 
 #+begin_src emacs-lisp
   (use-package multi-vterm
-    :ensure-system-package (cmake libvterm-dev)
+    :ensure-system-package (cmake
+                            ("/usr/share/doc/libvterm-dev" . libvterm-dev))
     :config
     (add-hook 'vterm-mode-hook
               (lambda () (setq-local global-hl-line-mode nil)))
