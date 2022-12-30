@@ -105,7 +105,7 @@ Load and configure =evil-mode=.
 		:config
 		(evil-mode 1)
 
-		(evil-define-key '(normal insert) 'global (kbd "C-p") 'projectile-find-file)
+		(evil-define-key '(normal insert) 'global (kbd "C-p") 'project-find-file)
 
 		(evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
 		(evil-define-key 'insert org-mode-map (kbd "S-<right>") 'org-shiftright)
@@ -189,11 +189,11 @@ Define a big ol' bunch of handy utility functions.
 
 #+begin_src emacs-lisp
   (defun +visit-last-migration ()
-    "Open the most recent Rails migration. Relies on projectile."
+    "Open the most recent Rails migration."
     (interactive)
     (let ((migrations
            (directory-files
-            (expand-file-name "db/migrate" (projectile-project-root)) t)))
+            (expand-file-name "db/migrate" (project-root (project-current))) t)))
       (find-file (car (last migrations)))))
 
   (defun +image-path-p (path)
@@ -237,7 +237,13 @@ The default frame title isn't useful. This binds it to the name of the current
 project:
 
 #+begin_src emacs-lisp
-  (setq frame-title-format '((:eval (projectile-project-name))))
+  (defun +frame-title ()
+    (let ((project (project-current)))
+      (if project
+          (project-name project)
+        (buffer-name))))
+
+  (setq-default frame-title-format '(:eval (+frame-title)))
 #+end_src
 
 ** Enable smooth scrolling
@@ -386,7 +392,7 @@ dotfiles, but not =.git= repos.
     :commands (deadgrep)
 
     :config
-    (evil-define-key 'motion deadgrep-mode-map (kbd "C-p") 'projectile-find-file)
+    (evil-define-key 'motion deadgrep-mode-map (kbd "C-p") 'project-find-file)
 
     (defun deadgrep--include-args (rg-args)
       (push "--hidden" rg-args)
@@ -520,35 +526,18 @@ history of a file.
   (use-package git-timemachine)
 #+end_src
 
-** =projectile=
+** =project.el=
 
-Projectile's default search bindings are clunky enough that I rarely use them
-(and forget them when I need them). This binds searching to the easier-to-type
-=C-c v=.
-
-I use =ivy= as my completion system.
-
-When I visit a project with =projectile-switch-project=, the default action is
-to search for a file in that project. I'd rather just open up the top-level
-directory of the project in =dired= and find (or create) new files from there.
-
-I'd like to /always/ be able to recursively fuzzy-search for files, not just
-when I'm in a Projectile-defined project. I use the current directory as a
-project root (if I'm not in a "real" project).
+- Bind searching within the project to =C-c v=.
+- Treat a directory containing =.dir-locals.el= as a project root (useful for
+  projects not under version control).
 
 #+begin_src emacs-lisp
-  (use-package projectile
+  (use-package project
     :bind ("C-c v" . deadgrep)
 
     :custom
-    (projectile-completion-system 'ivy)
-    (projectile-switch-project-action 'projectile-dired)
-    (projectile-require-project-root nil)
-
-    :config
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-    (projectile-mode))
+    (project-vc-extra-root-markers '(".dir-locals.el")))
 #+end_src
 
 ** =undo-tree=
@@ -753,7 +742,7 @@ C-c= in the =use-package= configuration above.
     (set (make-local-variable 'compilation-read-command) nil)
     (set (make-local-variable 'compile-command)
          "go build -v ./... && go test -race ./... && go vet ./...")
-    (set (make-local-variable 'default-directory) (projectile-project-root)))
+    (set (make-local-variable 'default-directory) (project-root (project-current))))
 
   (add-hook 'go-mode-hook #'+set-go-compilation-configuration)
 #+end_src
@@ -973,8 +962,8 @@ be colored.
     (rspec-use-chruby t)
 
     :config
-    (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'projectile-find-file)
-    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'projectile-find-file)
+    (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'project-find-file)
+    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file)
 
     (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter))
 #+end_src
@@ -1009,15 +998,6 @@ module, or block.
 #+begin_src emacs-lisp
   (use-package ruby-end
     :after ruby-mode)
-#+end_src
-
-Install and enable =projectile-rails= mode in all Rail-related buffers.
-
-#+begin_src emacs-lisp
-  (use-package projectile-rails
-    :after ruby-mode
-    :config
-    (projectile-rails-global-mode))
 #+end_src
 
 ** Rust
@@ -2609,7 +2589,8 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
     :config
     (defun +denote-find-file ()
       (interactive)
-      (projectile-find-file-in-directory denote-directory))
+      (let ((project-current-directory-override denote-directory))
+        (project-find-file)))
 
     (defun +denote-search (term)
       (interactive (list (deadgrep--read-search-term)))
@@ -2800,7 +2781,7 @@ Never use tabs. Tabs are the devil's whitespace.
 ** Install and configure =which-key=
 
 =which-key= displays the possible completions for a long keybinding. That's
-really helpful for some modes (like =projectile=, for example).
+really helpful for some modes (like =project.el=, for example).
 
 #+begin_src emacs-lisp
   (use-package which-key
