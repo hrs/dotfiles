@@ -7,11 +7,11 @@
 
 ;; Toggle some graphical elements to make prose writing more pleasant.
 ;;
-;; Specifically, when activated, `writing-mode' enables `mixed-pitch-mode',
-;; `olivetti-mode', and `wc-mode', creating a "distraction-free" writing
-;; environment with variable-pitch fonts and a word count in the mode line. It
-;; also enables `visual-line-mode', so lines wrap visually instead of using hard
-;; newlines.
+;; Specifically, when activated, `writing-mode' currently enables
+;; `mixed-pitch-mode', `olivetti-mode', and `wc-mode', creating a
+;; "distraction-free" writing environment with variable-pitch fonts and a word
+;; count in the mode line. It also enables `visual-line-mode', so lines wrap
+;; visually instead of using hard newlines.
 ;;
 ;; It also enables lots of Org features, including hiding emphasis markers
 ;; unless they're under point, using a pretty ellipsis, displaying mathematical
@@ -36,27 +36,14 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Code:
-(eval-when-compile (require 'mixed-pitch)
-                   (require 'olivetti)
-                   (require 'org-appear)
-                   (require 'org-modern)
-                   (require 'org-superstar)
-                   (require 'seq)
-                   (require 'wc-mode))
+(eval-when-compile (require 'seq))
 
 (defvar writing-org-ellipsis "…")
 (defvar writing-org-image-actual-width '(600))
 
 (defvar writing-enabled-modes
-  '((org-mode . (org-appear-mode
-                 org-modern-mode
-                 org-superstar-mode))
-    (text-mode . (flycheck-mode
-                  mixed-pitch-mode
-                  olivetti-mode
-                  visual-line-mode
-                  wc-mode)))
-  "Alist mapping a major mode to a list of minor modes. When
+  '((text-mode . (visual-line-mode)))
+  "An alist mapping a major mode to a list of minor modes. When
 `writing-mode' is enabled, the minor modes associated with every
 major mode that derives from the current major mode with also be
 enabled.
@@ -92,7 +79,8 @@ names to those initial settings."))
   (setq writing-buffer-variable-states
         (plist-put writing-buffer-variable-states
                    variable-name
-                   (symbol-value variable-name))))
+                   (when (boundp variable-name)
+                     (symbol-value variable-name)))))
 
 (defun writing--restore-variable (variable-name)
   "Restore a variable's value from the value stored in

@@ -2560,11 +2560,34 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
 
   (use-package writing-mode
     :load-path "resources"
-    :bind ("<f9>" . writing-mode))
+    :defer 1
+    :bind ([f9] . writing-mode)
+
+    :config
+    (require 'mixed-pitch)
+    (require 'olivetti)
+    (require 'org-appear)
+    (require 'org-modern)
+    (require 'org-superstar)
+    (require 'wc-mode)
+
+    (setq writing-enabled-modes
+          '((org-mode . (org-appear-mode
+                         org-modern-mode
+                         org-superstar-mode))
+            (elfeed-show-mode . (mixed-pitch-mode
+                                 olivetti-mode))
+            (special-mode . (mixed-pitch-mode
+                             olivetti-mode))
+            (text-mode . (flycheck-mode
+                          mixed-pitch-mode
+                          olivetti-mode
+                          visual-line-mode
+                          wc-mode)))))
 
   (use-package publish-mode
     :load-path "resources"
-    :bind ("<f8>" . publish-build-and-view-pdf))
+    :bind ([f8] . publish-build-and-view-pdf))
 #+end_src
 
 ** Editing with Markdown
