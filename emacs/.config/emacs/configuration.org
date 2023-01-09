@@ -1259,6 +1259,7 @@ I often leave Emacs running overnight, I reset the update location at midnight.
   (+set-org-archive-location)
 
   (use-package midnight
+    :demand t
     :custom
     (midnight-delay 0)
     :config
@@ -2073,6 +2074,7 @@ updates it every minute.
 
 #+begin_src emacs-lisp
   (use-package mu4e-alert
+    :demand t
     :after mu4e
 
     :config
@@ -2334,6 +2336,7 @@ with some associated metadata (descriptions, transcripts, etc).
 #+begin_src emacs-lisp
   (use-package elfeed-tube
     :after elfeed
+    :demand t
     :config
     (elfeed-tube-setup))
 #+end_src
