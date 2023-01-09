@@ -251,8 +251,26 @@ project:
 This is especially nice when I've got a document with embedded images or
 rendered equations. Or on the rare occasions I use a mouse.
 
+In certain read-only modes I like to bind =J= and =K= to scrolling. That's nice
+for reading mail or RSS items. This provides a =+bind-scroll-keys= function I
+can use to enable that for a given key map.
+
 #+begin_src emacs-lisp
   (pixel-scroll-precision-mode 1)
+
+  (defvar +scroll-delta 180)
+
+  (defun +scroll-up-some ()
+    (interactive)
+    (pixel-scroll-precision-scroll-up +scroll-delta))
+
+  (defun +scroll-down-some ()
+    (interactive)
+    (pixel-scroll-precision-scroll-down +scroll-delta))
+
+  (defun +bind-scroll-keys (mode-map)
+    (evil-define-key '(motion normal) mode-map (kbd "K") '+scroll-up-some)
+    (evil-define-key '(motion normal) mode-map (kbd "J") '+scroll-down-some))
 #+end_src
 
 ** Use fancy lambdas
@@ -2211,7 +2229,9 @@ highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
                 :around (defun shr-no-colorize-region (&rest ignore)))
     (add-to-list 'mu4e-view-actions
                  '("html in browser" . mu4e-action-view-in-browser)
-                 t))
+                 t)
+
+    (+bind-scroll-keys mu4e-view-mode-map))
 #+end_src
 
 ** Archiving mail
@@ -2290,12 +2310,10 @@ I use =elfeed= to read my (300-odd!) feeds.
 - Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then by
   name of the feed, and finally by publication date.
 - Increase the max number of simultaneous connections to 32.
-- Run =elfeed-update= every five minutes, assuming Emacs has been idle for at
-  least 30 seconds.
-- Open =elfeed= with =C-c r=.
 
 #+begin_src emacs-lisp
   (use-package elfeed
+    :after writing-mode
     :commands (elfeed elfeed-update)
     :custom
     (elfeed-search-title-max-width 120)
@@ -2315,10 +2333,27 @@ I use =elfeed= to read my (300-odd!) feeds.
           (string< a-tags b-tags))))
     (setf elfeed-search-sort-function #'+custom-elfeed-sort)
 
+    (defun +elfeed-entry-reformat (buff)
+      (switch-to-buffer buff)
+      (writing-mode 1)
+      (elfeed-show-refresh))
+    (setq elfeed-show-entry-switch '+elfeed-entry-reformat)
+
+    (+bind-scroll-keys elfeed-show-mode-map)
+
     (elfeed-set-max-connections 32))
+#+end_src
 
+Update all my feeds every five minutes, assuming Emacs has been idle for at
+least 30 seconds.
+
+#+begin_src emacs-lisp
   (run-with-idle-timer 30 300 'elfeed-update)
+#+end_src
 
+Open =elfeed= with =C-c r=.
+
+#+begin_src emacs-lisp
   (global-set-key (kbd "C-c r") 'elfeed)
 #+end_src
 
@@ -2351,7 +2386,13 @@ This checks the prefix of each URL and uses the appropriate program to open it.
 
 #+begin_src emacs-lisp
   (use-package elpher
-    :commands (elpher-go))
+    :commands (elpher-go)
+    :config
+    (+bind-scroll-keys elpher-mode-map))
+
+  (use-package eww
+    :config
+    (+bind-scroll-keys eww-mode-map))
 
   (setq +gemini-browser 'elpher-go)
 
