@@ -2815,6 +2815,7 @@ Open media with the appropriate programs.
             ("doc" . "abiword")
             ("docx" . "abiword")
             ("epub" . "fbreader")
+            ("flac" . "mpv")
             ("gif" . "ffplay")
             ("gnumeric" . "gnumeric")
             ("jpeg" . ,(executable-find "s"))
