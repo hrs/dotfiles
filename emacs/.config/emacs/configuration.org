@@ -144,10 +144,11 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
 Enable =surround= everywhere.
 
 #+begin_src emacs-lisp
-	(use-package evil-surround
-	  :after evil
-		:config
-		(global-evil-surround-mode 1))
+  (use-package evil-surround
+    :after evil
+    :demand t
+    :config
+    (global-evil-surround-mode 1))
 #+end_src
 
 Use =evil= with Org agendas.
