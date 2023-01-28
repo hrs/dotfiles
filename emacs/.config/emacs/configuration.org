@@ -1999,19 +1999,39 @@ the YAML front matter and rename the file appropriately.
 This selects and inserts a tag:
 
 #+begin_src emacs-lisp
+  (defun +tags-from-tag-line (line)
+    "Given a line of tags from a blog post (like \"tags: [animals, design, cephalopods]\") return a sorted list of the tags (like '(\"animals\" \"cephalopods\" \"design\"))."
+    (sort (mapcar #'string-trim
+                  (-> (string-trim line)
+                      (substring 7 -1)
+                      (split-string ",")))
+          #'string<))
+
+  (defun +tag-lines ()
+    "Return all the lines of tags from all existing blog posts."
+    (seq-remove #'string-empty-p
+                (split-string
+                 (shell-command-to-string
+                  (format "grep --no-filename \"^tags: \\[.*\\]$\" %s"
+                          (concat (file-name-as-directory +jekyll-posts-directory) "*")))
+                 "\n")))
+
   (defun +existing-blog-tags ()
-    "Return a list of all the tags currently used in my blog."
-    (split-string (shell-command-to-string "cd ~/documents/blog && rake tags")))
+    "Return a sorted list of all the tags used in my blog posts."
+    (-> (mapcar #'+tags-from-tag-line (+tag-lines))
+        (flatten-list)
+        (seq-uniq)
+        (sort #'string<)))
 
   (defun +insert-blog-tag ()
-    "Prompt for one of the existing tags used in the blog and
-  insert it in the YAML front matter appropriately."
+    "Prompt for one of the existing tags used in the blog and insert
+  it in the YAML front matter appropriately."
     (interactive)
     (save-excursion
       (beginning-of-buffer)
       (search-forward-regexp "^tags: \\[")
       (insert
-       (ivy-completing-read "Insert tag: " (+existing-blog-tags))
+       (completing-read "Insert tag: " (+existing-blog-tags))
        (if (looking-at "\\]") "" ", ")))
     (message "Tagged!"))
 #+end_src
