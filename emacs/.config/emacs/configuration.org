@@ -2666,6 +2666,7 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
     :bind (("C-c n b" . denote-link-backlinks)
            ("C-c n f" . +denote-find-file)
            ("C-c n l" . denote-link)
+           ("C-c n m" . +denote-log-meeting)
            ("C-c n n" . denote)
            ("C-c n s" . +denote-search))
 
@@ -2681,6 +2682,53 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
     (defun +denote-search (term)
       (interactive (list (deadgrep--read-search-term)))
       (deadgrep term denote-directory)))
+#+end_src
+
+I record minutes from client meetings with denote. I make that a little more
+convenient by using completion to automatically associate some appropriate
+keywords with the note and prompting for a list of attendees.
+
+#+begin_src emacs-lisp
+  (cl-defstruct project name slug people)
+
+  (defvar +active-projects '()
+    "I don't publish my active project list, so this is redefined
+    elsewhere.")
+
+  (defun +project-with-name (name)
+    (seq-find (lambda (project) (string= name (project-name project)))
+              +active-projects))
+
+  (defun +choose-project ()
+    (+project-with-name (completing-read "Project: "
+                                         (mapcar #'project-name +active-projects))))
+
+  (defun +meeting-template (project)
+    (let ((attendees (cons "Harry Schwartz"
+                           (completing-read-multiple "Attendees: "
+                                                     (project-people project)))))
+      (string-join `("* Attendees" ""
+                     ,@(mapcar (lambda (attendee) (format "- %s" attendee)) attendees) ""
+                     "* Notes" ""
+                     "* Next Steps" "") "\n")))
+
+  (defun +denote-log-meeting ()
+    "Create a `denote' entry logging a meeting."
+    (interactive)
+    (let* ((title (denote-title-prompt "Planning"))
+           (project (+choose-project))
+           (default-keywords '("meeting" "work"))
+           (keywords (if project
+                         (cons (project-slug project) default-keywords)
+                       default-keywords))
+           (template (+meeting-template project)))
+
+      (denote title
+              keywords
+              'org
+              (denote-directory)
+              nil
+              template)))
 #+end_src
 
 * File management with =dired=
