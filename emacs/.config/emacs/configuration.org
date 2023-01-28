@@ -350,15 +350,15 @@ as point goes.
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
                       :family "Fantasque Sans Mono"
-                      :height 80)
+                      :height 70)
 
   (set-face-attribute 'fixed-pitch nil
                       :family "Fantasque Sans Mono"
-                      :height 80)
+                      :height 70)
 
   (set-face-attribute 'variable-pitch nil
                       :family "ETBembo"
-                      :height 80)
+                      :height 70)
 
   (use-package default-text-scale
     :bind
