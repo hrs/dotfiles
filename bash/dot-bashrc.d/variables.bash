@@ -20,9 +20,6 @@ export Z3_EXE="/usr/bin/z3"
 export HOMEBREW_NO_ANALYTICS=1
 export SAM_CLI_TELEMETRY=0
 
-# Enable tab-completion in pass.
-source /etc/bash_completion.d/password-store
-
 # Enable tab-completion in various other contexts, including make targets and
 # man pages.
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
