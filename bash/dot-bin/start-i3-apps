@@ -14,6 +14,9 @@ setxkbmap -option ctrl:nocaps &
 # Hit and release Control without chording as Escape
 xcape -e "Control_L=Escape" &
 
+# Start polybar
+polybar &
+
 # Bind media/volume keys
 xbindkeys &
 

@@ -162,29 +162,3 @@ bindsym $mod+r $exec ~/bin/random-wallpaper
 
 bindsym $mod+Pause $exec ~/bin/toggle-vpn
 bindsym $mod+Scroll_Lock $exec ~/bin/cycle-audio
-
-# Configure the i3 bar
-bar {
-  i3bar_command i3bar
-  status_command i3status
-
-  font pango:Fantasque Sans Mono 6
-  position top
-  tray_output primary
-  tray_padding 0
-  strip_workspace_numbers yes
-
-  bindsym button4 nop
-  bindsym button5 nop
-
-  colors {
-    background $powder
-
-    separator $phlox
-    statusline $phlox
-
-    focused_workspace $phlox $phlox $powder
-    urgent_workspace $phlox $purple $powder
-    inactive_workspace $phlox $powder $phlox
-  }
-}

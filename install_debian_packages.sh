@@ -46,6 +46,7 @@ sudo apt install \
      pavucontrol \
      pcmanfm \
      picom \
+     polybar \
      postgresql \
      procmail \
      pwgen \
