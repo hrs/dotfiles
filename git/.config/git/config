@@ -27,7 +27,8 @@
   gpgsign = true
   template = ~/.config/git/message
 [core]
-  excludesfile = ~/.gitignore
+  attributesfile = ~/.config/git/info/attributes
+  excludesfile = ~/.config/git/ignore
   pager = delta
 [delta]
   file-style = yellow
@@ -36,6 +37,10 @@
   side-by-side = true
 [diff]
   colorMoved = default
+[diff "common-lisp"]
+    xfuncname="^\\((def\\S+\\s+\\S+)"
+[diff "elisp"]
+    xfuncname="^\\((((def\\S+)|use-package)\\s+\\S+)"
 [fetch]
   prune = true
 [github]

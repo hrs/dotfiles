@@ -1,0 +1,2 @@
+*.lisp diff=common-lisp
+*.el diff=elisp
