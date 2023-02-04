@@ -83,4 +83,5 @@ sudo apt install \
      xfce4-clipman \
      xsel \
      zathura \
-     zathura-cb
+     zathura-cb \
+     zbar-tools
