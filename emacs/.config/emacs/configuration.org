@@ -2069,28 +2069,46 @@ I use multiple contexts for personal and work email.
 
 #+begin_src emacs-lisp
   (use-package mu4e-context
-		:after mu4e
-		:load-path "~/media/code/mu/build/mu4e"
+    :after mu4e
+    :load-path "~/media/code/mu/build/mu4e"
 
-		:config
-		(defun +context-matches-p (msg context-name context-email)
-			(if msg
-					(mu4e-message-contact-field-matches msg '(:bcc :cc :to) context-email)
-				(when (mu4e-context-current)
-					(string= context-name (mu4e-context-name (mu4e-context-current))))))
+    :config
+    (defun +context-matches-p (msg context-name context-email)
+      (if msg
+          (mu4e-message-contact-field-matches msg '(:bcc :cc :to) context-email)
+        (when (mu4e-context-current)
+          (string= context-name (mu4e-context-name (mu4e-context-current))))))
 
-		(setq mu4e-contexts
-					`(,(make-mu4e-context
-							:name "consulting"
-							:match-func (lambda (msg) (+context-matches-p msg "consulting" "consulting@harryrschwartz.com"))
-							:vars '((user-mail-address .)
-											(user-full-name . "Harry R. Schwartz")))
+    (setq mu4e-contexts
+          `(,(make-mu4e-context
+              :name "consulting"
+              :match-func (lambda (msg) (+context-matches-p msg "consulting" "consulting@harryrschwartz.com"))
+              :vars '((user-mail-address . "consulting@harryrschwartz.com")
+                      (user-full-name . "Harry R. Schwartz")
+                      (mu4e-trash-folder . "/personal/archive")
+                      (mu4e-refile-folder . "/personal/archive")
+                      (mu4e-sent-folder . "/personal/sent")
+                      (mu4e-drafts-folder . "/personal/drafts")))
 
-						,(make-mu4e-context
-							:name "hrs"
-							:match-func (lambda (msg) t)
-							:vars '((user-mail-address . "hello@harryrschwartz.com")
-											(user-full-name . "Harry R. Schwartz"))))))
+            ,(make-mu4e-context
+              :name "test-double"
+              :match-func (lambda (msg) (+context-matches-p msg "test-double" "harry.schwartz@testdouble.com"))
+              :vars '((user-mail-address . "harry.schwartz@testdouble.com")
+                      (user-full-name . "Harry R. Schwartz")
+                      (mu4e-trash-folder . "/testdouble/archive")
+                      (mu4e-refile-folder . "/testdouble/archive")
+                      (mu4e-sent-folder . "/testdouble/sent")
+                      (mu4e-drafts-folder . "/testdouble/drafts")))
+
+            ,(make-mu4e-context
+              :name "hrs"
+              :match-func (lambda (msg) t)
+              :vars '((user-mail-address . "hello@harryrschwartz.com")
+                      (user-full-name . "Harry R. Schwartz")
+                      (mu4e-trash-folder . "/personal/archive")
+                      (mu4e-refile-folder . "/personal/archive")
+                      (mu4e-sent-folder . "/personal/sent")
+                      (mu4e-drafts-folder . "/personal/drafts"))))))
 #+end_src
 
 ** Fetching new mail
@@ -2120,7 +2138,7 @@ updates it every minute.
     :after mu4e
 
     :config
-    (setq mu4e-alert-interesting-mail-query "flag:unread maildir:/personal/inbox")
+    (setq mu4e-alert-interesting-mail-query "flag:unread (maildir:/personal/inbox OR maildir:/testdouble/inbox)")
     (mu4e-alert-enable-mode-line-display)
     (run-with-timer 0 60 'mu4e-alert-enable-mode-line-display))
 #+end_src
@@ -2134,7 +2152,7 @@ Hit =C-c m= to quickly visit my inbox.
     (interactive)
     (mu4e t)
     (delete-other-windows)
-    (mu4e~headers-jump-to-maildir "/personal/inbox"))
+    (mu4e-search "maildir:/personal/inbox OR maildir:/testdouble/inbox"))
 
   (global-set-key (kbd "C-c m") '+visit-inbox)
 #+end_src
@@ -2154,6 +2172,7 @@ email addresses, though, since they're just noise.
             (:name "personal - drafts" :query "maildir:/personal/drafts" :key ?d)
             (:name "personal - sent" :query "maildir:/personal/sent" :key ?s)
             (:name "personal - archive" :query "maildir:/personal/archive" :key ?a)
+            (:name "work - inbox" :query "maildir:/testdouble/inbox" :key ?w)
             (:name "today's messages" :query "date:today..now" :key ?t)
             (:name "last 7 days" :query "date:7d..now" :key ?w)))
     (mu4e-maildir-shortcuts

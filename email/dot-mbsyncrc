@@ -47,5 +47,50 @@ Channel personal-sent
 Channel personal-archive
 Channel personal-types-announce
 
+########################################
+# Work
+########################################
+
+IMAPAccount testdouble
+Host imap.gmail.com
+User harry.schwartz@testdouble.com
+PassCmd "~/.bin/netrc password imap.gmail.com"
+SSLType IMAPS
+CertificateFile ~/.ca-bundle.crt
+
+IMAPStore testdouble-remote
+Account testdouble
+
+MaildirStore testdouble-local
+Path ~/media/mail/testdouble/
+Inbox ~/media/mail/testdouble/inbox
+
+Channel testdouble-inbox
+Far :testdouble-remote:INBOX
+Near :testdouble-local:inbox
+
+Channel testdouble-drafts
+Far :testdouble-remote:[Gmail]/Drafts
+Near :testdouble-local:drafts
+
+Channel testdouble-sent
+Far ":testdouble-remote:[Gmail]/Sent Mail"
+Near :testdouble-local:sent
+
+Channel testdouble-archive
+Far ":testdouble-remote:[Gmail]/All Mail"
+Near :testdouble-local:archive
+
+Group testdouble
+Channel testdouble-inbox
+Channel testdouble-drafts
+Channel testdouble-sent
+Channel testdouble-archive
+
+########################################
+# Inboxes
+########################################
+
 Group inboxes
 Channel personal-inbox
+Channel testdouble-inbox

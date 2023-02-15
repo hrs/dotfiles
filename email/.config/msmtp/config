@@ -1,11 +1,20 @@
+defaults
+auth on
+tls on
+tls_starttls off
+
 account personal
 host mail.messagingengine.com
 port 465
 protocol smtp
-auth on
 from hello@harryrschwartz.com
 user hrs@fastmail.fm
-tls on
-tls_starttls off
+
+account testdouble
+host smtp.gmail.com
+port 465
+protocol smtp
+from harry.schwartz@testdouble.com
+user harry.schwartz@testdouble.com
 
 account default : personal
