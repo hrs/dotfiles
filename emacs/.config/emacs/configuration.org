@@ -996,6 +996,8 @@ buffer.
   (use-package rcodetools
     :after ruby-mode
     :load-path "resources"
+    :commands (xmp)
+
     :config
     (setq xmpfilter-command-name
           "ruby -S xmpfilter --no-warnings --dev --fork --detect-rbtest"))
