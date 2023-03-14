@@ -2979,6 +2979,7 @@ This configuration:
 
 #+begin_src emacs-lisp
   (use-package counsel
+    :demand t
     :bind
     ("M-x" . 'counsel-M-x)
     ("C-x b" . 'counsel-switch-buffer)
@@ -2987,6 +2988,7 @@ This configuration:
 
     :config
     (use-package flx)
+    (use-package smex)
 
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
