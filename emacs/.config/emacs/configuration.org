@@ -549,6 +549,19 @@ history of a file.
     (project-vc-extra-root-markers '(".dir-locals.el")))
 #+end_src
 
+** =codespaces=
+
+I use GitHub Codespaces for a few projects.
+
+#+begin_src emacs-lisp
+  (use-package codespaces
+    :ensure-system-package gh
+    :demand t
+    :config
+    (setq vc-handled-backends '(Git))
+    (codespaces-setup))
+#+end_src
+
 ** =undo-tree=
 
 I like tree-based undo management. I only rarely need it, but when I do, oh boy.
