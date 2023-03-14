@@ -147,6 +147,9 @@ current major mode."
 
     (org-redisplay-inline-images))
 
+  (when (eq major-mode 'gfm-mode)
+    (markdown-toggle-markup-hiding 1))
+
   (dolist (mode-name (writing--applicable-minor-modes))
     (funcall mode-name 1)))
 
@@ -157,7 +160,10 @@ current major mode."
 
   (when (and (eq major-mode 'org-mode)
              (not org-startup-with-inline-images))
-    (org-toggle-inline-images)))
+    (org-toggle-inline-images))
+
+  (when (eq major-mode 'gfm-mode)
+    (markdown-toggle-markup-hiding 0)))
 
 ;;;###autoload
 (define-minor-mode writing-mode
