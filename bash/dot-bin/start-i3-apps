@@ -48,6 +48,8 @@ xfce4-clipman &
 ~/.bin/close-startup-window privateinternetaccess &
 ~/bin/start-pia-client &
 
+caffeine-indicator &
+
 # Start initial apps
 firefox &
 

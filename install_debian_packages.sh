@@ -6,6 +6,7 @@ sudo apt install \
      bash-completion \
      build-essential \
      calibre \
+     caffeine \
      curl \
      dvipng \
      emacs \
