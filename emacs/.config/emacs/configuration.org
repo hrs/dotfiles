@@ -955,8 +955,8 @@ Running tests from within Emacs is awfully convenient. I enable =rspec-mode=
 basically everywhere, since working with a Rails project involves a ton of
 modes.
 
-I'd like my RSpec tests to be run in a random order, and I'd like the output to
-be colored.
+I'd like my =rspec= tests to be run in a random order, and I'd like the output
+to be colored.
 
 #+begin_src emacs-lisp
   (use-package rspec-mode
@@ -983,6 +983,53 @@ be colored.
     (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file)
 
     (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter))
+#+end_src
+
+Some Ruby projects use =minitest= instead of =rspec=.
+
+#+begin_src emacs-lisp
+  (use-package minitest
+    :after ruby-mode
+    :custom
+    (compilation-scroll-output nil))
+#+end_src
+
+=rspec-mode= and =minitest-mode= use the same keybindings for running tests.
+That's great for muscle memory, but it means that it's better to only have one
+or the other active at any given time. This checks the root of the current
+project for a =tests= directory. If it finds one it activates =minitest-mode=,
+and if it doesn't (or if we're not in a project) it uses =rspec-mode=. Kinda
+hacky, but seems to do the job.
+
+#+begin_src emacs-lisp
+  (defvar +ruby-testable-mode-hooks
+    '(css-mode-hook
+      deadgrep-mode-hook
+      eldoc-mode-hook
+      js-mode-hook
+      magit-status-mode-hook
+      ruby-mode-hook
+      scss-mode-hook
+      web-mode-hook
+      yard-mode-hook))
+
+  (defun +current-project-uses-minitest-p ()
+    (and (project-current)
+         (file-directory-p (expand-file-name "test" (project-root (project-current))))))
+
+  (defun +activate-ruby-tests-mode ()
+    (if (+current-project-uses-minitest-p)
+        (progn
+          (minitest-mode 1)
+          (rspec-mode 0)
+          (rspec-verifiable-mode 0))
+        (progn
+          (minitest-mode 0)
+          (rspec-mode 1)
+          (rspec-verifiable-mode 1))))
+
+  (dolist (hook +ruby-testable-mode-hooks)
+    (add-hook hook #'+activate-ruby-tests-mode))
 #+end_src
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display the
