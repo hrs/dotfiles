@@ -66,6 +66,9 @@ discord &
 ~/.bin/close-startup-window zoom &
 zoom &
 
+~/.bin/close-startup-window slack &
+slack &
+
 quodlibet --run --hide-window &
 calibre --start-in-tray &
 
