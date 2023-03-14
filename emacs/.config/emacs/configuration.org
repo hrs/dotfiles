@@ -528,14 +528,6 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
           git-commit-summary-max-length 50))
 #+end_src
 
-I use =delta= for my diffs.
-
-#+begin_src emacs-lisp
-  (use-package magit-delta
-    :ensure-system-package (delta . "cargo install git-delta")
-    :hook (magit-mode . magit-delta-mode))
-#+end_src
-
 I'm also partial to =git-timemachine=, which lets you quickly page through the
 history of a file.
 

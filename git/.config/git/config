@@ -29,12 +29,6 @@
 [core]
   attributesfile = ~/.config/git/info/attributes
   excludesfile = ~/.config/git/ignore
-  pager = delta
-[delta]
-  file-style = yellow
-  hunk-header-style = line-number syntax
-  relative-paths = true
-  side-by-side = true
 [diff]
   colorMoved = default
 [diff "common-lisp"]
@@ -49,8 +43,6 @@
   linenumber = true
 [init]
   defaultBranch = main
-[interactive]
-  diffFilter = delta --color-only
 [add.interactive]
   useBuiltin = false
 [merge]
