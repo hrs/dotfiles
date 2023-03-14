@@ -154,7 +154,7 @@ assign [class="Signal"] $ws4
 assign [class="Telegram"] $ws4
 assign [class="Slack"] $ws4
 assign [class="discord"] $ws4
-assign [class="Zoom"] $ws4
+assign [class="zoom"] $ws4
 assign [class="Quodlibet"] $ws5
 assign [class="calibre"] $ws6
 

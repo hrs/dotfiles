@@ -62,6 +62,10 @@ telegram-desktop &
 ~/.bin/close-startup-window discord &
 discord &
 
+~/.bin/close-startup-window zoom &
+~/.bin/close-startup-window zoom &
+zoom &
+
 quodlibet --run --hide-window &
 calibre --start-in-tray &
 
