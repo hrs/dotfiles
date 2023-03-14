@@ -41,9 +41,6 @@ eval "$(gpg-agent --daemon)" &
 # Set the wallpaper
 ~/.bin/paint-wallpaper &
 
-# Start my clipboard manager
-xfce4-clipman &
-
 # Ensure my VPN client is running
 ~/.bin/close-startup-window privateinternetaccess &
 ~/bin/start-pia-client &
