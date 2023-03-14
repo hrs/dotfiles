@@ -2853,6 +2853,7 @@ Open media with the appropriate programs.
             ("pdf" . "zathura")
             ("png" . ,(executable-find "s"))
             ("webm" . "mpv")
+            ("webp" . ,(executable-find "s"))
             ("wmv" . "mpv")
             ("xcf" . "gimp")
             ("xls" . "gnumeric")
