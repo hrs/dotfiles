@@ -234,19 +234,6 @@ that:
   (set-window-scroll-bars (minibuffer-window) nil nil)
 #+end_src
 
-The default frame title isn't useful. This binds it to the name of the current
-project:
-
-#+begin_src emacs-lisp
-  (defun +frame-title ()
-    (let ((project (project-current)))
-      (if project
-          (project-name project)
-        (buffer-name))))
-
-  (setq-default frame-title-format '(:eval (+frame-title)))
-#+end_src
-
 ** Enable smooth scrolling
 
 This is especially nice when I've got a document with embedded images or
