@@ -181,7 +181,7 @@ Use =evil= with Org agendas.
           "~/.local/bin"))
 
   (dolist (path +local-bin-paths)
-    (+append-to-path path))
+    (+append-to-path (expand-file-name path)))
 #+end_src
 
 * Utility functions
