@@ -2598,7 +2598,9 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
   (use-package wc-mode
     :custom
     (wc-modeline-format "[%tw words]")
+
     :config
+    (unbind-key "C-c C-w" wc-mode-map)
     (add-to-list 'minions-prominent-modes 'wc-mode))
 
   (use-package writing-mode
