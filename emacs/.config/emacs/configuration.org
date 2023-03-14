@@ -487,13 +487,16 @@ them.
 
 ** =flycheck=
 
-I'd like to enable flycheck all kinds of places.
+I'd like to enable =flycheck= all kinds of places, but I don't really need the
+keybindings (and they conflict with, for example, the default =C-c != binding for
+=org-time-stamp-inactive=).
 
 #+begin_src emacs-lisp
   (use-package flycheck
     :demand t
 
     :config
+    (unbind-key "C-c !" flycheck-mode-map)
     (global-flycheck-mode))
 #+end_src
 
