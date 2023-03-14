@@ -5,3 +5,4 @@ emacs/.config/emacs/*
 !emacs/.config/emacs/snippets
 
 ruby/dot-bundle/cache
+x-windows/.config/mpv/watch_later
