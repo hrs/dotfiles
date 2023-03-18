@@ -1456,7 +1456,7 @@ Hide blocks in the agenda that don't contain any tasks. From [[https://lists.gnu
 #+end_src
 
 The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
-the =inbox=, =habit=, =daily=, and =yearly= tags. Here are the sections:
+the =inbox=, =habit=, and =project= tags. Here are the sections:
 
 - Inbox :: Newly captured notes or ideas that haven't yet been turned into
   "real" tasks or projects, /or/ tasks that have been deferred until today and
@@ -1589,7 +1589,7 @@ Define a few common tasks as capture templates.
                '("d" "Delivery"
                  entry
                  (file+headline "~/documents/org/deliveries.org" "Deliveries")
-                 "** %?\nSCHEDULED: %t\n"))
+                 "** %?\nSCHEDULED: %^t\n"))
 
   (add-to-list 'org-capture-templates
                '("e" "Email"
@@ -1601,7 +1601,8 @@ Define a few common tasks as capture templates.
                '("f" "Finished book"
                  entry
                  (file+headline "~/documents/notes/books-read.org" "Books")
-                 "* %^{Title} -- %^{Author}\n%t\n"))
+                 "* %^{Title} -- %^{Author}\n%^t\n"
+                 :immediate-finish t))
 
   (add-to-list 'org-capture-templates
                '("k" "Kookaburra ingest"
@@ -1613,7 +1614,8 @@ Define a few common tasks as capture templates.
                '("m" "Media queue"
                  item
                  (file+headline "~/documents/notes/media.org" "Inbox")
-                 "- [ ] %?\n"))
+                 "- [ ] %^{Media}\n"
+                 :immediate-finish t))
 
   (add-to-list 'org-capture-templates
                '("n" "News item"
@@ -1625,7 +1627,8 @@ Define a few common tasks as capture templates.
                '("p" "Finished paper"
                  entry
                  (file+headline "~/documents/notes/papers-read.org" "Papers")
-                 "* %^{Title} -- %^{Author}\n%t\n"))
+                 "* %^{Title} -- %^{Author}\n%t\n"
+                 :immediate-finish t))
 
   (add-to-list 'org-capture-templates
                '("r" "Writing prompt"
@@ -1637,7 +1640,8 @@ Define a few common tasks as capture templates.
                '("s" "Subscribe to an RSS feed"
                  plain
                  (file "~/documents/rss-feeds.org")
-                 "*** [[%^{Feed URL}][%^{Feed name}]]"))
+                 "*** [[%^{Feed URL}][%^{Feed name}]]"
+                 :immediate-finish t))
 
   (add-to-list 'org-capture-templates
                '("t" "Task"
