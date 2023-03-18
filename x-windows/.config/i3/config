@@ -47,7 +47,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+l $exec ~/.bin/lock-screen
 
 # Start a program launcher
-bindsym $mod+d $exec PATH=~/bin:~/.bin:$PATH rofi -show run
+bindsym $mod+d $exec PATH=~/bin:~/.bin:$PATH:/snap/bin rofi -show run
 
 # Change focus
 bindsym $mod+j focus left
