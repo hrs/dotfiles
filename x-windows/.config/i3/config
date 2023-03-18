@@ -63,6 +63,7 @@ bindsym $mod+$alt+l move right 20px
 
 # Toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f floating toggle
 
 # Change container layout (tabbed, toggle split)
 bindsym $mod+w layout tabbed
