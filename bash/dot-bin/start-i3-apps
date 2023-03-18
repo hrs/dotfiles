@@ -23,6 +23,9 @@ xbindkeys &
 # Start up the Dropbox client
 dropbox start
 
+# Start up the Syncthing notification monitor
+syncthing-gtk --minimized &
+
 # Hide the mouse cursor after a second
 unclutter -idle 1 -noevents &
 
