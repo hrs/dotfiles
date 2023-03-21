@@ -2858,6 +2858,7 @@ elsewhere in this repo]]).
       (start-process "dired-slideshow" nil "s" (dired-current-directory)))
 
     (evil-define-key 'normal dired-mode-map (kbd "o") 'dired-find-file-other-window)
+    (evil-define-key 'normal dired-mode-map (kbd "p") 'transient-extras-lp-menu)
     (evil-define-key 'normal dired-mode-map (kbd "v") '+dired-slideshow)
 
     (setq-default dired-listing-switches
@@ -3190,6 +3191,20 @@ I always forget the TRAMP syntax, and this provides the easier-to-remember
 #+begin_src emacs-lisp
   (use-package sudo-edit
     :commands (sudo-edit))
+#+end_src
+
+* Printing
+
+Sometimes I like reading dead trees.
+
+#+begin_src emacs-lisp
+  (use-package transient-extras-lp
+    :commands (transient-extras-lp-menu)
+
+    :custom
+    (transient-extras-lp-saved-options '("-dBrother_HL_L2340D_series"
+                                         "-osides=two-sided-long-edge"
+                                         "-omedia=letter")))
 #+end_src
 
 * Set custom keybindings
