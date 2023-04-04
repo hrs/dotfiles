@@ -1144,10 +1144,15 @@ Support syntax-based indentation when editing SQL files.
 Install =terraform-mode=.
 
 #+begin_src emacs-lisp
-  (use-package terraform-mode)
+  (use-package terraform-mode
+    :ensure-system-package terraform
+    :custom
+    (terraform-format-on-save t))
 
   (use-package company-terraform
-    :after terraform-mode)
+    :after terraform-mode
+    :config
+    (company-terraform-init))
 #+end_src
 
 ** =web-mode=
