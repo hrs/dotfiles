@@ -588,6 +588,24 @@ This configuration:
                 #'+undo-tree-suppress-buffer-modified-message))
 #+end_src
 
+** ChatGPT integration
+
+I've been toying around with integrating ChatGPT into my work. =org-ai= enables
+that by providing =begin_ai= blocks in Org which interact with ChatGPT sessions.
+
+Authentication is handled by an auth key for =api.openai.com= in my =.netrc=, which
+=org-ai= knows to read. I've also got a pair of snippets to create [[file:snippets/org-mode/ai][conversations]]
+and [[file:snippets/org-mode/dalle][images]].
+
+#+begin_src emacs-lisp
+  (use-package org-ai
+    :commands (org-ai-mode)
+    :hook (org-mode . org-ai-mode)
+
+    :custom
+    (org-ai-image-directory (expand-file-name "~/media/pictures/ai")))
+#+end_src
+
 * Programming environments
 
 I like shallow indentation, but tabs are displayed as 8 characters by default.
@@ -2850,6 +2868,7 @@ elsewhere in this repo]]).
                                                "--human-readable"
                                                "--time-style=+%Y-%m-%d"
                                                "--almost-all")))
+
     (setq dired-clean-up-buffers-too t
           dired-dwim-target t
           dired-recursive-copies 'always

@@ -1,0 +1,6 @@
+#name : ai interaction template
+# --
+#+begin_ai
+[SYS]:
+[ME]: $0
+#+end_ai

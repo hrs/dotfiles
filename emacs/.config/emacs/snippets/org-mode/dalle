@@ -1,0 +1,5 @@
+#name : ai-generated image template
+# --
+#+begin_ai :image :size 512x512 :n 1
+$0
+#+end_ai
