@@ -65,6 +65,8 @@ sudo apt install \
      sqlite3 \
      sqlite3-pcre \
      stow \
+     syncthing \
+     syncthing-gtk \
      sudo \
      texlive-base \
      texlive-fonts-recommended \
