@@ -1783,6 +1783,29 @@ Rebind =C-c C-l= to [[https://xenodium.com/emacs-dwim-do-what-i-mean/][DWIM]]:
   (define-key org-mode-map (kbd "C-c C-l") '+org-insert-link-dwim)
 #+end_src
 
+Add a function to link the selected text to its associated Wikipedia article.
+
+#+begin_src emacs-lisp
+  (defun +apply-to-region (fn)
+    (interactive "XFunction to apply to region: ")
+    (save-excursion
+      (let* ((beg (region-beginning))
+             (end (region-end))
+             (resulting-text
+              (funcall
+               fn
+               (buffer-substring-no-properties beg end))))
+        (kill-region beg end)
+        (insert resulting-text))))
+
+  (defun +org-insert-wikipedia-link ()
+    (interactive)
+    (+apply-to-region (lambda (string)
+                        "Convert a string to a link to English Wikipedia"
+                        (concat "[[https://en.wikipedia.org/wiki/" (subst-char-in-string ?  ?_ string) "]"
+                                "[" string "]]"))))
+#+end_src
+
 ** Exporting
 
 Allow export to markdown and epub.
