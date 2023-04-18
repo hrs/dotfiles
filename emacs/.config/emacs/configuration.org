@@ -2484,13 +2484,6 @@ I use =elfeed= to read my (300-odd!) feeds.
     (elfeed-set-max-connections 32))
 #+end_src
 
-Update all my feeds every five minutes, assuming Emacs has been idle for at
-least 30 seconds.
-
-#+begin_src emacs-lisp
-  (run-with-idle-timer 30 300 'elfeed-update)
-#+end_src
-
 Open =elfeed= with =C-c r=.
 
 #+begin_src emacs-lisp
