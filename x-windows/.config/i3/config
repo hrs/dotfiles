@@ -7,8 +7,6 @@ set $exec_always exec_always --no-startup-id
 
 $exec xrandr --output HDMI-A-0 --primary
 
-gaps inner 6
-
 # Use the win key as $mod
 set $mod Mod4
 set $alt Mod1
