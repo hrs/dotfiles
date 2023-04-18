@@ -54,11 +54,16 @@ resulting filename."
   "Compile the current buffer into a PDF, returning the resulting
 filename."
   (interactive)
-  (cl-case major-mode
-    (org-mode (publish-build-pdf-org))
-    (gfm-mode (publish-build-pdf-markdown))
-    (markdown-mode (publish-build-pdf-markdown))
-    (otherwise (error "Don't know how to compile this buffer to PDF!"))))
+  (if (and (project-current)
+           (file-exists-p (expand-file-name "Makefile" (project-root (project-current)))))
+      (let ((default-directory (project-root (project-current))))
+        (call-process-shell-command "make")
+        (file-name-with-extension (buffer-file-name) "pdf"))
+    (cl-case major-mode
+      (org-mode (publish-build-pdf-org))
+      (gfm-mode (publish-build-pdf-markdown))
+      (markdown-mode (publish-build-pdf-markdown))
+      (otherwise (error "Don't know how to compile this buffer to PDF!")))))
 
 (defun publish-viewer-open-for-file-p (viewer filename)
   "Is the document being generated already open in a viewer?"
