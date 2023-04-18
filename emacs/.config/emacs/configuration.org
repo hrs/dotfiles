@@ -396,7 +396,7 @@ dotfiles, but not =.git= repos.
 #+begin_src emacs-lisp
   (use-package deadgrep
     :ensure-system-package (rg . ripgrep)
-    :commands (deadgrep)
+    :commands (deadgrep deadgrep--read-search-term)
 
     :config
     (evil-define-key 'motion deadgrep-mode-map (kbd "C-p") 'project-find-file)
