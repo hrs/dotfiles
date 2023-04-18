@@ -461,6 +461,12 @@ require any additional setup. I've bound its most useful command to =M-.=.
   (use-package dumb-jump
     :demand t
 
+    :init
+    (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+
+    :custom
+    (xref-search-program 'ripgrep)
+
     :config
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
     (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions))
