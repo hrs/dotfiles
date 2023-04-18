@@ -2770,9 +2770,23 @@ Binding this to =M-SPC= is strictly better than the original binding of
   (put 'upcase-region 'disabled nil)
 #+end_src
 
-** =denote=
+* Note-taking and citation management
 
-I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
+I'm using [[https://protesilaos.com/emacs/denote][denote]] for note-taking, plus =citar= and =citar-denote= to manage
+citations.
+
+Configure a few packages to handle bibliographies and citations with =denote=
+and bind keys:
+
+- =C-c n b= :: List all the notes that link to this note.
+- =C-c n c= :: Insert a citation to an existing reference in this file.
+- =C-c n e= :: Create a new bibliography entry.
+- =C-c n f= :: Fuzzy-find a note.
+- =C-c n l= :: Insert a link to another note.
+- =C-c n n= :: Create a new note.
+- =C-c n r= :: Prompt for an existing reference and visit or create a literature
+  note associated with it.
+- =C-c n s= :: Search the contents of my notes.
 
 #+begin_src emacs-lisp
   (use-package denote
@@ -2780,7 +2794,6 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
     :bind (("C-c n b" . denote-link-backlinks)
            ("C-c n f" . +denote-find-file)
            ("C-c n l" . denote-link)
-           ("C-c n m" . +denote-log-meeting)
            ("C-c n n" . denote)
            ("C-c n s" . +denote-search))
 
@@ -2798,51 +2811,54 @@ I'm trying out [[https://protesilaos.com/emacs/denote][denote]] for note-taking.
       (deadgrep term denote-directory)))
 #+end_src
 
-I record minutes from client meetings with denote. I make that a little more
-convenient by using completion to automatically associate some appropriate
-keywords with the note and prompting for a list of attendees.
+** Citations
+
+I've got a single big =bibtex= file that contains all the references in my
+notes. That's mostly books, but also some papers and Web sites.
 
 #+begin_src emacs-lisp
-  (cl-defstruct project name slug people)
+  (use-package citar
+    :custom
+    (org-cite-global-bibliography '("~/documents/notes/references.bib"))
 
-  (defvar +active-projects '()
-    "I don't publish my active project list, so this is redefined
-    elsewhere.")
+    (org-cite-insert-processor 'citar)
+    (org-cite-follow-processor 'citar)
+    (org-cite-activate-processor 'citar)
+    (citar-bibliography org-cite-global-bibliography)
 
-  (defun +project-with-name (name)
-    (seq-find (lambda (project) (string= name (project-name project)))
-              +active-projects))
+    :bind (("C-c n c" . org-cite-insert)
+           ("C-c n e" . +create-citation))
 
-  (defun +choose-project ()
-    (+project-with-name (completing-read "Project: "
-                                         (mapcar #'project-name +active-projects))))
+    :hook
+    (LaTeX-mode . citar-capf-setup)
+    (org-mode . citar-capf-setup)
 
-  (defun +meeting-template (project)
-    (let ((attendees (cons "Harry Schwartz"
-                           (completing-read-multiple "Attendees: "
-                                                     (project-people project)))))
-      (string-join `("* Attendees" ""
-                     ,@(mapcar (lambda (attendee) (format "- %s" attendee)) attendees) ""
-                     "* Notes" ""
-                     "* Next Steps" "") "\n")))
+    :config
+    (defun +create-citation ()
+      (interactive)
 
-  (defun +denote-log-meeting ()
-    "Create a `denote' entry logging a meeting."
-    (interactive)
-    (let* ((title (denote-title-prompt "Planning"))
-           (project (+choose-project))
-           (default-keywords '("meeting" "work"))
-           (keywords (if project
-                         (cons (project-slug project) default-keywords)
-                       default-keywords))
-           (template (+meeting-template project)))
+      (find-file (car org-cite-global-bibliography))
+      (end-of-buffer)
+      (insert "\n")
 
-      (denote title
-              keywords
-              'org
-              (denote-directory)
-              nil
-              template)))
+      (call-interactively 'bibtex-entry)))
+#+end_src
+
+=citar-denote= makes it a bit easier to create and manage /literature/ notes, which
+correspond to specific =bibtex= entries.
+
+#+begin_src emacs-lisp
+  (use-package citar-denote
+    :after (citar denote)
+
+    :bind ("C-c n r" . citar-create-note)
+
+    :custom
+    (citar-notes-paths (list denote-directory))
+    (citar-denote-title-format "title")
+
+    :config
+    (citar-denote-mode t))
 #+end_src
 
 * File management with =dired=
