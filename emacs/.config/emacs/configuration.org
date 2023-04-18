@@ -1702,8 +1702,11 @@ fringe. I don't need to see that, so:
 Refiling according to the document's hierarchy.
 
 #+begin_src emacs-lisp
-  (setq org-refile-use-outline-path t)
-  (setq org-outline-path-complete-in-steps nil)
+  (use-package org-refile
+    :ensure nil
+    :custom
+    (org-refile-use-outline-path t)
+    (org-outline-path-complete-in-steps nil))
 #+end_src
 
 *** Keybindings
