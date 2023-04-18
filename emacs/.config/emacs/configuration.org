@@ -54,6 +54,12 @@ uses the system package manager (Debian's =apt=, in my case).
     (system-packages-package-manager 'apt))
 #+end_src
 
+Don't pop up a buffer to warn me about deprecations and other minor issues.
+
+#+begin_src emacs-lisp
+  (setq warning-minimum-level :emergency)
+#+end_src
+
 * Use =sensible-defaults.el=
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
