@@ -2800,7 +2800,7 @@ and bind keys:
 #+begin_src emacs-lisp
   (use-package denote
     :hook (dired-mode . denote-dired-mode)
-    :bind (("C-c n b" . denote-link-backlinks)
+    :bind (("C-c n b" . denote-link-find-backlink)
            ("C-c n f" . +denote-find-file)
            ("C-c n l" . denote-link)
            ("C-c n n" . denote)
