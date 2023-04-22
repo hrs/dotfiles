@@ -2858,16 +2858,14 @@ correspond to specific =bibtex= entries.
 
 #+begin_src emacs-lisp
   (use-package citar-denote
-    :after (citar denote)
+    :hook (org-mode . citar-denote-mode)
 
     :bind ("C-c n r" . citar-create-note)
 
     :custom
     (citar-notes-paths (list denote-directory))
-    (citar-denote-title-format "title")
+    (citar-denote-title-format "title"))
 
-    :config
-    (citar-denote-mode t))
 #+end_src
 
 * File management with =dired=
