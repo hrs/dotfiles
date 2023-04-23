@@ -7,8 +7,8 @@ application/x-cbz; zathura %s;
 application/vnd.comicbook-rar; zathura %s;
 application/vnd.comicbook+zip; zathura %s;
 
-application/epub+zip; fbreader '%s';
-application/x-mobipocket-ebook; fbreader '%s';
+application/epub+zip; foliate '%s';
+application/x-mobipocket-ebook; foliate '%s';
 
 inode/directory; pcmanfm '%s';
 
