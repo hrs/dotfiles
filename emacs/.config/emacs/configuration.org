@@ -429,18 +429,6 @@ Use =company-mode= everywhere.
     (setq lsp-completion-provider :capf))
 #+end_src
 
-[[https://github.com/sebastiencs/company-box][company-box]] adds some semantic icons to the =company= completion menu.
-
-#+begin_src emacs-lisp
-  (use-package all-the-icons)
-  (use-package company-box
-    :after company
-    :hook (company-mode . company-box-mode)
-
-    :config
-    (setq company-box-icons-alist 'company-box-icons-all-the-icons))
-#+end_src
-
 ** =docker=
 
 I use [[https://www.docker.com/][Docker]] less often than you might expect for a person who mostly does Web
@@ -3097,16 +3085,12 @@ This configuration:
             (t . ivy--regex-fuzzy))))
 #+end_src
 
-Add pretty icons and descriptions to the =ivy= buffer.
+Add descriptions to the =ivy= buffer.
 
 #+begin_src emacs-lisp
   (use-package ivy-rich
     :init
     (ivy-rich-mode 1))
-
-  (use-package all-the-icons-ivy-rich
-    :init
-    (all-the-icons-ivy-rich-mode 1))
 #+end_src
 
 ** Switch and rebalance windows when splitting
