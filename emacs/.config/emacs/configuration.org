@@ -606,6 +606,17 @@ and [[file:snippets/org-mode/dalle][images]].
     (org-ai-image-directory (expand-file-name "~/media/pictures/ai")))
 #+end_src
 
+An [[https://github.com/xenodium/chatgpt-shell][interactive shell session]] is often even more useful.
+
+#+begin_src emacs-lisp
+  (use-package chatgpt-shell
+    :load-path "~/code/chatgpt-shell"
+    :commands (chatgpt-shell)
+
+    :custom
+    (chatgpt-shell-openai-key (auth-source-pick-first-password :host "api.openai.com")))
+#+end_src
+
 * Programming environments
 
 I like shallow indentation, but tabs are displayed as 8 characters by default.
