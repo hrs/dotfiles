@@ -1285,18 +1285,6 @@ Put tags directly after the associated header rather than trying to align them.
         org-tags-column 0)
 #+end_src
 
-Use syntax highlighting in source blocks while editing.
-
-#+begin_src emacs-lisp
-  (setq org-src-fontify-natively t)
-#+end_src
-
-Make TAB act as if it were issued in a buffer of the language's major mode.
-
-#+begin_src emacs-lisp
-  (setq org-src-tab-acts-natively t)
-#+end_src
-
 When editing a code snippet, use the current window rather than popping open a
 new one (which shows the same information).
 
@@ -1309,12 +1297,6 @@ Quickly insert a block of elisp:
 #+begin_src emacs-lisp
   (add-to-list 'org-structure-template-alist
                '("el" . "src emacs-lisp"))
-#+end_src
-
-Don't indent newly expanded blocks, even if they're under a heading.
-
-#+begin_src emacs-lisp
-  (setq org-adapt-indentation nil)
 #+end_src
 
 When hitting =C-<return>= to create a new heading, don't insert the heading
