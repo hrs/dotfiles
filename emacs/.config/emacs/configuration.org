@@ -527,13 +527,21 @@ history of a file.
 - Bind searching within the project to =C-c v=.
 - Treat a directory containing =.dir-locals.el= as a project root (useful for
   projects not under version control).
+- When I switch projects, just open a =dired= buffer at the project root rather
+  than asking whether I want to open a file, search, etc.
 
 #+begin_src emacs-lisp
   (use-package project
-    :bind ("C-c v" . deadgrep)
+    :bind (("C-c v" . deadgrep)
+           ("C-x p p" . +project-switch-project))
 
     :custom
-    (project-vc-extra-root-markers '(".dir-locals.el")))
+    (project-vc-extra-root-markers '(".dir-locals.el"))
+
+    :config
+    (defun +project-switch-project (dir)
+      (interactive (list (project-prompt-project-dir)))
+      (dired dir)))
 #+end_src
 
 ** =codespaces=
