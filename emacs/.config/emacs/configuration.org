@@ -2844,7 +2844,87 @@ correspond to specific =bibtex= entries.
     :custom
     (citar-notes-paths (list denote-directory))
     (citar-denote-title-format "title"))
+#+end_src
 
+** Suggesting connections between notes
+
+Set up =org-similarity= to score my notes.
+
+#+begin_src emacs-lisp
+  (use-package org-similarity
+    :load-path "~/code/org-similarity"
+
+    :custom
+    (org-similarity-directory denote-directory)
+    (org-similarity-show-scores 10)
+    (org-similarity-recursive-search t))
+#+end_src
+
+Calling =+denote-similar-unlinked-notes-sidebuffer= opens a buffer of links to
+nodes that are (1) textually similar to this note, and (2) not yet linked from
+it.
+
+Just an experiment so far. I'll probably break this into a mode or something
+eventually.
+
+#+begin_src emacs-lisp
+  (require 's)
+  (require 'dash)
+
+  (defun +denote-ids-in-string (s)
+    ""
+    (let ((denote-id-regexp (rx word-boundary
+                                (= 8 digit)
+                                "T"
+                                (= 6 digit)
+                                word-boundary)))
+      (flatten-list
+       (s-match-strings-all denote-id-regexp s))))
+
+  (defun +denote-ids-in-file (file-name)
+    ""
+    (+denote-ids-in-string (with-temp-buffer
+                             (insert-file-contents file-name)
+                             (buffer-string))))
+
+  (defun +denote-similar-unlinked-notes-org (file-name)
+    ""
+    (let ((raw-similarity-results (+org-similarity-results file-name))
+          (linked-note-ids (+denote-ids-in-file file-name)))
+      (s-join "\n"
+              (-filter (lambda (line)
+                         (not (-some (lambda (string-to-remove)
+                                       (s-contains? string-to-remove line))
+                                     linked-note-ids)))
+                       (s-lines raw-similarity-results)))))
+
+  (defun +denote-similar-unlinked-notes-sidebuffer (file-name)
+    (interactive (list (buffer-file-name)))
+    (if file-name
+        (let ((sidebar-buffer (get-buffer-create (format "*similar notes: %s*"
+                                                         (file-name-nondirectory file-name)))))
+          (with-current-buffer sidebar-buffer
+            (erase-buffer)
+            (insert (+denote-similar-unlinked-notes-org file-name))
+            (org-mode))
+
+          (display-buffer-in-side-window sidebar-buffer
+                                         '((side . right) (slot . -1)))
+          (select-window (get-buffer-window sidebar-buffer)))
+
+      (error "can't compare this buffer (have you saved it?)")))
+
+  (defun +org-similarity-results (file-name)
+    (shell-command-to-string
+     (format "%s -m orgsimilarity -i %s -d %s -l %s -n %s %s %s %s"
+             org-similarity-python-interpreter
+             file-name
+             org-similarity-directory
+             org-similarity-language
+             org-similarity-number-of-documents
+             (if org-similarity-show-scores "--scores" "")
+             (if org-similarity-recursive-search "--recursive" "")
+             (if org-similarity-use-id-links "--id-links" ""))))
 #+end_src
 
 * File management with =dired=
