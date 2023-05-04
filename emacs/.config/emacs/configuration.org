@@ -1369,7 +1369,6 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
                                  "news.org"
                                  "recurring-events.org"
                                  "recurring-tasks.org"
-                                 "work.org"
                                  "writing.org")))
 #+end_src
 
@@ -1671,12 +1670,6 @@ Define a few common tasks as capture templates.
                  entry
                  (file+headline org-index-file "Inbox")
                  "* TODO %?\n"))
-
-  (add-to-list 'org-capture-templates
-               '("w" "Work task"
-                 entry
-                 (file+headline "~/documents/org/work.org" "Tasks")
-                 "* TODO %?\n"))
 #+end_src
 
 When I'm starting an Org capture template I'd like to begin in insert mode. I'm
@@ -1739,19 +1732,6 @@ Hit =M-n= to quickly open up a capture template for a new todo.
 
   (dolist (hook +org-capture-todo-hooks)
     (add-hook hook (lambda () (local-set-key (kbd "M-n") '+org-capture-todo))))
-#+end_src
-
-Hit =C-c w= to quickly open up my work todo list.
-
-#+begin_src emacs-lisp
-  (defun +open-work-file ()
-    "Open the work TODO list."
-    (interactive)
-    (find-file (org-file-path "work.org"))
-    (flycheck-mode -1)
-    (end-of-buffer))
-
-  (global-set-key (kbd "C-c w") '+open-work-file)
 #+end_src
 
 Rebind =C-c C-l= to [[https://xenodium.com/emacs-dwim-do-what-i-mean/][DWIM]]:
