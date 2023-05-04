@@ -618,7 +618,6 @@ An [[https://github.com/xenodium/chatgpt-shell][interactive shell session]] is o
 
 #+begin_src emacs-lisp
   (use-package chatgpt-shell
-    :load-path "~/code/chatgpt-shell"
     :commands (chatgpt-shell)
 
     :custom
