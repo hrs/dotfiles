@@ -129,7 +129,8 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
 
     :config
     (setq evil-collection-mode-list
-          '(deadgrep
+          '(comint
+            deadgrep
             dired
             elfeed
             eww
@@ -406,6 +407,16 @@ dotfiles, but not =.git= repos.
       (push "--glob=!.git/" rg-args))
     (advice-add 'deadgrep--arguments
                 :filter-return #'deadgrep--include-args))
+#+end_src
+
+** =comint=
+
+Treat =comint= sessions more like a shell.
+
+#+begin_src emacs-lisp
+(use-package comint-mode
+  :ensure nil
+  :bind ("C-l" . comint-clear-buffer))
 #+end_src
 
 ** =company=
