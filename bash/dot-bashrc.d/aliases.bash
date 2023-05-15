@@ -9,6 +9,7 @@ alias git="hub"
 alias gpg="gpg2"
 alias less="less -R" # display colors correctly
 alias sbcl="rlwrap sbcl"
+alias ip="ip --color=auto"
 alias lisp="sbcl --noinform"
 alias lispi="sbcl -noinform --load"
 alias la="ls -la"
