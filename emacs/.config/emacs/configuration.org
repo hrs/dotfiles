@@ -414,9 +414,12 @@ dotfiles, but not =.git= repos.
 Treat =comint= sessions more like a shell.
 
 #+begin_src emacs-lisp
-(use-package comint-mode
-  :ensure nil
-  :bind ("C-l" . comint-clear-buffer))
+  (use-package comint-mode
+    :ensure nil
+    :bind ("C-l" . comint-clear-buffer)
+
+    :config
+    (evil-define-key '(normal insert) comint-mode-map (kbd "C-d") '+kill-current-buffer))
 #+end_src
 
 ** =company=
