@@ -3190,7 +3190,8 @@ Add descriptions to the =ivy= buffer.
 #+begin_src emacs-lisp
   (use-package ivy-rich
     :init
-    (ivy-rich-mode 1))
+    (ivy-rich-mode 1)
+    (ivy-rich-project-root-cache-mode 1))
 #+end_src
 
 ** Switch and rebalance windows when splitting
