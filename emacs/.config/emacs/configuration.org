@@ -741,6 +741,14 @@ previous statements. This is more convenient for me than the default bindings of
     (evil-define-key 'insert coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command))
 #+end_src
 
+** =cron=
+
+Add syntax highlighting to =cron= files.
+
+#+begin_src emacs-lisp
+  (use-package crontab-mode)
+#+end_src
+
 ** CSS & Sass
 
 Indent by 2 spaces.
