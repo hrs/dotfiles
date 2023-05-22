@@ -101,23 +101,24 @@ Load and configure =evil-mode=.
   explicitly set that in a few other modes.
 
 #+begin_src emacs-lisp
-	(use-package evil
-		:demand t
+  (use-package evil
+    :demand t
 
-		:init
-		(setq evil-want-abbrev-expand-on-insert-exit nil
-					evil-want-keybinding nil)
+    :init
+    (setq evil-respect-visual-line-mode t
+          evil-want-abbrev-expand-on-insert-exit nil
+          evil-want-keybinding nil)
 
-		:config
-		(evil-mode 1)
+    :config
+    (evil-mode 1)
 
-		(evil-define-key '(normal insert) 'global (kbd "C-p") 'project-find-file)
+    (evil-define-key '(normal insert) 'global (kbd "C-p") 'project-find-file)
 
-		(evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
-		(evil-define-key 'insert org-mode-map (kbd "S-<right>") 'org-shiftright)
-		(evil-define-key 'insert org-mode-map (kbd "S-<left>") 'org-shiftleft)
+    (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
+    (evil-define-key 'insert org-mode-map (kbd "S-<right>") 'org-shiftright)
+    (evil-define-key 'insert org-mode-map (kbd "S-<left>") 'org-shiftleft)
 
-		(fset 'evil-visual-update-x-selection 'ignore))
+    (fset 'evil-visual-update-x-selection 'ignore))
 #+end_src
 
 Install =evil-collection=, which provides evil-friendly bindings for many modes.
