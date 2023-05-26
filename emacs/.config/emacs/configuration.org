@@ -1239,6 +1239,14 @@ I'd like to see colors with =rainbow-mode=, so we'll need to install that, too:
     :hook web-mode)
 #+end_src
 
+** YAML
+
+This is not a place of honor.
+
+#+begin_src emacs-lisp
+  (use-package yaml-mode)
+#+end_src
+
 * Terminal
 
 I'm trying =vterm=. This disables =global-hl-line-mode= locally and lets me open up
