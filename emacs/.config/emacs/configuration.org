@@ -2822,8 +2822,11 @@ and bind keys:
 
 ** Citations
 
-I've got a single big =bibtex= file that contains all the references in my
-notes. That's mostly books, but also some papers and Web sites.
+I've got a single big =bibtex= file that contains all the references in my notes.
+That's mostly books, but also some papers and Web sites.
+
+I'm not in love with =bibtex-entry= as a tool for adding new references to my
+database, so I wrote a few functions to do that.
 
 #+begin_src emacs-lisp
   (use-package citar
@@ -2836,21 +2839,74 @@ notes. That's mostly books, but also some papers and Web sites.
     (citar-bibliography org-cite-global-bibliography)
 
     :bind (("C-c n c" . org-cite-insert)
-           ("C-c n e" . +create-citation))
+           ("C-c n e" . +bibliography-create-reference))
 
     :hook
     (LaTeX-mode . citar-capf-setup)
     (org-mode . citar-capf-setup)
 
     :config
-    (defun +create-citation ()
-      (interactive)
+    (defun +bibliography-create-reference (type)
+      "Add a bibliographic reference of TYPE to the first entry in `org-cite-global-bibliography'."
+      (interactive
+       (list (intern
+              (completing-read "Type of reference: "
+                               '(article book website)))))
+      (cl-case type
+        (article (call-interactively '+bibliography-create-reference-article))
+        (book (call-interactively '+bibliography-create-reference-book))
+        (website (call-interactively '+bibliography-create-reference-www))
+        (t (message "unknown reference type!"))))
 
-      (find-file (car org-cite-global-bibliography))
-      (end-of-buffer)
-      (insert "\n")
+    (defun +insert-bibliography-entry (type slug-components props)
+      (let ((entry (concat "\n@" (prin1-to-string type) "{"
+                           (+slug-for (string-join slug-components "-")) ",\n  "
+                           (string-join (mapcar (lambda (p)
+                                                  (concat (prin1-to-string (car p)) " = {" (cdr p) "}"))
+                                                props) ",\n  ") "\n"
+                           "}\n")))
+        (append-to-file entry nil (car org-cite-global-bibliography))))
 
-      (call-interactively 'bibtex-entry)))
+    (defun +bibliography-create-reference-book (title author publisher year)
+      (interactive
+       (list
+        (read-string "Title: ")
+        (read-string "Author: ")
+        (read-string "Publisher: ")
+        (read-string "Year: ")))
+
+      (+insert-bibliography-entry 'book (list author year)
+                                  `((title . ,title)
+                                    (author . ,author)
+                                    (publisher . ,publisher)
+                                    (year . ,year))))
+
+    (defun +bibliography-create-reference-article (title author year journal)
+      (interactive
+       (list
+        (read-string "Title: ")
+        (read-string "Author: ")
+        (read-string "Year: ")
+        (read-string "Journal: ")))
+
+      (+insert-bibliography-entry 'article (list author year)
+                                  `((title . ,title)
+                                    (author . ,author)
+                                    (year . ,year)
+                                    (journal . ,journal))))
+
+    (defun +bibliography-create-reference-www (url title author)
+      (interactive
+       (list
+        (read-string "URL: " (when (string-match-p "^http" (current-kill 0))
+                               (current-kill 0)))
+        (read-string "Title: ")
+        (read-string "Author: ")))
+
+      (+insert-bibliography-entry 'www (list author title)
+                                  `((title . ,title)
+                                    (author . ,author)
+                                    (url . ,url)))))
 #+end_src
 
 =citar-denote= makes it a bit easier to create and manage /literature/ notes, which
