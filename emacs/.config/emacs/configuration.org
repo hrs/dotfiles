@@ -2282,7 +2282,7 @@ email addresses, though, since they're just noise.
             (:name "personal - archive" :query "maildir:/personal/archive" :key ?a)
             (:name "work - inbox" :query "maildir:/testdouble/inbox" :key ?w)
             (:name "today's messages" :query "date:today..now" :key ?t)
-            (:name "last 7 days" :query "date:7d..now" :key ?w)))
+            (:name "last 7 days" :query "date:7d..now" :key ?7)))
     (mu4e-maildir-shortcuts
           '(("/personal/inbox" . ?i)
             ("/personal/drafts" . ?d)
