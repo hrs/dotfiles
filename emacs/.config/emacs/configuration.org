@@ -1359,7 +1359,8 @@ Store my org files in =~/documents/org= and define the location of an index file
   (setq org-index-file (org-file-path "index.org"))
 
   (setq org-refile-targets `((,org-index-file :level . 1)
-                             (,(org-file-path "deliveries.org") :level . 1)))
+                             (,(org-file-path "deliveries.org") :level . 1)
+                             (,(org-file-path "someday-maybe.org") :level . 1)))
 #+end_src
 
 Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=. Since
