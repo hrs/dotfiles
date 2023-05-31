@@ -2945,10 +2945,10 @@ package eventually.
     :bind ("C-c n d" . docsim-show-similar-notes)
 
     :custom
-    (docsim-search-directories (list denote-directory
-                                     "~/documents/journal/entries"
-                                     "~/documents/blog/_drafts"
-                                     "~/documents/blog/_posts"))
+    (docsim-search-paths `(,denote-directory
+                           "~/documents/journal/entries"
+                           "~/documents/blog/_drafts"
+                           "~/documents/blog/_posts"))
     (docsim-omit-denote-links t)
 
     :config
