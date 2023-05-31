@@ -2939,13 +2939,16 @@ Just an experiment so far, but I kinda intend to break this into a proper MELPA
 package eventually.
 
 #+begin_src emacs-lisp
-  (use-package docsim-mode
-    :load-path "resources"
+  (use-package docsim
+    :load-path "~/code/personal/docsim.el"
     :commands (docsim-show-similar-notes)
     :bind ("C-c n d" . docsim-show-similar-notes)
 
     :custom
-    (docsim-notes-directory denote-directory)
+    (docsim-search-directories (list denote-directory
+                                     "~/documents/journal/entries"
+                                     "~/documents/blog/_drafts"
+                                     "~/documents/blog/_posts"))
     (docsim-omit-denote-links t)
 
     :config
