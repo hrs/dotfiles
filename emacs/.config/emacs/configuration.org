@@ -777,7 +777,8 @@ Install =go-mode=, plus =protobuf-mode=.
 
 #+begin_src emacs-lisp
   (use-package go-mode
-    :ensure-system-package (go . golang)
+    :ensure-system-package ((go . golang)
+                            (gopls . "go install golang.org/x/tools/gopls@latest"))
     :bind (:map go-mode-map ("C-c C-c" . compile)))
 
   (use-package protobuf-mode)
