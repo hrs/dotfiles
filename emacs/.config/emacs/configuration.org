@@ -1911,7 +1911,7 @@ of every exported HTML document.
      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
        "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
        "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-    (org-latex-listings 'minted)
+    (org-latex-src-block-backend 'minted)
 
     :config
     (add-to-list 'org-latex-packages-alist '("" "minted"))
