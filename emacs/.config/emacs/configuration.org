@@ -877,6 +877,23 @@ documentation.
     :hook (emacs-lisp-mode . eldoc-mode))
 #+end_src
 
+Bind running tests to =C-c , v=, like in =rspec-mode=.
+
+#+begin_src emacs-lisp
+  (use-package emacs-lisp-mode
+    :ensure nil
+    :bind ("C-c , v" . +ert-verify)
+
+    :config
+    (defun +ert-verify ()
+      "Delete all loaded tests from the runtime, evaluate the
+   current buffer and run all loaded tests with ert."
+      (interactive)
+      (ert-delete-all-tests)
+      (eval-buffer)
+      (ert 't)))
+#+end_src
+
 *** Racket
 
 #+begin_src emacs-lisp
