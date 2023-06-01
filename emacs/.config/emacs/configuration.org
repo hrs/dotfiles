@@ -3202,10 +3202,12 @@ This configuration:
   (use-package counsel
     :demand t
     :bind
-    ("M-x" . 'counsel-M-x)
-    ("C-x b" . 'counsel-switch-buffer)
-    ("C-x C-f" . 'counsel-find-file)
-    ("C-s" . 'swiper)
+    (("M-x" . 'counsel-M-x)
+     ("C-x b" . 'counsel-switch-buffer)
+     ("C-x C-f" . 'counsel-find-file)
+     ("C-s" . 'swiper)
+     :map org-mode-map
+     ("C-c C-q" . 'counsel-org-tag))
 
     :config
     (use-package flx)
