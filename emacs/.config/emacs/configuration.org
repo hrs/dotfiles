@@ -429,6 +429,7 @@ Use =company-mode= everywhere.
 
 #+begin_src emacs-lisp
   (use-package company
+    :demand t
     :hook (prog-mode . company-mode)
     :bind (:map company-active-map
                 ("<tab>" . company-complete-selection))
@@ -436,7 +437,7 @@ Use =company-mode= everywhere.
     :custom
     (company-backends '((company-capf company-dabbrev-code)))
     (company-idle-delay 0.2)
-    (company-minimum-prefix-length 5)
+    (company-minimum-prefix-length 3)
     (company-tooltip-align-annotations t)
     (company-tooltip-limit 20)
 
