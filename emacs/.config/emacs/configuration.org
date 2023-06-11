@@ -1385,58 +1385,83 @@ I often leave Emacs running overnight, I reset the update location at midnight.
     (add-hook 'midnight-hook #'+set-org-archive-location))
 #+end_src
 
-I store most of my personal tasks in my index and maintain a separate file for
-work-related tasks, so I'd like to derive my agenda from those files.
-
-I also keep a schedule in =events.org=. Plus some recurring events in,
-reasonably, a =recurring-events.org= file. Those are (mostly) structured as
-=org-habit= items so they can recur according to a schedule.
-
-#+begin_src emacs-lisp
-  (setq org-agenda-files
-        (mapcar #'+org-file-path '("calendars"
-                                   "deliveries.org"
-                                   "environment.org"
-                                   "habits.org"
-                                   "index.org"
-                                   "news.org"
-                                   "recurring-events.org"
-                                   "recurring-tasks.org"
-                                   "work.org"
-                                   "writing.org")))
-#+end_src
-
-Record the time that a todo was archived.
-
-#+begin_src emacs-lisp
-  (setq org-log-done 'time)
-#+end_src
-
-Ensure that a task can't be marked as done if it contains unfinished subtasks.
-This is handy for organizing "blocking" tasks hierarchically.
+- Record the time that a task was archived.
+- Ensure that a task can't be marked as done if it contains unfinished subtasks.
+  This is handy for organizing "blocking" tasks hierarchically.
+- By default Org will dim any tasks that contain blocking subtasks. That's good,
+  but I've got enough of those that I'd rather not see them at all. By making
+  blocked tasks invisible I ensure that everything in my agenda is currently
+  actionable. Or, in GTD lingo, I'm only seeing "next steps."
+- Org treats unprioritized entries as if they had a priority of =[#B]=. I'd
+  prefer to treat them as the lowest priority, which I'm leaving as =[#C]=. That
+  ensures that prioritized entries always come before unprioritized ones in my
+  agenda.
+- Hide the category prefix from tasks. I categorize my tasks with tags,
+  including using =filetags=, so prefixing tasks with the file they're stored in
+  is noisy and redundant.
+- Open my agenda in the current window instead of creating a new one.
+- Begin weeks /today/, not on the last Monday.
+- Don't show deadline warnings under today's entry. If something's due in two
+  days, I'll see it in my agenda as a deadline on that day; I don't /also/ need
+  it listed under today's tasks, prefixed with =In 2 d:=.
+- Hide blocks in the agenda that don't contain any tasks. From [[https://lists.gnu.org/archive/html/emacs-orgmode/2015-06/msg00266.html][this email
+  thread]].
 
 #+begin_src emacs-lisp
-  (setq org-enforce-todo-dependencies t)
-#+end_src
+  (use-package org-agenda
+    :demand t
+    :ensure nil
 
-Open my agenda in the current window instead of creating a new one.
+    :custom
+    (org-agenda-files (list org-directory
+                            (+org-file-path "calendars")))
+    (org-log-done 'time)
+    (org-enforce-todo-dependencies t)
+    (org-agenda-dim-blocked-tasks 'invisible)
+    (org-default-priority ?C)
+    (org-agenda-prefix-format '((agenda . " %i %?-12t% s")
+                                (todo . " %i ")
+                                (tags . " %i ")
+                                (search . " %i ")))
+    (org-agenda-window-setup 'current-window)
+    (org-agenda-start-on-weekday nil)
+    (org-deadline-warning-days 0)
 
-#+begin_src emacs-lisp
-  (setq org-agenda-window-setup 'current-window)
-#+end_src
+    :config
+    (defun +org-agenda-delete-empty-blocks ()
+      "Remove empty agenda blocks.
+    A block is identified as empty if there are fewer than 2
+    non-empty lines in the block (excluding the line with
+    `org-agenda-block-separator' characters)."
+      (when org-agenda-compact-blocks
+        (user-error "Cannot delete empty compact blocks"))
+      (setq buffer-read-only nil)
+      (save-excursion
+        (goto-char (point-min))
+        (let* ((blank-line-re "^\\s-*$")
+               (content-line-count (if (looking-at-p blank-line-re) 0 1))
+               (start-pos (point))
+               (block-re (format "%c\\{10,\\}" org-agenda-block-separator)))
+          (while (and (not (eobp)) (forward-line))
+            (cond
+             ((looking-at-p block-re)
+              (when (< content-line-count 2)
+                (delete-region start-pos (1+ (point-at-bol))))
+              (setq start-pos (point))
+              (forward-line)
+              (setq content-line-count (if (looking-at-p blank-line-re) 0 1)))
+             ((not (looking-at-p blank-line-re))
+              (setq content-line-count (1+ content-line-count)))))
+          (when (< content-line-count 2)
+            (delete-region start-pos (point-max)))
+          (goto-char (point-min))
+          ;; The above strategy can leave a separator line at the beginning
+          ;; of the buffer.
+          (when (looking-at-p block-re)
+            (delete-region (point) (1+ (point-at-eol))))))
+      (setq buffer-read-only t))
 
-Begin weeks /today/, not on the last Monday.
-
-#+begin_src emacs-lisp
-  (setq org-agenda-start-on-weekday nil)
-#+end_src
-
-Don't show deadline warnings under today's entry. If something's due in two
-days, I'll see it in my agenda as a deadline on that day; I don't /also/ need it
-listed under today's tasks, prefixed with =In 2 d:=.
-
-#+begin_src emacs-lisp
-  (setq org-deadline-warning-days 0)
+    (add-hook 'org-agenda-finalize-hook #'+org-agenda-delete-empty-blocks))
 #+end_src
 
 Separate org blocks with nearly complete lines, not rows of ===.
@@ -1449,66 +1474,6 @@ Separate org blocks with nearly complete lines, not rows of ===.
           " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
         "⭠ now ─────────────────────────────────────────────────")
-#+end_src
-
-Hide the category prefix from tasks. I categorize my tasks with tags, including
-using =filetags=, so prefixing tasks with the file they're stored in is noisy and
-redundant.
-
-#+begin_src emacs-lisp
-  (setq org-agenda-prefix-format '((agenda . " %i %?-12t% s")
-                                   (todo . " %i ")
-                                   (tags . " %i ")
-                                   (search . " %i ")))
-#+end_src
-
-By default Org will dim any tasks that contain blocking subtasks. That's good,
-but I've got enough of those that I'd rather not see them at all.
-
-By making blocked tasks invisible I ensure that everything in my agenda is
-currently actionable. Or, in GTD lingo, I'm only seeing "next steps."
-
-#+begin_src emacs-lisp
-  (setq org-agenda-dim-blocked-tasks 'invisible)
-#+end_src
-
-Hide blocks in the agenda that don't contain any tasks. From [[https://lists.gnu.org/archive/html/emacs-orgmode/2015-06/msg00266.html][this email thread]].
-
-#+begin_src emacs-lisp
-  (defun org-agenda-delete-empty-blocks ()
-    "Remove empty agenda blocks.
-  A block is identified as empty if there are fewer than 2
-  non-empty lines in the block (excluding the line with
-  `org-agenda-block-separator' characters)."
-    (when org-agenda-compact-blocks
-      (user-error "Cannot delete empty compact blocks"))
-    (setq buffer-read-only nil)
-    (save-excursion
-      (goto-char (point-min))
-      (let* ((blank-line-re "^\\s-*$")
-             (content-line-count (if (looking-at-p blank-line-re) 0 1))
-             (start-pos (point))
-             (block-re (format "%c\\{10,\\}" org-agenda-block-separator)))
-        (while (and (not (eobp)) (forward-line))
-          (cond
-           ((looking-at-p block-re)
-            (when (< content-line-count 2)
-              (delete-region start-pos (1+ (point-at-bol))))
-            (setq start-pos (point))
-            (forward-line)
-            (setq content-line-count (if (looking-at-p blank-line-re) 0 1)))
-           ((not (looking-at-p blank-line-re))
-            (setq content-line-count (1+ content-line-count)))))
-        (when (< content-line-count 2)
-          (delete-region start-pos (point-max)))
-        (goto-char (point-min))
-        ;; The above strategy can leave a separator line at the beginning
-        ;; of the buffer.
-        (when (looking-at-p block-re)
-          (delete-region (point) (1+ (point-at-eol))))))
-    (setq buffer-read-only t))
-
-  (add-hook 'org-agenda-finalize-hook #'org-agenda-delete-empty-blocks)
 #+end_src
 
 The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
@@ -1557,14 +1522,6 @@ the =inbox=, =habit=, and =project= tags. Here are the sections:
                   (org-agenda-skip-timestamp-if-done t)
                   (org-agenda-hide-tags-regexp "calendar\\|habit\\|inbox\\|next\\|project")
                   (org-agenda-tag-filter-preset '("-duplicate" "-news" "-writing")))))
-#+end_src
-
-Org treats unprioritized entries as if they had a priority of =[#B]=. I'd prefer
-to treat them as the lowest priority, which I'm leaving as =[#C]=. That ensures
-that prioritized entries always come before unprioritized ones in my agenda.
-
-#+begin_src emacs-lisp
-(setq org-default-priority ?C)
 #+end_src
 
 I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
