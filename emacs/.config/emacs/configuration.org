@@ -2980,6 +2980,7 @@ package eventually.
 
 #+begin_src emacs-lisp
   (use-package docsim
+    :ensure nil
     :load-path "~/code/personal/docsim.el"
     :commands (docsim-show-similar-notes)
     :bind ("C-c n d" . docsim-show-similar-notes)
@@ -2991,9 +2992,9 @@ package eventually.
                            "~/documents/blog/_posts"))
     (docsim-omit-denote-links t)
 
-    :config
-    (evil-define-key 'normal docsim-mode-map (kbd "RET") 'docsim--visit-link)
-    (evil-define-key 'normal docsim-mode-map (kbd "q") 'docsim--quit-sidebuffer))
+    :init
+    (evil-define-key '(insert normal) docsim-mode-map (kbd "RET") 'docsim--visit-link)
+    (evil-define-key '(insert normal) docsim-mode-map (kbd "q") 'docsim--quit-sidebuffer))
 #+end_src
 
 * File management with =dired=
