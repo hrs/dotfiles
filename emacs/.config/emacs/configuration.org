@@ -1301,18 +1301,26 @@ I'll also occasionally use =pwgen= to generate and insert a secure password.
 
 * Publishing and task management with Org-mode
 
-Including =org-tempo= restores the =<s=-style easy templates that were deprecated in
-Org 9.2.
+- I'd like the initial scratch buffer to be in Org.
+- Put tags directly after the associated header rather than trying to align them.
+- When hitting =C-<return>= to create a new heading, don't insert the heading
+  between the current heading and its content, but instead append it /after/ the
+  content.
 
-I'd like to open =file:= links in Org with the applications defined in my [[file:~/.dotfiles/email/.mailcap][mailcap]].
-This clears the existing MIME mapping, parses my personal mailcap, and tells Org
-to open those links with the mailcap-defined applications.
+I'd like to open =file:= links in Org with the applications defined in my
+[[file:~/.dotfiles/email/.mailcap][mailcap]]. This clears the existing MIME mapping, parses my personal mailcap, and
+tells Org to open those links with the mailcap-defined applications.
 
 #+begin_src emacs-lisp
   (use-package org
-    :config
-    (require 'org-tempo)
+    :custom
+    (initial-major-mode 'org-mode)
 
+    (org-auto-align-tags nil)
+    (org-tags-column 0)
+    (org-insert-heading-respect-content t)
+
+    :config
     (add-hook 'org-mode-hook
               (lambda ()
                 (setq mailcap-mime-data '())
@@ -1326,41 +1334,17 @@ to open those links with the mailcap-defined applications.
                         (t . mailcap))))))
 #+end_src
 
-I'd like the initial scratch buffer to be in Org:
+Including =org-tempo= restores the =<s=-style easy templates that were
+deprecated in Org 9.2. This also adds a =<el= template to quickly insert a block
+of Emacs lisp.
 
 #+begin_src emacs-lisp
-  (setq initial-major-mode 'org-mode)
-#+end_src
+  (use-package org-tempo
+    :ensure nil
 
-** Display preferences
-
-Put tags directly after the associated header rather than trying to align them.
-
-#+begin_src emacs-lisp
-  (setq org-auto-align-tags nil
-        org-tags-column 0)
-#+end_src
-
-When editing a code snippet, use the current window rather than popping open a
-new one (which shows the same information).
-
-#+begin_src emacs-lisp
-  (setq org-src-window-setup 'current-window)
-#+end_src
-
-Quickly insert a block of elisp:
-
-#+begin_src emacs-lisp
-  (add-to-list 'org-structure-template-alist
-               '("el" . "src emacs-lisp"))
-#+end_src
-
-When hitting =C-<return>= to create a new heading, don't insert the heading
-between the current heading and its content, but instead append it /after/ the
-content.
-
-#+begin_src emacs-lisp
-  (setq org-insert-heading-respect-content t)
+    :config
+    (add-to-list 'org-structure-template-alist
+                 '("el" . "src emacs-lisp")))
 #+end_src
 
 ** Task management and agenda views
