@@ -1745,19 +1745,6 @@ Add a function to link the selected text to its associated Wikipedia article.
 
 ** Exporting
 
-Allow export to markdown and epub.
-
-#+begin_src emacs-lisp
-  (use-package ox-md
-    :ensure nil
-    :after org
-    :commands (org-export-dispatch))
-
-  (use-package ox-epub
-    :after org
-    :commands (org-export-dispatch))
-#+end_src
-
 Allow =babel= to evaluate code blocks in a handful of languages.
 
 #+begin_src emacs-lisp
@@ -1778,12 +1765,6 @@ Don't ask before evaluating code blocks.
 
 #+begin_src emacs-lisp
   (setq org-confirm-babel-evaluate nil)
-#+end_src
-
-Use =htmlize= to ensure that exported code blocks use syntax highlighting.
-
-#+begin_src emacs-lisp
-  (use-package htmlize)
 #+end_src
 
 Associate the "dot" language with the =graphviz-dot= major mode.
@@ -1810,6 +1791,29 @@ of every exported HTML document.
 
 #+begin_src emacs-lisp
   (setq org-html-postamble nil)
+#+end_src
+
+Use =htmlize= to ensure that exported code blocks use syntax highlighting.
+
+#+begin_src emacs-lisp
+  (use-package htmlize)
+#+end_src
+
+**** Markdown
+
+#+begin_src emacs-lisp
+  (use-package ox-md
+    :ensure nil
+    :after org
+    :commands (org-export-dispatch))
+#+end_src
+
+**** EPUB
+
+#+begin_src emacs-lisp
+  (use-package ox-epub
+    :after org
+    :commands (org-export-dispatch))
 #+end_src
 
 **** Exporting to PDF
