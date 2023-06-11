@@ -1340,6 +1340,7 @@ of Emacs lisp.
 
 #+begin_src emacs-lisp
   (use-package org-tempo
+    :demand t
     :ensure nil
 
     :config
@@ -1355,11 +1356,11 @@ Store my org files in =~/documents/org= and define the location of an index file
 #+begin_src emacs-lisp
   (setq org-directory "~/documents/org")
 
-  (defun org-file-path (filename)
+  (defun +org-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
     (concat (file-name-as-directory org-directory) filename))
 
-  (setq org-index-file (org-file-path "index.org"))
+  (setq org-index-file (+org-file-path "index.org"))
 #+end_src
 
 Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=. Since
@@ -1370,7 +1371,7 @@ I often leave Emacs running overnight, I reset the update location at midnight.
     "Set the `org-archive-location' variable according to the current date."
     (setq org-archive-location
           (concat
-           (org-file-path (format-time-string "archive/archive-%Y-%m-%d.org"))
+           (+org-file-path (format-time-string "archive/archive-%Y-%m-%d.org"))
            "::* From %s")))
 
   (+set-org-archive-location)
@@ -1393,16 +1394,16 @@ reasonably, a =recurring-events.org= file. Those are (mostly) structured as
 
 #+begin_src emacs-lisp
   (setq org-agenda-files
-        (mapcar 'org-file-path '("calendars"
-                                 "deliveries.org"
-                                 "environment.org"
-                                 "habits.org"
-                                 "index.org"
-                                 "news.org"
-                                 "recurring-events.org"
-                                 "recurring-tasks.org"
-                                 "work.org"
-                                 "writing.org")))
+        (mapcar #'+org-file-path '("calendars"
+                                   "deliveries.org"
+                                   "environment.org"
+                                   "habits.org"
+                                   "index.org"
+                                   "news.org"
+                                   "recurring-events.org"
+                                   "recurring-tasks.org"
+                                   "work.org"
+                                   "writing.org")))
 #+end_src
 
 Record the time that a todo was archived.
@@ -1731,10 +1732,10 @@ Refiling according to the document's hierarchy.
     (org-refile-use-outline-path t)
     (org-outline-path-complete-in-steps nil)
     (org-refile-targets `((,org-index-file :level . 1)
-                          (,(org-file-path "deliveries.org") :level . 1)
-                          (,(org-file-path "environment.org") :level . 1)
-                          (,(org-file-path "someday-maybe.org") :level . 1)
-                          (,(org-file-path "work.org") :level . 1))))
+                          (,(+org-file-path "deliveries.org") :level . 1)
+                          (,(+org-file-path "environment.org") :level . 1)
+                          (,(+org-file-path "someday-maybe.org") :level . 1)
+                          (,(+org-file-path "work.org") :level . 1))))
 #+end_src
 
 *** Keybindings
