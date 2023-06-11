@@ -1580,107 +1580,66 @@ and pop it open when I'm ready to write.
 
 Define a few common tasks as capture templates.
 
-#+begin_src emacs-lisp
-  (defvar org-capture-templates '())
-
-  (add-to-list 'org-capture-templates
-               '("b" "Blog idea"
-                 entry
-                 (file "~/documents/notes/blog-ideas.org")
-                 "* %?\n"))
-
-  (add-to-list 'org-capture-templates
-               '("c" "Contact"
-                 entry
-                 (file "~/documents/contacts.org")
-                 "* %(org-contacts-template-name)
-:PROPERTIES:
-:ADDRESS: %^{123 Fake St., City, ST 12345}
-:PHONE: %^{555-555-5555}
-:EMAIL: %(org-contacts-template-email)
-:NOTE: %^{note}
-:END:"))
-
-  (add-to-list 'org-capture-templates
-               '("d" "Delivery"
-                 entry
-                 (file+headline "~/documents/org/deliveries.org" "Deliveries")
-                 "** %?\nSCHEDULED: %^t\n"))
-
-  (add-to-list 'org-capture-templates
-               '("e" "Email"
-                 entry
-                 (file+headline org-index-file "Inbox")
-                 "* TODO %?\n%a\n"))
-
-  (add-to-list 'org-capture-templates
-               '("f" "Finished book"
-                 entry
-                 (file+headline "~/documents/notes/books-read.org" "Books")
-                 "* %^{Title} -- %^{Author}\n%^t\n"
-                 :immediate-finish t))
-
-  (add-to-list 'org-capture-templates
-               '("k" "Kookaburra ingest"
-                 entry
-                 (file+headline "~/documents/org/kookaburra-ingest.org" "Queue")
-                 "* TODO %?\n"))
-
-  (add-to-list 'org-capture-templates
-               '("m" "Media queue"
-                 item
-                 (file+headline "~/documents/notes/media.org" "Inbox")
-                 "- [ ] %^{Media}\n"
-                 :immediate-finish t))
-
-  (add-to-list 'org-capture-templates
-               '("n" "News item"
-                 entry
-                 (file "~/documents/org/news.org")
-                 "* %?\n%t\n"))
-
-  (add-to-list 'org-capture-templates
-               '("p" "Finished paper"
-                 entry
-                 (file+headline "~/documents/notes/papers-read.org" "Papers")
-                 "* %^{Title} -- %^{Author}\n%t\n"
-                 :immediate-finish t))
-
-  (add-to-list 'org-capture-templates
-               '("r" "Writing prompt"
-                 entry
-                 (file "~/documents/org/writing.org")
-                 "* %?\n%t\n"))
-
-  (add-to-list 'org-capture-templates
-               '("s" "Subscribe to an RSS feed"
-                 plain
-                 (file "~/documents/rss-feeds.org")
-                 "*** [[%^{Feed URL}][%^{Feed name}]]"
-                 :immediate-finish t))
-
-  (add-to-list 'org-capture-templates
-               '("t" "Task"
-                 entry
-                 (file+headline org-index-file "Inbox")
-                 "* TODO %?\n"))
-#+end_src
-
-When I'm starting an Org capture template I'd like to begin in insert mode. I'm
-opening it up in order to start typing something, so this skips a step.
+- Creating a new capture item also adds a bookmark, which includes a marker in
+  the fringe. I don't need to see that.
+- When I'm starting an Org capture template I'd like to begin in insert mode.
+  I'm opening it up in order to start typing something, so this skips a step.
 
 #+begin_src emacs-lisp
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  (use-package org-capture
+    :demand t
+    :ensure nil
+
+    :custom
+    (bookmark-set-fringe-mark nil)
+
+    :config
+    (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+    (setq org-capture-templates
+          '(("b" "Blog idea" entry
+             (file "~/documents/notes/blog-ideas.org")
+             "* %?\n")
+            ("d" "Delivery" entry
+             (file+headline "~/documents/org/deliveries.org" "Deliveries")
+             "** %?\nSCHEDULED: %^t\n")
+            ("e" "Email" entry
+             (file+headline org-index-file "Inbox")
+             "* TODO %?\n%a\n")
+            ("f" "Finished book"
+             entry
+             (file+headline "~/documents/notes/books-read.org" "Books")
+             "* %^{Title} -- %^{Author}\n%^t\n"
+             :immediate-finish t)
+            ("m" "Media queue"
+             item
+             (file+headline "~/documents/notes/media.org" "Inbox")
+             "- [ ] %^{Media}\n"
+             :immediate-finish t)
+            ("n" "News item"
+             entry
+             (file "~/documents/org/news.org")
+             "* %?\n%t\n")
+            ("r" "Writing prompt"
+             entry
+             (file "~/documents/org/writing.org")
+             "* %?\n%t\n")
+            ("s" "Subscribe to an RSS feed"
+             plain
+             (file "~/documents/rss-feeds.org")
+             "*** [[%^{Feed URL}][%^{Feed name}]]"
+             :immediate-finish t)
+            ("t" "Task"
+             entry
+             (file+headline org-index-file "Inbox")
+             "* TODO %?\n")))
+
+    (defun +org-capture-todo ()
+      (interactive)
+      (org-capture :keys "t")))
 #+end_src
 
-Creating a new capture item also adds a bookmark, which includes a marker in the
-fringe. I don't need to see that, so:
-
-#+begin_src emacs-lisp
-  (setq bookmark-set-fringe-mark nil)
-#+end_src
-
-Refiling according to the document's hierarchy.
+*** Refiling headings
 
 #+begin_src emacs-lisp
   (use-package org-refile
@@ -1721,10 +1680,6 @@ Hit =C-c i= to quickly open up my todo list.
 Hit =M-n= to quickly open up a capture template for a new todo.
 
 #+begin_src emacs-lisp
-  (defun +org-capture-todo ()
-    (interactive)
-    (org-capture :keys "t"))
-
   (global-set-key (kbd "M-n") '+org-capture-todo)
 
   (setq +org-capture-todo-hooks '(gfm-mode-hook haskell-mode-hook magit-mode-hook))
