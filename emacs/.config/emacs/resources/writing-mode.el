@@ -136,6 +136,8 @@ current major mode."
 
   (writing--save-settings)
 
+  (turn-off-auto-fill)
+
   (when (eq major-mode 'org-mode)
     (setq org-ellipsis writing-org-ellipsis
           org-hide-emphasis-markers t
@@ -157,6 +159,8 @@ current major mode."
   "Disable minor writing-mode."
 
   (writing--restore-settings)
+
+  (turn-on-auto-fill)
 
   (when (and (eq major-mode 'org-mode)
              (not org-startup-with-inline-images))
