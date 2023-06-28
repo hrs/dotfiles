@@ -704,6 +704,35 @@ enjoy, personally.
     (lsp-ui-doc-enable nil))
 #+end_src
 
+I don't use =TAB= to indent when I'm in =normal-mode=, so instead I use it to toggle
+hiding blocks of code.
+
+Similarly, I bind =BACKTAB= to toggle hiding /all/ the top-level code blocks. This
+parallels the use of those keys in Org.
+
+#+begin_src emacs-lisp
+  (use-package hs-minor-mode
+    :demand t
+    :ensure nil
+    :hook prog-mode
+
+    :init
+    (defvar-local +maybe-hidden-blocks nil)
+    (add-hook 'hs-hide-hook (lambda () (setq-local +maybe-hidden-blocks t)))
+
+    (defun +toggle-all-folds ()
+      "If any block are hidden, show them all. Otherwise, hide all top-level blocks."
+      (interactive)
+      (if +maybe-hidden-blocks
+          (progn
+            (setq-local +maybe-hidden-blocks nil)
+            (hs-show-all))
+        (hs-hide-all)))
+
+    (evil-define-key 'normal prog-mode-map (kbd "<tab>") 'hs-toggle-hiding)
+    (evil-define-key 'normal prog-mode-map (kbd "<backtab>") '+toggle-all-folds))
+#+end_src
+
 ** Coq
 
 I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
