@@ -2662,12 +2662,14 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
     (require 'mixed-pitch)
     (require 'olivetti)
     (require 'org-appear)
+    (require 'org-indent)
     (require 'org-modern)
     (require 'org-superstar)
     (require 'wc-mode)
 
     (setq writing-enabled-modes
           '((org-mode . (org-appear-mode
+                         org-indent-mode
                          org-modern-mode
                          org-superstar-mode))
             (elfeed-show-mode . (mixed-pitch-mode
