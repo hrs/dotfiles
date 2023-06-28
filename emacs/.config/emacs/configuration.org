@@ -225,6 +225,17 @@ regardless. Just skip the whole thing instead.
   (setq frame-inhibit-implied-resize t)
 #+end_src
 
+** Make the focused window a bit bigger
+
+This resizes active windows according to the golden ratio.
+
+#+begin_src emacs-lisp
+  (use-package golden-ratio
+    :demand t
+    :config
+    (golden-ratio-mode t))
+#+end_src
+
 ** Tweak window chrome
 
 I don't usually use the menu or scroll bar, and they take up useful space.
