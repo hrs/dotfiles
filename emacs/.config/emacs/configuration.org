@@ -945,6 +945,20 @@ Bind running tests to =C-c , v=, like in =rspec-mode=.
       (ert 't)))
 #+end_src
 
+Buttercup offers BDD-style testing. I've been using that instead of ERT for my
+packages' tests, and I find myself preferring it (especially for features like
+~spy-on~).
+
+#+begin_src emacs-lisp
+  (use-package buttercup)
+#+end_src
+
+I use =package-lint= to verify that my packages are, y'know, linted.
+
+#+begin_src emacs-lisp
+  (use-package package-lint)
+#+end_src
+
 *** Racket
 
 #+begin_src emacs-lisp
