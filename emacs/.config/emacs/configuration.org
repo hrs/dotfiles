@@ -1541,6 +1541,7 @@ I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
   (defun +dashboard ()
     (interactive)
     (call-process-shell-command "daily-checklist")
+    (call-process-shell-command "copy-phone-notes")
     (find-file org-index-file)
     (with-current-buffer (get-file-buffer org-index-file)
       (revert-buffer nil t))
