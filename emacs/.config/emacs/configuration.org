@@ -892,11 +892,13 @@ documentation.
 Bind running tests to =C-c , v=, like in =rspec-mode=.
 
 #+begin_src emacs-lisp
-  (use-package emacs-lisp-mode
+  (use-package ert
     :ensure nil
-    :bind ("C-c , v" . +ert-verify)
+    :bind (:map emacs-lisp-mode-map ("C-c , v" . +ert-verify))
 
     :config
+    (evil-define-key '(motion normal) ert-results-mode-map (kbd "C-p") 'project-find-file)
+
     (defun +ert-verify ()
       "Delete all loaded tests from the runtime, evaluate the
    current buffer and run all loaded tests with ert."
@@ -1046,7 +1048,6 @@ to be colored.
 
     :hook (css-mode
            deadgrep-mode
-           eldoc-mode
            js-mode
            magit-status-mode
            ruby-mode
@@ -1086,7 +1087,6 @@ hacky, but seems to do the job.
   (defvar +ruby-testable-mode-hooks
     '(css-mode-hook
       deadgrep-mode-hook
-      eldoc-mode-hook
       js-mode-hook
       magit-status-mode-hook
       ruby-mode-hook
