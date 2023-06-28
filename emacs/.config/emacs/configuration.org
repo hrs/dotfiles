@@ -2501,6 +2501,15 @@ Open =elfeed= with =C-c r=.
   (global-set-key (kbd "C-c r") 'elfeed)
 #+end_src
 
+Automatically save the database automatically, since =elfeed= doesn't. This adds
+some resilience if Emacs crashes and helps synchronize state across machines.
+
+#+begin_src emacs-lisp
+  (unless (cl-loop for timer in timer-idle-list
+                   thereis (equal (aref timer 5) #'elfeed-db-save))
+    (run-with-idle-timer 300 'repeat #'elfeed-db-save))
+#+end_src
+
 I store my feeds in an Org file, of course. This parses them into something
 =elfeed= understands.
 
