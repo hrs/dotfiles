@@ -51,7 +51,8 @@
   default = current
   followTags = true
 [rebase]
-  autosquash = true
+  autoSquash = true
+  autoStash = true
 [sendemail]
   smtpserver = /usr/bin/msmtp
 [user]
