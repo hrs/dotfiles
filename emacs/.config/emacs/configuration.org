@@ -1693,7 +1693,11 @@ Hit =M-n= to quickly open up a capture template for a new todo.
 #+begin_src emacs-lisp
   (global-set-key (kbd "M-n") '+org-capture-todo)
 
-  (setq +org-capture-todo-hooks '(gfm-mode-hook haskell-mode-hook magit-mode-hook))
+  (setq +org-capture-todo-hooks
+        '(gfm-mode-hook
+          haskell-mode-hook
+          magit-mode-hook
+          makefile-mode-hook))
 
   (dolist (hook +org-capture-todo-hooks)
     (add-hook hook (lambda () (local-set-key (kbd "M-n") '+org-capture-todo))))
