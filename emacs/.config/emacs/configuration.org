@@ -2771,6 +2771,11 @@ database, so I wrote a few functions to do that.
 #+begin_src emacs-lisp
   (use-package citar
     :custom
+    (org-cite-csl-styles-dir denote-directory)
+    (setq org-cite-export-processors '((md csl "chicago-fullnote-bibliography.csl")
+                                       (latex csl "chicago-fullnote-bibliography.csl")
+                                       (t csl "modern-language-association.csl")))
+
     (org-cite-global-bibliography '("~/documents/notes/references.bib"))
 
     (org-cite-insert-processor 'citar)
