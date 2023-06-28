@@ -2781,7 +2781,8 @@ and bind keys:
 - =C-c n c= :: Insert a citation to an existing reference in this file.
 - =C-c n d= :: Suggest unlinked notes that are textually similar to this one.
 - =C-c n e= :: Create a new bibliography entry.
-- =C-c n f= :: Fuzzy-find a note.
+- =C-c n f= :: Fuzzy-find a note by its filename.
+- =C-c n g= :: =grep= through notes.
 - =C-c n l= :: Insert a link to another note.
 - =C-c n n= :: Create a new note.
 - =C-c n r= :: Prompt for an existing reference and visit or create a literature
@@ -2793,9 +2794,9 @@ and bind keys:
     :hook (dired-mode . denote-dired-mode)
     :bind (("C-c n b" . denote-link-find-backlink)
            ("C-c n f" . +denote-find-file)
+           ("C-c n g" . +denote-grep)
            ("C-c n l" . denote-link)
-           ("C-c n n" . denote)
-           ("C-c n s" . +denote-search))
+           ("C-c n n" . denote))
 
     :custom
     (denote-directory "~/documents/notes")
@@ -2806,7 +2807,7 @@ and bind keys:
       (let ((project-current-directory-override denote-directory))
         (project-find-file)))
 
-    (defun +denote-search (term)
+    (defun +denote-grep (term)
       (interactive (list (deadgrep--read-search-term)))
       (deadgrep term denote-directory)))
 #+end_src
@@ -2919,25 +2920,23 @@ correspond to specific =bibtex= entries.
     (citar-denote-title-format "title"))
 #+end_src
 
-** Suggesting connections between notes
+** Searching notes
 
-I've written a Go tool called =docsim= that uses TF-IDF document weighting and
-cosine similarity to compare the text documents in a given corpus. I've also
-written a little Emacs mode that wraps around that and displays the results in a
-side buffer.
+I wrote [[https://github.com/hrs/docsim.el][docsim.el]] to provide richer search functionality in my notes. I'm
+biased, but I think it works pretty well.
 
-Calling =docsim-show-similar-notes= opens a buffer of links to nodes that are (1)
+Calling =docsim-search-buffer= opens a buffer of links to nodes that are (1)
 textually similar to this note, and (2) not yet linked from it.
-
-Just an experiment so far, but I kinda intend to break this into a proper MELPA
-package eventually.
 
 #+begin_src emacs-lisp
   (use-package docsim
-    :ensure nil
-    :load-path "~/code/personal/docsim.el"
-    :commands (docsim-show-similar-notes)
-    :bind ("C-c n d" . docsim-show-similar-notes)
+    :ensure t
+    :ensure-system-package ((go . golang)
+                            (docsim . "go install github.org/hrs/docsim/docsim@latest"))
+
+    :commands (docsim-search docsim-search-buffer)
+    :bind (("C-c n s" . docsim-search)
+           ("C-c n d" . docsim-search-buffer))
 
     :custom
     (docsim-search-paths `(,denote-directory
