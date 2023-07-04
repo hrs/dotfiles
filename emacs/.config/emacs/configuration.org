@@ -176,8 +176,9 @@ Use =evil= with Org agendas.
 #+begin_src emacs-lisp
   (defun +append-to-path (path)
     "Add a path both to the $PATH variable and to Emacs' exec-path."
-    (setenv "PATH" (concat (getenv "PATH") ":" path))
-    (add-to-list 'exec-path path))
+    (let ((full-path (expand-file-name path)))
+      (setenv "PATH" (concat (getenv "PATH") ":" full-path))
+      (add-to-list 'exec-path full-path)))
 
   (setq +local-bin-paths
         '("/usr/local/bin"
@@ -189,7 +190,7 @@ Use =evil= with Org agendas.
           "~/.local/bin"))
 
   (dolist (path +local-bin-paths)
-    (+append-to-path (expand-file-name path)))
+    (+append-to-path path))
 #+end_src
 
 * Utility functions
@@ -674,13 +675,15 @@ output.
   (setq compilation-scroll-output t)
 #+end_src
 
+** LSP
+
 I use LSP for some languages. This hooks LSP to run in those modes and ensures
 that it displays all available documentation on hover.
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
-    :hook ((go-mode ruby-mode) . lsp-deferred)
+    :hook ((ruby-mode ruby-ts-mode go-mode) . lsp-deferred)
 
     :custom
     (lsp-eldoc-render-all t))
@@ -700,6 +703,8 @@ enjoy, personally.
     (lsp-ui-sideline-show-hover t)
     (lsp-ui-doc-enable nil))
 #+end_src
+
+** Toggle code folding
 
 I don't use =TAB= to indent when I'm in =normal-mode=, so instead I use it to toggle
 hiding blocks of code.
@@ -1056,8 +1061,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
            "\\Vagrantfile$"
            "\\Vagrantfile.local$")
 
-    :bind (("C-c C-c" . xmp)
-           ("\r" . newline-and-indent))
+    :bind ("\r" . newline-and-indent)
 
     :config
     (setq-default flycheck-disabled-checkers '(ruby-reek))
@@ -1165,6 +1169,7 @@ buffer.
     :after ruby-mode
     :load-path "resources"
     :commands (xmp)
+    :bind (:map ruby-mode-map ("C-c C-c" . xmp))
 
     :config
     (setq xmpfilter-command-name
