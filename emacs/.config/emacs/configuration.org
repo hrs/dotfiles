@@ -683,7 +683,7 @@ that it displays all available documentation on hover.
 #+begin_src emacs-lisp
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
-    :hook ((ruby-mode ruby-ts-mode go-mode) . lsp-deferred)
+    :hook ((go-mode) . lsp-deferred)
 
     :custom
     (lsp-eldoc-render-all t))
@@ -702,6 +702,16 @@ enjoy, personally.
     (lsp-ui-peek-always-show t)
     (lsp-ui-sideline-show-hover t)
     (lsp-ui-doc-enable nil))
+#+end_src
+
+** eglot
+
+#+begin_src emacs-lisp
+  (use-package eglot
+    :ensure nil
+
+    :config
+    (add-to-list 'eglot-server-programs '((ruby-mode ruby-ts-mode) "ruby-lsp")))
 #+end_src
 
 ** Toggle code folding
@@ -1083,9 +1093,13 @@ basically everywhere, since working with a Rails project involves a ton of
 modes.
 
 I'd like my =rspec= tests to be run in a random order, and I'd like the output
-to be colored.
+to be colored. I'd also like to drop into a shell session if the tests fails.
 
 #+begin_src emacs-lisp
+  (use-package inf-ruby
+    :after ruby-mode
+    :commands (inf-ruby-auto-enter-and-focus))
+
   (use-package rspec-mode
     :after ruby-mode
     :ensure-system-package (rspec . "gem install rspec")
@@ -1108,7 +1122,7 @@ to be colored.
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'project-find-file)
     (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file)
 
-    (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter))
+    (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter-and-focus))
 #+end_src
 
 Some Ruby projects use =minitest= instead of =rspec=.
