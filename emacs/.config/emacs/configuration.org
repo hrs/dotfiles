@@ -3136,9 +3136,9 @@ buffers.
   (use-package helpful
     :commands (helpful-callable helpful-variable helpful-key)
     :bind
-    ("C-h f" . 'helpful-callable)
-    ("C-h v" . 'helpful-variable)
-    ("C-h k" . 'helpful-key)
+    ("C-h f" . helpful-callable)
+    ("C-h v" . helpful-variable)
+    ("C-h k" . helpful-key)
 
     :config
     (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window))
@@ -3207,12 +3207,13 @@ This configuration:
   (use-package counsel
     :demand t
     :bind
-    (("M-x" . 'counsel-M-x)
-     ("C-x b" . 'counsel-switch-buffer)
-     ("C-x C-f" . 'counsel-find-file)
-     ("C-s" . 'swiper)
+    (("M-x" . counsel-M-x)
+     ("M-i" . counsel-imenu)
+     ("C-x b" . counsel-switch-buffer)
+     ("C-x C-f" . counsel-find-file)
+     ("C-s" . swiper)
      :map org-mode-map
-     ("C-c C-q" . 'counsel-org-tag))
+     ("C-c C-q" . counsel-org-tag))
 
     :config
     (use-package flx)
