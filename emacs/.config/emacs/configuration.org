@@ -297,6 +297,11 @@ Why not?
 
 This sets up the current theme.
 
+The =modus= themes don't seem to perfectly interact with =moody= any more (or maybe
+I'm doing something wrong). This adds a hook to ensure that the diagonal lines
+around =moody= "widgets" have the same color as other lines in the modeline. This
+is hard to explain in words, but trust me, it looks clunky if we don't do this.
+
 #+begin_src emacs-lisp
   (use-package modus-themes
     :custom
@@ -307,13 +312,19 @@ This sets up the current theme.
        (t . (1.1))))
     (modus-themes-bold-constructs t)
     (modus-themes-italic-constructs t)
-    (modus-themes-org-blocks 'tinted-background))
+    (modus-themes-org-blocks 'tinted-background)
+
+    :config
+    (add-hook 'modus-themes-after-load-theme-hook
+              (lambda ()
+                (set-face-attribute 'mode-line nil
+                                    :underline
+                                    (modus-themes-get-color-value 'border-mode-line-active))
+                (set-face-attribute 'mode-line-inactive nil
+                                    :underline
+                                    (modus-themes-get-color-value 'border-mode-line-inactive)))))
 
   (modus-themes-select 'modus-operandi)
-  (set-face-attribute 'mode-line nil
-                      :underline (modus-themes-get-color-value 'border-mode-line-active))
-  (set-face-attribute 'mode-line-inactive nil
-                      :underline (modus-themes-get-color-value 'border-mode-line-inactive))
 #+end_src
 
 ** Use =minions= to hide all minor modes
