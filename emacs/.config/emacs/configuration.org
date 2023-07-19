@@ -3244,29 +3244,14 @@ makes that automatic. Similarly, when closing a window I'd like to rebalance the
 remaining windows.
 
 #+begin_src emacs-lisp
-  (defun +split-window-below-and-switch ()
-    "Split the window horizontally, then switch to the new pane."
-    (interactive)
-    (split-window-below)
-    (balance-windows)
-    (other-window 1))
+  (advice-add #'delete-window
+              :after #'(lambda (&rest _)
+                         (balance-windows)))
 
-  (defun +split-window-right-and-switch ()
-    "Split the window vertically, then switch to the new pane."
-    (interactive)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
-
-  (defun +delete-window-and-rebalance ()
-    "Delete the current window, then rebalance the remaining windows."
-    (interactive)
-    (delete-window)
-    (balance-windows))
-
-  (global-set-key (kbd "C-x 2") '+split-window-below-and-switch)
-  (global-set-key (kbd "C-x 3") '+split-window-right-and-switch)
-  (global-set-key (kbd "C-x 0") '+delete-window-and-rebalance)
+  (advice-add #'split-window
+              :after #'(lambda (&rest _)
+                         (balance-windows)
+                         (other-window 1)))
 #+end_src
 
 ** Mass editing of =grep= results
