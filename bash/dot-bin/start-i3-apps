@@ -61,20 +61,6 @@ signal-desktop --use-tray-icon --start-in-tray --no-sandbox &
 ~/.bin/close-startup-window TelegramDesktop &
 telegram-desktop &
 
-~/.bin/close-startup-window discord &
-~/.bin/close-startup-window discord &
-discord &
-
-~/.bin/close-startup-window zoom &
-~/.bin/close-startup-window zoom &
-zoom &
-
-~/.bin/close-startup-window slack &
-slack &
-
-quodlibet --run --hide-window &
-calibre --start-in-tray &
-
 # Start and visit Emacs
 i3-msg workspace number $ws2
 pkill ^emacs$
