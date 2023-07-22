@@ -1570,7 +1570,6 @@ I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
   (defun +dashboard ()
     (interactive)
     (call-process-shell-command "daily-checklist")
-    (call-process-shell-command "copy-phone-notes")
     (find-file org-index-file)
     (with-current-buffer (get-file-buffer org-index-file)
       (revert-buffer nil t))
@@ -2477,15 +2476,6 @@ Open =elfeed= with =C-c r=.
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c r") 'elfeed)
-#+end_src
-
-Automatically save the database automatically, since =elfeed= doesn't. This adds
-some resilience if Emacs crashes and helps synchronize state across machines.
-
-#+begin_src emacs-lisp
-  (unless (cl-loop for timer in timer-idle-list
-                   thereis (equal (aref timer 5) #'elfeed-db-save))
-    (run-with-idle-timer 300 'repeat #'elfeed-db-save))
 #+end_src
 
 I store my feeds in an Org file, of course. This parses them into something
