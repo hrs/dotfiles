@@ -496,18 +496,6 @@ require any additional setup. I've bound its most useful command to =M-.=.
     (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions))
 #+end_src
 
-The =xref-find-definitions= function creates an =XREF= buffer of results if more
-than one thing matches. That's inconvenient; I'd rather use Ivy to select among
-them.
-
-#+begin_src emacs-lisp
-  (use-package ivy-xref
-    :demand t
-
-    :custom
-    (xref-show-definitions-function #'ivy-xref-show-defs))
-#+end_src
-
 ** =flycheck=
 
 I'd like to enable =flycheck= all kinds of places, but I don't really need the
@@ -3175,51 +3163,41 @@ correct indentation for Python).
     (yas-global-mode 1))
 #+end_src
 
-** Configure =ivy= and =counsel=
+** Configure completion
 
-I use =ivy= and =counsel= as my completion framework.
-
-This configuration:
-
-- Uses =counsel-M-x= for command completion,
-- Replaces =isearch= with =swiper=,
-- Uses =smex= to maintain history,
-- Enables fuzzy matching everywhere except swiper (where it's thoroughly
-  unhelpful), and
-- Includes recent files in the switch buffer.
+I'm trying =vertico=, =orderless=, =consult=, and =marginalia= as my completion
+framework.
 
 #+begin_src emacs-lisp
-  (use-package counsel
+  (use-package vertico
     :demand t
-    :bind
-    (("M-x" . counsel-M-x)
-     ("M-i" . counsel-imenu)
-     ("C-x b" . counsel-switch-buffer)
-     ("C-x C-f" . counsel-find-file)
-     ("C-s" . swiper)
-     :map org-mode-map
-     ("C-c C-q" . counsel-org-tag))
-
-    :config
-    (use-package flx)
-    (use-package smex)
-
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
-    (setq ivy-initial-inputs-alist nil)
-    (setq ivy-re-builders-alist
-          '((swiper . ivy--regex-plus)
-            (t . ivy--regex-fuzzy))))
-#+end_src
-
-Add descriptions to the =ivy= buffer.
-
-#+begin_src emacs-lisp
-  (use-package ivy-rich
     :init
-    (ivy-rich-mode 1)
-    (ivy-rich-project-root-cache-mode 1))
+    (vertico-mode))
+
+  (use-package savehist
+    :demand t
+    :init
+    (savehist-mode))
+
+  (use-package orderless
+    :demand t
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-defaults nil)
+    (completion-category-overrides '((file (styles basic partial-completion)))))
+
+  (use-package consult
+    :bind
+    (("M-i" . consult-imenu)
+     ("C-x b" . consult-buffer)
+     ("C-s" . consult-line)))
+
+  (use-package marginalia
+    :bind (:map minibuffer-local-map
+                ("M-A" . marginalia-cycle))
+
+    :init
+    (marginalia-mode))
 #+end_src
 
 ** Switch and rebalance windows when splitting
