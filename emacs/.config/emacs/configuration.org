@@ -832,8 +832,7 @@ Install =go-mode=, plus =protobuf-mode=.
 #+begin_src emacs-lisp
   (use-package go-mode
     :ensure-system-package ((go . golang)
-                            (gopls . "go install golang.org/x/tools/gopls@latest"))
-    :bind (:map go-mode-map ("C-c C-c" . compile)))
+                            (gopls . "go install golang.org/x/tools/gopls@latest")))
 
   (use-package protobuf-mode)
 #+end_src
@@ -854,20 +853,6 @@ When I save a Go file, reformat the buffer (per =gofmt=) and organize the import
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
   (add-hook 'go-mode-hook #'+install-go-save-hooks)
-#+end_src
-
-Redefine the default =compile= command to build the whole project, run tests, and
-run =go vet= without requiring any additional confirmation. That's bound to =C-c
-C-c= in the =use-package= configuration above.
-
-#+begin_src emacs-lisp
-  (defun +set-go-compilation-configuration ()
-    (set (make-local-variable 'compilation-read-command) nil)
-    (set (make-local-variable 'compile-command)
-         "go build -v ./... && go test -race ./... && go vet ./...")
-    (set (make-local-variable 'default-directory) (project-root (project-current))))
-
-  (add-hook 'go-mode-hook #'+set-go-compilation-configuration)
 #+end_src
 
 ** Haskell
