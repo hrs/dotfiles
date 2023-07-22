@@ -1090,9 +1090,16 @@ to be colored.
 
     :config
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'project-find-file)
-    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file)
+    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file))
+#+end_src
 
-    (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter))
+I'd like =inf-ruby= to automatically steal focus if a breakpoint triggers.
+
+#+begin_src emacs-lisp
+ (use-package inf-ruby
+   :config
+   (add-hook 'ruby-base-mode 'inf-ruby-minor-mode)
+   (inf-ruby-enable-auto-breakpoint))
 #+end_src
 
 Some Ruby projects use =minitest= instead of =rspec=.
