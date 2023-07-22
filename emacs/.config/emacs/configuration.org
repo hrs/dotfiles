@@ -3170,7 +3170,11 @@ framework.
 
 #+begin_src emacs-lisp
   (use-package vertico
-    :demand t
+    :bind (:map vertico-map
+                ("RET" . vertico-directory-enter)
+                ("DEL" . vertico-directory-delete-char)
+                ("M-DEL" . vertico-directory-delete-word))
+
     :init
     (vertico-mode))
 
