@@ -713,7 +713,6 @@ parallels the use of those keys in Org.
 
 #+begin_src emacs-lisp
   (use-package hs-minor-mode
-    :demand t
     :ensure nil
     :hook prog-mode
 
