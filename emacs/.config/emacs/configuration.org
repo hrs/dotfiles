@@ -2690,6 +2690,7 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
   (use-package writing-mode
     :load-path "resources"
     :defer 1
+    :hook (org-mode . writing-mode-repo)
     :bind (([f9] . writing-mode)
            ("<XF86Tools>" . writing-mode))
 
@@ -2701,6 +2702,11 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
     (require 'org-modern)
     (require 'org-superstar)
     (require 'wc-mode)
+
+    (defun writing-mode-repo ()
+      (when (or (s-starts-with? "/home/hrs/documents/journal" buffer-file-name)
+                (s-starts-with? "/home/hrs/documents/notes" buffer-file-name))
+        (writing-mode 1)))
 
     (setq writing-enabled-modes
           '((org-mode . (org-appear-mode
