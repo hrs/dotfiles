@@ -2690,7 +2690,8 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
   (use-package writing-mode
     :load-path "resources"
     :defer 1
-    :bind ([f9] . writing-mode)
+    :bind (([f9] . writing-mode)
+           ("<XF86Tools>" . writing-mode))
 
     :config
     (require 'mixed-pitch)
