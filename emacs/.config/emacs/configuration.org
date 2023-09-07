@@ -2257,6 +2257,11 @@ email addresses, though, since they're just noise.
   my inbox.
 - Hit =q= to quit the headers buffer without returning to the main view. This is
   essentially a reimplementation of ~mu4e~headers-quit-buffer~.
+- Marking a message for deletion applies the "Trashed" flag. This is
+  unfortunate, since Fastmail will automatically delete any messages with that
+  flag (as is the IMAP standard). I want to archive my messages, not delete
+  them, so I've rebound =d= to move email to my "Archive" folder without
+  applying that flag.
 
 #+begin_src emacs-lisp
   (use-package mu4e-headers
@@ -2267,6 +2272,9 @@ email addresses, though, since they're just noise.
     (mu4e-search-include-related nil)
 
     :config
+    (fset '+mu4e-move-to-archive "ma")
+    (evil-define-key 'normal mu4e-headers-mode-map (kbd "d") '+mu4e-move-to-archive)
+
     (defun +mu4e-headers-quit-buffer ()
       "Quit the mu4e-headers buffer without returning to the main view."
       (interactive)
@@ -2338,6 +2346,7 @@ highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
   hideous.
 - Some HTML emails are just too messy to display in Emacs. This binds =a h= to
   open the current email in my default Web browser.
+- As in the header view, I want mail to be archived, not deleted.
 
 #+begin_src emacs-lisp
   (use-package mu4e-view
@@ -2363,22 +2372,8 @@ highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
                  '("html in browser" . mu4e-action-view-in-browser)
                  t)
 
+    (evil-define-key 'normal mu4e-view-mode-map (kbd "d") '+mu4e-move-to-archive)
     (+bind-scroll-keys mu4e-view-mode-map))
-#+end_src
-
-** Archiving mail
-
-Marking a message for deletion applies the "Trashed" flag. This is unfortunate,
-since Fastmail will automatically delete any messages with that flag (as is the
-IMAP standard).
-
-I want to archive my messages, not delete them, so I've rebound =d= to move
-email to my "Archive" folder without applying that flag.
-
-#+begin_src emacs-lisp
-  (fset '+mu4e-move-to-archive "ma")
-  (evil-define-key 'normal mu4e-headers-mode-map (kbd "d") '+mu4e-move-to-archive)
-  (evil-define-key 'normal mu4e-view-mode-map (kbd "d") '+mu4e-move-to-archive)
 #+end_src
 
 ** Sending mail over SMTP
