@@ -3049,6 +3049,7 @@ Open media with the appropriate programs.
             ("mov" . "mpv")
             ("mp3" . "mpv")
             ("mp4" . "mpv")
+            ("mpg" . "mpv")
             ("pdf" . "zathura")
             ("png" . ,(executable-find "s"))
             ("webm" . "mpv")
