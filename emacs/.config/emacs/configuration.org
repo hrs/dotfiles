@@ -28,11 +28,11 @@ Defer loading packages unless explicitly demanded.
 Always compile packages, and use the newest version available.
 
 #+begin_src emacs-lisp
-	(use-package auto-compile
-		:demand t
-		:config (auto-compile-on-load-mode))
+  (use-package auto-compile
+    :demand t
+    :config (auto-compile-on-load-mode))
 
-	(setq load-prefer-newer t)
+  (setq load-prefer-newer t)
 #+end_src
 
 Disable deprecation warnings about =cl=. The =cl= library has been deprecated, but
@@ -49,7 +49,7 @@ uses the system package manager (Debian's =apt=, in my case).
 
 #+begin_src emacs-lisp
   (use-package use-package-ensure-system-package
-		:demand t
+    :demand t
     :custom
     (system-packages-package-manager 'apt))
 #+end_src
@@ -65,28 +65,28 @@ Don't pop up a buffer to warn me about deprecations and other minor issues.
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
 
 #+begin_src emacs-lisp
-	(use-package sensible-defaults
-		:load-path "~/code/personal/sensible-defaults.el"
-		:demand t
+  (use-package sensible-defaults
+    :load-path "~/code/personal/sensible-defaults.el"
+    :demand t
 
-		:config
-		(sensible-defaults/use-all-settings)
-		(sensible-defaults/use-all-keybindings)
-		(sensible-defaults/backup-to-temp-directory))
+    :config
+    (sensible-defaults/use-all-settings)
+    (sensible-defaults/use-all-keybindings)
+    (sensible-defaults/backup-to-temp-directory))
 #+end_src
 
 Trigger garbage collection when I've been idle for five seconds and memory usage
 is over 16 MB.
 
 #+begin_src emacs-lisp
-	(use-package gcmh
-		:demand t
+  (use-package gcmh
+    :demand t
 
-		:init
-		(setq gcmh-idle-delay 5
-					gcmh-high-cons-threshold (* 16 1024 1024))
-		:config
-		(gcmh-mode))
+    :init
+    (setq gcmh-idle-delay 5
+          gcmh-high-cons-threshold (* 16 1024 1024))
+    :config
+    (gcmh-mode))
 #+end_src
 
 * =evil-mode=
