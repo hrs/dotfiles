@@ -26,5 +26,3 @@ export SAM_CLI_TELEMETRY=0
     . /usr/share/bash-completion/bash_completion
 
 source "$HOME/.cargo/env"
-
-test -r $HOME/.opam/opam-init/init.sh && . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
