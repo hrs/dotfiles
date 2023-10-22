@@ -16,6 +16,7 @@ sudo apt install \
      foliate \
      fuse \
      gawk \
+     gh \
      git \
      gnumeric \
      gnupg2 \
