@@ -20,6 +20,7 @@ sudo apt install \
      git \
      gnumeric \
      gnupg2 \
+     gnuplot \
      graphviz \
      htop \
      i3 \
