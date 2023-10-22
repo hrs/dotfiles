@@ -2601,17 +2601,6 @@ composing an email, or authoring a Git commit.
       (add-hook hook 'flyspell-mode)))
 #+end_src
 
-** Wrap paragraphs automatically
-
-=AutoFillMode= automatically wraps paragraphs, kinda like hitting =M-q=. I wrap a
-lot of paragraphs, so this automatically wraps 'em when I'm writing text,
-Markdown, or Org.
-
-#+begin_src emacs-lisp
-  (dolist (hook prose-mode-hooks)
-    (add-hook hook 'turn-on-auto-fill))
-#+end_src
-
 ** Use Org-style lists and tables everywhere
 
 Enable Org-style tables.
