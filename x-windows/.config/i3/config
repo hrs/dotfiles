@@ -137,6 +137,9 @@ bindsym $mod+Shift+space workspace number $ws5; $exec quodlibet --show-window
 bindsym $mod+Up $exec pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym $mod+Down $exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 
+bindsym $mod+Shift+Up exec brightnessctl --min-val=1 -q set 3%+
+bindsym $mod+Shift+Down exec brightnessctl --min-val=1 -q set 3%-
+
 ########################################
 # Startup applications
 ########################################
