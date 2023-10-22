@@ -25,19 +25,19 @@ Far :personal-remote:INBOX
 Near :personal-local:inbox
 
 Channel personal-archive
-Far :personal-remote:INBOX/Archive
+Far :personal-remote:Archive
 Near :personal-local:archive
 
 Channel personal-drafts
-Far :personal-remote:INBOX/Drafts
+Far :personal-remote:Drafts
 Near :personal-local:drafts
 
 Channel personal-sent
-Far ":personal-remote:INBOX/Sent Items"
+Far ":personal-remote:Sent Items"
 Near :personal-local:sent
 
 Channel personal-types-announce
-Far :personal-remote:INBOX/mailing-lists/types-announce
+Far :personal-remote:mailing-lists/types-announce
 Near :personal-local:types-announce
 
 Group personal
