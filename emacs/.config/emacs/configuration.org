@@ -2687,6 +2687,7 @@ displays the word count in the mode-line. Toggle it with =<f9>=.
     :defer 1
     :hook (org-mode . writing-mode-repo)
     :bind (([f9] . writing-mode)
+           ("<XF86Messenger>" . writing-mode)
            ("<XF86Tools>" . writing-mode))
 
     :config
