@@ -5,14 +5,9 @@
 
 * Configure =use-package=
 
-I use =use-package= to install and configure my packages. My =init.el= includes the
-initial setup for =package.el= and ensures that =use-package= is installed, since I
-wanna do that right away.
+I use =use-package= to install and configure my packages. My =init.el= includes the initial setup for =package.el= and ensures that =use-package= is installed, since I wanna do that right away.
 
-This makes sure that =use-package= will install the package if it's not already
-available. It also means that I should be able to open Emacs for the first time
-on a fresh Debian box and have my whole environment automatically installed. I'm
-not /totally/ sure about that, but we're gettin' close.
+This makes sure that =use-package= will install the package if it's not already available. It also means that I should be able to open Emacs for the first time on a fresh Debian box and have my whole environment automatically installed. I'm not /totally/ sure about that, but we're gettin' close.
 
 #+begin_src emacs-lisp
   (require 'use-package-ensure)
@@ -35,17 +30,13 @@ Always compile packages, and use the newest version available.
   (setq load-prefer-newer t)
 #+end_src
 
-Disable deprecation warnings about =cl=. The =cl= library has been deprecated, but
-lots of packages still use it. I can't control that, but I can disable the
-warnings.
+Disable deprecation warnings about =cl=. The =cl= library has been deprecated, but lots of packages still use it. I can't control that, but I can disable the warnings.
 
 #+begin_src emacs-lisp
   (setq byte-compile-warnings '(cl-functions))
 #+end_src
 
-If an Emacs package relies on the installation of a system package, install that
-package (for example, =deadgrep= doesn't work if =ripgrep= isn't installed). This
-uses the system package manager (Debian's =apt=, in my case).
+If an Emacs package relies on the installation of a system package, install that package (for example, =deadgrep= doesn't work if =ripgrep= isn't installed). This uses the system package manager (Debian's =apt=, in my case).
 
 #+begin_src emacs-lisp
   (use-package use-package-ensure-system-package
@@ -75,8 +66,7 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
     (sensible-defaults/backup-to-temp-directory))
 #+end_src
 
-Trigger garbage collection when I've been idle for five seconds and memory usage
-is over 16 MB.
+Trigger garbage collection when I've been idle for five seconds and memory usage is over 16 MB.
 
 #+begin_src emacs-lisp
   (use-package gcmh
@@ -93,12 +83,9 @@ is over 16 MB.
 
 Load and configure =evil-mode=.
 
-- I'd prefer not to expand abbrevs when I hit escape. That's always jarring and
-  usually not what I want. In particular, it makes working with Coq really
-  frustrating.
+- I'd prefer not to expand abbrevs when I hit escape. That's always jarring and usually not what I want. In particular, it makes working with Coq really frustrating.
 - Don't automatically load Evil bindings in different modes.
-- Bind =C-p= to fuzzy-finding files in the current project. We also need to
-  explicitly set that in a few other modes.
+- Bind =C-p= to fuzzy-finding files in the current project. We also need to explicitly set that in a few other modes.
 
 #+begin_src emacs-lisp
   (use-package evil
@@ -216,11 +203,7 @@ Define a big ol' bunch of handy utility functions.
 
 ** Don't resize the frame
 
-By default, Emacs attempts to resize each frame to maintain a certain number of
-characters in each line, so this width varies depending on the font used. This
-operation is a bit expensive, and since I use =i3=, a tiling window manager, it's
-also completely unnecessary, since the frame will be resized differently
-regardless. Just skip the whole thing instead.
+By default, Emacs attempts to resize each frame to maintain a certain number of characters in each line, so this width varies depending on the font used. This operation is a bit expensive, and since I use =i3=, a tiling window manager, it's also completely unnecessary, since the frame will be resized differently regardless. Just skip the whole thing instead.
 
 #+begin_src emacs-lisp
   (setq frame-inhibit-implied-resize t)
@@ -236,8 +219,7 @@ I don't usually use the menu or scroll bar, and they take up useful space.
   (scroll-bar-mode -1)
 #+end_src
 
-There's a tiny scroll bar that appears in the minibuffer window. This disables
-that:
+There's a tiny scroll bar that appears in the minibuffer window. This disables that:
 
 #+begin_src emacs-lisp
   (set-window-scroll-bars (minibuffer-window) nil nil)
@@ -245,12 +227,9 @@ that:
 
 ** Enable smooth scrolling
 
-This is especially nice when I've got a document with embedded images or
-rendered equations. Or on the rare occasions I use a mouse.
+This is especially nice when I've got a document with embedded images or rendered equations. Or on the rare occasions I use a mouse.
 
-In certain read-only modes I like to bind =J= and =K= to scrolling. That's nice
-for reading mail or RSS items. This provides a =+bind-scroll-keys= function I
-can use to enable that for a given key map.
+In certain read-only modes I like to bind =J= and =K= to scrolling. That's nice for reading mail or RSS items. This provides a =+bind-scroll-keys= function I can use to enable that for a given key map.
 
 #+begin_src emacs-lisp
   (pixel-scroll-precision-mode 1)
@@ -297,10 +276,7 @@ Why not?
 
 This sets up the current theme.
 
-The =modus= themes don't seem to perfectly interact with =moody= any more (or maybe
-I'm doing something wrong). This adds a hook to ensure that the diagonal lines
-around =moody= "widgets" have the same color as other lines in the modeline. This
-is hard to explain in words, but trust me, it looks clunky if we don't do this.
+The =modus= themes don't seem to perfectly interact with =moody= any more (or maybe I'm doing something wrong). This adds a hook to ensure that the diagonal lines around =moody= "widgets" have the same color as other lines in the modeline. This is hard to explain in words, but trust me, it looks clunky if we don't do this.
 
 #+begin_src emacs-lisp
   (use-package modus-themes
@@ -329,9 +305,7 @@ is hard to explain in words, but trust me, it looks clunky if we don't do this.
 
 ** Use =minions= to hide all minor modes
 
-I never want to see a minor mode, and manually adding =:diminish= to every
-use-package declaration is a hassle. This uses =minions= to hide all the minor
-modes in the modeline. Nice!
+I never want to see a minor mode, and manually adding =:diminish= to every use-package declaration is a hassle. This uses =minions= to hide all the minor modes in the modeline. Nice!
 
 #+begin_src emacs-lisp
   (use-package minions
@@ -352,9 +326,7 @@ modes in the modeline. Nice!
 
 ** Scroll conservatively
 
-When point goes outside the window, Emacs usually recenters the buffer point.
-I'm not crazy about that. This changes scrolling behavior to only scroll as far
-as point goes.
+When point goes outside the window, Emacs usually recenters the buffer point. I'm not crazy about that. This changes scrolling behavior to only scroll as far as point goes.
 
 #+begin_src emacs-lisp
   (setq scroll-conservatively 100)
@@ -384,9 +356,7 @@ as point goes.
 
 ** Highlight the current line
 
-=global-hl-line-mode= softly highlights the background color of the line
-containing point. It makes it a bit easier to find point, and it's useful when
-pairing or presenting code.
+=global-hl-line-mode= softly highlights the background color of the line containing point. It makes it a bit easier to find point, and it's useful when pairing or presenting code.
 
 #+begin_src emacs-lisp
   (when (display-graphic-p)
@@ -395,8 +365,7 @@ pairing or presenting code.
 
 ** Highlight uncommitted changes
 
-Use the =diff-hl= package to highlight changed-and-uncommitted lines when
-programming.
+Use the =diff-hl= package to highlight changed-and-uncommitted lines when programming.
 
 #+begin_src emacs-lisp
   (use-package diff-hl
@@ -406,14 +375,11 @@ programming.
 
 * Project management
 
-I use a few packages in virtually every programming or writing environment to
-manage the project, handle auto-completion, search for terms, and deal with
-version control. That's all in here.
+I use a few packages in virtually every programming or writing environment to manage the project, handle auto-completion, search for terms, and deal with version control. That's all in here.
 
 ** =ripgrep=
 
-Install =ripgrep= to provide search within projects. Search even "hidden"
-dotfiles, but not =.git= repos.
+Install =ripgrep= to provide search within projects. Search even "hidden" dotfiles, but not =.git= repos.
 
 #+begin_src emacs-lisp
   (use-package deadgrep
@@ -467,9 +433,7 @@ Use =company-mode= everywhere.
 
 ** =docker=
 
-I use [[https://www.docker.com/][Docker]] less often than you might expect for a person who mostly does Web
-development, but when I do [[https://github.com/Silex/docker.el][=docker.el=]] provides a convenient, =magit=-like
-interface for managing containers.
+I use [[https://www.docker.com/][Docker]] less often than you might expect for a person who mostly does Web development, but when I do [[https://github.com/Silex/docker.el][=docker.el=]] provides a convenient, =magit=-like interface for managing containers.
 
 #+begin_src emacs-lisp
   (use-package docker
@@ -478,8 +442,7 @@ interface for managing containers.
 
 ** =dumb-jump=
 
-The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/dumb-jump#supported-languages][ton of environments]], and it doesn't
-require any additional setup. I've bound its most useful command to =M-.=.
+The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/dumb-jump#supported-languages][ton of environments]], and it doesn't require any additional setup. I've bound its most useful command to =M-.=.
 
 #+begin_src emacs-lisp
   (use-package dumb-jump
@@ -498,9 +461,7 @@ require any additional setup. I've bound its most useful command to =M-.=.
 
 ** =flycheck=
 
-I'd like to enable =flycheck= all kinds of places, but I don't really need the
-keybindings (and they conflict with, for example, the default =C-c != binding for
-=org-time-stamp-inactive=).
+I'd like to enable =flycheck= all kinds of places, but I don't really need the keybindings (and they conflict with, for example, the default =C-c != binding for =org-time-stamp-inactive=).
 
 #+begin_src emacs-lisp
   (use-package flycheck
@@ -516,10 +477,8 @@ keybindings (and they conflict with, for example, the default =C-c != binding fo
 I use =magit= to handle version control. It's lovely, but I tweak a few things:
 
 - I bring up the status menu with =C-x g=.
-- The default behavior of =magit= is to ask before pushing. I haven't had any
-  problems with accidentally pushing, so I'd rather not confirm that every time.
-- Per [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][tpope's suggestions]], highlight commit text in the summary line that goes
-  beyond 50 characters.
+- The default behavior of =magit= is to ask before pushing. I haven't had any problems with accidentally pushing, so I'd rather not confirm that every time.
+- Per [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][tpope's suggestions]], highlight commit text in the summary line that goes beyond 50 characters.
 - I'd like to start in the insert state when writing a commit message.
 
 #+begin_src emacs-lisp
@@ -539,8 +498,7 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
           git-commit-summary-max-length 50))
 #+end_src
 
-I'm also partial to =git-timemachine=, which lets you quickly page through the
-history of a file.
+I'm also partial to =git-timemachine=, which lets you quickly page through the history of a file.
 
 #+begin_src emacs-lisp
   (use-package git-timemachine)
@@ -549,10 +507,8 @@ history of a file.
 ** =project.el=
 
 - Bind searching within the project to =C-c v=.
-- Treat a directory containing =.dir-locals.el= as a project root (useful for
-  projects not under version control).
-- When I switch projects, just open a =dired= buffer at the project root rather
-  than asking whether I want to open a file, search, etc.
+- Treat a directory containing =.dir-locals.el= as a project root (useful for projects not under version control).
+- When I switch projects, just open a =dired= buffer at the project root rather than asking whether I want to open a file, search, etc.
 
 #+begin_src emacs-lisp
   (use-package project
@@ -587,12 +543,9 @@ I like tree-based undo management. I only rarely need it, but when I do, oh boy.
 
 This configuration:
 
-- Stores all undo files under the =undo-tree= directory in my Emacs config
-  directory.
+- Stores all undo files under the =undo-tree= directory in my Emacs config directory.
 - Registers =undo-tree= for use in =evil-mode=.
-- Suppresses warnings about being unable to load undo history when an underlying
-  file is changed outside Emacs (as often happens when I, say, append a task to
-  my todo lists through a script).
+- Suppresses warnings about being unable to load undo history when an underlying file is changed outside Emacs (as often happens when I, say, append a task to my todo lists through a script).
 
 #+begin_src emacs-lisp
   (use-package undo-tree
@@ -622,12 +575,9 @@ This configuration:
 
 ** ChatGPT integration
 
-I've been toying around with integrating ChatGPT into my work. =org-ai= enables
-that by providing =begin_ai= blocks in Org which interact with ChatGPT sessions.
+I've been toying around with integrating ChatGPT into my work. =org-ai= enables that by providing =begin_ai= blocks in Org which interact with ChatGPT sessions.
 
-Authentication is handled by an auth key for =api.openai.com= in my =.netrc=, which
-=org-ai= knows to read. I've also got a pair of snippets to create [[file:snippets/org-mode/ai][conversations]]
-and [[file:snippets/org-mode/dalle][images]].
+Authentication is handled by an auth key for =api.openai.com= in my =.netrc=, which =org-ai= knows to read. I've also got a pair of snippets to create [[file:snippets/org-mode/ai][conversations]] and [[file:snippets/org-mode/dalle][images]].
 
 #+begin_src emacs-lisp
   (use-package org-ai
@@ -650,25 +600,20 @@ An [[https://github.com/xenodium/chatgpt-shell][interactive shell session]] is o
 
 * Programming environments
 
-I like shallow indentation, but tabs are displayed as 8 characters by default.
-This reduces that.
+I like shallow indentation, but tabs are displayed as 8 characters by default. This reduces that.
 
 #+begin_src emacs-lisp
   (setq-default tab-width 2)
 #+end_src
 
-Treating terms in CamelCase symbols as separate words makes editing a little
-easier for me, so I like to use =subword-mode= everywhere.
+Treating terms in CamelCase symbols as separate words makes editing a little easier for me, so I like to use =subword-mode= everywhere.
 
 #+begin_src emacs-lisp
   (use-package subword
     :config (global-subword-mode 1))
 #+end_src
 
-Compilation output goes to the =*compilation*= buffer. I rarely have that window
-selected, so the compilation output disappears past the bottom of the window.
-This automatically scrolls the compilation window so I can always see the
-output.
+Compilation output goes to the =*compilation*= buffer. I rarely have that window selected, so the compilation output disappears past the bottom of the window. This automatically scrolls the compilation window so I can always see the output.
 
 #+begin_src emacs-lisp
   (setq compilation-scroll-output t)
@@ -676,8 +621,7 @@ output.
 
 ** LSP
 
-I use LSP for some languages. This hooks LSP to run in those modes and ensures
-that it displays all available documentation on hover.
+I use LSP for some languages. This hooks LSP to run in those modes and ensures that it displays all available documentation on hover.
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -688,9 +632,7 @@ that it displays all available documentation on hover.
     (lsp-eldoc-render-all t))
 #+end_src
 
-This integrates LSP into my UI in various useful ways. Specifically, it writes
-documentation and type annotations and suchlike all over my damn screen, which /I/
-enjoy, personally.
+This integrates LSP into my UI in various useful ways. Specifically, it writes documentation and type annotations and suchlike all over my damn screen, which /I/ enjoy, personally.
 
 #+begin_src emacs-lisp
   (use-package lsp-ui
@@ -705,11 +647,9 @@ enjoy, personally.
 
 ** Toggle code folding
 
-I don't use =TAB= to indent when I'm in =normal-mode=, so instead I use it to toggle
-hiding blocks of code.
+I don't use =TAB= to indent when I'm in =normal-mode=, so instead I use it to toggle hiding blocks of code.
 
-Similarly, I bind =BACKTAB= to toggle hiding /all/ the top-level code blocks. This
-parallels the use of those keys in Org.
+Similarly, I bind =BACKTAB= to toggle hiding /all/ the top-level code blocks. This parallels the use of those keys in Org.
 
 #+begin_src emacs-lisp
   (use-package hs-minor-mode
@@ -737,19 +677,12 @@ parallels the use of those keys in Org.
 
 I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
 
-- I like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
-  they've always been unpleasant surprises for me.
+- I like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but they've always been unpleasant surprises for me.
 - Similarly, =flycheck-mode= seems to do more harm than good.
-- The Proof General splash screen's pretty cute, but I don't need to see it
-  every time.
-- The default Proof General layout stacks the code, goal, and response buffers
-  on top of each other. I like to keep my code on one side and my goal and
-  response buffers on the other.
-- Have point follow the end of the locked region when asserting and undoing
-  proof commands, but don't lock it to the end.
-- Proof General usually evaluates each comment individually. In literate
-  programs, this can result in evaluating a /ton/ of comments. This evaluates a
-  series of consecutive comments as a single comment.
+- The Proof General splash screen's pretty cute, but I don't need to see it every time.
+- The default Proof General layout stacks the code, goal, and response buffers on top of each other. I like to keep my code on one side and my goal and response buffers on the other.
+- Have point follow the end of the locked region when asserting and undoing proof commands, but don't lock it to the end.
+- Proof General usually evaluates each comment individually. In literate programs, this can result in evaluating a /ton/ of comments. This evaluates a series of consecutive comments as a single comment.
 
 #+begin_src emacs-lisp
   (use-package proof-general
@@ -767,12 +700,9 @@ I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
     (proof-script-fly-past-comments t))
 #+end_src
 
-=company-coq-mode= adds some features (completion, documentation, ligatures...)
-which make Proof General a bit friendlier.
+=company-coq-mode= adds some features (completion, documentation, ligatures...) which make Proof General a bit friendlier.
 
-I bind the up and down arrow keys to evaluating and retracting the next and
-previous statements. This is more convenient for me than the default bindings of
-=C-c C-n= and =C-c C-u=.
+I bind the up and down arrow keys to evaluating and retracting the next and previous statements. This is more convenient for me than the default bindings of =C-c C-n= and =C-c C-u=.
 
 #+begin_src emacs-lisp
   (use-package company-coq
@@ -831,8 +761,7 @@ Define my =$GOPATH= and tell Emacs where to find the Go binaries.
   (+append-to-path (concat (getenv "GOPATH") "/bin"))
 #+end_src
 
-When I save a Go file, reformat the buffer (per =gofmt=) and organize the imports
-(per =goimports=).
+When I save a Go file, reformat the buffer (per =gofmt=) and organize the imports (per =goimports=).
 
 #+begin_src emacs-lisp
   (defun +install-go-save-hooks ()
@@ -844,8 +773,7 @@ When I save a Go file, reformat the buffer (per =gofmt=) and organize the import
 
 ** Haskell
 
-Enable =haskell-doc-mode=, which displays the type signature of a function, and
-use smart indentation.
+Enable =haskell-doc-mode=, which displays the type signature of a function, and use smart indentation.
 
 #+begin_src emacs-lisp
   (use-package haskell-mode
@@ -895,8 +823,7 @@ Set up [[https://slime.common-lisp.dev/][SLIME]] to interactively hack on Common
 
 *** Emacs Lisp
 
-If I'm writing in Emacs Lisp I'd like to use =eldoc-mode= to display
-documentation.
+If I'm writing in Emacs Lisp I'd like to use =eldoc-mode= to display documentation.
 
 #+begin_src emacs-lisp
   (use-package eldoc
@@ -922,9 +849,7 @@ Bind running tests to =C-c , v=, like in =rspec-mode=.
       (ert 't)))
 #+end_src
 
-Buttercup offers BDD-style testing. I've been using that instead of ERT for my
-packages' tests, and I find myself preferring it (especially for features like
-~spy-on~).
+Buttercup offers BDD-style testing. I've been using that instead of ERT for my packages' tests, and I find myself preferring it (especially for features like ~spy-on~).
 
 #+begin_src emacs-lisp
   (use-package buttercup)
@@ -968,8 +893,7 @@ Use =tuareg-mode= for editing OCaml.
     (electric-indent-mode 0))
 #+end_src
 
-Configure Merlin. This also requires installing the Merlin package through OPAM
-with =opam install merlin=.
+Configure Merlin. This also requires installing the Merlin package through OPAM with =opam install merlin=.
 
 #+begin_src emacs-lisp
   (use-package merlin
@@ -983,8 +907,7 @@ with =opam install merlin=.
   (use-package python-mode)
 #+end_src
 
-Enable =elpy=. This provides automatic indentation, auto-completion, syntax
-checking, etc. Use the =python3= interpreter for eldoc.
+Enable =elpy=. This provides automatic indentation, auto-completion, syntax checking, etc. Use the =python3= interpreter for eldoc.
 
 #+begin_src emacs-lisp
   (use-package elpy
@@ -1007,16 +930,13 @@ Format code according to PEP8 on save:
 
 ** Ruby
 
-This defines a default Ruby version to use within Emacs (for things like =xmp= or
-=rspec=).
+This defines a default Ruby version to use within Emacs (for things like =xmp= or =rspec=).
 
 #+begin_src emacs-lisp
   (setq +ruby-version "3.2.2")
 #+end_src
 
-Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that
-that's included in the path. In particular, we want that directory to be
-included because it contains the =xmpfilter= executable.
+Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that that's included in the path. In particular, we want that directory to be included because it contains the =xmpfilter= executable.
 
 #+begin_src emacs-lisp
   (+append-to-path (format "~/.gem/ruby/%s/bin" +ruby-version))
@@ -1029,9 +949,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 - =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
 - Hitting "enter" should indent to the current level.
 - Disable =reek=, which I don't find helpful.
-- When assigning the result of a conditional, I like to align the expression to
-  match the beginning of the statement instead of indenting it all the way to
-  the =if=.
+- When assigning the result of a conditional, I like to align the expression to match the beginning of the statement instead of indenting it all the way to the =if=.
 
 #+begin_src emacs-lisp
   (use-package ruby-mode
@@ -1061,12 +979,9 @@ I use =chruby= to switch between versions of Ruby.
     (chruby +ruby-version))
 #+end_src
 
-Running tests from within Emacs is awfully convenient. I enable =rspec-mode=
-basically everywhere, since working with a Rails project involves a ton of
-modes.
+Running tests from within Emacs is awfully convenient. I enable =rspec-mode= basically everywhere, since working with a Rails project involves a ton of modes.
 
-I'd like my =rspec= tests to be run in a random order, and I'd like the output
-to be colored.
+I'd like my =rspec= tests to be run in a random order, and I'd like the output to be colored.
 
 #+begin_src emacs-lisp
   (use-package rspec-mode
@@ -1110,12 +1025,7 @@ Some Ruby projects use =minitest= instead of =rspec=.
     (compilation-scroll-output nil))
 #+end_src
 
-=rspec-mode= and =minitest-mode= use the same keybindings for running tests.
-That's great for muscle memory, but it means that it's better to only have one
-or the other active at any given time. This checks the root of the current
-project for a =tests= directory. If it finds one it activates =minitest-mode=,
-and if it doesn't (or if we're not in a project) it uses =rspec-mode=. Kinda
-hacky, but seems to do the job.
+=rspec-mode= and =minitest-mode= use the same keybindings for running tests. That's great for muscle memory, but it means that it's better to only have one or the other active at any given time. This checks the root of the current project for a =tests= directory. If it finds one it activates =minitest-mode=, and if it doesn't (or if we're not in a project) it uses =rspec-mode=. Kinda hacky, but seems to do the job.
 
 #+begin_src emacs-lisp
   (defvar +ruby-testable-mode-hooks
@@ -1147,12 +1057,9 @@ hacky, but seems to do the job.
     (add-hook hook #'+activate-ruby-tests-mode))
 #+end_src
 
-=rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display the
-results in "magic" (=# ==>=) comments.
+=rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display the results in "magic" (=# ==>=) comments.
 
-I disable warnings when running code through =xmp= because I disagree with a few
-of them (complaining about private =attr_reader=, especially) and they gunk up my
-buffer.
+I disable warnings when running code through =xmp= because I disagree with a few of them (complaining about private =attr_reader=, especially) and they gunk up my buffer.
 
 #+begin_src emacs-lisp
   (use-package rcodetools
@@ -1174,8 +1081,7 @@ Ruby method comments are often formatted with Yard.
     :hook ruby-mode)
 #+end_src
 
-Insert =end= keywords automatically when I start to define a method, class,
-module, or block.
+Insert =end= keywords automatically when I start to define a method, class, module, or block.
 
 #+begin_src emacs-lisp
   (use-package ruby-end
@@ -1314,8 +1220,7 @@ This is not a place of honor.
 
 * Terminal
 
-I'm trying =vterm=. This disables =global-hl-line-mode= locally and lets me open up
-a new terminal instance with =C-c t=.
+I'm trying =vterm=. This disables =global-hl-line-mode= locally and lets me open up a new terminal instance with =C-c t=.
 
 #+begin_src emacs-lisp
   (use-package multi-vterm
@@ -1329,8 +1234,7 @@ a new terminal instance with =C-c t=.
 
 * Password management
 
-I manage my passwords with [[https://www.passwordstore.org/][=pass=]], a nifty command-line utility that's
-accessible through Emacs.
+I manage my passwords with [[https://www.passwordstore.org/][=pass=]], a nifty command-line utility that's accessible through Emacs.
 
 I'll also occasionally use =pwgen= to generate and insert a secure password.
 
@@ -1349,13 +1253,9 @@ I'll also occasionally use =pwgen= to generate and insert a secure password.
 
 - I'd like the initial scratch buffer to be in Org.
 - Put tags directly after the associated header rather than trying to align them.
-- When hitting =C-<return>= to create a new heading, don't insert the heading
-  between the current heading and its content, but instead append it /after/ the
-  content.
+- When hitting =C-<return>= to create a new heading, don't insert the heading between the current heading and its content, but instead append it /after/ the content.
 
-I'd like to open =file:= links in Org with the applications defined in my
-[[file:~/.dotfiles/email/.mailcap][mailcap]]. This clears the existing MIME mapping, parses my personal mailcap, and
-tells Org to open those links with the mailcap-defined applications.
+I'd like to open =file:= links in Org with the applications defined in my [[file:~/.dotfiles/email/.mailcap][mailcap]]. This clears the existing MIME mapping, parses my personal mailcap, and tells Org to open those links with the mailcap-defined applications.
 
 #+begin_src emacs-lisp
   (use-package org
@@ -1380,9 +1280,7 @@ tells Org to open those links with the mailcap-defined applications.
                         (t . mailcap))))))
 #+end_src
 
-Including =org-tempo= restores the =<s=-style easy templates that were
-deprecated in Org 9.2. This also adds a =<el= template to quickly insert a block
-of Emacs lisp.
+Including =org-tempo= restores the =<s=-style easy templates that were deprecated in Org 9.2. This also adds a =<el= template to quickly insert a block of Emacs lisp.
 
 #+begin_src emacs-lisp
   (use-package org-tempo
@@ -1396,8 +1294,7 @@ of Emacs lisp.
 
 ** Task management and agenda views
 
-Store my org files in =~/documents/org= and define the location of an index file
-(my main todo list).
+Store my org files in =~/documents/org= and define the location of an index file (my main todo list).
 
 #+begin_src emacs-lisp
   (setq org-directory "~/documents/org")
@@ -1409,8 +1306,7 @@ Store my org files in =~/documents/org= and define the location of an index file
   (setq org-index-file (+org-file-path "index.org"))
 #+end_src
 
-Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=. Since
-I often leave Emacs running overnight, I reset the update location at midnight.
+Archive finished tasks in =~/documents/org/archive/archive-YYYY-MM-DD.org=. Since I often leave Emacs running overnight, I reset the update location at midnight.
 
 #+begin_src emacs-lisp
   (defun +set-org-archive-location ()
@@ -1432,25 +1328,13 @@ I often leave Emacs running overnight, I reset the update location at midnight.
 #+end_src
 
 - Record the time that a task was archived.
-- Ensure that a task can't be marked as done if it contains unfinished subtasks.
-  This is handy for organizing "blocking" tasks hierarchically.
-- By default Org will dim any tasks that contain blocking subtasks. That's good,
-  but I've got enough of those that I'd rather not see them at all. By making
-  blocked tasks invisible I ensure that everything in my agenda is currently
-  actionable. Or, in GTD lingo, I'm only seeing "next steps."
-- Org treats unprioritized entries as if they had a priority of =[#B]=. I'd
-  prefer to treat them as the lowest priority, which I'm leaving as =[#C]=. That
-  ensures that prioritized entries always come before unprioritized ones in my
-  agenda.
-- Hide the category prefix from tasks. I categorize my tasks with tags,
-  including using =filetags=, so prefixing tasks with the file they're stored in
-  is noisy and redundant.
+- Ensure that a task can't be marked as done if it contains unfinished subtasks. This is handy for organizing "blocking" tasks hierarchically.
+- By default Org will dim any tasks that contain blocking subtasks. That's good, but I've got enough of those that I'd rather not see them at all. By making blocked tasks invisible I ensure that everything in my agenda is currently actionable. Or, in GTD lingo, I'm only seeing "next steps."
+- Org treats unprioritized entries as if they had a priority of =[#B]=. I'd prefer to treat them as the lowest priority, which I'm leaving as =[#C]=. That ensures that prioritized entries always come before unprioritized ones in my agenda.
+- Hide the category prefix from tasks. I categorize my tasks with tags, including using =filetags=, so prefixing tasks with the file they're stored in is noisy and redundant.
 - Begin weeks /today/, not on the last Monday.
-- Don't show deadline warnings under today's entry. If something's due in two
-  days, I'll see it in my agenda as a deadline on that day; I don't /also/ need
-  it listed under today's tasks, prefixed with =In 2 d:=.
-- Hide blocks in the agenda that don't contain any tasks. From [[https://lists.gnu.org/archive/html/emacs-orgmode/2015-06/msg00266.html][this email
-  thread]].
+- Don't show deadline warnings under today's entry. If something's due in two days, I'll see it in my agenda as a deadline on that day; I don't /also/ need it listed under today's tasks, prefixed with =In 2 d:=.
+- Hide blocks in the agenda that don't contain any tasks. From [[https://lists.gnu.org/archive/html/emacs-orgmode/2015-06/msg00266.html][this email thread]].
 
 #+begin_src emacs-lisp
   (use-package org-agenda
@@ -1520,21 +1404,12 @@ Separate org blocks with nearly complete lines, not rows of ===.
         "⭠ now ─────────────────────────────────────────────────")
 #+end_src
 
-The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
-the =inbox=, =habit=, and =project= tags. Here are the sections:
+The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by the =inbox=, =habit=, and =project= tags. Here are the sections:
 
-- Inbox :: Newly captured notes or ideas that haven't yet been turned into
-  "real" tasks or projects, /or/ tasks that have been deferred until today and
-  require reexamination.
+- Inbox :: Newly captured notes or ideas that haven't yet been turned into "real" tasks or projects, /or/ tasks that have been deferred until today and require reexamination.
 - Next :: Next unblocked steps in projects (or stand-alone tasks).
-- Habit :: Automatically generated tasks appended to a file with a custom
-  script. This includes stuff like, y'know, exercising, feeding the sourdough
-  starter, or resetting my watch for daylight savings time. I could probably
-  replace this script with [[https://orgmode.org/manual/Tracking-your-habits.html][org-habit]], but I don't for mostly historical reasons.
-- Calendar :: I have a =cron= job that pulls down my calendars into an Org file,
-  so my day's meetings, pending deliveries, and so on are displayed in my
-  agenda. This also shows tasks with deadlines and so on that I might not have
-  tagged.
+- Habit :: Automatically generated tasks appended to a file with a custom script. This includes stuff like, y'know, exercising, feeding the sourdough starter, or resetting my watch for daylight savings time. I could probably replace this script with [[https://orgmode.org/manual/Tracking-your-habits.html][org-habit]], but I don't for mostly historical reasons.
+- Calendar :: I have a =cron= job that pulls down my calendars into an Org file, so my day's meetings, pending deliveries, and so on are displayed in my agenda. This also shows tasks with deadlines and so on that I might not have tagged.
 - Projects :: The list of GTD-style projects that I'm currently working on.
 
 #+begin_src emacs-lisp
@@ -1590,10 +1465,7 @@ Shorten the default (lengthy) =org-agenda= modeline.
     (setq mode-name '("Org-agenda")))
 #+end_src
 
-I have a number of standing weekly video calls with friends and family, and I
-like keeping track of what happened in the last week to share on those calls.
-Because my memories only exist in text files, I have a custom view to list news
-items from the last couple weeks.
+I have a number of standing weekly video calls with friends and family, and I like keeping track of what happened in the last week to share on those calls. Because my memories only exist in text files, I have a custom view to list news items from the last couple weeks.
 
 #+begin_src emacs-lisp
   (add-to-list 'org-agenda-custom-commands
@@ -1609,8 +1481,7 @@ items from the last couple weeks.
                                       "~/documents/notes/papers-read.org")))))
 #+end_src
 
-I do a ton of journaling! I maintain a list of topics I'd like to think through
-and pop it open when I'm ready to write.
+I do a ton of journaling! I maintain a list of topics I'd like to think through and pop it open when I'm ready to write.
 
 #+begin_src emacs-lisp
   (add-to-list 'org-agenda-custom-commands
@@ -1624,10 +1495,8 @@ and pop it open when I'm ready to write.
 
 Define a few common tasks as capture templates.
 
-- Creating a new capture item also adds a bookmark, which includes a marker in
-  the fringe. I don't need to see that.
-- When I'm starting an Org capture template I'd like to begin in insert mode.
-  I'm opening it up in order to start typing something, so this skips a step.
+- Creating a new capture item also adds a bookmark, which includes a marker in the fringe. I don't need to see that.
+- When I'm starting an Org capture template I'd like to begin in insert mode. I'm opening it up in order to start typing something, so this skips a step.
 
 #+begin_src emacs-lisp
   (use-package org-capture
@@ -1826,8 +1695,7 @@ Associate the "dot" language with the =graphviz-dot= major mode.
     (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot)))
 #+end_src
 
-Translate regular ol' straight quotes to typographically correct curly quotes
-when exporting.
+Translate regular ol' straight quotes to typographically correct curly quotes when exporting.
 
 #+begin_src emacs-lisp
   (setq org-export-with-smart-quotes t)
@@ -1835,8 +1703,7 @@ when exporting.
 
 **** Exporting to HTML
 
-Don't include a footer with my contact and publishing information at the bottom
-of every exported HTML document.
+Don't include a footer with my contact and publishing information at the bottom of every exported HTML document.
 
 #+begin_src emacs-lisp
   (setq org-html-postamble nil)
@@ -1867,10 +1734,7 @@ Use =htmlize= to ensure that exported code blocks use syntax highlighting.
 
 **** Exporting to PDF
 
-- I want to produce PDFs with syntax highlighting in the code. The best way to
-  do that seems to be with the =minted= package, but that package shells out to
-  =pygments= to do the actual work. =xelatex= usually disallows shell commands;
-  this enables that.
+- I want to produce PDFs with syntax highlighting in the code. The best way to do that seems to be with the =minted= package, but that package shells out to =pygments= to do the actual work. =xelatex= usually disallows shell commands; this enables that.
 - Include the =listings= package in all of my LaTeX exports.
 - Remove the intermediate TeX file when exporting to PDF.
 
@@ -1918,15 +1782,11 @@ Allow exporting presentations to beamer.
 
 ** =TeX= configuration
 
-I rarely write =LaTeX= directly any more, but I often export through it with
-=Org=, so I'm keeping them together.
+I rarely write =LaTeX= directly any more, but I often export through it with =Org=, so I'm keeping them together.
 
 - Automatically parse the file after loading it.
-- Always use =pdflatex= when compiling LaTeX documents. I don't really have any
-  use for DVIs.
-- Enable a minor mode for dealing with math (it adds a few useful keybindings),
-  and always treat the current file as the "main" file. That's intentional,
-  since I'm usually actually in an org document.
+- Always use =pdflatex= when compiling LaTeX documents. I don't really have any use for DVIs.
+- Enable a minor mode for dealing with math (it adds a few useful keybindings), and always treat the current file as the "main" file. That's intentional, since I'm usually actually in an org document.
 
 #+begin_src emacs-lisp
   (use-package auctex
@@ -1944,16 +1804,11 @@ I rarely write =LaTeX= directly any more, but I often export through it with
 
 * Blogging
 
-I maintain a blog written in Jekyll. There are plenty of command-line tools to
-automate creating a new post, but staying in my editor minimizes friction and
-encourages me to write.
+I maintain a blog written in Jekyll. There are plenty of command-line tools to automate creating a new post, but staying in my editor minimizes friction and encourages me to write.
 
-This defines a =+new-blog-post= function, which prompts the user for a title and
-creates a new draft (with a slugged file name) in the blog's =_drafts/= directory.
-The new post includes appropriate YAML header information.
+This defines a =+new-blog-post= function, which prompts the user for a title and creates a new draft (with a slugged file name) in the blog's =_drafts/= directory. The new post includes appropriate YAML header information.
 
-This also defines =+publish-post= and =+unpublish-post=, which adjust the date in
-the YAML front matter and rename the file appropriately.
+This also defines =+publish-post= and =+unpublish-post=, which adjust the date in the YAML front matter and rename the file appropriately.
 
 #+begin_src emacs-lisp
   (defvar +jekyll-drafts-directory (expand-file-name "~/documents/blog/_drafts/"))
@@ -2124,10 +1979,7 @@ This selects and inserts a tag:
 
 * Email with =mu4e=
 
-Inconveniently, =mu4e= is ordinarily distributed along with =mu= in my system's
-package manager instead of as a package on MELPA. That package also seems to
-have some trouble inter-operating with my (more recent and locally built)
-version of Emacs. As a last resort, this loads up =mu4e= from a local repo.
+Inconveniently, =mu4e= is ordinarily distributed along with =mu= in my system's package manager instead of as a package on MELPA. That package also seems to have some trouble inter-operating with my (more recent and locally built) version of Emacs. As a last resort, this loads up =mu4e= from a local repo.
 
 Also, rather than quitting =mu4e=, just bury the buffer when I hit =q=.
 
@@ -2202,8 +2054,7 @@ I use multiple contexts for personal and work email.
 ** Fetching new mail
 
 - I fetch my email with =mbsync= every two minutes.
-- Rename files when moving them between directories. =mbsync= supposedly prefers
-  this.
+- Rename files when moving them between directories. =mbsync= supposedly prefers this.
 
 #+begin_src emacs-lisp
   (use-package mu4e-bookmarks
@@ -2229,8 +2080,7 @@ Hit =C-c m= to quickly visit my inbox.
   (global-set-key (kbd "C-c m") '+visit-inbox)
 #+end_src
 
-Configure the main pane with some reasonable bookmarks. Don't show my (many)
-email addresses, though, since they're just noise.
+Configure the main pane with some reasonable bookmarks. Don't show my (many) email addresses, though, since they're just noise.
 
 #+begin_src emacs-lisp
   (use-package mu4e-bookmarks
@@ -2255,15 +2105,9 @@ email addresses, though, since they're just noise.
             ("/personal/archive" . ?a))))
 #+end_src
 
-- I don't need to see the context of a thread (with all the deleted messages) in
-  my inbox.
-- Hit =q= to quit the headers buffer without returning to the main view. This is
-  essentially a reimplementation of ~mu4e~headers-quit-buffer~.
-- Marking a message for deletion applies the "Trashed" flag. This is
-  unfortunate, since Fastmail will automatically delete any messages with that
-  flag (as is the IMAP standard). I want to archive my messages, not delete
-  them, so I've rebound =d= to move email to my "Archive" folder without
-  applying that flag.
+- I don't need to see the context of a thread (with all the deleted messages) in my inbox.
+- Hit =q= to quit the headers buffer without returning to the main view. This is essentially a reimplementation of ~mu4e~headers-quit-buffer~.
+- Marking a message for deletion applies the "Trashed" flag. This is unfortunate, since Fastmail will automatically delete any messages with that flag (as is the IMAP standard). I want to archive my messages, not delete them, so I've rebound =d= to move email to my "Archive" folder without applying that flag.
 
 #+begin_src emacs-lisp
   (use-package mu4e-headers
@@ -2291,8 +2135,7 @@ email addresses, though, since they're just noise.
 
 - When I'm composing a new email, default to using the current context.
 - Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
-- Once I've sent an email, kill the associated buffer instead of just burying
-  it.
+- Once I've sent an email, kill the associated buffer instead of just burying it.
 - If a message is encrypted, my reply should always be encrypted, too.
 
 #+begin_src emacs-lisp
@@ -2316,9 +2159,7 @@ email addresses, though, since they're just noise.
 
 Write HTML emails in Org by toggling =org-msg-mode=.
 
-I don't enable this by default because I usually prefer plain-text email, but
-every now and then it's nice to be able to send a message with syntax
-highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
+I don't enable this by default because I usually prefer plain-text email, but every now and then it's nice to be able to send a message with syntax highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
 
 #+begin_src emacs-lisp
   (use-package org-msg
@@ -2343,11 +2184,8 @@ highlighting and LaTeX snippets (as PNGs) and all that fancy nonsense.
 - Hit =C-c C-o= to open a URL in the browser.
 - Display the sender's email address along with their name.
 - Save attachments in my =~/downloads= directory, not my home directory.
-- While HTML emails are just fundamentally awful, we usually still need to read
-  them. Tweaking =shr= settings ensures that their formatting in Emacs isn't too
-  hideous.
-- Some HTML emails are just too messy to display in Emacs. This binds =a h= to
-  open the current email in my default Web browser.
+- While HTML emails are just fundamentally awful, we usually still need to read them. Tweaking =shr= settings ensures that their formatting in Emacs isn't too hideous.
+- Some HTML emails are just too messy to display in Emacs. This binds =a h= to open the current email in my default Web browser.
 - As in the header view, I want mail to be archived, not deleted.
 
 #+begin_src emacs-lisp
@@ -2399,11 +2237,9 @@ I send my email through =msmtp=. These settings describe how to send a message:
 
 ** Agenda integration
 
-=mu4e-org= lets me store Org links to emails. I use this to reference emails in my
-TODO list while keeping my inbox empty.
+=mu4e-org= lets me store Org links to emails. I use this to reference emails in my TODO list while keeping my inbox empty.
 
-When storing a link to a message in the headers view, link to the message
-instead of the search that resulted in that view.
+When storing a link to a message in the headers view, link to the message instead of the search that resulted in that view.
 
 #+begin_src emacs-lisp
   (use-package mu4e-org
@@ -2436,8 +2272,7 @@ Use an =org-contacts= file to manage my address book.
 
 I use =elfeed= to read my (300-odd!) feeds.
 
-- Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then by
-  name of the feed, and finally by publication date.
+- Sort RSS feeds first by tag (=comics= come before =haskell=, for example), then by name of the feed, and finally by publication date.
 - Increase the max number of simultaneous connections to 32.
 
 #+begin_src emacs-lisp
@@ -2479,8 +2314,7 @@ Open =elfeed= with =C-c r=.
   (global-set-key (kbd "C-c r") 'elfeed)
 #+end_src
 
-I store my feeds in an Org file, of course. This parses them into something
-=elfeed= understands.
+I store my feeds in an Org file, of course. This parses them into something =elfeed= understands.
 
 #+begin_src emacs-lisp
   (use-package elfeed-org
@@ -2490,8 +2324,7 @@ I store my feeds in an Org file, of course. This parses them into something
     (setq rmh-elfeed-org-files (list "~/documents/rss-feeds.org")))
 #+end_src
 
-I don't subscribe to many YouTube channels, but I use =elfeed-tube= to load items
-with some associated metadata (descriptions, transcripts, etc).
+I don't subscribe to many YouTube channels, but I use =elfeed-tube= to load items with some associated metadata (descriptions, transcripts, etc).
 
 #+begin_src emacs-lisp
   (use-package elfeed-tube
@@ -2503,8 +2336,7 @@ with some associated metadata (descriptions, transcripts, etc).
 
 * Browsing the Web
 
-I use Firefox to browse the Web, but I'd like to open [[https://gemini.circumlunar.space/][Gemini]] links in =elpher=.
-This checks the prefix of each URL and uses the appropriate program to open it.
+I use Firefox to browse the Web, but I'd like to open [[https://gemini.circumlunar.space/][Gemini]] links in =elpher=. This checks the prefix of each URL and uses the appropriate program to open it.
 
 #+begin_src emacs-lisp
   (use-package elpher
@@ -2526,9 +2358,7 @@ This checks the prefix of each URL and uses the appropriate program to open it.
   (setq browse-url-browser-function '+browse-url)
 #+end_src
 
-Exporting Org files to HTML and opening the result triggers
-=/usr/bin/sensible-browser=, which checks the =$BROWSER= environment variable to
-choose the right browser. I'd like to always use Firefox for that, so:
+Exporting Org files to HTML and opening the result triggers =/usr/bin/sensible-browser=, which checks the =$BROWSER= environment variable to choose the right browser. I'd like to always use Firefox for that, so:
 
 #+begin_src emacs-lisp
   (setenv "BROWSER" "firefox")
@@ -2554,9 +2384,7 @@ I sometimes use [[https://github.com/hrs/engine-mode][=engine-mode=]] to (mostly
 
 * Writing prose
 
-I write prose in several modes: I might be editing an Org document, or a commit
-message, or an email. These are the main ones, with sub-items being /derived/ from
-their parents:
+I write prose in several modes: I might be editing an Org document, or a commit message, or an email. These are the main ones, with sub-items being /derived/ from their parents:
 
 - =git-commit-mode=
 - =text-mode=
@@ -2566,11 +2394,9 @@ their parents:
     - =mu4e-compose-mode=
   - =org-mode=
 
-Recall that derived modes "inherit" their parent's hooks, so a hook added onto
-e.g. =text-mode= will also be executed by =mu4e-compose-mode=.
+Recall that derived modes "inherit" their parent's hooks, so a hook added onto e.g. =text-mode= will also be executed by =mu4e-compose-mode=.
 
-There are some exceptions, but I can usually associate a hook with every
-prose-related mode, so I store those in a list:
+There are some exceptions, but I can usually associate a hook with every prose-related mode, so I store those in a list:
 
 #+begin_src emacs-lisp
   (defvar prose-modes
@@ -2589,8 +2415,7 @@ prose-related mode, so I store those in a list:
 
 ** Enable spell-checking in the usual places
 
-I want to make sure that I've enabled spell-checking if I'm editing text,
-composing an email, or authoring a Git commit.
+I want to make sure that I've enabled spell-checking if I'm editing text, composing an email, or authoring a Git commit.
 
 #+begin_src emacs-lisp
   (use-package flyspell
@@ -2619,9 +2444,7 @@ Use the [[https://elpa.gnu.org/packages/orgalist.html][=orgalist=]] package for 
 
 ** Linting prose
 
-I've been using [[https://github.com/errata-ai/vale][vale]] as a prose linter, and it's not been bad so far. There's a
-package that integrates it with =flycheck=, but it doesn't seem to work, so I've
-got some code here to do it manually.
+I've been using [[https://github.com/errata-ai/vale][vale]] as a prose linter, and it's not been bad so far. There's a package that integrates it with =flycheck=, but it doesn't seem to work, so I've got some code here to do it manually.
 
 #+begin_src emacs-lisp
   (flycheck-define-checker vale
@@ -2638,9 +2461,7 @@ got some code here to do it manually.
 
 ** Activate =prose-assistant-mode=
 
-I wrote [[file:resources/prose-assistant-mode.el][this global minor mode]] to let me quickly trigger a handful of common
-tools I reach for while writing prose (dictionaries, word counting, etymologies,
-spellchecking, translation, that sort of thing).
+I wrote [[file:resources/prose-assistant-mode.el][this global minor mode]] to let me quickly trigger a handful of common tools I reach for while writing prose (dictionaries, word counting, etymologies, spellchecking, translation, that sort of thing).
 
 #+begin_src emacs-lisp
   (use-package prose-assistant-mode
@@ -2652,9 +2473,7 @@ spellchecking, translation, that sort of thing).
 
 ** Activate =writing-mode=
 
-This minor mode enables a distraction-free writing environment. It enables a
-whole bunch of pretty modes, switches fonts, enables inline images, and even
-displays the word count in the mode-line. Toggle it with =<f9>=.
+This minor mode enables a distraction-free writing environment. It enables a whole bunch of pretty modes, switches fonts, enables inline images, and even displays the word count in the mode-line. Toggle it with =<f9>=.
 
 #+begin_src emacs-lisp
   (use-package mixed-pitch)
@@ -2737,15 +2556,13 @@ Because I can't always use =org=.
 
 ** Cycle between spacing alternatives
 
-Successive calls to =cycle-spacing= rotate between changing the whitespace
-around point to:
+Successive calls to =cycle-spacing= rotate between changing the whitespace around point to:
 
 - A single space,
 - No spaces, or
 - The original spacing.
 
-Binding this to =M-SPC= is strictly better than the original binding of
-=just-one-space=.
+Binding this to =M-SPC= is strictly better than the original binding of =just-one-space=.
 
 #+begin_src emacs-lisp
   (global-set-key (kbd "M-SPC") 'cycle-spacing)
@@ -2760,11 +2577,9 @@ Binding this to =M-SPC= is strictly better than the original binding of
 
 * Note-taking and citation management
 
-I'm using [[https://protesilaos.com/emacs/denote][denote]] for note-taking, plus =citar= and =citar-denote= to manage
-citations.
+I'm using [[https://protesilaos.com/emacs/denote][denote]] for note-taking, plus =citar= and =citar-denote= to manage citations.
 
-Configure a few packages to handle bibliographies and citations with =denote=
-and bind keys:
+Configure a few packages to handle bibliographies and citations with =denote= and bind keys:
 
 - =C-c n b= :: List all the notes that link to this note.
 - =C-c n c= :: Insert a citation to an existing reference in this file.
@@ -2774,8 +2589,7 @@ and bind keys:
 - =C-c n g= :: =grep= through notes.
 - =C-c n l= :: Insert a link to another note.
 - =C-c n n= :: Create a new note.
-- =C-c n r= :: Prompt for an existing reference and visit or create a literature
-  note associated with it.
+- =C-c n r= :: Prompt for an existing reference and visit or create a literature note associated with it.
 - =C-c n s= :: Search the contents of my notes.
 
 #+begin_src emacs-lisp
@@ -2803,11 +2617,9 @@ and bind keys:
 
 ** Citations
 
-I've got a single big =bibtex= file that contains all the references in my notes.
-That's mostly books, but also some papers and Web sites.
+I've got a single big =bibtex= file that contains all the references in my notes. That's mostly books, but also some papers and Web sites.
 
-I'm not in love with =bibtex-entry= as a tool for adding new references to my
-database, so I wrote a few functions to do that.
+I'm not in love with =bibtex-entry= as a tool for adding new references to my database, so I wrote a few functions to do that.
 
 #+begin_src emacs-lisp
   (use-package citar
@@ -2895,8 +2707,7 @@ database, so I wrote a few functions to do that.
                                     (url . ,url)))))
 #+end_src
 
-=citar-denote= makes it a bit easier to create and manage /literature/ notes, which
-correspond to specific =bibtex= entries.
+=citar-denote= makes it a bit easier to create and manage /literature/ notes, which correspond to specific =bibtex= entries.
 
 #+begin_src emacs-lisp
   (use-package citar-denote
@@ -2951,16 +2762,12 @@ I've started using =dired= as my primary file manager. About time, huh?
   - Format timestamps as =YYYY-MM-DD=.
   - Include hidden files, but /don't/ include "=.=" or "=..=".
 - Kill buffers of files/directories that are deleted in =dired=.
-- When I've got two =dired= windows side-by-side, and I move or copy files in one
-  window, set the default location to the other window.
+- When I've got two =dired= windows side-by-side, and I move or copy files in one window, set the default location to the other window.
 - Always copy directories recursively instead of asking every time.
 - Do please ask before recursively /deleting/ a directory, though.
-- Enable =auto-revert-mode= in =dired= buffers (so when a directory's contents are
-  modified the results are reflected in the buffer automatically).
+- Enable =auto-revert-mode= in =dired= buffers (so when a directory's contents are modified the results are reflected in the buffer automatically).
 
-I'm often browsing directories of photos and images, so this also binds "=v=" to
-view a slideshow of the current directory with =s= (a custom =feh= wrapper [[file:~/.dotfiles/bash/dot-bin/s][defined
-elsewhere in this repo]]).
+I'm often browsing directories of photos and images, so this also binds "=v=" to view a slideshow of the current directory with =s= (a custom =feh= wrapper [[file:~/.dotfiles/bash/dot-bin/s][defined elsewhere in this repo]]).
 
 #+begin_src emacs-lisp
   (use-package dired
@@ -2994,9 +2801,7 @@ elsewhere in this repo]]).
           auto-revert-verbose nil))
 #+end_src
 
-Hide dotfiles by default, but toggle their visibility with "=.=". This conflicts
-with =evil-repeat=, but in practice I never use that with =dired=, so the mnemonic
-is worth it for me.
+Hide dotfiles by default, but toggle their visibility with "=.=". This conflicts with =evil-repeat=, but in practice I never use that with =dired=, so the mnemonic is worth it for me.
 
 #+begin_src emacs-lisp
   (use-package dired-hide-dotfiles
@@ -3047,9 +2852,7 @@ Open media with the appropriate programs.
             ("xlsx" . "gnumeric"))))
 #+end_src
 
-Files are normally moved and copied synchronously. This is fine for small or
-local files, but copying a large file or moving a file across a mounted network
-drive blocks Emacs until the process is completed. Unacceptable!
+Files are normally moved and copied synchronously. This is fine for small or local files, but copying a large file or moving a file across a mounted network drive blocks Emacs until the process is completed. Unacceptable!
 
 This uses =emacs-async= to make =dired= perform actions asynchronously.
 
@@ -3065,8 +2868,7 @@ This uses =emacs-async= to make =dired= perform actions asynchronously.
 
 ** Quickly visit Emacs configuration
 
-I futz around with my dotfiles a lot. This binds =C-c e= to quickly open my
-Emacs configuration file.
+I futz around with my dotfiles a lot. This binds =C-c e= to quickly open my Emacs configuration file.
 
 #+begin_src emacs-lisp
   (defun +visit-emacs-config ()
@@ -3091,8 +2893,7 @@ Assume that I always want to kill the current buffer when hitting =C-x k=.
 
 ** Set up =helpful=
 
-The =helpful= package provides, among other things, more context in Help
-buffers.
+The =helpful= package provides, among other things, more context in Help buffers.
 
 #+begin_src emacs-lisp
   (use-package helpful
@@ -3108,9 +2909,7 @@ buffers.
 
 ** Save my location within a file
 
-Using =save-place-mode= saves the location of point for every file I visit. If I
-close the file or close the editor, then later re-open it, point will be at the
-last place I visited.
+Using =save-place-mode= saves the location of point for every file I visit. If I close the file or close the editor, then later re-open it, point will be at the last place I visited.
 
 #+begin_src emacs-lisp
   (setq save-place-forget-unreadable-files nil)
@@ -3127,8 +2926,7 @@ Never use tabs. Tabs are the devil's whitespace.
 
 ** Install and configure =which-key=
 
-=which-key= displays the possible completions for a long keybinding. That's
-really helpful for some modes (like =project.el=, for example).
+=which-key= displays the possible completions for a long keybinding. That's really helpful for some modes (like =project.el=, for example).
 
 #+begin_src emacs-lisp
   (use-package which-key
@@ -3140,9 +2938,7 @@ really helpful for some modes (like =project.el=, for example).
 
 I always want =yasnippet= enabled.
 
-I /don’t/ want =yas= to always indent the snippets it inserts. Sometimes this looks
-pretty bad (when indenting =org-mode=, for example, or trying to guess at the
-correct indentation for Python).
+I /don’t/ want =yas= to always indent the snippets it inserts. Sometimes this looks pretty bad (when indenting =org-mode=, for example, or trying to guess at the correct indentation for Python).
 
 #+begin_src emacs-lisp
   (use-package yasnippet
@@ -3154,8 +2950,7 @@ correct indentation for Python).
 
 ** Configure completion
 
-I'm trying =vertico=, =orderless=, =consult=, and =marginalia= as my completion
-framework.
+I'm trying =vertico=, =orderless=, =consult=, and =marginalia= as my completion framework.
 
 #+begin_src emacs-lisp
   (use-package vertico
@@ -3195,9 +2990,7 @@ framework.
 
 ** Switch and rebalance windows when splitting
 
-When splitting a window, I invariably want to switch to the new window. This
-makes that automatic. Similarly, when closing a window I'd like to rebalance the
-remaining windows.
+When splitting a window, I invariably want to switch to the new window. This makes that automatic. Similarly, when closing a window I'd like to rebalance the remaining windows.
 
 #+begin_src emacs-lisp
   (advice-add #'delete-window
@@ -3212,9 +3005,7 @@ remaining windows.
 
 ** Mass editing of =grep= results
 
-I like the idea of mass editing =grep= results the same way I can edit filenames
-in =dired=. These keybindings allow me to use =C-x C-q= to start editing =grep=
-results and =C-c C-c= to stop, just like in =dired=.
+I like the idea of mass editing =grep= results the same way I can edit filenames in =dired=. These keybindings allow me to use =C-x C-q= to start editing =grep= results and =C-c C-c= to stop, just like in =dired=.
 
 #+begin_src emacs-lisp
   (use-package wgrep)
@@ -3232,10 +3023,7 @@ results and =C-c C-c= to stop, just like in =dired=.
 
 ** Reformat typographic symbols and HTML entities to plain text
 
-I sometimes need to convert some copied text containing typographic symbols like
-curly quotes and em-dashes into ASCII text. Similarly, I'll sometimes need to do
-that with HTML entities, too. This provides functions to do that within a
-specified region.
+I sometimes need to convert some copied text containing typographic symbols like curly quotes and em-dashes into ASCII text. Similarly, I'll sometimes need to do that with HTML entities, too. This provides functions to do that within a specified region.
 
 #+begin_src emacs-lisp
   (defvar +typographic-replacements
@@ -3281,8 +3069,7 @@ specified region.
 
 ** Edit files as =sudo=
 
-I always forget the TRAMP syntax, and this provides the easier-to-remember
-=sudo-edit= function.
+I always forget the TRAMP syntax, and this provides the easier-to-remember =sudo-edit= function.
 
 #+begin_src emacs-lisp
   (use-package sudo-edit
