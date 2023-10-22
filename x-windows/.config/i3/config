@@ -141,8 +141,8 @@ bindsym $mod+Down $exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 # Startup applications
 ########################################
 
-# Start the Picom compositor (for i3bar transparency)
-$exec_always picom &
+# Start the Compton compositor (for i3bar transparency)
+$exec_always compton &
 
 # Launch everything! Daemons, chat apps, Firefox, Emacs, you name it.
 $exec ~/.bin/start-i3-apps &
