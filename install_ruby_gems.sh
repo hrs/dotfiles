@@ -8,11 +8,13 @@
 # is installed -- I always forget a few when I'm doing it manually.
 
 gem install \
+    activesupport \
     awesome_print \
     bundle \
     fastri \
     fuzz \
     netrc \
+    org-ruby \
     os \
     rcodetools \
     reek \
