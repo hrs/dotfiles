@@ -25,10 +25,6 @@ export SAM_CLI_TELEMETRY=0
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
-chruby 3.1.2
-
 source "$HOME/.cargo/env"
 
 ### local config settings, if any

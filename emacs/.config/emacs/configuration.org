@@ -1011,7 +1011,7 @@ This defines a default Ruby version to use within Emacs (for things like =xmp= o
 =rspec=).
 
 #+begin_src emacs-lisp
-  (setq +ruby-version "3.1.2")
+  (setq +ruby-version "3.2.2")
 #+end_src
 
 Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that
