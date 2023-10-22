@@ -2143,6 +2143,8 @@ Also, rather than quitting =mu4e=, just bury the buffer when I hit =q=.
     (mu4e-sent-folder "/personal/sent")
     (mu4e-drafts-folder "/personal/drafts")
 
+    (mu4e-modeline-support nil)
+
     (mu4e-index-update-error-warning nil)
     (mu4e-hide-index-messages t)
 
