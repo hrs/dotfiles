@@ -425,10 +425,7 @@ Use =company-mode= everywhere.
     (company-idle-delay 0.2)
     (company-minimum-prefix-length 3)
     (company-tooltip-align-annotations t)
-    (company-tooltip-limit 20)
-
-    :config
-    (setq lsp-completion-provider :capf))
+    (company-tooltip-limit 20))
 #+end_src
 
 ** =docker=
@@ -2948,7 +2945,7 @@ I /don’t/ want =yas= to always indent the snippets it inserts. Sometimes this 
     (yas-global-mode 1))
 #+end_src
 
-** Configure completion
+** Configure minibuffer completion
 
 I'm trying =vertico=, =orderless=, =consult=, and =marginalia= as my completion framework.
 
