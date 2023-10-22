@@ -27,10 +27,4 @@ export SAM_CLI_TELEMETRY=0
 
 source "$HOME/.cargo/env"
 
-### local config settings, if any
-
 test -r $HOME/.opam/opam-init/init.sh && . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
-if [ -e $HOME/.bashrc.local ]; then
-  source $HOME/.bashrc.local
-fi

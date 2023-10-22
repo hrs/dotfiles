@@ -7,4 +7,6 @@ source ~/.bashrc.d/vterm.bash
 source ~/.bashrc.d/ruby.bash
 source ~/.bashrc.d/utils.bash
 
-source ~/.bashrc.local
+if [ -e $HOME/.bashrc.local ]; then
+  source $HOME/.bashrc.local
+fi
