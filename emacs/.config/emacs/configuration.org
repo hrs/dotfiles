@@ -409,23 +409,26 @@ Treat =comint= sessions more like a shell.
     (evil-define-key '(normal insert) comint-mode-map (kbd "C-d") '+kill-current-buffer))
 #+end_src
 
-** =company=
+** =completion-at-point=
 
-Use =company-mode= everywhere.
+Use =corfu= for a pop-up completions menu.
 
 #+begin_src emacs-lisp
-  (use-package company
-    :demand t
-    :hook (prog-mode . company-mode)
-    :bind (:map company-active-map
-                ("<tab>" . company-complete-selection))
+  (use-package corfu
+    :bind
+    (:map corfu-map
+          ("TAB" . corfu-next)
+          ([tab] . corfu-next)
+          ("S-TAB" . corfu-previous)
+          ([backtab] . corfu-previous))
 
     :custom
-    (company-backends '((company-capf company-dabbrev-code)))
-    (company-idle-delay 0.2)
-    (company-minimum-prefix-length 3)
-    (company-tooltip-align-annotations t)
-    (company-tooltip-limit 20))
+    (tab-always-indent 'complete)
+    (corfu-cycle t)
+    (corfu-preselect 'prompt)
+
+    :init
+    (global-corfu-mode))
 #+end_src
 
 ** =docker=
@@ -626,6 +629,7 @@ I use LSP for some languages. This hooks LSP to run in those modes and ensures t
     :hook ((ruby-mode ruby-ts-mode go-mode) . lsp-deferred)
 
     :custom
+    (lsp-completion-provider :none)
     (lsp-eldoc-render-all t))
 #+end_src
 
@@ -680,6 +684,7 @@ I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
 - The default Proof General layout stacks the code, goal, and response buffers on top of each other. I like to keep my code on one side and my goal and response buffers on the other.
 - Have point follow the end of the locked region when asserting and undoing proof commands, but don't lock it to the end.
 - Proof General usually evaluates each comment individually. In literate programs, this can result in evaluating a /ton/ of comments. This evaluates a series of consecutive comments as a single comment.
+- I bind the up and down arrow keys in Coq to evaluating and retracting the next and previous statements. This is more convenient for me than the default bindings of =C-c C-n= and =C-c C-u=.
 
 #+begin_src emacs-lisp
   (use-package proof-general
@@ -694,16 +699,7 @@ I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
     (proof-splash-enable nil)
     (proof-three-window-mode-policy 'hybrid)
     (proof-follow-mode 'follow)
-    (proof-script-fly-past-comments t))
-#+end_src
-
-=company-coq-mode= adds some features (completion, documentation, ligatures...) which make Proof General a bit friendlier.
-
-I bind the up and down arrow keys to evaluating and retracting the next and previous statements. This is more convenient for me than the default bindings of =C-c C-n= and =C-c C-u=.
-
-#+begin_src emacs-lisp
-  (use-package company-coq
-    :hook (coq-mode . company-coq-mode)
+    (proof-script-fly-past-comments t)
 
     :config
     (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
@@ -1175,11 +1171,6 @@ Install =terraform-mode=.
     :ensure-system-package terraform
     :custom
     (terraform-format-on-save t))
-
-  (use-package company-terraform
-    :after terraform-mode
-    :config
-    (company-terraform-init))
 #+end_src
 
 ** =web-mode=
