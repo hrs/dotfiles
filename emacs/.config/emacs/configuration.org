@@ -975,7 +975,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
     :bind ("\r" . newline-and-indent)
 
     :custom
-    (ruby-align-to-stmt-keywords '(def if))
+    (ruby-align-to-stmt-keywords t)
 
     :config
     (setq-default flycheck-disabled-checkers '(ruby-reek)))
