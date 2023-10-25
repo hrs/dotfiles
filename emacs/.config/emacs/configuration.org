@@ -639,6 +639,9 @@ I use LSP for some languages. This hooks LSP to run in those modes and ensures t
     :commands (lsp lsp-deferred)
     :hook ((ruby-mode ruby-ts-mode go-mode) . lsp-deferred)
 
+    :init
+    (setq lsp-enabled-clients '(sorbet-ls gopls))
+
     :custom
     (lsp-completion-provider :none)
     (lsp-eldoc-render-all t))
@@ -943,7 +946,10 @@ This defines a default Ruby version to use within Emacs (for things like =xmp= o
 Ruby executables are installed in =~/.gem/ruby/<version>/bin=. This ensures that that's included in the path. In particular, we want that directory to be included because it contains the =xmpfilter= executable.
 
 #+begin_src emacs-lisp
-  (+append-to-path (format "~/.gem/ruby/%s/bin" +ruby-version))
+  (setenv "GEM_HOME" (concat (file-name-as-directory (expand-file-name "~/.gem/ruby"))
+                             +ruby-version))
+  (+append-to-path (concat (file-name-as-directory (getenv "GEM_HOME"))
+                           "bin"))
 #+end_src
 
 I associate =ruby-mode= with Gemfiles, gemspecs, Rakefiles, and Vagrantfiles.
@@ -968,9 +974,11 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 
     :bind ("\r" . newline-and-indent)
 
+    :custom
+    (ruby-align-to-stmt-keywords '(def if))
+
     :config
-    (setq-default flycheck-disabled-checkers '(ruby-reek))
-    (setq ruby-align-to-stmt-keywords '(def if)))
+    (setq-default flycheck-disabled-checkers '(ruby-reek)))
 #+end_src
 
 I use =chruby= to switch between versions of Ruby.

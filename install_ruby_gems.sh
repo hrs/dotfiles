@@ -21,4 +21,4 @@ gem install \
     rest-client \
     ricepaper \
     rubocop \
-    solargraph
+    sorbet
