@@ -1563,7 +1563,8 @@ Define a few common tasks as capture templates.
                           (,(+org-file-path "deliveries.org") :level . 1)
                           (,(+org-file-path "environment.org") :level . 1)
                           (,(+org-file-path "someday-maybe.org") :level . 1)
-                          (,(+org-file-path "work.org") :level . 1))))
+                          (,(+org-file-path "work.org") :level . 1)
+                          (,(+org-file-path "writing.org") :level . 1))))
 #+end_src
 
 *** Keybindings
