@@ -197,6 +197,11 @@ Define a big ol' bunch of handy utility functions.
     "Return true if the path corresponds to an image file."
     (member (downcase (or (file-name-extension path) ""))
             '("bmp" "gif" "jpeg" "jpg" "png" "tiff")))
+
+  (defun +quit-window-and-kill ()
+    "Quit the current window and kill the buffer. Handy for pop-ups."
+    (interactive)
+    (quit-window t))
 #+end_src
 
 * UI preferences
@@ -513,6 +518,19 @@ I'm also partial to =git-timemachine=, which lets you quickly page through the h
 
 #+begin_src emacs-lisp
   (use-package git-timemachine)
+#+end_src
+
+** =occur=
+
+You'd think =evil-collection= would include bindings like this, but seemingly not!
+
+#+begin_src emacs-lisp
+  (use-package occur
+    :ensure nil
+
+    :config
+    (evil-define-key 'normal occur-mode-map (kbd "g r") 'revert-buffer)
+    (evil-define-key 'normal occur-mode-map (kbd "q") '+quit-window-and-kill))
 #+end_src
 
 ** =project.el=
