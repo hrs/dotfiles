@@ -1017,6 +1017,7 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
   (use-package rspec-mode
     :after ruby-mode
     :ensure-system-package (rspec . "gem install rspec")
+    :bind (:map rspec-verifiable-mode-keymap  ("o" . +rspec-outline))
 
     :hook (css-mode
            deadgrep-mode
@@ -1033,6 +1034,33 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
     (rspec-use-chruby t)
 
     :config
+    (defvar +rspec-outline-blocks
+      '("context"
+        "describe"
+        "include_examples"
+        "it"
+        "it_behaves_like"
+        "it_should_behave_like"
+        "shared_examples_for"
+        "specify"))
+
+    (defun +rspec-outline ()
+      "Use `occur' to create a linked outline of the spec associated with the current file, which may be either a spec or a target."
+      (interactive)
+      (let ((list-matching-lines-face nil)
+            (spec-buffer (if (rspec-buffer-is-spec-p)
+                             (current-buffer)
+                           (find-file-noselect (rspec-spec-file-for (buffer-file-name))))))
+        (with-current-buffer spec-buffer
+          (occur (rx-to-string `(seq line-start
+                                     (zero-or-more whitespace)
+                                     (optional "RSpec.")
+                                     (or ,@+rspec-outline-blocks)
+                                     (one-or-more whitespace)
+                                     (or "\"" "'" "A-Z" "{ ")))
+                 0)))
+      (occur-rename-buffer))
+
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'project-find-file)
     (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file))
 #+end_src
