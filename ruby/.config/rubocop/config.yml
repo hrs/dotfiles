@@ -29,6 +29,8 @@ Layout/SpaceInsideStringInterpolation:
   Enabled: false
 Layout/EndAlignment:
   EnforcedStyleAlignWith: start_of_line
+Style/HashSyntax:
+  Enabled: false
 Style/NegatedWhile:
   Enabled: false
 Style/TrailingCommaInArrayLiteral:
