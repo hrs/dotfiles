@@ -3130,6 +3130,18 @@ I always forget the TRAMP syntax, and this provides the easier-to-remember =sudo
     :commands (sudo-edit))
 #+end_src
 
+** =calc=
+
+Start =calc= in =insert= mode.
+
+#+begin_src emacs-lisp
+  (use-package calc
+    :ensure nil
+
+    :config
+    (add-hook 'calc-trail-mode-hook 'evil-insert-state))
+#+end_src
+
 * Printing
 
 Sometimes I like reading dead trees.
