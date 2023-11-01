@@ -202,6 +202,13 @@ Define a big ol' bunch of handy utility functions.
     "Quit the current window and kill the buffer. Handy for pop-ups."
     (interactive)
     (quit-window t))
+
+  (defun +maphash (f hash)
+    "Call function `f' on each (key, value) pair in `hash', returning the results in a list."
+    (let ((acc '()))
+      (maphash (lambda (k v) (setq acc (cons (funcall f k v) acc)))
+               hash)
+      acc))
 #+end_src
 
 * UI preferences
@@ -509,6 +516,25 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
     (use-package with-editor)
 
     (require 'git-rebase)
+
+    (defun +get-author-parse-line (key value domain)
+      (let* ((values (mapcar #'s-trim (s-split ";" value)))
+             (name (car values))
+             (email (or (cadr values) key)))
+        (format "%s <%s@%s>" name email domain)))
+
+    (defun +git-authors ()
+      (let* ((config (yaml-parse-string (f-read-text "~/.git-authors")))
+             (domain (gethash 'domain (gethash 'email config)))
+             (authors '()))
+        (+maphash (lambda (k v) (+git-author-parse-line k v domain))
+                  (gethash 'authors config))))
+
+    (defun +insert-git-coauthor ()
+      "Prompt for co-author and insert a co-authored-by block."
+      (interactive)
+      (insert (format "Co-authored-by: %s\n"
+                      (completing-read "Co-authored by:" (+git-authors)))))
 
     (setq magit-push-always-verify nil
           git-commit-summary-max-length 50))
