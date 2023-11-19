@@ -120,6 +120,7 @@ Install =evil-collection=, which provides evil-friendly bindings for many modes.
           '(comint
             deadgrep
             dired
+            ediff
             elfeed
             eww
             ibuffer
@@ -480,6 +481,19 @@ The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/du
     :config
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
     (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions))
+#+end_src
+
+** =ediff=
+
+When using =ediff= to compare file, show files side by side and don't split the control panel into a separate frame.
+
+#+begin_src emacs-lisp
+  (use-package ediff
+    :ensure nil
+
+    :config
+    (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+    (setq ediff-split-window-function 'split-window-horizontally))
 #+end_src
 
 ** =flycheck=
