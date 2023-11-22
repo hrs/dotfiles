@@ -707,8 +707,7 @@ I use LSP for some languages. This hooks LSP to run in those modes and ensures t
                                 rust-analyzer))
 
     :custom
-    (lsp-completion-provider :none)
-    (lsp-eldoc-render-all t))
+    (lsp-completion-provider :none))
 #+end_src
 
 This integrates LSP into my UI in various useful ways. Specifically, it writes documentation and type annotations and suchlike all over my damn screen, which /I/ enjoy, personally.
