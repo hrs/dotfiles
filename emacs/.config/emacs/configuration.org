@@ -2935,6 +2935,7 @@ Open media with the appropriate programs.
             ("gnumeric" . "gnumeric")
             ("jpeg" . ,(executable-find "s"))
             ("jpg" . ,(executable-find "s"))
+            ("m3u8" . "mpv")
             ("m4a" . "mpv")
             ("mkv" . "mpv")
             ("mobi" . "foliate")
