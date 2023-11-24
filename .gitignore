@@ -3,6 +3,7 @@ emacs/.config/emacs/*
 !emacs/.config/emacs/init.el
 !emacs/.config/emacs/resources
 !emacs/.config/emacs/snippets
+!emacs/.config/emacs/themes
 
 ruby/dot-bundle/cache
 ruby/.config/irb/irb_history
