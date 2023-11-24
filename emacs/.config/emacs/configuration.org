@@ -300,10 +300,7 @@ This sets up the current theme.
 This binds =C-c <left>= and =C-c <right>= to undo and redo window configuration changes.
 
 #+begin_src emacs-lisp
-  (use-package winner-mode
-    :ensure nil
-    :config
-    (winner-mode 1))
+  (winner-mode 1)
 #+end_src
 
 ** Use =minions= to hide all minor modes
