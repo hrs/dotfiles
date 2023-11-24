@@ -493,6 +493,7 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
 - The default behavior of =magit= is to ask before pushing. I haven't had any problems with accidentally pushing, so I'd rather not confirm that every time.
 - Per [[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html][tpope's suggestions]], highlight commit text in the summary line that goes beyond 50 characters.
 - I'd like to start in the insert state when writing a commit message.
+- Always take up the whole frame. I'm often on a laptop, where this is especially convenient, but generally I want additional git-related space more than I want more windows.
 
 #+begin_src emacs-lisp
   (use-package magit
@@ -526,8 +527,10 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
       (insert (format "Co-authored-by: %s\n"
                       (completing-read "Co-authored by:" (+git-authors)))))
 
-    (setq magit-push-always-verify nil
-          git-commit-summary-max-length 50))
+    (setq git-commit-summary-max-length 50
+          magit-bury-buffer-function 'magit-restore-window-configuration
+          magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1
+          magit-push-always-verify nil))
 #+end_src
 
 I'm also partial to =git-timemachine=, which lets you quickly page through the history of a file.
