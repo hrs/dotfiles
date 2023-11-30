@@ -675,6 +675,7 @@ I use LSP for some languages. This hooks LSP to run in those modes and ensures t
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
     :hook ((go-mode
+            ruby-base-mode
             ruby-mode
             ruby-ts-mode
             rust-mode
