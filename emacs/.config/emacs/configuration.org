@@ -1050,6 +1050,7 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
            ruby-mode
            scss-mode
            web-mode
+           yaml-mode
            yard-mode)
 
     :custom
