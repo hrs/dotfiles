@@ -1086,7 +1086,8 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
       (occur-rename-buffer))
 
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'project-find-file)
-    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file))
+    (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file)
+    (evil-define-key 'motion rspec-compilation-mode-map (kbd "g r") 'rspec-rerun))
 #+end_src
 
 I'd like =inf-ruby= to automatically steal focus if a breakpoint triggers.
