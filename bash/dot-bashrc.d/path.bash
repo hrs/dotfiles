@@ -10,13 +10,11 @@ pathmunge () {
 
 pathmunge /usr/local/sbin
 pathmunge /usr/local/bin
-pathmunge /usr/local/heroku/bin after
 pathmunge /sbin after
 pathmunge $HOME/bin after
 pathmunge $HOME/.bin after
 pathmunge $HOME/.cabal/bin after
 pathmunge $HOME/.local/bin after
 pathmunge $GOPATH/bin after
-pathmunge /snap/bin after
 
 export PATH
