@@ -38,8 +38,8 @@ alias agr="sudo apt remove"
 alias acs="apt search"
 alias ali="apt-mark showmanual"
 
-alias oports="echo 'User:      Command:   Port:'; echo '----------------------------' ; lsof -i 4 -P -n | grep -i 'listen' | awk '{print \$3, \$1, \$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n |xargs printf '%-10s %-10s %-10s\n' | uniq"
 alias myip="ip -4 -brief address"
+alias oports="lsof -i 4 -P -n | grep LISTEN | awk '{print \$3,\$1,\$9}' | sed 's/ [a-z0-9\.\*]*:/ /' | sort -k 3 -n | column -t | uniq"
 alias serve="python -m SimpleHTTPServer"
 
 complete -A file op
