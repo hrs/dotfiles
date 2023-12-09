@@ -1,6 +1,7 @@
 # -*- mode: sh -*-
 
 alias agu="sudo $HOME/.bin/agu"
+alias sudo="sudo " # effectively makes alias available when running sudo
 alias d="dired"
 alias dc="docker-compose"
 alias fd="fdfind"
