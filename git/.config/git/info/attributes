@@ -1,3 +1,4 @@
 *.lisp diff=common-lisp
 *.el diff=elisp
 *.rb diff=ruby
+*.sqlite diff=sqlite3

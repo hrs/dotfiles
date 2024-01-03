@@ -35,6 +35,9 @@
     xfuncname="^\\((def\\S+\\s+\\S+)"
 [diff "elisp"]
     xfuncname="^\\((((def\\S+)|use-package)\\s+\\S+)"
+[diff "sqlite3"]
+    binary = true
+    textconv = "echo .dump | sqlite3"
 [fetch]
   prune = true
 [github]
