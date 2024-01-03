@@ -1343,8 +1343,10 @@ I'd like to open =file:= links in Org with the applications defined in my [[file
     (initial-major-mode 'org-mode)
 
     (org-auto-align-tags nil)
-    (org-tags-column 0)
+    (org-footnote-auto-label nil)
+    (org-footnote-section nil)
     (org-insert-heading-respect-content t)
+    (org-tags-column 0)
 
     :config
     (add-hook 'org-mode-hook
