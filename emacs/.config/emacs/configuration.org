@@ -974,7 +974,7 @@ Format code according to PEP8 on save:
 #+begin_src emacs-lisp
   (use-package py-autopep8
     :after python-mode
-    :hook (elpy-mode-hook . py-autopep8-enable-on-save))
+    :hook (elpy-mode-hook . py-autopep8-mode))
 #+end_src
 
 ** Ruby
@@ -1867,7 +1867,8 @@ I rarely write =LaTeX= directly any more, but I often export through it with =Or
 - Enable a minor mode for dealing with math (it adds a few useful keybindings), and always treat the current file as the "main" file. That's intentional, since I'm usually actually in an org document.
 
 #+begin_src emacs-lisp
-  (use-package auctex
+  (use-package tex
+    :ensure auctex
     :custom
     (TeX-parse-self t)
 
