@@ -2817,6 +2817,7 @@ textually similar to this note, and (2) not yet linked from it.
     :custom
     (docsim-search-paths `(,denote-directory
                            "~/documents/journal/entries"
+                           "~/documents/logistics"
                            "~/documents/blog/_drafts"
                            "~/documents/blog/_posts"))
     (docsim-omit-denote-links t)
