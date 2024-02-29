@@ -36,10 +36,19 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Code:
-(eval-when-compile (require 'seq))
+(eval-when-compile
+  (require 'prettify-utils)
+  (require 'seq))
 
 (defvar writing-org-ellipsis "…")
 (defvar writing-org-image-actual-width '(600))
+(defvar writing-smart-typography '(("---" "—")
+                                   ("--" "–")
+                                   ("..." "…")
+                                   ("'" "’")
+                                   ("\" "  "” ")
+                                   ("\"" "“")
+                                   ))
 
 (defvar writing-enabled-modes
   '((text-mode . (visual-line-mode)))
@@ -54,7 +63,9 @@ in this alist, but not e.g. `markdown-mode' or `prog-mode', since
 `org-mode' doesn't derive from those.")
 
 (defvar writing-preserved-variables
-  '(org-ellipsis
+  '(prettify-symbols-alist
+    prettify-symbols-compose-predicate
+    org-ellipsis
     org-hide-emphasis-markers
     org-hide-leading-stars
     org-image-actual-width
@@ -151,6 +162,10 @@ current major mode."
 
   (when (eq major-mode 'gfm-mode)
     (markdown-toggle-markup-hiding 1))
+
+  (setq prettify-symbols-compose-predicate (lambda (_start _end _match) t))
+  (setq prettify-symbols-alist
+        (eval `(prettify-utils-generate ,@writing-smart-typography)))
 
   (dolist (mode-name (writing--applicable-minor-modes))
     (funcall mode-name 1)))

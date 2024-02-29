@@ -262,14 +262,6 @@ In certain read-only modes I like to bind =J= and =K= to scrolling. That's nice 
     (evil-define-key '(motion normal) mode-map (kbd "J") '+scroll-down-some))
 #+end_src
 
-** Use fancy lambdas
-
-Why not?
-
-#+begin_src emacs-lisp
-  (global-prettify-symbols-mode t)
-#+end_src
-
 ** Configure a pretty modeline
 
 #+begin_src emacs-lisp
@@ -2610,6 +2602,7 @@ This minor mode enables a distraction-free writing environment. It enables a who
             (text-mode . (flycheck-mode
                           mixed-pitch-mode
                           olivetti-mode
+                          prettify-symbols-mode
                           visual-line-mode
                           wc-mode)))))
 
