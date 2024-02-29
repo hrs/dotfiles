@@ -43,6 +43,7 @@ bindsym $mod+Shift+q kill
 
 # Lock the screen
 bindsym $mod+Shift+l $exec ~/.bin/lock-screen
+bindsym $mod+Shift+m $exec ~/.bin/swap-monitor
 
 # Start a program launcher
 bindsym $mod+d $exec PATH=~/bin:~/.bin:$PATH rofi -show run

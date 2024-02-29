@@ -1,0 +1,33 @@
+#!/bin/sh
+
+if xrandr --listactivemonitors | grep "DP-3"; then
+  # the wide external monitor (DP-3) is active, so we should disconnect it
+  notify-send "Disconnecting external monitor (DP-3)!"
+
+  xrandr --output eDP-1 --primary --mode 2160x1350 --pos 0x0 --rotate normal \
+         --output DP-1 --off \
+         --output DP-2 --off \
+         --output DP-3 --off \
+         --output DP-4 --off
+elif xrandr | grep "DP-3 connected"; then
+  # external monitor (DP-3) is plugged in but inactive, so we should activate it
+  notify-send "Connecting external monitor (DP-3)!"
+
+  xrandr --output eDP-1 --off \
+         --output DP-1 --off \
+         --output DP-2 --off \
+         --output DP-3 --primary --mode 3440x1440 --pos 0x0 --rotate normal \
+         --output DP-4 --off
+else
+  # external monitor (DP-3) is not plugged in, so stick with the laptop screen
+  notify-send "External monitor (DP-3) not connected, using laptop screen!"
+
+  xrandr --output eDP-1 --primary --mode 2160x1350 --pos 0x0 --rotate normal \
+         --output DP-1 --off \
+         --output DP-2 --off \
+         --output DP-3 --off \
+         --output DP-4 --off
+fi
+
+# Re-scale desktop wallpaper
+~/.bin/paint-wallpaper
