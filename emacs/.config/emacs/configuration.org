@@ -1497,9 +1497,6 @@ The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
                   (tags-todo "next"
                              ((org-agenda-overriding-header "Next")))
 
-                  (tags-todo "work"
-                             ((org-agenda-overriding-header "Work")))
-
                   (tags-todo "habit-daily"
                              ((org-agenda-overriding-header "Habits")))
 
