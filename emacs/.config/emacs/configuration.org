@@ -2944,6 +2944,44 @@ This uses =emacs-async= to make =dired= perform actions asynchronously.
     (dired-async-mode 1))
 #+end_src
 
+** Convert images
+
+I sometimes need to convert images with =imagemagick= by changing the format and/or size. This provides a wrapper around that in =dired=.
+
+#+begin_src emacs-lisp
+  (defun +image-dimensions (filename)
+    "Given an image file `filename' readable by `identify', return a cons pair of integers denoting the width and height of the image, respectively."
+    (->> (shell-command-to-string (format "identify %s" filename))
+         (s-split " ")
+         (nth 2)
+         (s-split "x")
+         (mapcar #'string-to-number)))
+
+  (defun +dired-convert-image (source-file target-width target-height target-file)
+    (interactive
+     (let* ((source-file (dired-file-name-at-point))
+            (source-dimensions (+image-dimensions source-file))
+            (source-width (nth 0 source-dimensions))
+            (source-height (nth 1 source-dimensions))
+            (target-width (read-number "Width: " source-width))
+            (target-height (read-number "Height: "
+                                        (if (= source-width target-width)
+                                            source-height
+                                          (round (* source-height
+                                                    (/ (float target-width)
+                                                       source-width))))))
+            (target-file (read-file-name "Target: " nil nil nil
+                                         (file-name-nondirectory source-file))))
+       (list source-file target-width target-height target-file)))
+
+    (call-process "convert" nil nil nil
+                  (expand-file-name source-file)
+                  "-resize" (format "%sx%s"
+                                    target-width
+                                    target-height)
+                  (expand-file-name target-file)))
+#+end_src
+
 * Editing settings
 
 ** Quickly visit Emacs configuration
