@@ -3095,6 +3095,7 @@ I'm trying =vertico=, =orderless=, =consult=, and =marginalia= as my completion 
     :bind
     (("M-i" . consult-imenu)
      ("C-x b" . consult-buffer)
+     ("C-x r b" . consult-bookmark)
      ("C-s" . consult-line)))
 
   (use-package marginalia
