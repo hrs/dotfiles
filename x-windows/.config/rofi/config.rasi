@@ -1,5 +1,5 @@
 configuration {
-  font: "Adobe Garamond Pro Italic 16";
+  font: "Adobe Garamond Pro Italic 20";
   matching: "fuzzy";
 }
 

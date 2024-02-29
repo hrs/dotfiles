@@ -329,15 +329,15 @@ When point goes outside the window, Emacs usually recenters the buffer point. I'
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
                       :family "Fantasque Sans Mono"
-                      :height 62)
+                      :height 80)
 
   (set-face-attribute 'fixed-pitch nil
                       :family "Fantasque Sans Mono"
-                      :height 62)
+                      :height 80)
 
   (set-face-attribute 'variable-pitch nil
                       :family "ETBembo"
-                      :height 62)
+                      :height 80)
 
   (use-package default-text-scale
     :bind

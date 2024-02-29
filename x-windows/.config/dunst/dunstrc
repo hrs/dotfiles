@@ -1,5 +1,5 @@
 [global]
-    font = Adobe Garamond Pro 8
+    font = Adobe Garamond Pro 10
     markup = full
     format = "<b>%s</b>\n%b"
     sort = yes

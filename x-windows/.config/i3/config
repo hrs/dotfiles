@@ -1,5 +1,5 @@
 # Set font for container titles
-font pango:Fantasque Sans Mono 6
+font pango:Fantasque Sans Mono 9
 
 # Always use --no-startup-id
 set $exec exec --no-startup-id
