@@ -645,6 +645,26 @@ An [[https://github.com/xenodium/chatgpt-shell][interactive shell session]] is o
     (chatgpt-shell-openai-key (auth-source-pick-first-password :host "api.openai.com")))
 #+end_src
 
+** World clock
+
+Collaborating with different timezones counts as project management, right?
+
+#+begin_src emacs-lisp
+  (use-package world-clock
+    :ensure nil
+
+    :custom
+    (world-clock-time-format "%a %d %b %l:%M %p %Z")
+    (world-clock-list
+     '(("America/Vancouver" "Vancouver")
+       ("America/New_York" "New York")
+       ("Europe/Paris" "Paris")
+       ("Africa/Nairobi" "Nairobi")))
+
+    :config
+    (evil-define-key 'normal world-clock-mode-map (kbd "q") '+quit-window-and-kill))
+#+end_src
+
 * Programming environments
 
 I like shallow indentation, but tabs are displayed as 8 characters by default. This reduces that.
