@@ -3115,7 +3115,10 @@ I'm trying =vertico=, =orderless=, =consult=, and =marginalia= as my completion 
     (("M-i" . consult-imenu)
      ("C-x b" . consult-buffer)
      ("C-x r b" . consult-bookmark)
-     ("C-s" . consult-line)))
+     ("C-s" . consult-line))
+
+    :config
+    (setq completion-in-region-function #'consult-completion-in-region))
 
   (use-package marginalia
     :bind (:map minibuffer-local-map
