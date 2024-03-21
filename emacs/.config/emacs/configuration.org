@@ -2617,7 +2617,8 @@ This minor mode enables a distraction-free writing environment. It enables a who
 
     (defun writing-mode-repo ()
       (when (or (s-starts-with? "/home/hrs/documents/journal" buffer-file-name)
-                (s-starts-with? "/home/hrs/documents/notes" buffer-file-name))
+                (s-starts-with? "/home/hrs/documents/notes" buffer-file-name)
+                (s-starts-with? "/home/hrs/documents/org" buffer-file-name))
         (writing-mode 1)))
 
     (setq writing-enabled-modes
