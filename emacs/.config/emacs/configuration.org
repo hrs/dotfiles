@@ -1612,10 +1612,6 @@ Define a few common tasks as capture templates.
              entry
              (file "~/documents/org/news.org")
              "* %?\n%t\n")
-            ("r" "Writing prompt"
-             entry
-             (file "~/documents/org/writing.org")
-             "* %?\n%t\n")
             ("s" "Subscribe to an RSS feed"
              plain
              (file "~/documents/rss-feeds.org")
@@ -1624,7 +1620,11 @@ Define a few common tasks as capture templates.
             ("t" "Task"
              entry
              (file+headline org-index-file "Inbox")
-             "* TODO %?\n")))
+             "* TODO %?\n")
+            ("w" "Writing prompt"
+             entry
+             (file+headline "~/documents/org/writing.org" "Writing")
+             "* %?\n%t\n")))
 
     (defun +org-capture-todo ()
       (interactive)
