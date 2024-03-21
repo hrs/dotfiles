@@ -295,6 +295,12 @@ This binds =C-c <left>= and =C-c <right>= to undo and redo window configuration 
   (winner-mode 1)
 #+end_src
 
+** Reopen the same files with restarting
+
+#+begin_src emacs-lisp
+  (desktop-save-mode 1)
+#+end_src
+
 ** Use =minions= to hide all minor modes
 
 I never want to see a minor mode, and manually adding =:diminish= to every use-package declaration is a hassle. This uses =minions= to hide all the minor modes in the modeline. Nice!
