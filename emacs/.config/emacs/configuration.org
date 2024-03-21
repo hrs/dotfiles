@@ -416,6 +416,7 @@ Use =corfu= for a pop-up completions menu.
 
     :custom
     (tab-always-indent 'complete)
+    (corfu-auto t)
     (corfu-cycle t)
     (corfu-preselect 'prompt)
 
