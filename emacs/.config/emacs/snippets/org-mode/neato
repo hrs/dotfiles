@@ -1,11 +1,12 @@
 #+begin_src dot :file `(+diagram-snippet-path)`
-  digraph {
-    graph [layout=dot]
+  graph {
+    graph [layout=neato, overlap=false]
     graph [truecolor=true, bgcolor="#ffffff00"]
+    rankdir=LR;
 
     first [label="First"];
     second [label="Second"];
 
-    first -> second [label="Transition"];
+    first -- second [label="Connection"];
   }
 #+end_src
