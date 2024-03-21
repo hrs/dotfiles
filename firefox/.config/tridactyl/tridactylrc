@@ -25,10 +25,16 @@ bind gh followpage prev
 bind gl followpage next
 
 " Open the current page (presumably a video) with mpv, my preferred media player.
+unbind v
 bind v js tri.native.run(`mpv '${document.location.href}'`)
 
 " Download the current page (presumably a video), with a yt-dlp wrapper.
-bind nn js tri.native.run(`~/bin/smartdownload '${document.location.href}'`)
+unbind nn
+bind nn js tri.native.run(`~/bin/smart_download '${document.location.href}'`)
+
+unbind nm
+bind nm js tri.native.run(`~/bin/smart_download_music '${document.location.href}'`)
 
 " Transform the current page's URL into a TODO item.
+unbind nt
 bind nt js tri.native.run(`~/.bin/create-url-task '${document.location.href}' '${document.title}'`)
