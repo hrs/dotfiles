@@ -29,6 +29,7 @@
 
 ;;; Code:
 (eval-when-compile (require 'engine-mode)
+                   (require 'synosaurus)
                    (require 'transient))
 
 (defun prose-assistant-region-or-word ()
@@ -124,6 +125,7 @@
   "Prose assistant thesaurus menu."
   ["Thesauruses"
    ("m" "Merriam-Webster" prose-assistant-merriam-webster-thesaurus)
+   ("s" "Synosaurus" synosaurus-choose-and-replace)
    ("t" "Thesaurus.com" prose-assistant-thesaurus-com)])
 
 (transient-define-prefix prose-assistant-menu-dictionary ()

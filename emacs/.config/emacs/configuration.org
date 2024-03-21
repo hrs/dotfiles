@@ -2559,9 +2559,15 @@ I've been using [[https://github.com/errata-ai/vale][vale]] as a prose linter, a
 I wrote [[file:resources/prose-assistant-mode.el][this global minor mode]] to let me quickly trigger a handful of common tools I reach for while writing prose (dictionaries, word counting, etymologies, spellchecking, translation, that sort of thing).
 
 #+begin_src emacs-lisp
+  (use-package synosaurus
+    :ensure-system-package wordnet
+    :custom
+    (synosaurus-choose-method 'default))
+
   (use-package prose-assistant-mode
     :load-path "resources"
-    :bind ("<f10>" . prose-assistant-menu)
+    :bind (([f10] . prose-assistant-mode)
+           ("<XF86Go>" . prose-assistant-mode))
     :config
     (prose-assistant-mode t))
 #+end_src
