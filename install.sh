@@ -3,13 +3,13 @@
 # Install all the necessary Debian packages, especially `stow`.
 ./install_debian_packages.sh
 
-stow --dotfiles bash
 stow --dotfiles emacs
 stow --dotfiles email
 stow --dotfiles firefox
 stow --dotfiles git
 stow --dotfiles lisp
 stow --dotfiles ruby
+stow --dotfiles shell
 stow --dotfiles x-windows
 
 # Link ~/.bash_profile -> ~/.bashrc

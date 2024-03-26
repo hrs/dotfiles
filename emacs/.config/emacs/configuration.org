@@ -2898,7 +2898,7 @@ I've started using =dired= as my primary file manager. About time, huh?
 - Do please ask before recursively /deleting/ a directory, though.
 - Enable =auto-revert-mode= in =dired= buffers (so when a directory's contents are modified the results are reflected in the buffer automatically).
 
-I'm often browsing directories of photos and images, so this also binds "=v=" to view a slideshow of the current directory with =s= (a custom =feh= wrapper [[file:~/.dotfiles/bash/dot-bin/s][defined elsewhere in this repo]]).
+I'm often browsing directories of photos and images, so this also binds "=v=" to view a slideshow of the current directory with =s= (a custom =feh= wrapper [[file:~/.dotfiles/shell/dot-bin/s][defined elsewhere in this repo]]).
 
 #+begin_src emacs-lisp
   (use-package dired

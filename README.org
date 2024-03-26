@@ -54,7 +54,7 @@ Clone this thing wherever you like (I use =~/.dotfiles=) and run the
 
 - Install a bunch of Debian packages,
 - Set up a bunch of symlinks in your home directory (e.g., =~/.bashrc= →
-  =~/.dotfiles/bash/.bashrc=), and
+  =~/.dotfiles/shell/.bashrc=), and
 - Install a handful of required Ruby gems.
 
 It (mostly) won't overwrite existing files, so move those out of the way first.
