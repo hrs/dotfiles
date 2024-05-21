@@ -45,7 +45,7 @@ get_icon() {
 
 KEY=$(~/.bin/netrc password api.openweathermap.com)
 CITY="Vancouver,CA"
-UNITS="imperial"
+UNITS="metric"
 SYMBOL="°"
 
 API="https://api.openweathermap.org/data/2.5"
