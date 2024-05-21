@@ -20,5 +20,6 @@ gem install \
     reek \
     rest-client \
     ricepaper \
+    rspec \
     rubocop \
     sorbet
