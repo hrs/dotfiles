@@ -277,6 +277,27 @@ In certain read-only modes I like to bind =J= and =K= to scrolling. That's nice 
     (moody-replace-eldoc-minibuffer-message-function))
 #+end_src
 
+*** Show time in the modeline iff the frame is fullscreen
+
+I have a clock in my window manager's bar, but if my Emacs frame is fullscreen I can't see that. This shows it in the modeline instead.
+
+It hides the average load and mail status, since I generally don't need those.
+
+#+begin_src emacs-lisp
+  (setq display-time-format "[%-I:%M %p on %A, %b %-d]"
+        display-time-default-load-average nil
+        display-time-mail-file 0)
+
+  (defun +show-time-for-fullscreen (frame)
+    "Show the time in the modeline when the FRAME becomes full screen."
+    (let ((fullscreen (frame-parameter frame 'fullscreen)))
+      (if (memq fullscreen '(fullscreen fullboth))
+          (display-time-mode 1)
+        (display-time-mode -1))))
+
+  (add-hook 'window-size-change-functions #'+show-time-for-fullscreen)
+#+end_src
+
 ** Load up a theme
 
 This sets up the current theme.
