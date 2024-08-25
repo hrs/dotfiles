@@ -1397,6 +1397,7 @@ I'd like to open =file:= links in Org with the applications defined in my [[file
                 (mailcap-parse-mailcap "~/.mailcap")
                 (setq org-file-apps
                       '((auto-mode . emacs)
+                        ("epub" . mailcap)
                         ("jpg" . "~/.bin/s %s")
                         ("mobi" . "foliate %s")
                         ("\\.x?html?\\'" . mailcap)
