@@ -1,5 +1,5 @@
 [global]
-    font = Adobe Garamond Pro 10
+    font = Fantasque Sans Mono 8
     markup = full
     format = "<b>%s</b>\n%b"
     sort = yes
@@ -30,7 +30,7 @@
     icon_position = off
 
     frame_width = 1
-    frame_color = "#8700ff"
+    frame_color = "#8aadf4"
 
     close = ctrl+space
     close_all = ctrl+shift+space
@@ -38,16 +38,17 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    background = "#fdfef8"
-    foreground = "#8700ff"
+    background = "#24273a"
+    foreground = "#cad3f5"
     timeout = 5
 
 [urgency_normal]
-    background = "#fdfef8"
-    foreground = "#8700ff"
+    background = "#24273a"
+    foreground = "#cad3f5"
     timeout = 5
 
 [urgency_critical]
-    background = "#fdfef8"
-    foreground = "#8700ff"
+    background = "#24273a"
+    foreground = "#cad3f5"
+    frame_color = "#f5a97f"
     timeout = 0

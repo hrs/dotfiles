@@ -308,21 +308,16 @@ This sets up the current theme.
 #+begin_src emacs-lisp
   (setq custom-theme-directory
                (concat user-emacs-directory "themes"))
-  (load-theme 'witchhazel t)
-#+end_src
 
-** Maintain window configurations with =winner-mode=
+  ;; (load-theme 'witchhazel t)
 
-This binds =C-c <left>= and =C-c <right>= to undo and redo window configuration changes.
+  (use-package catppuccin-theme
+    :demand t
+    :custom
+    (catppuccin-flavor 'macchiato)
 
-#+begin_src emacs-lisp
-  (winner-mode 1)
-#+end_src
-
-** Reopen the same files with restarting
-
-#+begin_src emacs-lisp
-  (desktop-save-mode 1)
+    :config
+    (catppuccin-reload))
 #+end_src
 
 ** Use =minions= to hide all minor modes

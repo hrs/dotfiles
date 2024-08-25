@@ -11,17 +11,44 @@ $exec xrandr --output HDMI-A-0 --primary
 set $mod Mod4
 set $alt Mod1
 
-set $phlox #8700af
-set $purple #b4256c
-set $teal #1b9396
-set $white #ffffff
-set $powder #fdfef8
+# colors
+set $rosewater #f4dbd6
+set $flamingo  #f0c6c6
+set $pink      #f5bde6
+set $mauve     #c6a0f6
+set $red       #ed8796
+set $maroon    #ee99a0
+set $peach     #f5a97f
+set $yellow    #eed49f
+set $green     #a6da95
+set $teal      #8bd5ca
+set $sky       #91d7e3
+set $sapphire  #7dc4e4
+set $blue      #8aadf4
+set $lavender  #b7bdf8
+set $text      #cad3f5
+set $subtext1  #b8c0e0
+set $subtext0  #a5adcb
+set $overlay2  #939ab7
+set $overlay1  #8087a2
+set $overlay0  #6e738d
+set $surface2  #5b6078
+set $surface1  #494d64
+set $surface0  #363a4f
+set $base      #24273a
+set $mantle    #1e2030
+set $crust     #181926
 
-# Minimal window border.
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+# # Minimal window border.
 default_border pixel 1
-client.focused $phlox $phlox $powder $phlox $phlox
-client.focused_inactive $teal $teal $powder $teal $teal
-client.unfocused $powder $powder $phlox $phlox $powder
 
 # No giant floating windows
 floating_maximum_size 1800 x 1200
@@ -152,7 +179,7 @@ $exec_always compton &
 $exec ~/.bin/start-i3-apps &
 
 # Start Firefox on workspace 1, chat apps on 4, music on 5, and books on 6.
-assign [class="Firefox"] $ws1
+assign [class="firefox"] $ws1
 assign [class="Signal"] $ws4
 assign [class="Telegram"] $ws4
 assign [class="Slack"] $ws4
