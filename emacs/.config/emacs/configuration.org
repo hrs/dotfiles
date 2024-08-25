@@ -2751,6 +2751,7 @@ Configure a few packages to handle bibliographies and citations with =denote= an
 
     :custom
     (denote-directory "~/documents/notes")
+    (denote-org-store-link-to-heading nil)
 
     :config
     (defun +denote-find-file ()
