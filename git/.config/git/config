@@ -13,8 +13,11 @@
   st = status -sb
   sum = log --no-merges --date=short --pretty=format:\"%C(green)%ad %C(yellow)%h %Creset%s\"
   unstage = reset HEAD
+[bash]
+  showDirtyState = true
 [branch]
   autosetuprebase = always
+  sort = committerdate
 [color]
   ui = true
 [color "diff"]
@@ -30,6 +33,7 @@
   attributesfile = ~/.config/git/info/attributes
   excludesfile = ~/.config/git/ignore
 [diff]
+  algorithm = histogram
   colorMoved = default
 [diff "common-lisp"]
     xfuncname="^\\((def\\S+\\s+\\S+)"
@@ -52,6 +56,7 @@
   ff = only
 [push]
   default = current
+  autoSetupRemote = true
   followTags = true
 [rebase]
   autoSquash = true
