@@ -367,7 +367,7 @@ When point goes outside the window, Emacs usually recenters the buffer point. I'
 
   (set-face-attribute 'variable-pitch nil
                       :family "ETBembo"
-                      :height 80)
+                      :height 100)
 
   (use-package default-text-scale
     :bind
