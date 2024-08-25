@@ -469,6 +469,7 @@ The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/du
 #+begin_src emacs-lisp
   (use-package dumb-jump
     :demand t
+    :after evil
 
     :init
     (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
@@ -478,7 +479,7 @@ The =dumb-jump= package works well enough in a [[https://github.com/jacktasia/du
 
     :config
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-    (define-key evil-normal-state-map (kbd "M-.") 'xref-find-definitions))
+    (evil-define-key 'normal prog-mode-map (kbd "M-.") 'xref-find-definitions))
 #+end_src
 
 ** =ediff=
