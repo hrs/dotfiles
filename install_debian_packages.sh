@@ -32,6 +32,7 @@ sudo apt install \
      libpq-dev \
      libsqlite3-dev \
      lightdm \
+     lpr \
      kitty \
      maildir-utils \
      make \

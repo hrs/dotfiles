@@ -3287,6 +3287,7 @@ Sometimes I like reading dead trees.
 
 #+begin_src emacs-lisp
   (use-package transient-extras-lp
+    :ensure-system-package lpr
     :commands (transient-extras-lp-menu)
 
     :custom
