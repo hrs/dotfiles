@@ -29,5 +29,7 @@ else
          --output DP-4 --off
 fi
 
+setxkbmap -option ctrl:nocaps
+
 # Re-scale desktop wallpaper
 ~/.bin/paint-wallpaper
