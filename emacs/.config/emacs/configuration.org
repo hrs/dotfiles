@@ -381,8 +381,7 @@ When point goes outside the window, Emacs usually recenters the buffer point. I'
 =global-hl-line-mode= softly highlights the background color of the line containing point. It makes it a bit easier to find point, and it's useful when pairing or presenting code.
 
 #+begin_src emacs-lisp
-  (when (display-graphic-p)
-    (global-hl-line-mode))
+  (global-hl-line-mode)
 #+end_src
 
 ** Highlight uncommitted changes
