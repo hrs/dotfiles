@@ -1930,7 +1930,6 @@ Allow exporting presentations to beamer.
 I rarely write =LaTeX= directly any more, but I often export through it with =Org=, so I'm keeping them together.
 
 - Automatically parse the file after loading it.
-- Always use =pdflatex= when compiling LaTeX documents. I don't really have any use for DVIs.
 - Enable a minor mode for dealing with math (it adds a few useful keybindings), and always treat the current file as the "main" file. That's intentional, since I'm usually actually in an org document.
 
 #+begin_src emacs-lisp
