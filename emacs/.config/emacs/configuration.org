@@ -1,6 +1,6 @@
 #+title: Emacs Configuration
-#+author: Harry R. Schwartz
-#+email: hello@harryrschwartz.com
+#+author: Robin Schwartz
+#+email: hello@robinschwartz.me
 #+options: toc:nil num:nil
 
 * Configure =use-package=
@@ -2312,13 +2312,7 @@ I don't enable this by default because I usually prefer plain-text email, but ev
           org-msg-startup "inlineimages"
           org-msg-greeting-fmt "\nHello, %s,\n\n"
           org-msg-greeting-name-limit 3
-          org-msg-text-plain-alternative t
-          org-msg-signature "
-
-  Cheers,
-  #+begin_signature
-  Harry Schwartz
-  #+end_signature"))
+          org-msg-text-plain-alternative t))
 #+end_src
 
 ** Viewing mail

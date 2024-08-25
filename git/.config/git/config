@@ -24,7 +24,7 @@
   match = bold red
   linenumber = bold blue
 [commit]
-  gpgsign = true
+  # gpgsign = true
   template = ~/.config/git/message
 [core]
   attributesfile = ~/.config/git/info/attributes
@@ -59,6 +59,6 @@
 [sendemail]
   smtpserver = /usr/bin/msmtp
 [user]
-  name = Harry R. Schwartz
-  email = hello@harryrschwartz.com
-  signingkey = 25AE721B
+  name = Robin Schwartz
+  email = hello@robinschwartz.me
+  # signingkey = 25AE721B
