@@ -1343,8 +1343,12 @@ I'm trying =vterm=. This disables =global-hl-line-mode= locally and lets me open
   (use-package multi-vterm
     :ensure-system-package (cmake
                             ("/usr/share/doc/libvterm-dev" . libvterm-dev))
+
     :commands (multi-vterm)
-    :hook (vterm-mode-hook . (lambda () (setq-local global-hl-line-mode nil))))
+    :hook (vterm-mode-hook . (lambda () (setq-local global-hl-line-mode nil)))
+
+    :custom
+    (vterm-shell "/bin/fish"))
 
   (global-set-key (kbd "C-c t") 'multi-vterm)
 #+end_src
