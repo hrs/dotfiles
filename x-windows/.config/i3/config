@@ -188,7 +188,7 @@ assign [class="zoom"] $ws4
 assign [class="Quodlibet"] $ws5
 assign [class="calibre"] $ws6
 
-bindsym $mod+r $exec ~/bin/random-wallpaper
+bindsym $mod+Shift+r $exec ~/bin/random-wallpaper
 
 bindsym $mod+Pause $exec ~/bin/toggle-vpn
 bindsym $mod+Scroll_Lock $exec ~/bin/cycle-audio
