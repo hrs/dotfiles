@@ -91,9 +91,11 @@ Load and configure =evil-mode=.
 #+begin_src emacs-lisp
   (use-package evil
     :demand t
+    :after undo-tree
 
     :init
     (setq evil-respect-visual-line-mode t
+          evil-undo-system 'undo-tree
           evil-want-abbrev-expand-on-insert-exit nil
           evil-want-keybinding nil)
 
@@ -623,7 +625,6 @@ This configuration:
     :config
     (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo-tree"))))
     (global-undo-tree-mode)
-    (evil-set-undo-system 'undo-tree)
 
     (defun +undo-tree-suppress-undo-history-saved-message (undo-tree-save-history &rest args)
       "Suppress the message saying that the undo history file was saved (because this happens every single time you save a file)."
