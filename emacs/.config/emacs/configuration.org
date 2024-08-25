@@ -74,7 +74,8 @@ Trigger garbage collection when I've been idle for five seconds and memory usage
 
     :init
     (setq gcmh-idle-delay 5
-          gcmh-high-cons-threshold (* 16 1024 1024))
+          gcmh-high-cons-threshold (* 16 1024 1024)
+          gc-cons-threshold (* 16 1024 1024))
     :config
     (gcmh-mode))
 #+end_src
