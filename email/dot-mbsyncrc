@@ -53,7 +53,7 @@ Channel personal-types-announce
 
 IMAPAccount testdouble
 Host imap.gmail.com
-User harry.schwartz@testdouble.com
+User robin.schwartz@testdouble.com
 PassCmd "~/.bin/netrc password imap.gmail.com"
 SSLType IMAPS
 CertificateFile ~/.ca-bundle.crt

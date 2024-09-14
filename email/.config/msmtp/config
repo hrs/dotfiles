@@ -7,14 +7,14 @@ account personal
 host mail.messagingengine.com
 port 465
 protocol smtp
-from hello@harryrschwartz.com
+from hello@robinschwartz.me
 user hrs@fastmail.fm
 
 account testdouble
 host smtp.gmail.com
 port 465
 protocol smtp
-from harry.schwartz@testdouble.com
-user harry.schwartz@testdouble.com
+from robin.schwartz@testdouble.com
+user robin.schwartz@testdouble.com
 
 account default : personal

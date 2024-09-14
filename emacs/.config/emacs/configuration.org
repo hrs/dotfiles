@@ -2167,30 +2167,20 @@ I use multiple contexts for personal and work email.
 
     (setq mu4e-contexts
           `(,(make-mu4e-context
-              :name "consulting"
-              :match-func (lambda (msg) (+context-matches-p msg "consulting" "consulting@harryrschwartz.com"))
-              :vars '((user-mail-address . "consulting@harryrschwartz.com")
-                      (user-full-name . "Harry R. Schwartz")
-                      (mu4e-trash-folder . "/personal/archive")
-                      (mu4e-refile-folder . "/personal/archive")
-                      (mu4e-sent-folder . "/personal/sent")
-                      (mu4e-drafts-folder . "/personal/drafts")))
-
-            ,(make-mu4e-context
               :name "test-double"
-              :match-func (lambda (msg) (+context-matches-p msg "test-double" "harry.schwartz@testdouble.com"))
-              :vars '((user-mail-address . "harry.schwartz@testdouble.com")
-                      (user-full-name . "Harry R. Schwartz")
+              :match-func (lambda (msg) (+context-matches-p msg "test-double" "robin.schwartz@testdouble.com"))
+              :vars '((user-mail-address . "robin.schwartz@testdouble.com")
+                      (user-full-name . "Robin Schwartz")
                       (mu4e-trash-folder . "/testdouble/archive")
                       (mu4e-refile-folder . "/testdouble/archive")
                       (mu4e-sent-folder . "/testdouble/sent")
                       (mu4e-drafts-folder . "/testdouble/drafts")))
 
             ,(make-mu4e-context
-              :name "hrs"
+              :name "personal"
               :match-func (lambda (msg) t)
-              :vars '((user-mail-address . "hello@harryrschwartz.com")
-                      (user-full-name . "Harry R. Schwartz")
+              :vars '((user-mail-address . "hello@robinschwartz.me")
+                      (user-full-name . "Robin Schwartz")
                       (mu4e-trash-folder . "/personal/archive")
                       (mu4e-refile-folder . "/personal/archive")
                       (mu4e-sent-folder . "/personal/sent")
