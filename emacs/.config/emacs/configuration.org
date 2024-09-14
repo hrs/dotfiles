@@ -292,9 +292,10 @@ It hides the average load and mail status, since I generally don't need those.
         display-time-mail-file 0)
 
   (defun +show-time-for-fullscreen (frame)
-    "Show the time in the modeline when the FRAME becomes full screen."
+    "Show the time in the modeline when the FRAME becomes full screen and there's only one window."
     (let ((fullscreen (frame-parameter frame 'fullscreen)))
-      (if (memq fullscreen '(fullscreen fullboth))
+      (if (and (memq fullscreen '(fullscreen fullboth))
+               (= 1 (count-windows)))
           (display-time-mode 1)
         (display-time-mode -1))))
 
