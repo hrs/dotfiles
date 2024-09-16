@@ -705,40 +705,15 @@ Compilation output goes to the =*compilation*= buffer. I rarely have that window
   (setq compilation-scroll-output t)
 #+end_src
 
-** LSP
+** =eglot=
 
-I use LSP for some languages. This hooks LSP to run in those modes and ensures that it displays all available documentation on hover.
-
-#+begin_src emacs-lisp
-  (use-package lsp-mode
-    :commands (lsp lsp-deferred)
-    :hook ((go-mode
-            ruby-base-mode
-            ruby-mode
-            ruby-ts-mode
-            rust-mode
-            rust-ts-mode) . lsp-deferred)
-
-    :init
-    (setq lsp-enabled-clients '(gopls
-                                sorbet-ls
-                                rust-analyzer))
-
-    :custom
-    (lsp-completion-provider :none))
-#+end_src
-
-This integrates LSP into my UI in various useful ways. Specifically, it writes documentation and type annotations and suchlike all over my damn screen, which /I/ enjoy, personally.
+I'm using the built-in =eglot= to manage my LSP servers.
 
 #+begin_src emacs-lisp
-  (use-package lsp-ui
-    :commands lsp-ui-mode
-    :hook (lsp-mode . lsp-ui-mode)
-
-    :custom
-    (lsp-ui-peek-always-show t)
-    (lsp-ui-sideline-show-hover t)
-    (lsp-ui-doc-enable nil))
+  (use-package eglot
+    :config
+    (defun +eglot-format-buffer-on-save ()
+      (add-hook 'before-save-hook #'eglot-format-buffer -10 t)))
 #+end_src
 
 ** Toggle code folding
@@ -832,31 +807,29 @@ Don't compile the current SCSS file every time I save.
 
 ** Go
 
-Install =go-mode=, plus =protobuf-mode=.
+- Define my =$GOPATH= and tell Emacs where to find the Go binaries.
+- Reformat the buffer when I save a file.
 
 #+begin_src emacs-lisp
   (use-package go-mode
     :ensure-system-package ((go . golang)
-                            (gopls . "go install golang.org/x/tools/gopls@latest")))
+                            (gopls . "go install golang.org/x/tools/gopls@latest"))
+    :hook (go-mode . eglot-ensure)
 
+    :config
+    (setenv "GOPATH" (expand-file-name "~/code/go"))
+    (+append-to-path (concat (getenv "GOPATH") "/bin"))
+
+    (defun +eglot-format-buffer-on-save ()
+      (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+
+    (add-hook 'go-mode-hook #'+eglot-format-buffer-on-save))
+#+end_src
+
+I don't use protos unless I'm writing Go, in practice.
+
+#+begin_src emacs-lisp
   (use-package protobuf-mode)
-#+end_src
-
-Define my =$GOPATH= and tell Emacs where to find the Go binaries.
-
-#+begin_src emacs-lisp
-  (setenv "GOPATH" (expand-file-name "~/code/go"))
-  (+append-to-path (concat (getenv "GOPATH") "/bin"))
-#+end_src
-
-When I save a Go file, reformat the buffer (per =gofmt=) and organize the imports (per =goimports=).
-
-#+begin_src emacs-lisp
-  (defun +install-go-save-hooks ()
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
-
-  (add-hook 'go-mode-hook #'+install-go-save-hooks)
 #+end_src
 
 ** Haskell
@@ -992,7 +965,8 @@ Configure Merlin. This also requires installing the Merlin package through OPAM 
 ** Python
 
 #+begin_src emacs-lisp
-  (use-package python-mode)
+  (use-package python-mode
+    :hook (python-mode . eglot-ensure))
 #+end_src
 
 Enable =elpy=. This provides automatic indentation, auto-completion, syntax checking, etc. Use the =python3= interpreter for eldoc.
@@ -1044,7 +1018,9 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 
 #+begin_src emacs-lisp
   (use-package ruby-mode
-    :ensure-system-package (xmpfilter . "gem install rcodetools")
+    :ensure-system-package ((xmpfilter . "gem install rcodetools")
+                            (solargraph . "gem install solargraph"))
+    :hook (ruby-mode . eglot-ensure)
 
     :mode ("\\.rake$"
            "\\.gemspec$"
@@ -1213,30 +1189,11 @@ Insert =end= keywords automatically when I start to define a method, class, modu
 
 ** Rust
 
-Use =rustic= to edit Rust code.
-
 #+begin_src emacs-lisp
-  (use-package rustic
-    :bind (:map rustic-mode-map
-                ("M-j" . lsp-ui-imenu)
-                ("M-?" . lsp-find-references)
-                ("C-c C-c l" . flycheck-list-errors)
-                ("C-c C-c a" . lsp-execute-code-action)
-                ("C-c C-c r" . lsp-rename)
-                ("C-c C-c q" . lsp-workspace-restart)
-                ("C-c C-c Q" . lsp-workspace-shutdown)
-                ("C-c C-c s" . lsp-rust-analyzer-status))
+  (use-package rust-mode
+    :hook (rust-mode . eglot-ensure))
 
-    :config
-    (setq lsp-rust-analyzer-cargo-watch-command "clippy")
-    (setq lsp-rust-analyzer-server-display-inlay-hints t)
-
-    (setq rustic-format-on-save t)
-    (add-hook 'rustic-mode-hook '+rustic-mode-hook))
-
-  (defun +rustic-mode-hook ()
-    "Don't prompt for confirmation before running `rustfmt'."
-    (setq-local buffer-save-without-query t))
+  (add-hook 'rust-mode-hook #'+eglot-format-buffer-on-save)
 #+end_src
 
 ** =sh=

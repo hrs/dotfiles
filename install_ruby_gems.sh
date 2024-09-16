@@ -22,4 +22,5 @@ gem install \
     ricepaper \
     rspec \
     rubocop \
+    solargraph \
     sorbet
