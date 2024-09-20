@@ -66,20 +66,6 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
     (sensible-defaults/backup-to-temp-directory))
 #+end_src
 
-Trigger garbage collection when I've been idle for five seconds and memory usage is over 16 MB.
-
-#+begin_src emacs-lisp
-  (use-package gcmh
-    :demand t
-
-    :init
-    (setq gcmh-idle-delay 5
-          gcmh-high-cons-threshold (* 16 1024 1024)
-          gc-cons-threshold (* 16 1024 1024))
-    :config
-    (gcmh-mode))
-#+end_src
-
 * =evil-mode=
 
 Load and configure =evil-mode=.
