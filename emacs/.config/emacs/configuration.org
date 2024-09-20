@@ -639,31 +639,6 @@ This configuration:
                 #'+undo-tree-suppress-buffer-modified-message))
 #+end_src
 
-** ChatGPT integration
-
-I've been toying around with integrating ChatGPT into my work. =org-ai= enables that by providing =begin_ai= blocks in Org which interact with ChatGPT sessions.
-
-Authentication is handled by an auth key for =api.openai.com= in my =.netrc=, which =org-ai= knows to read. I've also got a pair of snippets to create [[file:snippets/org-mode/ai][conversations]] and [[file:snippets/org-mode/dalle][images]].
-
-#+begin_src emacs-lisp
-  (use-package org-ai
-    :commands (org-ai-mode)
-    :hook (org-mode . org-ai-mode)
-
-    :custom
-    (org-ai-image-directory (expand-file-name "~/media/pictures/ai")))
-#+end_src
-
-An [[https://github.com/xenodium/chatgpt-shell][interactive shell session]] is often even more useful.
-
-#+begin_src emacs-lisp
-  (use-package chatgpt-shell
-    :commands (chatgpt-shell)
-
-    :custom
-    (chatgpt-shell-openai-key (auth-source-pick-first-password :host "api.openai.com")))
-#+end_src
-
 ** World clock
 
 Collaborating with different timezones counts as project management, right?
