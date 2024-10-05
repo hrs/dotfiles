@@ -676,6 +676,17 @@ I'm using the built-in =eglot= to manage my LSP servers.
       (add-hook 'before-save-hook #'eglot-format-buffer -10 t)))
 #+end_src
 
+** =direnv=
+
+#+begin_src emacs-lisp
+  (use-package direnv
+    :custom
+    (direnv-always-show-summary nil)
+
+    :config
+    (direnv-mode))
+#+end_src
+
 ** Toggle code folding
 
 I don't use =TAB= to indent when I'm in =normal-mode=, so instead I use it to toggle hiding blocks of code.
