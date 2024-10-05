@@ -8,6 +8,7 @@ sudo apt install \
      calibre \
      caffeine \
      curl \
+     direnv \
      dvipng \
      emacs \
      etckeeper \
