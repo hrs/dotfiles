@@ -2561,9 +2561,8 @@ This minor mode enables a distraction-free writing environment. It enables a who
     (require 'wc-mode)
 
     (defun writing-mode-repo ()
-      (when (or (s-starts-with? "/home/hrs/documents/journal" buffer-file-name)
-                (s-starts-with? "/home/hrs/documents/notes" buffer-file-name)
-                (s-starts-with? "/home/hrs/documents/org" buffer-file-name))
+      (when (or (s-starts-with? (expand-file-name "~/documents/journal") buffer-file-name)
+                (s-starts-with? (expand-file-name "~/documents/notes") buffer-file-name))
         (writing-mode 1)))
 
     (setq writing-enabled-modes
