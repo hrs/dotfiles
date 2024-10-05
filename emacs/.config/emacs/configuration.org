@@ -1278,8 +1278,15 @@ I manage my passwords with [[https://www.passwordstore.org/][=pass=]], a nifty c
 I'll also occasionally use =pwgen= to generate and insert a secure password.
 
 #+begin_src emacs-lisp
-  (use-package password-store
-    :ensure-system-package pass)
+  (use-package password-store-menu
+    :demand t
+    :ensure-system-package pass
+
+    :custom
+    (password-store-menu-key "C-c p")
+
+    :config
+    (password-store-menu-enable))
 
   (use-package password-store-otp)
 
