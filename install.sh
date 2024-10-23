@@ -7,6 +7,7 @@ stow --dotfiles emacs
 stow --dotfiles email
 stow --dotfiles firefox
 stow --dotfiles git
+stow --dotfiles javascript
 stow --dotfiles lisp
 stow --dotfiles ruby
 stow --dotfiles shell
@@ -22,6 +23,3 @@ ln -s ~/.bashrc ~/.bash_profile
 
 # Similarly, we use a couple of Python packages.
 ./install_python_packages.sh
-
-# Finally, the Node packages. Dang, computers are complicated.
-./install_node_packages.sh

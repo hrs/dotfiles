@@ -814,12 +814,14 @@ Enable =haskell-doc-mode=, which displays the type signature of a function, and 
                             (turn-on-haskell-indent))))
 #+end_src
 
-** JavaScript
+** JavaScript & TypeScript
 
-Indent everything by 2 spaces.
+Use LSP with JS.
 
 #+begin_src emacs-lisp
-  (setq js-indent-level 2)
+  (use-package js-mode
+    :ensure nil
+    :hook (js-mode . eglot-ensure))
 #+end_src
 
 Browse JSON documents hierarchically with =json-navigator-navigate-after-point=.
@@ -827,6 +829,16 @@ Browse JSON documents hierarchically with =json-navigator-navigate-after-point=.
 #+begin_src emacs-lisp
   (use-package json-navigator
     :commands (json-navigator-navigate-after-point))
+#+end_src
+
+*** TypeScript
+
+Use LSP with TypeScript, and ensure the server's installed.
+
+#+begin_src emacs-lisp
+  (use-package typescript-mode
+    :ensure-system-package (typescript-language-server . "npm install -g typescript-language-server typescript")
+    :hook (typescript-mode . eglot-ensure))
 #+end_src
 
 ** Lisps
