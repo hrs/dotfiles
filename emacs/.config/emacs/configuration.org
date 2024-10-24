@@ -1516,12 +1516,19 @@ The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
 I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
 
 #+begin_src emacs-lisp
+
   (defun +dashboard ()
     (interactive)
     (call-process-shell-command "daily-checklist")
+
+    (dolist (file (list org-index-file
+                        (+org-file-path "habits.org")
+                        (+org-file-path "recurring-tasks.org")))
+      (find-file file)
+      (with-current-buffer (get-file-buffer file)
+        (revert-buffer nil t)))
+
     (find-file org-index-file)
-    (with-current-buffer (get-file-buffer org-index-file)
-      (revert-buffer nil t))
     (delete-other-windows)
     (org-agenda nil "p"))
 
