@@ -1,1 +1,2 @@
-fish_add_path --append ~/.cabal/bin
+fish_add_path ~/.cabal/bin
+fish_add_path ~/.ghcup/bin

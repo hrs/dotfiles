@@ -163,6 +163,7 @@ Use =evil= with Org agendas.
           "~/bin"
           "~/.cargo/bin"
           "~/.cabal/bin"
+          "~/.ghcup/bin"
           "~/.opam/default/bin"
           "~/.local/bin"))
 
