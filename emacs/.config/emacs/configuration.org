@@ -159,6 +159,7 @@ Use =evil= with Org agendas.
 
   (setq +local-bin-paths
         '("/usr/local/bin"
+          "/opt/homebrew/bin"
           "~/.bin"
           "~/bin"
           "~/.cargo/bin"
@@ -176,6 +177,8 @@ Use =evil= with Org agendas.
 Define a big ol' bunch of handy utility functions.
 
 #+begin_src emacs-lisp
+  (defvar +mac? (eq system-type 'darwin))
+
   (defun +visit-last-migration ()
     "Open the most recent Rails migration."
     (interactive)
@@ -218,7 +221,8 @@ I don't usually use the menu or scroll bar, and they take up useful space.
 
 #+begin_src emacs-lisp
   (tool-bar-mode 0)
-  (menu-bar-mode 0)
+  (when (not +mac?)
+    (menu-bar-mode 0))
   (scroll-bar-mode -1)
 #+end_src
 
@@ -226,6 +230,12 @@ There's a tiny scroll bar that appears in the minibuffer window. This disables t
 
 #+begin_src emacs-lisp
   (set-window-scroll-bars (minibuffer-window) nil nil)
+#+end_src
+
+** Disable the visible bell
+
+#+begin_src emacs-lisp
+  (setq visible-bell nil)
 #+end_src
 
 ** Enable smooth scrolling
@@ -340,17 +350,24 @@ When point goes outside the window, Emacs usually recenters the buffer point. I'
 ** Set font and configure font resizing
 
 #+begin_src emacs-lisp
+  (defvar +font-size-fixed 80)
+  (defvar +font-size-variable 100)
+
+  (when +mac?
+      (setq +font-size-fixed 220)
+      (setq +font-size-variable 280))
+
   (set-face-attribute 'default nil
                       :family "Fantasque Sans Mono"
-                      :height 80)
+                      :height +font-size-fixed)
 
   (set-face-attribute 'fixed-pitch nil
                       :family "Fantasque Sans Mono"
-                      :height 80)
+                      :height +font-size-fixed)
 
   (set-face-attribute 'variable-pitch nil
                       :family "ETBembo"
-                      :height 100)
+                      :height +font-size-variable)
 
   (use-package default-text-scale
     :bind
@@ -839,7 +856,9 @@ Use LSP with TypeScript, and ensure the server's installed.
 #+begin_src emacs-lisp
   (use-package typescript-mode
     :ensure-system-package (typescript-language-server . "npm install -g typescript-language-server typescript")
-    :hook (typescript-mode . eglot-ensure))
+    :hook (typescript-mode . eglot-ensure)
+    :custom
+    (typescript-ts-mode-indent-offset 4))
 #+end_src
 
 ** Lisps
@@ -1283,14 +1302,16 @@ I'm trying =vterm=. This disables =global-hl-line-mode= locally and lets me open
 
 #+begin_src emacs-lisp
   (use-package multi-vterm
+    :unless +mac?
     :ensure-system-package (cmake
                             ("/usr/share/doc/libvterm-dev" . libvterm-dev))
-
     :commands (multi-vterm)
     :hook (vterm-mode-hook . (lambda () (setq-local global-hl-line-mode nil)))
 
-    :custom
-    (vterm-shell "/bin/fish"))
+    :config
+    (setq vterm-shell (if +mac?
+                          "/opt/homebrew/bin/fish"
+                        "/bin/fish")))
 
   (global-set-key (kbd "C-c t") 'multi-vterm)
 #+end_src
@@ -1342,7 +1363,8 @@ I'd like to open =file:= links in Org with the applications defined in my [[file
     (add-hook 'org-mode-hook
               (lambda ()
                 (setq mailcap-mime-data '())
-                (mailcap-parse-mailcap "~/.mailcap")
+                (when (file-exists-p "~/.mailcap")
+                  (mailcap-parse-mailcap "~/.mailcap"))
                 (setq org-file-apps
                       '((auto-mode . emacs)
                         ("epub" . mailcap)
@@ -2910,11 +2932,12 @@ Open media with the appropriate programs.
 #+begin_src emacs-lisp
   (use-package dired-open
     :demand t
-    :ensure-system-package (abiword
-                            feh
+    :ensure-system-package (feh
                             (ffplay . ffmpeg)
                             gnumeric
-                            mpv
+                            mpv)
+    :unless +mac?
+    :ensure-system-package (abiword
                             zathura)
     :config
     (setq dired-open-extensions

@@ -7,4 +7,4 @@
 
 (defun package--save-selected-packages (&rest opt) nil)
 
-(org-babel-load-file "~/.config/emacs/configuration.org")
+(org-babel-load-file (concat user-emacs-directory "configuration.org"))
