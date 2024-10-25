@@ -7,4 +7,5 @@ emacs/.config/emacs/*
 
 ruby/dot-bundle/cache
 ruby/.config/irb/irb_history
+shell/.config/fish/fish_variables
 x-windows/.config/mpv/watch_later

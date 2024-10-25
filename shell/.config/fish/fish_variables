@@ -1,6 +1,10 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR XDG_DATA_DIRS:/usr/local/share\x3a/usr/share
+SETUVAR --export XDG_CACHE_HOME:/Users/hrs/\x2ecache
+SETUVAR --export XDG_CONFIG_HOME:/Users/hrs/\x2econfig
+SETUVAR --export XDG_DATA_DIRS:/usr/local/share\x3a/usr/share
+SETUVAR --export XDG_DATA_HOME:/Users/hrs/\x2elocal/share
+SETUVAR --export XDG_STATE_HOME:/Users/hrs/\x2elocal/state
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_jorgebucaran_2F_hydro_files:\x7e/\x2econfig/fish/functions/fish_mode_prompt\x2efish\x1e\x7e/\x2econfig/fish/functions/fish_prompt\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/hydro\x2efish
@@ -38,4 +42,4 @@ SETUVAR fish_pager_color_description:yellow\x1e\x2di
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/home/hrs/\x2eghcup/bin\x1e/home/hrs/\x2ecargo/bin\x1e/usr/local/bin\x1e/usr/local/sbin\x1e/sbin\x1e/home/hrs/bin\x1e/home/hrs/\x2ebin\x1e/home/hrs/\x2elocal/bin\x1e/home/hrs/code/go/bin\x1e/opt/homebrew/bin
+SETUVAR fish_user_paths:/home/hrs/\x2eghcup/bin\x1e/home/hrs/\x2ecargo/bin\x1e/usr/local/bin\x1e/usr/local/sbin\x1e/sbin\x1e/home/hrs/bin\x1e/home/hrs/\x2ebin\x1e/home/hrs/\x2elocal/bin\x1e/home/hrs/code/go/bin\x1e/opt/homebrew/bin\x1e/Users/hrs/bin\x1e/Users/hrs/\x2elocal/bin
