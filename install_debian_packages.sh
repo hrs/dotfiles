@@ -13,6 +13,7 @@ sudo apt install \
      dvipng \
      emacs \
      etckeeper \
+     eza \
      fd-find \
      feh \
      foliate \

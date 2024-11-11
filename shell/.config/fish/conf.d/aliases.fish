@@ -9,10 +9,7 @@ alias gg="git grep -n"
 alias git="hub"
 alias gpg="gpg2"
 alias less="less -R" # display colors correctly
-alias la="ls -la"
-alias ll="ls -l"
-alias ln="ln -v"
-alias ls="ls --color -h"
+alias ls eza
 alias mkdir="mkdir -p"
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
