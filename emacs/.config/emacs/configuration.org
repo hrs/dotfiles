@@ -495,19 +495,6 @@ When using =ediff= to compare file, show files side by side and don't split the 
     (setq ediff-split-window-function 'split-window-horizontally))
 #+end_src
 
-** =flycheck=
-
-I'd like to enable =flycheck= all kinds of places, but I don't really need the keybindings (and they conflict with, for example, the default =C-c != binding for =org-time-stamp-inactive=).
-
-#+begin_src emacs-lisp
-  (use-package flycheck
-    :demand t
-
-    :config
-    (unbind-key "C-c !" flycheck-mode-map)
-    (global-flycheck-mode))
-#+end_src
-
 ** =magit=
 
 I use =magit= to handle version control. It's lovely, but I tweak a few things:
@@ -738,7 +725,6 @@ Similarly, I bind =BACKTAB= to toggle hiding /all/ the top-level code blocks. Th
 I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
 
 - I like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but they've always been unpleasant surprises for me.
-- Similarly, =flycheck-mode= seems to do more harm than good.
 - The Proof General splash screen's pretty cute, but I don't need to see it every time.
 - The default Proof General layout stacks the code, goal, and response buffers on top of each other. I like to keep my code on one side and my goal and response buffers on the other.
 - Have point follow the end of the locked region when asserting and undoing proof commands, but don't lock it to the end.
@@ -750,8 +736,7 @@ I use [[https://proofgeneral.github.io/][Proof General]] as my Coq IDE.
     :ensure-system-package (coqc . coq)
     :hook (coq-mode . (lambda ()
                         (undo-tree-mode 1)
-                        (abbrev-mode 0)
-                        (flycheck-mode 0)))
+                        (abbrev-mode 0)))
     :bind ("C-c v" . deadgrep)
 
     :custom
@@ -1016,7 +1001,6 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
 
 - =C-c C-c= should run =xmp=, to do that nifty "eval into comments" trick.
 - Hitting "enter" should indent to the current level.
-- Disable =reek=, which I don't find helpful.
 - When assigning the result of a conditional, I like to align the expression to match the beginning of the statement instead of indenting it all the way to the =if=.
 
 #+begin_src emacs-lisp
@@ -1035,10 +1019,7 @@ There are a bunch of things I'd like to do when I open a Ruby buffer:
     :bind ("\r" . newline-and-indent)
 
     :custom
-    (ruby-align-to-stmt-keywords t)
-
-    :config
-    (setq-default flycheck-disabled-checkers '(ruby-reek)))
+    (ruby-align-to-stmt-keywords t))
 #+end_src
 
 I use =chruby= to switch between versions of Ruby.
@@ -1685,7 +1666,6 @@ Hit =C-c i= to quickly open up my todo list.
     "Open the master org TODO list."
     (interactive)
     (find-file org-index-file)
-    (flycheck-mode -1)
     (end-of-buffer))
 
   (global-set-key (kbd "C-c i") '+open-index-file)
@@ -2547,23 +2527,6 @@ Use the [[https://elpa.gnu.org/packages/orgalist.html][=orgalist=]] package for 
 #+begin_src emacs-lisp
   (use-package orgalist
     :hook ((git-commit-mode markdown-mode message-mode) . orgalist-mode))
-#+end_src
-
-** Linting prose
-
-I've been using [[https://github.com/errata-ai/vale][vale]] as a prose linter, and it's not been bad so far. There's a package that integrates it with =flycheck=, but it doesn't seem to work, so I've got some code here to do it manually.
-
-#+begin_src emacs-lisp
-  (flycheck-define-checker vale
-    "A checker for prose"
-    :command ("vale" "--output" "line"
-              source)
-    :standard-input nil
-    :error-patterns
-    ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
-    :modes prose-modes)
-
-  (add-to-list 'flycheck-checkers 'vale 'append)
 #+end_src
 
 ** Activate =prose-assistant-mode=
