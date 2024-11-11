@@ -4,6 +4,7 @@ sudo apt install \
      aptitude \
      arandr \
      bash-completion \
+     bat \
      build-essential \
      calibre \
      caffeine \

@@ -1,6 +1,7 @@
 alias sudo="sudo " # effectively makes alias available when running sudo
 alias c="ssh cardinal"
 alias ct="ssh -t cardinal \"cd ~/media/torrents; bash --login\""
+alias cat batcat
 alias d="dired"
 alias dc="docker-compose"
 alias fd="fdfind"
