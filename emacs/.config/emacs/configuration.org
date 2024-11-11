@@ -2634,7 +2634,7 @@ This minor mode enables a distraction-free writing environment. It enables a who
                                  olivetti-mode))
             (special-mode . (mixed-pitch-mode
                              olivetti-mode))
-            (text-mode . (flycheck-mode
+            (text-mode . (flyspell-mode
                           mixed-pitch-mode
                           olivetti-mode
                           prettify-symbols-mode
