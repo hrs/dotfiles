@@ -1,27 +1,25 @@
 alias sudo="sudo " # effectively makes alias available when running sudo
-alias c="ssh cardinal"
-alias ct="ssh -t cardinal \"cd ~/media/torrents; bash --login\""
-alias cat batcat
-alias d="dired"
-alias dc="docker-compose"
-alias fd="fdfind"
-alias gg="git grep -n"
-alias git="hub"
-alias gpg="gpg2"
-alias less="less -R" # display colors correctly
-alias ls eza
-alias mkdir="mkdir -p"
-alias pbcopy="xsel --clipboard --input"
-alias pbpaste="xsel --clipboard --output"
-alias tree="tree -C" # add colors
-alias ut="tar xavf"
+abbr --add cat batcat
+abbr --add d dired
+abbr --add dc docker-compose
+abbr --add fd fdfind
+abbr --add gg "git grep -n"
+abbr --add git hub
+abbr --add gpg gpg2
+abbr --add less "less -R"
+abbr --add ls eza
+abbr --add mkdir "mkdir -p"
+abbr --add pbcopy "xsel --clipboard --input"
+abbr --add pbpaste "xsel --clipboard --output"
+abbr --add sc "ssh cardinal"
+abbr --add tree "tree -C"
 
 ### Package management
 alias agu="sudo $HOME/.bin/agu"
-alias agi="sudo apt install"
-alias agr="sudo apt remove"
-alias acs="apt search"
-alias ali="apt-mark showmanual"
+abbr --add agi "sudo apt install"
+abbr --add agr "sudo apt remove"
+abbr --add acs "apt search"
+abbr --add ali "apt-mark showmanual"
 
 ### Network services
 alias ip="ip --color=auto"
