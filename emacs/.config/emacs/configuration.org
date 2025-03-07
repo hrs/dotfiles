@@ -57,7 +57,8 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 
 #+begin_src emacs-lisp
   (use-package sensible-defaults
-    :load-path "~/code/personal/sensible-defaults.el"
+    :vc (:url "https://github.com/hrs/sensible-defaults.el.git"
+              :rev :newest)
     :demand t
 
     :config
