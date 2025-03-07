@@ -13,7 +13,6 @@ gem install \
     bundle \
     fastri \
     fuzz \
-    netrc \
     org-ruby \
     os \
     rcodetools \

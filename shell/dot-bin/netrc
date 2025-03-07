@@ -1,23 +1,20 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
 
-require "netrc"
+netrc="$HOME/.netrc"
 
-USAGE = "Usage: #{ $0 } (login | password) machine".freeze
+if [ ! $# -eq 2 ]; then
+  echo "Usage: $0 (login | password) [machine]"
+  exit 1
+fi
 
-if ARGV.size != 2
-  warn(USAGE)
-  exit(1)
-end
+field="$1"
+machine="$2"
 
-field = ARGV[0]
-machine = ARGV[1]
-
-case field
-when "login"
-  puts Netrc.read[machine].login
-when "password"
-  puts Netrc.read[machine].password
+if [ "$field" == "login" ]; then
+  cat "$netrc" | grep "$machine" | head -1 | cut -d" " -f4
+elif [ "$field" == "password" ]; then
+  cat "$netrc" | grep "$machine" | head -1 | cut -d" " -f6
 else
-  warn(USAGE)
-  exit(1)
-end
+  echo "Usage: $0 (login | password) [machine]"
+  exit 1
+fi
