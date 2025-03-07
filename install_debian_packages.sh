@@ -21,6 +21,7 @@ sudo apt install \
      gawk \
      gh \
      git \
+     git-absorb \
      gnumeric \
      gnupg2 \
      gnuplot \

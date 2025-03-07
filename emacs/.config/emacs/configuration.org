@@ -507,7 +507,7 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
 
 #+begin_src emacs-lisp
   (use-package magit
-    :ensure-system-package git
+    :ensure-system-package (git git-absorb)
     :hook (with-editor-mode . evil-insert-state)
     :bind ("C-x g" . magit-status)
 
@@ -535,6 +535,9 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
       (interactive)
       (insert (format "Co-authored-by: %s\n"
                       (completing-read "Co-authored by:" (+git-authors)))))
+
+    (transient-replace-suffix 'magit-commit 'magit-commit-autofixup
+      '("x" "Absorb changes" magit-commit-absorb))
 
     (setq git-commit-summary-max-length 50
           magit-bury-buffer-function 'magit-restore-window-configuration
