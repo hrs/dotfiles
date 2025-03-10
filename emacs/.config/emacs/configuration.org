@@ -3287,6 +3287,14 @@ Remap when working in terminal Emacs.
   (define-key input-decode-map "\e[1;2A" [S-up])
 #+end_src
 
+Make toggling fullscreen more consistent on a Mac.
+
+#+begin_src emacs-lisp
+  (when +mac?
+    (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen)
+    (global-set-key (kbd "s-o") 'other-window))
+#+end_src
+
 * Extra
 
 Load any extra bits and bobs.
