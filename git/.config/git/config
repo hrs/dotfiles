@@ -53,6 +53,7 @@
 [add.interactive]
   useBuiltin = false
 [merge]
+  conflictstyle = zdiff3
   ff = only
 [push]
   default = current
