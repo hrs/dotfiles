@@ -1543,6 +1543,7 @@ The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
                  ((org-agenda-skip-deadline-if-done t)
                   (org-agenda-skip-scheduled-if-done t)
                   (org-agenda-skip-timestamp-if-done t)
+                  (org-agenda-sorting-strategy '((agenda priority-down)))
                   (org-agenda-hide-tags-regexp "calendar\\|habit\\|inbox\\|next\\|project")
                   (org-agenda-tag-filter-preset '("-duplicate" "-news" "-writing")))))
 #+end_src
