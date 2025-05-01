@@ -1184,17 +1184,6 @@ Insert =end= keywords automatically when I start to define a method, class, modu
   (add-hook 'rust-mode-hook #'+eglot-format-buffer-on-save)
 #+end_src
 
-** =sh=
-
-Indent with 2 spaces.
-
-#+begin_src emacs-lisp
-  (add-hook 'sh-mode-hook
-            (lambda ()
-              (setq sh-basic-offset 2
-                    sh-indentation 2)))
-#+end_src
-
 ** Scala
 
 Ensure that =scala-mode= and =sbt-mode= are installed.
@@ -1226,6 +1215,23 @@ Bind a few keys to common operations:
 #+begin_src emacs-lisp
   (evil-define-key 'normal ensime-mode-map (kbd "C-t") 'ensime-type-at-point)
   (evil-define-key 'normal ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
+#+end_src
+
+** Shell
+
+Indent with 2 spaces.
+
+#+begin_src emacs-lisp
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              (setq sh-basic-offset 2
+                    sh-indentation 2)))
+#+end_src
+
+I've been using =fish= as my shell, and every now and then I'll write a script with it.
+
+#+begin_src emacs-lisp
+  (use-package fish-mode)
 #+end_src
 
 ** SQL
