@@ -2941,14 +2941,15 @@ Open media with the appropriate programs.
             ("mp3" . "mpv")
             ("mp4" . "mpv")
             ("mpg" . "mpv")
+            ("ods" . "libreoffice")
             ("pdf" . "zathura")
             ("png" . ,(executable-find "s"))
             ("webm" . "mpv")
             ("webp" . ,(executable-find "s"))
             ("wmv" . "mpv")
             ("xcf" . "gimp")
-            ("xls" . "gnumeric")
-            ("xlsx" . "gnumeric"))))
+            ("xls" . "libreoffice")
+            ("xlsx" . "libreoffice"))))
 #+end_src
 
 Files are normally moved and copied synchronously. This is fine for small or local files, but copying a large file or moving a file across a mounted network drive blocks Emacs until the process is completed. Unacceptable!
