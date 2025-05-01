@@ -17,6 +17,8 @@ _image_viewer () {
 	feh -
 }
 
+PASSWORD_STORE_DIR="$HOME/.local/share/pass"
+
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
 cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}
 
