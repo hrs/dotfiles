@@ -783,6 +783,17 @@ Don't compile the current SCSS file every time I save.
     (setq scss-compile-at-save nil))
 #+end_src
 
+** Gleam
+
+#+begin_src emacs-lisp
+  (use-package gleam-ts-mode
+    :mode (rx ".gleam" eos)
+
+    :config
+    (add-hook 'gleam-ts-mode-hook
+              (lambda () (add-hook 'before-save-hook 'gleam-ts-format nil t))))
+#+end_src
+
 ** Go
 
 - Define my =$GOPATH= and tell Emacs where to find the Go binaries.
