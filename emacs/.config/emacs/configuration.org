@@ -861,6 +861,15 @@ Use LSP with TypeScript, and ensure the server's installed.
     (typescript-ts-mode-indent-offset 4))
 #+end_src
 
+** Lean
+
+#+begin_src emacs-lisp
+  (use-package lean4-mode
+    :commands lean4-mode
+    :vc (:url "https://github.com/leanprover-community/lean4-mode.git"
+         :rev :last-release))
+#+end_src
+
 ** Lisps
 
 =rainbow-delimiters= is convenient for coloring matching parentheses.
