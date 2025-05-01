@@ -53,7 +53,6 @@ sudo apt install \
      pasystray \
      pavucontrol \
      pcmanfm \
-     picom \
      polybar \
      postgresql \
      procmail \
@@ -63,11 +62,13 @@ sudo apt install \
      python3-pip \
      redshift \
      restic \
+     retry \
      ripgrep \
      rlwrap \
      rofi \
      rsync \
      scrot \
+     sd \
      shellcheck \
      sqlite3 \
      sqlite3-pcre \
