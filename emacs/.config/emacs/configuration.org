@@ -3042,6 +3042,8 @@ The =helpful= package provides, among other things, more context in Help buffers
     ("C-h k" . helpful-key)
 
     :config
+    (setq help-window-select t)
+
     (evil-define-key 'normal helpful-mode-map (kbd "q") 'quit-window))
 #+end_src
 
