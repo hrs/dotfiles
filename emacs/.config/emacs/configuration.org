@@ -352,22 +352,22 @@ When point goes outside the window, Emacs usually recenters the buffer point. I'
 
 #+begin_src emacs-lisp
   (defvar +font-size-fixed 80)
-  (defvar +font-size-variable 100)
+  (defvar +font-size-variable 130)
 
   (when +mac?
       (setq +font-size-fixed 220)
       (setq +font-size-variable 280))
 
   (set-face-attribute 'default nil
-                      :family "Fantasque Sans Mono"
+                      :family "DM Mono"
                       :height +font-size-fixed)
 
   (set-face-attribute 'fixed-pitch nil
-                      :family "Fantasque Sans Mono"
+                      :family "DM Mono"
                       :height +font-size-fixed)
 
   (set-face-attribute 'variable-pitch nil
-                      :family "ETBembo"
+                      :family "Minion Pro"
                       :height +font-size-variable)
 
   (use-package default-text-scale
