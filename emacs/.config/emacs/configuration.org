@@ -2626,6 +2626,7 @@ Because I can't always use =org=.
 - Associate =.md= files with GitHub-flavored Markdown.
 - Use =pandoc= to render the results.
 - Apply syntax highlighting in code blocks.
+- Define a function to convert Markdown blocks to Org.
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
@@ -2638,7 +2639,14 @@ Because I can't always use =org=.
 
     (setq markdown-command "pandoc --standalone --mathjax --from=gfm"
           markdown-disable-tooltip-prompt t
-          markdown-fontify-code-blocks-natively t))
+          markdown-fontify-code-blocks-natively t)
+
+    (defun +markdown-to-org-region (start end)
+      "Convert Markdown formatted text in region (START, END) to Org by
+  shelling out to `pandoc'."
+      (interactive "r")
+      (shell-command-on-region start end
+                               "pandoc -f markdown -t org --wrap=preserve" t t)))
 #+end_src
 
 ** Cycle between spacing alternatives
