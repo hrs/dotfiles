@@ -4,7 +4,7 @@ abbr --add d dired
 abbr --add dc docker-compose
 abbr --add fd fdfind
 abbr --add gg "git grep -n"
-abbr --add git hub
+abbr --add git gh
 abbr --add gpg gpg2
 abbr --add less "less -R"
 abbr --add ls eza
