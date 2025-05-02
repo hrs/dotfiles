@@ -1559,9 +1559,10 @@ I consult my agenda pretty often, so I bind =C-c d= to open it a bit faster.
     (dolist (file (list org-index-file
                         (+org-file-path "habits.org")
                         (+org-file-path "recurring-tasks.org")))
-      (find-file file)
-      (with-current-buffer (get-file-buffer file)
-        (revert-buffer nil t)))
+      (when (file-exists-p file)
+        (find-file file)
+        (with-current-buffer (get-file-buffer file)
+          (revert-buffer nil t))))
 
     (find-file org-index-file)
     (delete-other-windows)
