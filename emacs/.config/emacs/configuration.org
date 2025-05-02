@@ -1064,7 +1064,7 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
   (use-package rspec-mode
     :after ruby-mode
     :ensure-system-package (rspec . "gem install rspec")
-    :bind (:map rspec-verifiable-mode-keymap  ("o" . +rspec-outline))
+    :bind (:map rspec-mode-keymap  ("o" . +rspec-outline))
 
     :hook (css-mode
            deadgrep-mode
@@ -1153,12 +1153,10 @@ Some Ruby projects use =minitest= instead of =rspec=.
     (if (+current-project-uses-minitest-p)
         (progn
           (minitest-mode 1)
-          (rspec-mode 0)
-          (rspec-verifiable-mode 0))
+          (rspec-mode 0))
         (progn
           (minitest-mode 0)
-          (rspec-mode 1)
-          (rspec-verifiable-mode 1))))
+          (rspec-mode 1))))
 
   (dolist (hook +ruby-testable-mode-hooks)
     (add-hook hook #'+activate-ruby-tests-mode))
