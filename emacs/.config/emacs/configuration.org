@@ -1311,7 +1311,6 @@ I'm trying =vterm=. This disables =global-hl-line-mode= locally and lets me open
 
 #+begin_src emacs-lisp
   (use-package multi-vterm
-    :unless +mac?
     :ensure-system-package (cmake
                             ("/usr/share/doc/libvterm-dev" . libvterm-dev))
     :commands (multi-vterm)
