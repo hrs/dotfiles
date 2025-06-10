@@ -1062,7 +1062,6 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
 
 #+begin_src emacs-lisp
   (use-package rspec-mode
-    :after ruby-mode
     :ensure-system-package (rspec . "gem install rspec")
     :bind (:map rspec-mode-keymap  ("o" . +rspec-outline))
 
@@ -1148,6 +1147,20 @@ Some Ruby projects use =minitest= instead of =rspec=.
   (defun +current-project-uses-minitest-p ()
     (and (project-current)
          (file-directory-p (expand-file-name "test" (project-root (project-current))))))
+
+  (defun +minitest-verify-associated-tests ()
+    "Verify the current test file, if it IS a test file, or try to verify the
+  associated test file."
+    (interactive)
+    (if (minitest-test-file-p (buffer-file-name))
+        (minitest-verify)
+      (let ((test-file (minitest--test-file-for (buffer-file-name))))
+        (with-current-buffer (find-file-noselect test-file)
+          (minitest-verify)))))
+
+  (substitute-key-definition 'minitest-verify
+                             '+minitest-verify-associated-tests
+                             minitest-mode-map)
 
   (defun +activate-ruby-tests-mode ()
     (if (+current-project-uses-minitest-p)
