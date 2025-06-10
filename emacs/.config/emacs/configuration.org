@@ -1056,6 +1056,14 @@ I use =chruby= to switch between versions of Ruby.
     (chruby +ruby-version))
 #+end_src
 
+Run =prettier= to format files on save.
+
+#+begin_src emacs-lisp
+  (use-package prettier-js
+    :ensure-system-package prettier
+    :hook (ruby-mode))
+#+end_src
+
 Running tests from within Emacs is awfully convenient. I enable =rspec-mode= basically everywhere, since working with a Rails project involves a ton of modes.
 
 I'd like my =rspec= tests to be run in a random order, and I'd like the output to be colored.
