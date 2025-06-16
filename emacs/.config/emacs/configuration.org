@@ -1132,11 +1132,27 @@ I'd like =inf-ruby= to automatically steal focus if a breakpoint triggers.
 
 Some Ruby projects use =minitest= instead of =rspec=.
 
+=rspec-mode= has a nice behaviour in which attempting to verify an implementation file will verify the associated test file; this recreates that for =minitest-mode=, too.
+
 #+begin_src emacs-lisp
   (use-package minitest
-    :after ruby-mode
     :custom
-    (compilation-scroll-output nil))
+    (compilation-scroll-output nil)
+
+    :config
+    (defun +minitest-verify-associated-tests ()
+      "Verify the current test file, if it IS a test file, or try to verify the
+  associated test file."
+      (interactive)
+      (if (minitest-test-file-p (buffer-file-name))
+          (minitest-verify)
+        (let ((test-file (minitest--test-file-for (buffer-file-name))))
+          (with-current-buffer (find-file-noselect test-file)
+            (minitest-verify)))))
+
+    (substitute-key-definition 'minitest-verify
+                               '+minitest-verify-associated-tests
+                               minitest-mode-map))
 #+end_src
 
 =rspec-mode= and =minitest-mode= use the same keybindings for running tests. That's great for muscle memory, but it means that it's better to only have one or the other active at any given time. This checks the root of the current project for a =tests= directory. If it finds one it activates =minitest-mode=, and if it doesn't (or if we're not in a project) it uses =rspec-mode=. Kinda hacky, but seems to do the job.
@@ -1155,20 +1171,6 @@ Some Ruby projects use =minitest= instead of =rspec=.
   (defun +current-project-uses-minitest-p ()
     (and (project-current)
          (file-directory-p (expand-file-name "test" (project-root (project-current))))))
-
-  (defun +minitest-verify-associated-tests ()
-    "Verify the current test file, if it IS a test file, or try to verify the
-  associated test file."
-    (interactive)
-    (if (minitest-test-file-p (buffer-file-name))
-        (minitest-verify)
-      (let ((test-file (minitest--test-file-for (buffer-file-name))))
-        (with-current-buffer (find-file-noselect test-file)
-          (minitest-verify)))))
-
-  (substitute-key-definition 'minitest-verify
-                             '+minitest-verify-associated-tests
-                             minitest-mode-map)
 
   (defun +activate-ruby-tests-mode ()
     (if (+current-project-uses-minitest-p)
