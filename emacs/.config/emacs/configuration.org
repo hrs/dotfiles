@@ -1547,18 +1547,18 @@ The "Personal agenda" view is simpler than it seems. I'm mostly sorting tasks by
                  ((tags-todo "inbox|tickler+SCHEDULED=\"<today>\"|tickler+DEADLINE=\"<today>\""
                              ((org-agenda-overriding-header "Inbox")))
 
-                  (tags-todo "next"
+                  (tags-todo "PRIORITY=\"A\""
+                             ((org-agenda-overriding-header "Today")))
+
+                  (tags-todo "next-PRIORITY=\"A\""
                              ((org-agenda-overriding-header "Next")))
 
-                  (tags-todo "habit-daily"
+                  (tags-todo "habit-PRIORITY=\"A\""
                              ((org-agenda-overriding-header "Habits")))
 
                   (agenda ""
                           ((org-agenda-overriding-header "Calendar")
-                           (org-agenda-tag-filter-preset '("-next" "-habit"))))
-
-                  (tags-todo "project"
-                             ((org-agenda-overriding-header "Projects"))))
+                           (org-agenda-tag-filter-preset '("-next" "-habit")))))
 
                  ((org-agenda-skip-deadline-if-done t)
                   (org-agenda-skip-scheduled-if-done t)
