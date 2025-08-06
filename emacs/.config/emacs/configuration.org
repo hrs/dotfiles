@@ -1152,6 +1152,7 @@ Some Ruby projects use =minitest= instead of =rspec=.
           (with-current-buffer (find-file-noselect test-file)
             (minitest-verify)))))
 
+    (evil-define-key 'motion minitest-compilation-mode-map (kbd "g r") 'minitest-rerun))
     (substitute-key-definition 'minitest-verify
                                '+minitest-verify-associated-tests
                                minitest-mode-map))
