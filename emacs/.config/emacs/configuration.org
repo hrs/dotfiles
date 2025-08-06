@@ -1194,9 +1194,42 @@ Some Ruby projects use =minitest= instead of =rspec=.
           (with-current-buffer (find-file-noselect test-file)
             (minitest-verify)))))
 
+    (defun +flatten-shell-args (args)
+      (if (stringp args)
+          (shell-quote-argument args)
+        (mapconcat 'shell-quote-argument (flatten-list args) " ")))
+
+    (defun +minitest-run-multiple-files (test-files)
+      (if (null test-files)
+          (message "No test files found!")
+        (let ((bundle (minitest-bundler-command))
+              (command (minitest-test-command)))
+          (minitest--run-command
+           (string-join (list (+flatten-shell-args bundle)
+                              (+flatten-shell-args command)
+                              "-e \"ARGV.each { |f| load f }\""
+                              (+flatten-shell-args test-files))
+                        " ")))))
+
+    (defun +minitest-verify-branch (&optional directory)
+      "Find and run all the specs that have changed on this branch."
+      (interactive)
+      (let ((default-directory (or directory (minitest-project-root))))
+        (->> (+changed-files-on-branch directory)
+             (seq-filter (apply-partially #'s-ends-with? ".rb")) ; only check ruby files
+             (seq-map #'expand-file-name)                        ; get the full path name
+             (seq-map #'minitest--test-file-for)                 ; get the specs associated with each file
+             (seq-uniq)                                          ; don't run specs more than once
+             (seq-filter #'file-exists-p)                        ; ensure the specs actually exist
+             (seq-sort #'string<)                                ; order the spec files deterministically
+             (+minitest-run-multiple-files))))
+
     (define-key minitest-mode-map
                 (kbd (concat minitest-keymap-prefix " o"))
                 '+minitest-outline)
+    (define-key minitest-mode-map
+                (kbd (concat minitest-keymap-prefix " b"))
+                '+minitest-verify-branch)
     (evil-define-key 'motion minitest-compilation-mode-map (kbd "g r") 'minitest-rerun)
     (substitute-key-definition 'minitest-verify
                                '+minitest-verify-associated-tests
