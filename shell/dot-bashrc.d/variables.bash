@@ -25,4 +25,6 @@ export SAM_CLI_TELEMETRY=0
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
-source "$HOME/.cargo/env"
+if [ -e $HOME/.cargo/env ]; then
+  source "$HOME/.cargo/env"
+fi
