@@ -1077,11 +1077,9 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
            deadgrep-mode
            js-mode
            magit-status-mode
-           ruby-mode
            scss-mode
            web-mode
-           yaml-mode
-           yard-mode)
+           yaml-mode)
 
     :custom
     (compilation-scroll-output nil)
@@ -1089,6 +1087,8 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
     (rspec-use-chruby t)
 
     :config
+    (remove-hook 'ruby-mode-hook 'rspec-enable-appropriate-mode)
+
     (defvar +rspec-outline-blocks
       '("context"
         "describe"
@@ -1140,6 +1140,8 @@ Some Ruby projects use =minitest= instead of =rspec=.
     (compilation-scroll-output nil)
 
     :config
+    (remove-hook 'ruby-mode-hook 'minitest-enable-appropriate-mode)
+
     (defun +minitest-verify-associated-tests ()
       "Verify the current test file, if it IS a test file, or try to verify the
   associated test file."
@@ -1176,13 +1178,14 @@ Some Ruby projects use =minitest= instead of =rspec=.
     (if (+current-project-uses-minitest-p)
         (progn
           (minitest-mode 1)
-          (rspec-mode 0))
+          (rspec-mode 0)
+          (rspec-verifiable-mode 0))
         (progn
           (minitest-mode 0)
           (rspec-mode 1))))
 
   (dolist (hook +ruby-testable-mode-hooks)
-    (add-hook hook #'+activate-ruby-tests-mode))
+    (add-hook hook #'+activate-ruby-tests-mode t))
 #+end_src
 
 =rcodetools= provides =xmp=, which lets me evaluate a Ruby buffer and display the results in "magic" (=# ==>=) comments.
