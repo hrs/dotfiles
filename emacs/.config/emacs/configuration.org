@@ -1142,6 +1142,26 @@ Some Ruby projects use =minitest= instead of =rspec=.
     :config
     (remove-hook 'ruby-mode-hook 'minitest-enable-appropriate-mode)
 
+    (defvar +minitest-outline-blocks
+      '("module"
+        "class"
+        "test"))
+
+    (defun +minitest-outline ()
+      "Use `occur' to create a linked outline of the spec associated with the current file, which may be either a spec or a target."
+      (interactive)
+      (let ((list-matching-lines-face nil)
+            (test-buffer (if (minitest-test-file-p (buffer-file-name))
+                             (current-buffer)
+                           (find-file-noselect (minitest--test-file-for (buffer-file-name))))))
+        (with-current-buffer test-buffer
+          (occur (rx-to-string `(seq line-start
+                                     (zero-or-more whitespace)
+                                     (or ,@+minitest-outline-blocks)
+                                     (one-or-more whitespace)))
+                 0)))
+      (occur-rename-buffer))
+
     (defun +minitest-verify-associated-tests ()
       "Verify the current test file, if it IS a test file, or try to verify the
   associated test file."
@@ -1152,7 +1172,10 @@ Some Ruby projects use =minitest= instead of =rspec=.
           (with-current-buffer (find-file-noselect test-file)
             (minitest-verify)))))
 
-    (evil-define-key 'motion minitest-compilation-mode-map (kbd "g r") 'minitest-rerun))
+    (define-key minitest-mode-map
+                (kbd (concat minitest-keymap-prefix " o"))
+                '+minitest-outline)
+    (evil-define-key 'motion minitest-compilation-mode-map (kbd "g r") 'minitest-rerun)
     (substitute-key-definition 'minitest-verify
                                '+minitest-verify-associated-tests
                                minitest-mode-map))
