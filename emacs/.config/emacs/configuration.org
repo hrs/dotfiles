@@ -537,6 +537,13 @@ I use =magit= to handle version control. It's lovely, but I tweak a few things:
       (insert (format "Co-authored-by: %s\n"
                       (completing-read "Co-authored by:" (+git-authors)))))
 
+    (defun +changed-files-on-branch (&optional directory)
+      "Return a list of files that have changed on this branch (relative to main) relative to DIRECTORY."
+      (let ((default-directory (or directory (project-root (project-current)))))
+        (seq-remove #'string-empty-p
+                    (split-string (shell-command-to-string "git diff --name-only main")
+                                  "\n"))))
+
     (transient-replace-suffix 'magit-commit 'magit-commit-autofixup
       '("x" "Absorb changes" magit-commit-absorb))
 
@@ -1071,7 +1078,9 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
 #+begin_src emacs-lisp
   (use-package rspec-mode
     :ensure-system-package (rspec . "gem install rspec")
-    :bind (:map rspec-mode-keymap  ("o" . +rspec-outline))
+    :bind (:map rspec-mode-keymap
+                ("b" . +rspec-verify-branch)
+                ("o" . +rspec-outline))
 
     :hook (css-mode
            deadgrep-mode
@@ -1115,6 +1124,19 @@ I'd like my =rspec= tests to be run in a random order, and I'd like the output t
                                      (or "\"" "'" "A-Z" "{ ")))
                  0)))
       (occur-rename-buffer))
+
+    (defun +rspec-verify-branch (&optional directory)
+      "Find and run all the specs that have changed on this branch."
+      (interactive)
+      (let ((default-directory (or directory (rspec-project-root))))
+        (->> (+changed-files-on-branch directory)
+             (seq-filter (apply-partially #'s-ends-with? ".rb")) ; only check ruby files
+             (seq-map #'expand-file-name)                        ; get the full path name
+             (seq-map #'rspec-spec-file-for)                     ; get the specs associated with each file
+             (seq-uniq)                                          ; don't run specs more than once
+             (seq-filter #'file-exists-p)                        ; ensure the specs actually exist
+             (seq-sort #'string<)                                ; order the spec files deterministically
+             (rspec-run-multiple-files))))
 
     (evil-define-key 'motion rspec-mode-map (kbd "C-p") 'project-find-file)
     (evil-define-key 'motion rspec-compilation-mode-map (kbd "C-p") 'project-find-file)
